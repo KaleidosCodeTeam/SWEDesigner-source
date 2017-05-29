@@ -1,0 +1,50 @@
+*{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;}
+
+.bordered{
+    border: 1px solid black;
+}
+
+.titlebar{
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    width: 100%;
+    height: 10%;
+}
+
+.toolbar{
+    position: absolute;
+    top: 10%;
+    left: 0%;
+    width: 25%;
+    height: 90%;
+}
+
+.panel{
+    position: absolute;
+    top: 10%;
+    right: 0%;
+    width: 25%;
+    height: 90%;
+}
+
+.navigationbar{
+    position: absolute;
+    bottom: 0%;
+    left: 25%;
+    width: 50%;
+    height: 5%;
+}
+
+.canvas{
+    display: inline;
+    position: absolute;
+    background-color:red;
+    top: 10%;
+    right: 25%;
+    width: 50%;
+    height: 85%;
+}
