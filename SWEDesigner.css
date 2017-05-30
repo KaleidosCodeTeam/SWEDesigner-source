@@ -1,3 +1,36 @@
 html, body{
     height: 100%;
 }
+
+.titlebarRow{
+    height: 10%;
+    border: 1px solid black;
+}
+
+.editor{
+    height: 90%;
+}
+
+.toolbar{
+    height: 100%;
+    background-color: palevioletred;
+}
+
+.main{
+    background-color: yellowgreen;
+    height: 100%;
+}
+
+.canvasRow{
+    border: 1px solid black;
+    height: 95%;
+}
+
+.breadcrumbRow{
+    border: 1px solid black; height: 5%;
+}
+
+.editPanel{
+    border: 1px solid black; height: 100%;
+    background-color: aquamarine;
+}

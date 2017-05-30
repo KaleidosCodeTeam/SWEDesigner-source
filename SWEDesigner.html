@@ -6,21 +6,22 @@
     <link rel="stylesheet" href="SWEDesigner.css" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
 </head>
-
 <body>
-<div class="row" style="height: 10%; border: 1px solid black">
+<div class="row titlebarRow">
     <div id="titlebar" class="col-md-12">TITLEBAR</div>
 </div>
-<div id="editor" class="row" style="height: 90%; background-color: aquamarine">
-    <div id="toolbar" class="col-md-2 btn-toolbar" style="height: 100%; background-color: palevioletred">TOOLBAR</div>
-    <div id="main" class="col-md-8" style="background-color: yellowgreen; height: 100%">
-        <div id="canvas" class="row" style="border: 1px solid black; height: 95%">CANVAS</div>
-        <div id="breadcrumb" class="row" style="border: 1px solid black; height: 5%">BREADCRUMB</div>
+<div id="editor" class="row editor">
+    <div id="toolbar" class="col-md-2 btn-toolbar toolbar">TOOLBAR</div>
+    <div id="main" class="col-md-8 main">
+        <div class="row canvasRow">
+            <div id="canvas" class="col-md-12">CANVAS</div>
+        </div>
+        <div class="row breadcrumbRow">
+            <div id="breadcrumb" class="col-md-12">BREADCRUMB</div>
+        </div>
     </div>
-    <div id="editpanel" class="col-md-2" style="border: 1px solid black; height: 100%">PANEL</div>
+    <div id="editPanel" class="col-md-2 editPanel">PANEL</div>
 </div>
 
-
 </body>
-
 </html>
