@@ -11,7 +11,31 @@
     <div id="titlebar" class="col-md-12">TITLEBAR</div>
 </div>
 <div id="editor" class="row editor">
-    <div id="toolbar" class="col-md-2 btn-toolbar toolbar">TOOLBAR</div>
+    <div id="toolbar" class="col-md-2 btn-toolbar toolbar" role="toolbar" aria-label="Toolbar">
+        <!-- Sono riportate tre file di pulsanti per mostrare i diversi usi dei button group e dei button group justified -->
+        <div class="btn-group btn-group-justified" role="group" aria-label="Primo gruppo">
+            <a href="#" class="btn btn-default" role="button">Uno</a>
+            <a href="#" class="btn btn-default" role="button">Due</a>
+            <a href="#" class="btn btn-default" role="button">Tre</a>
+        </div>
+        <div class="btn-group btn-group-justified" role="group" aria-label="Secondo gruppo">
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <button type="button" class="btn btn-default">Left</button>
+            </div>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <button type="button" class="btn btn-default">Middle</button>
+            </div>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <button type="button" class="btn btn-default">Right</button>
+            </div>
+        </div>
+        <div class="btn-group" role="group" aria-label="Terzo gruppo">
+            <button type="button" class="btn btn-default">Left</button>
+            <button type="button" class="btn btn-default">Middle</button>
+            <button type="button" class="btn btn-default">Right</button>
+        </div>
+    </div>
+
     <div id="main" class="col-md-8 main">
         <div class="row canvasRow">
             <div id="canvas" class="col-md-12">CANVAS</div>
@@ -20,6 +44,7 @@
             <div id="breadcrumb" class="col-md-12">BREADCRUMB</div>
         </div>
     </div>
+
     <div id="editPanel" class="col-md-2 editPanel">PANEL</div>
 </div>
 
