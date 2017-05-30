@@ -1,18 +1,19 @@
 *{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    box-sizing: border-box;}
+    box-sizing: border-box;
+}
 
 .bordered{
     border: 1px solid black;
 }
 
 .titlebarrow{
-    height:10vh;
+    height:10%;
 }
 
 .mainrow{
-    height:90vh;
+    height:90%;
 }
 .fullscreen {
     position: fixed;
@@ -21,11 +22,10 @@
     bottom: 0;
     right: 0;
     overflow: auto;
-    background: lime; /* Just to visualize the extent */
-
+    background-color: aquamarine;
 }
 
 html, body{
-    height: 100vh;
+    height: 100%;
     margin: 0;
 }
