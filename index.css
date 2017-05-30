@@ -9,12 +9,28 @@
 }
 
 .titlebarrow{
-    height:10%;
+    position: fixed;
+    top: 0;
+    bottom: 90%;
+    /*
+    left: 0;
+    right: 0;
+    */
+    overflow: auto;
+    background-color: darkred;
 }
 
 .mainrow{
-    height:90%;
+    position: fixed;
+    top: 10%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+    background-color: darkblue;
 }
+
+/*
 .fullscreen {
     position: fixed;
     top: 0;
@@ -24,8 +40,11 @@
     overflow: auto;
     background-color: aquamarine;
 }
+*/
 
+/*
 html, body{
     height: 100%;
     margin: 0;
 }
+*/
