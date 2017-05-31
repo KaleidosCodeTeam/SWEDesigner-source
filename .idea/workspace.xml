@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="89f94dcc-6099-47df-84bd-264568bbde72" name="Default" comment="" />
+=======
+    <list default="true" id="89f94dcc-6099-47df-84bd-264568bbde72" name="Default" comment="ProvaJoint">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
+>>>>>>> Stashed changes
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -210,7 +216,7 @@
       <workItem from="1496066663640" duration="7073000" />
       <workItem from="1496149324575" duration="5236000" />
       <workItem from="1496159943801" duration="2042000" />
-      <workItem from="1496215971066" duration="3082000" />
+      <workItem from="1496215971066" duration="3225000" />
     </task>
     <task id="LOCAL-00001" summary="colored fullscreen">
       <created>1496154988614</created>
@@ -247,11 +253,22 @@
       <option name="project" value="LOCAL" />
       <updated>1496217481865</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="ProvaJoint">
+      <created>1496219462611</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1496219462611</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="22426000" />
+=======
+    <option name="totallyTimeSpent" value="22566000" />
+>>>>>>> Stashed changes
   </component>
   <component name="ToolWindowManager">
     <frame x="1416" y="-11" width="1871" height="1092" extended-state="6" />
@@ -296,7 +313,8 @@
     <MESSAGE value="aggiunti pulsanti esempio a toolbar" />
     <MESSAGE value="Aggiunte librerie per joint" />
     <MESSAGE value="Aggiunte librerie per joint (2)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Aggiunte librerie per joint (2)" />
+    <MESSAGE value="ProvaJoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="ProvaJoint" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
