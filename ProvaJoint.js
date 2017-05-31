@@ -5,12 +5,11 @@ var graph = new joint.dia.Graph();
 
 var paper = new joint.dia.Paper({
     el: $('#canvas'),
-
     width: $('#main').width(),
     height: $('#canvasRow').height(),
-
     model: graph,
-    gridSize: 1
+    gridSize: 10,
+    drawGrid: true
 });
 
 var rect = new joint.shapes.basic.Rect({
