@@ -5,8 +5,10 @@ var graph = new joint.dia.Graph();
 
 var paper = new joint.dia.Paper({
     el: $('#canvas'),
-    width: 600,
-    height: 200,
+
+    width: $('#main').width(),
+    height: $('#canvasRow').height(),
+
     model: graph,
     gridSize: 1
 });
