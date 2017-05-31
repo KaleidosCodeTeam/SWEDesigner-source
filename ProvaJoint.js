@@ -1,7 +1,7 @@
 /**
  * Created by Socs on 31/05/2017.
  */
-var graph = new joint.dia.Graph;
+var graph = new joint.dia.Graph();
 
 var paper = new joint.dia.Paper({
     el: $('#canvas'),
