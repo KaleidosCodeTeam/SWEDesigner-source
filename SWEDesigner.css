@@ -10,10 +10,10 @@ html, body, .main{
 }
 
 .canvasRow{
-    border: 1px solid black;
+    border: 1px solid grey;
     height: 95%;
 }
 
 .breadcrumbRow{
-    border: 1px solid black; height: 5%;
+    height: 5%;
 }
