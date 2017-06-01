@@ -1,26 +1,12 @@
-html, body{
+html, body, .main{
     height: 100%;
+    overflow: hidden;
 }
 
 .editor{
-    /*
-    height: 90%;
-    */
     position: absolute;
     top: 0;
     bottom: 0;
-    /*background-color: yellow;*/
-}
-
-.toolbar{
-    height: 100%;
-    /*
-    background-color: palevioletred;*/
-}
-
-.main{
-    /*background-color: yellowgreen;*/
-    height: 100%;
 }
 
 .canvasRow{
@@ -30,9 +16,4 @@ html, body{
 
 .breadcrumbRow{
     border: 1px solid black; height: 5%;
-}
-
-.editPanel{
-    border: 1px solid black; height: 100%;
-    /*background-color: aquamarine;*/
 }

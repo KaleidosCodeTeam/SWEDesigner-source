@@ -15,7 +15,7 @@
 </head>
 <body>
 <div id="titlebarRow" class="row">
-    <nav id="titlebar" class="navbar navbar-default col-md-12">
+    <nav id="titlebar" class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -102,14 +102,14 @@
     </nav>
 </div>
 <div id="editor" class="row editor">
-    <div id="toolbar" class="col-md-1 btn-toolbar toolbar" role="toolbar" aria-label="Toolbar">
+    <div id="toolbar" class="col-md-1 btn-toolbar" role="toolbar" aria-label="Toolbar">
         <!-- Sono riportate tre file di pulsanti per mostrare i diversi usi dei button group e dei button group justified -->
-        <div class="btn-group btn-group-justified col-md-2" role="group" aria-label="Primo gruppo">
+        <div class="btn-group btn-group-justified" role="group" aria-label="Primo gruppo">
             <a href="#" class="btn btn-default" role="button">Uno</a>
             <a href="#" class="btn btn-default" role="button">Due</a>
             <a href="#" class="btn btn-default" role="button">Tre</a>
         </div>
-        <div class="btn-group btn-group-justified col-md-2" role="group" aria-label="Secondo gruppo">
+        <div class="btn-group btn-group-justified" role="group" aria-label="Secondo gruppo">
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <button type="button" class="btn btn-default">Left</button>
             </div>
@@ -124,16 +124,12 @@
 
     <div id="main" class="col-md-9 main">
         <div id="canvasRow" class="row canvasRow">
-            <div class="col-md-12">
                 <div id="canvas"></div>
-            </div>
         </div>
-        <div class="row breadcrumbRow">
-            <div id="breadcrumb" class="col-md-12">BREADCRUMB</div>
-        </div>
+        <div class="row breadcrumbRow" id="breadcrumb">BREADCRUMB</div>
     </div>
 
-    <div id="editPanel" class="col-md-2 editPanel">PANEL</div>
+    <div id="editPanel" class="col-md-2">PANEL</div>
 </div>
 
 <script src="resizeEditor.js"></script>
