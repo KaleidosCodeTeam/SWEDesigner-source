@@ -1,19 +1,18 @@
-html, body, .main{
-    height: 100%;
+body{
+    overflow-x: hidden;
+}
+
+.toolbarbutton{
     overflow: hidden;
+    text-align: left;
 }
 
-.editor{
-    position: absolute;
-    top: 0;
-    bottom: 0;
+.centralWidget{
+    display: block;
+    overflow-x: hidden
 }
 
-.canvasRow{
-    border: 1px solid grey;
-    height: 95%;
-}
-
-.breadcrumbRow{
-    height: 5%;
+.canvas{
+    background-color: darkcyan;
+    height: 800px;
 }
