@@ -2,6 +2,11 @@ body{
     overflow-x: hidden;
 }
 
+.toolbar{
+    position:relative;
+    left: 14px;
+}
+
 .toolbarbutton{
     overflow: hidden;
     text-align: left;
