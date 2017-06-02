@@ -9,7 +9,10 @@ var paper = new joint.dia.Paper({
     height:$('#canvas').height(),
     model: graph,
     gridSize: 10,
-    drawGrid: true
+    drawGrid: true,
+    background:{
+        color: '#EDF6F6'
+    }
 });
 
 var rect = new joint.shapes.basic.Rect({
