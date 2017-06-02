@@ -14,5 +14,10 @@ body{
 
 .canvas{
     background-color: darkcyan;
-    height: 800px;
+    height: 850px;
+}
+
+.breadcrumb{
+    position: fixed;
+    bottom:0;
 }
