@@ -19,7 +19,7 @@ body{
 
 .canvas{
     background-color: darkcyan;
-    height: 850px;
+    height: 720px;
 }
 
 .breadcrumb{
@@ -28,15 +28,15 @@ body{
 }
 
 .btn-color-sq{
-    height: 40px;
-    width: 40px;
+    height: 29px;
+    width: 29px;
     padding: 2px;
     border: 1px solid lightgrey;
 }
 
 .btn-color-none{
-    height: 40px;
-    width: 236px;
+    height: 29px;
+    width: 169px;
     border: 1px solid lightgrey;
     background-color: transparent;
 }
