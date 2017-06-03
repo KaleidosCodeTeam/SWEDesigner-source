@@ -28,15 +28,14 @@ body{
 }
 
 .btn-color-sq{
-    height: 29px;
-    width: 29px;
-    padding: 2px;
+    height: 2.38vw;
+    width: 2.38vw;
     border: 1px solid lightgrey;
 }
 
 .btn-color-none{
-    height: 29px;
-    width: 169px;
+    height: 2.38vw;
+    width: 14vw;
     border: 1px solid lightgrey;
     background-color: transparent;
 }
