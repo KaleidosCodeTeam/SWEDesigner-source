@@ -94,6 +94,8 @@
                                 <ul class="dropdown-menu">
                                     <li><a id="showpanel-zero" class="testbutton-panel" href="#">Panel-zero</a></li>
                                     <li><a id="showpanel-link" class="testbutton-panel" href="#">Panel-link</a></li>
+                                    <li><a id="showpanel-comment" class="testbutton-panel" href="#">Panel-comment</a></li>
+                                    <li><a id="showpanel-package" class="testbutton-panel" href="#">Panel-package</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -194,12 +196,61 @@
                 <button type="button" class="btn btn-color-sq" style="background-color: #cceecc"></button>
                 <button type="button" class="btn btn-color-sq" style="background-color: #ccffcc"></button>
             </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-color-none"> None </button>
-            </div>
+            <button type="button" class="btn btn-block btn-color-none"> None </button>
         </div>
         <div id="panel-link" class="col-lg-2 panel-swedesigner">
-            PANEL LINK
+            <h4>Tipo di relazione:</h4>
+            <div class="radio">
+                <label><input type="radio" name="optradio">Dipendenza</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="optradio">Associazione</label>
+            </div>
+            <div class="radio disabled">
+                <label><input type="radio" name="optradio">Ereditarietà</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="optradio">Aggregazione</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="optradio">Composizione</label>
+            </div>
+            <div class="radio disabled">
+                <label><input type="radio" name="optradio" disabled>Raffinamento</label>
+            </div>
+            <div class="radio disabled">
+                <label><input type="radio" name="optradio" disabled>Realizzazione</label>
+            </div>
+            <button type="button" class="btn btn-danger">Elimina relazione</button>
+        </div>
+        <div id="panel-comment" class="col-lg-2 panel-swedesigner">
+            <h4>Commento</h4>
+            <div class="form-group">
+                <label for="comment-title">Titolo:</label>
+                <input type="text" class="form-control" id="comment-title">
+            </div>
+            <div class="form-group">
+                <label for="comment">Commento:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+            </div>
+            <button type="button" class="btn btn-danger">Elimina commento</button>
+        </div>
+        <div id="panel-package" class="col-lg-2 panel-swedesigner">
+            <h4>Package</h4>
+            <div class="form-group">
+                <label for="package-name">Nome:</label>
+                <input type="text" class="form-control" id="package-name">
+            </div>
+            <div class="form-group">
+                <label for="package-rank">Visibilità:</label>
+                <select class="form-control" id="package-rank">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-danger">Elimina commento</button>
         </div>
     </div>
 </div>
@@ -216,5 +267,7 @@
 <script src="ProvaJoint.js"></script>
 <script src="panel-connect.js"></script>
 <script src="panel-zero.js"></script>
+<script src="panel-link.js"></script>
+
 </body>
 </html>

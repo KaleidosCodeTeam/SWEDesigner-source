@@ -3,7 +3,7 @@ body{
 }
 
 .toolbar{
-    position:relative;
+    position: relative;
     left: 14px;
 }
 
@@ -28,18 +28,19 @@ body{
 }
 
 .btn-color-sq{
-    height: 2.38vw;
-    width: 2.38vw;
+    height: 2.4vw;
+    width: 2.51vw;
     border: 1px solid lightgrey;
 }
 
 .btn-color-none{
     height: 2.38vw;
-    width: 14vw;
     border: 1px solid lightgrey;
     background-color: transparent;
 }
 
 .panel-swedesigner{
-    visibility: hidden;
+    display: none;
+    position: relative;
+    right: 14px;
 }
