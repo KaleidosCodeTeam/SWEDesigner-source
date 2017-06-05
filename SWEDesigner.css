@@ -44,3 +44,7 @@ body{
     position: relative;
     right: 14px;
 }
+
+.panel-heading{
+    cursor: pointer;
+}

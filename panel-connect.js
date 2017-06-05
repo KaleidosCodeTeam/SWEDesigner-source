@@ -22,3 +22,23 @@ $("#showpanel-comment").click(function(){
 $("#showpanel-package").click(function(){
     $("#panel-package").css("display","inline")
 });
+
+$("#showpanel-activity").click(function(){
+    $("#panel-activity").css("display","inline")
+});
+
+$("#showpanel-pin").click(function(){
+    $("#panel-pin").css("display","inline")
+});
+
+$("#showpanel-if").click(function(){
+    $("#panel-if").css("display","inline")
+});
+
+$("#showpanel-time_event").click(function(){
+    $("#panel-time_event").css("display","inline")
+});
+
+$("#showpanel-class").click(function(){
+    $("#panel-class").css("display","inline")
+});

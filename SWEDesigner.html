@@ -6,8 +6,8 @@
     <title>SWEDesigner</title>
     <!-- Fogli di stile -->
     <link rel="stylesheet" href="joint.min.css" type="text/css">
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="bootstrap-theme.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="SWEDesigner.css" type="text/css">
 </head>
 
@@ -96,6 +96,11 @@
                                     <li><a id="showpanel-link" class="testbutton-panel" href="#">Panel-link</a></li>
                                     <li><a id="showpanel-comment" class="testbutton-panel" href="#">Panel-comment</a></li>
                                     <li><a id="showpanel-package" class="testbutton-panel" href="#">Panel-package</a></li>
+                                    <li><a id="showpanel-activity" class="testbutton-panel" href="#">Panel-activity</a></li>
+                                    <li><a id="showpanel-pin" class="testbutton-panel" href="#">Panel-pin</a></li>
+                                    <li><a id="showpanel-if" class="testbutton-panel" href="#">Panel-if</a></li>
+                                    <li><a id="showpanel-time_event" class="testbutton-panel" href="#">Panel-time_event</a></li>
+                                    <li><a id="showpanel-class" class="testbutton-panel" href="#">Panel-class</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -221,7 +226,7 @@
             <div class="radio disabled">
                 <label><input type="radio" name="optradio" disabled>Realizzazione</label>
             </div>
-            <button type="button" class="btn btn-danger">Elimina relazione</button>
+            <button type="button" class="btn btn-danger btn-block">Elimina relazione</button>
         </div>
         <div id="panel-comment" class="col-lg-2 panel-swedesigner">
             <h4>Commento</h4>
@@ -233,7 +238,7 @@
                 <label for="comment">Commento:</label>
                 <textarea class="form-control" rows="5" id="comment"></textarea>
             </div>
-            <button type="button" class="btn btn-danger">Elimina commento</button>
+            <button type="button" class="btn btn-danger btn-block">Elimina commento</button>
         </div>
         <div id="panel-package" class="col-lg-2 panel-swedesigner">
             <h4>Package</h4>
@@ -242,7 +247,7 @@
                 <input type="text" class="form-control" id="package-name">
             </div>
             <div class="form-group">
-                <label for="package-rank">Visibilità:</label>
+                <label for="package-rank">Importanza:</label>
                 <select class="form-control" id="package-rank">
                     <option>1</option>
                     <option>2</option>
@@ -250,7 +255,258 @@
                     <option>4</option>
                 </select>
             </div>
-            <button type="button" class="btn btn-danger">Elimina commento</button>
+            <button type="button" class="btn btn-danger btn-block">Elimina commento</button>
+        </div>
+        <div id="panel-activity" class="col-lg-2 panel-swedesigner">
+            <h4>Activity</h4>
+            <div class="form-group">
+                <label for="activity-name">Nome:</label>
+                <input type="text" class="form-control" id="activity-name">
+            </div>
+            <button type="button" class="btn btn-primary btn-block">Aggiungi pin</button>
+            <button type="button" class="btn btn-danger btn-block">Elimina attività</button>
+        </div>
+        <div id="panel-pin" class="col-lg-2 panel-swedesigner">
+            <h4>Pin</h4>
+            <div class="form-group">
+                <label for="pin-direction">Direzione:</label>
+                <select class="form-control" id="pin-direction">
+                    <option>In</option>
+                    <option>Out</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pin-name">Nome:</label>
+                <input type="text" class="form-control" id="pin-name">
+            </div>
+            <div class="form-group">
+                <label for="pin-type">Tipo:</label>
+                <select class="form-control" id="pin-type">
+                    <option>Byte</option>
+                    <option>Short</option>
+                    <option>Int</option>
+                    <option>Long</option>
+                    <option>Float</option>
+                    <option>Double</option>
+                    <option>Boolean</option>
+                    <option>Char</option>
+                    <option>UserDefined</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pin-default">Valore di default:</label>
+                <input type="text" class="form-control" id="pin-default">
+            </div>
+            <button type="button" class="btn btn-danger btn-block">Elimina pin</button>
+        </div>
+        <div id="panel-if" class="col-lg-2 panel-swedesigner">
+            <h4>Controllo condizionale</h4>
+            <div class="form-group">
+                <label for="condition">Condizione:</label>
+                <input type="text" class="form-control" id="condition">
+            </div>
+            <button type="button" class="btn btn-primary btn-block">Reset then</button>
+            <button type="button" class="btn btn-default btn-block">Reset else</button>
+            <button type="button" class="btn btn-danger btn-block">Elimina if</button>
+        </div>
+        <div id="panel-time_event" class="col-lg-2 panel-swedesigner">
+            <h4>Evento temporale</h4>
+            <div class="form-group">
+                <label for="mstime">Durata:</label>
+                <input type="number" class="form-control" id="mstime">
+            </div>
+            <button type="button" class="btn btn-danger btn-block">Elimina evento</button>
+        </div>
+        <div id="panel-class" class="col-lg-2 panel-swedesigner">
+            <h4>Classe</h4>
+            <div class="form-group">
+                <label for="class-name">Nome:</label>
+                <input type="text" class="form-control" id="class-name">
+            </div>
+            <div class="form-group">
+                <label for="class-rank">Importanza:</label>
+                <select class="form-control" id="class-rank">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="class-visibility">Visibilità:</label>
+                <select class="form-control" id="class-visibility">
+                    <option>public</option>
+                    <option>private</option>
+                    <option>protected</option>
+                    <option>default</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="class-properties">Proprietà aggiuntive:</label>
+                <select class="form-control" id="class-properties">
+                    <option>static</option>
+                    <option>abstract</option>
+                    <option>final</option>
+                    <option>frozen</option>
+                    <option>readonly</option>
+                    <option>enum</option>
+                    <option>generic</option>
+                </select>
+            </div>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title" data-toggle="collapse" href="#class-attributes">
+                            Attributi
+                            <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                        </h4>
+                    </div>
+                    <div id="class-attributes" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="class-attribute-selected">Attributo:</label>
+                                <select class="form-control" id="class-attribute-selected">
+                                    <option></option>
+                                    <option>Attributi</option>
+                                    <option>Aggiunti</option>
+                                    <option>In</option>
+                                    <option>Precedenza</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="class-attribute-visibility">Visibilità:</label>
+                                <select class="form-control" id="class-attribute-visibility">
+                                    <option>public</option>
+                                    <option>private</option>
+                                    <option>protected</option>
+                                    <option>default</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="class-attribute-name">Nome:</label>
+                                <input type="text" class="form-control" id="class-attribute-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="class-attribute-type">Tipo:</label>
+                                <select class="form-control" id="class-attribute-type">
+                                    <option>Byte</option>
+                                    <option>Short</option>
+                                    <option>Int</option>
+                                    <option>Long</option>
+                                    <option>Float</option>
+                                    <option>Double</option>
+                                    <option>Boolean</option>
+                                    <option>Char</option>
+                                    <option>UserDefined</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="class-attribute-default">Valore di default:</label>
+                                <input type="text" class="form-control" id="class-attribute-default">
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block">Aggiungi attributo</button>
+                            <button type="button" class="btn btn-danger btn-block">Elimina attributo</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title" data-toggle="collapse" href="#class-operations">
+                            Operazioni
+                            <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                        </h4>
+                    </div>
+                    <div id="class-operations" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="class-operation-selected">Operazioni:</label>
+                                <select class="form-control" id="class-operation-selected">
+                                    <option></option>
+                                    <option>Operazioni</option>
+                                    <option>Aggiunte</option>
+                                    <option>In</option>
+                                    <option>Precedenza</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="class-operation-visibility">Visibilità:</label>
+                                <select class="form-control" id="class-operation-visibility">
+                                    <option>public</option>
+                                    <option>private</option>
+                                    <option>protected</option>
+                                    <option>default</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="class-operation-name">Nome:</label>
+                                <input type="text" class="form-control" id="class-operation-name">
+                            </div>
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title" data-toggle="collapse" href="#class-operation-parameters">
+                                            Parametri
+                                            <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                                        </h4>
+                                    </div>
+                                    <div id="class-operation-parameters" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label for="class-operation-parameter-selected">Parametro:</label>
+                                                <select class="form-control" id="class-operation-parameter-selected">
+                                                    <option></option>
+                                                    <option>Parametri</option>
+                                                    <option>Aggiunti</option>
+                                                    <option>In</option>
+                                                    <option>Precedenza</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="class-operation-parameter-direction">Direzione:</label>
+                                                <select class="form-control" id="class-operation-parameter-direction">
+                                                    <option>In</option>
+                                                    <option>Out</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="class-operation-parameter-name">Nome:</label>
+                                                <input type="text" class="form-control" id="class-operation-parameter-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="class-operation-parameter-type">Direzione:</label>
+                                                <select class="form-control" id="class-operation-parameter-type">
+                                                    <option>Byte</option>
+                                                    <option>Short</option>
+                                                    <option>Int</option>
+                                                    <option>Long</option>
+                                                    <option>Float</option>
+                                                    <option>Double</option>
+                                                    <option>Boolean</option>
+                                                    <option>Char</option>
+                                                    <option>UserDefined</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="class-operation-parameter-default">Valore di default:</label>
+                                                <input type="text" class="form-control" id="class-operation-parameter-default">
+                                            </div>
+                                            RADIOBTN PROPRIETÀ AGGIUNTIVE
+                                            <button type="button" class="btn btn-primary btn-block">Aggiungi parametro</button>
+                                            <button type="button" class="btn btn-danger btn-block">Elimina parametro</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block">Aggiungi operazione</button>
+                            <button type="button" class="btn btn-danger btn-block">Elimina operazione</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-danger btn-block">Elimina classe</button>
         </div>
     </div>
 </div>
@@ -262,7 +518,7 @@
 <script src="lodash.min.js"></script>
 <script src="backbone-min.js"></script>
 <script src="joint.min.js"></script>
-<script src="bootstrap.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 
 <script src="ProvaJoint.js"></script>
 <script src="panel-connect.js"></script>
