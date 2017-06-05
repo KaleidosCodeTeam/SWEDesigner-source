@@ -101,6 +101,7 @@
                                     <li><a id="showpanel-if" class="testbutton-panel" href="#">Panel-if</a></li>
                                     <li><a id="showpanel-time_event" class="testbutton-panel" href="#">Panel-time_event</a></li>
                                     <li><a id="showpanel-class" class="testbutton-panel" href="#">Panel-class</a></li>
+                                    <li><a id="showpanel-interface" class="testbutton-panel" href="#">Panel-interface</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -341,17 +342,29 @@
                     <option>default</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="class-properties">Proprietà aggiuntive:</label>
-                <select class="form-control" id="class-properties">
-                    <option>static</option>
-                    <option>abstract</option>
-                    <option>final</option>
-                    <option>frozen</option>
-                    <option>readonly</option>
-                    <option>enum</option>
-                    <option>generic</option>
-                </select>
+            <div id="class-properties">
+                <h5>Proprietà aggiuntive</h5>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">static</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">abstract</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">final</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">frozen</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">readonly</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">enum</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">generic</label>
+                </div>
             </div>
             <div class="panel-group">
                 <div class="panel panel-default">
@@ -507,6 +520,151 @@
                 </div>
             </div>
             <button type="button" class="btn btn-danger btn-block">Elimina classe</button>
+        </div>
+        <div id="panel-interface" class="col-lg-2 panel-swedesigner">
+            <h4>Interfaccia</h4>
+            <div class="form-group">
+                <label for="interface-name">Nome:</label>
+                <input type="text" class="form-control" id="interface-name">
+            </div>
+            <div class="form-group">
+                <label for="interface-rank">Importanza:</label>
+                <select class="form-control" id="interface-rank">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="interface-visibility">Visibilità:</label>
+                <select class="form-control" id="interface-visibility">
+                    <option>public</option>
+                    <option>private</option>
+                    <option>protected</option>
+                    <option>default</option>
+                </select>
+            </div>
+            <div id="interface-properties">
+                <h5>Proprietà aggiuntive</h5>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">static</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">abstract</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">final</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">frozen</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">readonly</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">enum</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">generic</label>
+                </div>
+            </div>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title" data-toggle="collapse" href="#interface-operations">
+                            Operazioni
+                            <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                        </h4>
+                    </div>
+                    <div id="interface-operations" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="interface-operation-selected">Operazioni:</label>
+                                <select class="form-control" id="interface-operation-selected">
+                                    <option></option>
+                                    <option>Operazioni</option>
+                                    <option>Aggiunte</option>
+                                    <option>In</option>
+                                    <option>Precedenza</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="interface-operation-visibility">Visibilità:</label>
+                                <select class="form-control" id="interface-operation-visibility">
+                                    <option>public</option>
+                                    <option>private</option>
+                                    <option>protected</option>
+                                    <option>default</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="interface-operation-name">Nome:</label>
+                                <input type="text" class="form-control" id="interface-operation-name">
+                            </div>
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title" data-toggle="collapse" href="#interface-operation-parameters">
+                                            Parametri
+                                            <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                                        </h4>
+                                    </div>
+                                    <div id="interface-operation-parameters" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label for="interface-operation-parameter-selected">Parametro:</label>
+                                                <select class="form-control" id="interface-operation-parameter-selected">
+                                                    <option></option>
+                                                    <option>Parametri</option>
+                                                    <option>Aggiunti</option>
+                                                    <option>In</option>
+                                                    <option>Precedenza</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="interface-operation-parameter-direction">Direzione:</label>
+                                                <select class="form-control" id="interface-operation-parameter-direction">
+                                                    <option>In</option>
+                                                    <option>Out</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="interface-operation-parameter-name">Nome:</label>
+                                                <input type="text" class="form-control" id="interface-operation-parameter-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="interface-operation-parameter-type">Direzione:</label>
+                                                <select class="form-control" id="interface-operation-parameter-type">
+                                                    <option>Byte</option>
+                                                    <option>Short</option>
+                                                    <option>Int</option>
+                                                    <option>Long</option>
+                                                    <option>Float</option>
+                                                    <option>Double</option>
+                                                    <option>Boolean</option>
+                                                    <option>Char</option>
+                                                    <option>UserDefined</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="interface-operation-parameter-default">Valore di default:</label>
+                                                <input type="text" class="form-control" id="interface-operation-parameter-default">
+                                            </div>
+                                            RADIOBTN PROPRIETÀ AGGIUNTIVE
+                                            <button type="button" class="btn btn-primary btn-block">Aggiungi parametro</button>
+                                            <button type="button" class="btn btn-danger btn-block">Elimina parametro</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block">Aggiungi operazione</button>
+                            <button type="button" class="btn btn-danger btn-block">Elimina operazione</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-danger btn-block">Elimina interfaccia</button>
         </div>
     </div>
 </div>

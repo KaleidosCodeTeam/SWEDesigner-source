@@ -42,3 +42,7 @@ $("#showpanel-time_event").click(function(){
 $("#showpanel-class").click(function(){
     $("#panel-class").css("display","inline")
 });
+
+$("#showpanel-interface").click(function(){
+    $("#panel-interface").css("display","inline")
+});
