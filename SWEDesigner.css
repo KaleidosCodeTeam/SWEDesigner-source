@@ -39,3 +39,7 @@ body{
     border: 1px solid lightgrey;
     background-color: transparent;
 }
+
+.panel-swedesigner{
+    visibility: hidden;
+}
