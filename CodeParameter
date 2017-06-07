@@ -1,0 +1,14 @@
+Class CodeParameters
+{
+	constructor()
+	{
+	}
+	
+	Code(parametersObj){
+		this.para=parametersObj;
+		var codice;
+		codice=para.type +" "+ para.name +" = "+ para.default +" ";
+		return codice;
+		}
+
+}
