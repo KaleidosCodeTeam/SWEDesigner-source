@@ -10,6 +10,39 @@ var CodedProgram = require('./codedProgram.js');
 
 var JavaCoder = function() { };
 
+JavaCoder.coderParameters = function(operationObj) {
+	source = "";
+	var params = operationObj.parameters; // array dei parametri dell'operazione
+	for(var z=0; z<params.length; z++) {
+		source += CoderParameter.codeElementJava(params[z]);
+		if(z != params.length-1) { source += ","; }
+	}
+	return source;
+}
+
+JavaCoder.codeAttributes = function(classObj) {
+	source = "";
+	var attrs = classObj.attributes; // array degli attributi della classe classes[i]
+	for(var x=0; x<attrs.length; x++) {
+		source += CoderAttribute.codeElementJava(attrs[x]) + "\n";
+	}
+	return source;
+}
+
+JavaCoder.codeOperations = function(classObj) {
+	source = "";
+	var opers = classObj.operations; // array dei metodi della classe
+	for(var y=0; y<opers.length; y++) {
+		source += CoderOperation.codeElementJava(opers[y]);
+		source += "("; // apre la lista dei parametri		
+		source += JavaCoder.coderParameters(opers[y]);				
+		source += ") \n { \n"; // chiude la lista dei parametri e apre l'implementazione
+		//source += new CoderActivity().codeElementJava(opers[y]); // gli passo tutta l'operazione o basta il suo oggetto activity?
+		source += " \n }; \n"; // chiude l'implementazione dell'operazione
+	}
+	return source;
+}
+
 JavaCoder.getCodedProgram = function(parsedProgram) {
 		var codedP = new CodedProgram();
 		
@@ -17,32 +50,15 @@ JavaCoder.getCodedProgram = function(parsedProgram) {
 		for(var i=0; i<classes.length; i++) {
 			var source = "";
 			source += CoderClass.codeElementJava(classes[i]); // restituisce l'intestazione della classe
-			source += "{"; // apre la definizione della classe
-			
-			var attrs = classes[i].attributes; // array degli attributi della classe classes[i]
-			for(var x=0; x<attrs.length; x++) {
-				source += CoderAttribute.codeElementJava(attrs[x]);
-			}
-			
-			var opers = classes[i].operations; // array dei metodi della classe
-			for(var y=0; y<opers.length; y++) {
-				source += CoderOperation.codeElementJava(opers[y]);
-				source += "("; // apre la lista dei parametri
-				
-				var params = opers[y].parameters; // array dei parametri dell'operazione
-				for(var z=0; z<params.length; z++) {
-					source += CoderParameter.codeElementJava(params[z]);
-					if(z != params.length-1) { source += ","; }
-				}
-				
-				source += ") {"; // chiude la lista dei parametri e apre l'implementazione
-				//source += new CoderActivity().codeElementJava(opers[y]); // gli passo tutta l'operazione o basta il suo oggetto activity?
-				source += "};"; // chiude l'implementazione dell'operazione
-			}
+			source += "\n { \n"; // apre la definizione della classe			
+			source += JavaCoder.codeAttributes(classes[i]);			
+			source += JavaCoder.codeOperations(classes[i]);
 			source += "};"; // chiude l'implementazione della classe
 			codedP.add(new Class(classes[i]._name, source, classes[i]._package, classes[i].file, classes[i].dependencies));
 		}
 		return codedP;
 }
 
-module.exports = JavaCoder;
+module.exports = {
+	getCodedProgram : JavaCoder.getCodedProgram
+};

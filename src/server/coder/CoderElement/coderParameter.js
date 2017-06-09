@@ -1,5 +1,5 @@
 
-var coderParameter = function() {
+var CoderParameter = function() {
 
 }
 
@@ -19,4 +19,4 @@ coderParameter.codeElementJavascript = function(parameterObj) {
 	return source;
 }
 
-module.exports = coderParameter;
+module.exports = CoderParameter;

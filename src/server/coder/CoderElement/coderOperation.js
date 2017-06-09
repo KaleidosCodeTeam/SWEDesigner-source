@@ -35,15 +35,15 @@ CoderOperation.codeElementJava = function(operationObj) {
 
 CoderOperation.codeElementJavascript = function(operationObj, className) {
 		source = "";
-		if(!operationObj.isStatic){
-			if(operationObj._visibility == "private") {
+		if(!operationObj.isStatic){   //  funzione statica
+			if(operationObj._visibility == "private") {  // funzione privata
 				source += "var " + operationObj._name + " = function";
 			}
-			else {
+			else { // funzione pubblica
 				source += "this." + operationObj._name + " = function";
 			}
 		}
-		else {
+		else { // funzione d'istanza
 			source += className + "." + operationObj._name + "= function";
 		}	
 		return source;	

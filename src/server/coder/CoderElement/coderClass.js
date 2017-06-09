@@ -1,7 +1,36 @@
-
+/*
+Contiene CoderClass, oggetto che espone le funzionalità (statiche) che permettono di codificare
+l'intestazione di una classe, rappresentata dall'oggetto classObj in input, in Java (CoderClass.codeElementJava)
+o Javascript (CoderClass.codeElementJavascipt); entrambe le funzioni restituiscono la stringa del codice 
+sorgente, relativa all'intestazione della classe, nel linguaggio scelto.
+Inoltre espone due funzionalità di utilità che permettono di codificare, in Java (CoderClass.codeParentJava) o 
+Javascript (CoderClass.codeParentJava) la parte della classe relativa alla specifica di estensione.
+*/
 
 var CoderClass = function() {
 	
+}
+
+CoderClass.codeParentJava = function(classObj) {
+	source = "";
+	for(var i=0; i<classObj.dependencies.length; i++) { 
+		if(classObj.dependencies[i]._type == 'Generalization') {
+			source += "extends "+ classObj.dependencies[i]._name + " ";
+		}
+	}
+	return source;
+}
+
+CoderClass.codeParentJavascript = function(classObj) {
+	source = "";
+	for(var i=0; i<classObj.dependencies.length; i++) { 
+		if(classObj.dependencies[i]._type == 'Generalization') {
+			// bisogna aggiungere un costruttore corretto; dipende dalla struttura dell'oggetto
+			source += classObj._name + ".prototype = new " + classObj.dependencies[i]._name + "();\n ";
+			source += classObj._name + ".prototype.constructor = " + classObj._name;
+		}
+	}
+	return source;
 }
 
 CoderClass.codeElementJava = function(classObj) {
@@ -32,11 +61,7 @@ CoderClass.codeElementJava = function(classObj) {
 		// si aggiunge la classe padre, se esiste
 		// dependencies è la proprietà che contiene le dipendenze OUT della classe
 		// NOTA: nessun controllo d'errore nel caso ci sia più di una classe padre
-		for(var i=0; i<classObj.dependencies.length; i++) { 
-			if(classObj.dependencies[i]._type == 'Generalization') {
-				source += "extends "+ classObj.dependencies[i]._name + " ";
-			}
-		}
+		source += CoderClass.codeParentJava(classObj);
 
 		// di aggiungono le interfacce che implementa
 		// NOTA: nessun controllo d'errore nel caso la classe padre sia effettivamente un'interfaccia
@@ -58,6 +83,9 @@ CoderClass.codeElementJava = function(classObj) {
 
 	CoderClass.codeElementJavascript = function(classObj) {
 		var source = "function " + classObj._name + "(";
+
+		// constructorList : proprietà che contiene la lista dei parametri del costruttore
+		//                   dell'oggetto.
 		if(classObj.constructorList){
 			for (var i=0; i<classObj.constructorList.length; i++) {
 				source += classObj.constructorList[i];

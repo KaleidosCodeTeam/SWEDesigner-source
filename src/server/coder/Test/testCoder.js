@@ -9,16 +9,6 @@ var parsedProgram = {
 			_visibility : "protected",
 			isAbstract : false,
 			isInterface : true,
-			dependencies : [
-				{
-					_name : "F",
-					_type : "Implementation"
-				},
-				{
-					_name : "G",
-					_type : "Implementation"
-				}
-			],
 			constructorList : ["param1","param2","paramN"],
 			attributes : [
 				{
@@ -100,7 +90,16 @@ var parsedProgram = {
 			],
 			_package : "pack1/pack2",
 			file : "fileName",
-			dependencies : []
+			dependencies : [
+				{
+					_name : "F",
+					_type : "Generalization"
+				},
+				{
+					_name : "G",
+					_type : "Implementation"
+				}
+			],
 		}
 	]
 };
