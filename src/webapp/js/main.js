@@ -1,5 +1,5 @@
 require.config({
-	baseUrl: '../',
+	baseUrl: './',
 	paths: {
 		jquery: 'lib/js/jquery.min',
 		lodash: 'lib/js/lodash.min',
@@ -14,6 +14,9 @@ require.config({
 	}
 });
 
-/*require(['views/AppView'], function(AppView) {
+/*
+console.log('Hey! I am main.js');
+require(['js/views/AppView'], function(AppView) {
 	var app_view=new AppView;
-});*/
+});
+*/
