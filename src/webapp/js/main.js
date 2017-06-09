@@ -1,10 +1,10 @@
 require.config({
-	baseUrl: 'js/',
+	baseUrl: '../',
 	paths: {
-		jquery: 'libs/jquery/jquery.min',
-		lodash: 'libs/lodash/lodash.min',
-		backbone: 'libs/backbone/backbone-min',
-		joint: 'libs/jointjs/joint.min'
+		jquery: 'lib/js/jquery.min',
+		lodash: 'lib/js/lodash.min',
+		backbone: 'lib/js/backbone-min',
+		joint: 'lib/js/joint.min'
 		// SE CI SONO ALTRE LIBRERIE, AGGIUNGERLE
 	},
 	map: {

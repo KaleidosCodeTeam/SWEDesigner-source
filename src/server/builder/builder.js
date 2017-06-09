@@ -9,7 +9,7 @@
 
 var mkdirp=require('mkdirp');
 var fs=require('fs');
-var Zipper=require('./zipper.js');		// !!!!!!!! DA CAMBIARE !!!!!!!!
+var Zipper=require('../zipper/zipper.js');		// !!!!!!!! DA CAMBIARE !!!!!!!!
 
 /** @namespace */
 var Builder = (function() {
