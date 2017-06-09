@@ -1,0 +1,14 @@
+Class CodeAttribut
+{
+	constructor()
+	{
+	}
+	
+	Code(attributObj){
+		this.attr=attributObj;
+		var codice;
+		codice=attr.visibility +" "+ attr.type +" "+ attr.name +" = "+ attr.default +" ";
+		return codice;
+		}
+
+}

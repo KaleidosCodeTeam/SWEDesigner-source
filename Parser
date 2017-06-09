@@ -1,0 +1,47 @@
+function Parser(jsonFile){
+	this.jsonFile='';
+	this.jsonFile=jsonFile;
+}
+Parser.prototype.getParsedFile{
+return JSON.Parse(this.jsonFile);
+}
+module.export = Parser
+
+Class Parset
+{
+	constructor(jsonFile)
+	{
+	this.jsonFile='';
+	this.jsonFile=jsonFile;
+	
+}
+	getParsedFile{
+		return JSON.Parse(this.jsonFile);
+		}
+
+}
+
+
+function Parser(){
+}
+Parser.prototype.getParsedFile(jsonFile){
+	this.jsonFile='';
+	this.jsonFile=jsonFile;
+return JSON.Parse(this.jsonFile);
+}
+module.export = Parser
+
+
+Class Parset
+{
+	constructor()
+	{
+	}
+
+	getParsedFile(jsonFile){
+	this.jsonFile='';
+	this.jsonFile=jsonFile;
+		return JSON.Parse(this.jsonFile);
+	}
+
+}
