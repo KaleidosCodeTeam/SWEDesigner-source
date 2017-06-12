@@ -6,11 +6,11 @@
  *	@requires ./parser.js
  */
 var fs = require('fs');
-var Parser = require('./../parser.js');	// !!! DA CAMBIARE !!!
+var Parser = require('./../parser.js');	
 /** ---------------- TEST DI UNITÀ ----------------- */
-/** Esegue il test su tutti i file contenuti sella cartella JsonTest , chiama il parser per ottenere gli oggetti */
+/** Esegue il test su tutti i file json contenuti sella cartella JsonTest, chiama il parser per ottenere gli oggetti */
 
-const testFolder = './JsonTest/';       // !!! DA CAMBIARE (forse) !!!
+const testFolder = './JsonTest/';       
 console.log("\n *STARTING* \n");
 var diagrams;
 var files=[];
@@ -30,6 +30,5 @@ for (var i = 0; i < lung; i++) {
     else{
         console.log(' Parser Test: FAILED');
     }
-    // Do something with element i.
 }
 console.log('\n Superati '+superati+' test su '+lung);
