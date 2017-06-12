@@ -259,6 +259,8 @@ Swedesigner.model.classDiagram.items.Class=Swedesigner.model.classDiagram.items.
         attributesExpanded: true,
         methodsExpanded: true,
         values: {
+        	package: "",
+        	dependencies: [],
             name: "NomeClasse",
             abstract: "false",
             static: "false",
