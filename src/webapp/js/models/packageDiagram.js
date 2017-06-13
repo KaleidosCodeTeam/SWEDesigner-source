@@ -5,27 +5,75 @@ define ([
     'joint',
     'models/items/swedesignerItems'
 ], function ($, _, Backbone, joint, items) {
-	var packageDiagram = Backbone.Model.extend({
+	/**
+	 *  @module client.models
+	 *  @class PackageDiagram
+	 *  @classdesc Model per il diagramma dei package.
+	 *  @extends {Backbone.model}
+	 */
+	var PackageDiagram = Backbone.Model.extend({
+		/**
+	     *  @var {Object} PackageDiagram#graph Joint.js Graph.
+	     */
 		graph: {},
-		diagramType: 'package',
+		itemToBeAdded: null,
+		//diagramType: 'package',
+		/**
+	     *  @function PackageDiagram#initialize
+	     *  @summary Metodo di inizializzazione.
+	     */
 		initialize: function() {
 			this.graph=new joint.dia.graph({}, {cellNamespace: Swedesigner.model.packageDiagram.items});
 			let myAdjustVertices=_.partial(this.adjustVerticies, this.graph);
 			this.graph.on('add remove change:source change:target', myAdjustVertices);
 		},
+		/**
+	     *  @function PackageDiagram#addItem
+	     *  @param {Object} item - elemento del diagramma dei package definito swedesignerItems.
+	     *  @summary Aggiunge al grafo un elemento passato in input.
+	     */
 		addItem: function(item) {
-
+			this.itemToBeAdded=item;
 		},
+		addItemToGraph: function() {
+			_.each(this.graph.get('cells').models, function(el) {	// Non sono sicuro se funzionerà
+				el.set("z", 1);
+			});
+			this.graph.addCell(this.itemToBeAdded);
+			this.trigger('addCell', this.itemToBeAdded);
+			this.itemToBeAdded=null;
+		},
+		/**
+	     *  @function PackageDiagram#deleteItem
+	     *  @param {Object} item - elemento del diagramma dei package definito swedesignerItems.
+	     *  @summary Elimina dal grafo un elemento passato in input.
+	     */
 		deleteItem: function(item) {
+			// Bisogna capire se il package contiene delle classi ed eventualmente eliminarle
 
+
+			this.graph.removeCells([item]);
+			console.log(this.graph);
+			this.trigger('addcell');	// Trigger dell'evento 'addcell' definito su View
 		},
-		getDiagramGraph: function() {
-			return 
+		/**
+	     *  @function PackageDiagram#getCurrentGraph
+	     *  @returns {Object} Graph del diagramma dei package.
+	     *  @summary Ritorna il Graph del diagramma dei package.
+	     */
+		getCurrentGraph: function() {
+			return this.get("graph");
 		},
-		getDiagramType: function() {
+		/*getDiagramType: function() {
 			return diagramType;
-		},
-		adjustVertices: function (graph, cell) {
+		},*/
+		/**
+	     *  @function PackageDiagram#adjustVertices
+	     *  @param {Object} graph - graph del diagramma.
+		 *  @param {Object} cell - elemento del diagramma.
+	     *  @summary Aggiusta i vertici del graph quando ci sono link multipli tra elementi.
+	     */
+		/*adjustVertices: function (graph, cell) {
             // If the cell is a view, find its model.
             cell = cell.model || cell;
 
@@ -106,7 +154,7 @@ define ([
                         sibling.set('vertices', [{x: vertex.x, y: vertex.y}]);
                     });
             }
-		}
+		}*/
 	});
-	return packageDiagram;
+	return PackageDiagram;
 });
