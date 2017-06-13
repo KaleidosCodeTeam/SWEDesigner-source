@@ -5,11 +5,8 @@ define ([
     'joint',
     'models/items/swedesignerItems'
 ], function ($, _, Backbone, joint, items) {
-	var kaleidosDiagram = Backbone.Model.extend({
-		diagram: {},
-		packageDiagram: {},
-		classDiagram: {},
-		bubbleDiagram: {},
+	var packageDiagram = Backbone.Model.extend({
+		graph: {},
 		initialize: function() {
 			
 		}
@@ -24,5 +21,5 @@ define ([
 		/** Parte BubbleDiagram */
 
 	});
-	return kaleidosDiagram;
+	return packageDiagram;
 });

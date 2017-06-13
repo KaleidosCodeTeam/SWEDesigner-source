@@ -57,10 +57,31 @@ prog.add(utilityTreeImpl);
 prog.add(main);
 
 /** Chiamata a Builder */
-Builder.build(prog);
+Builder.javaBuild(prog);
 
 /** Eliminazione della directory del progetto creato */
-path=__dirname+'/BuilderTest';	// !!!!!!!! DA CAMBIARE !!!!!!!!
+path=__dirname+'/BuilderTest_JavaCode';	// !!!!!!!! DA CAMBIARE !!!!!!!!
+function deleteFolderRecursive(path) {
+			if (fs.existsSync(path)) {
+				fs.readdirSync(path).forEach(function(file, index) {
+					var curPath=path+'/'+file;
+					if (fs.lstatSync(curPath).isDirectory()) {
+						deleteFolderRecursive(curPath);
+					} else {
+						fs.unlinkSync(curPath);
+					}
+				});
+				fs.rmdirSync(path);
+			}
+		
+}
+deleteFolderRecursive(path);
+
+/** Chiamata a Builder */
+Builder.javascriptBuild(prog);
+
+/** Eliminazione della directory del progetto creato */
+path=__dirname+'/BuilderTest_JavascriptCode';	// !!!!!!!! DA CAMBIARE !!!!!!!!
 function deleteFolderRecursive(path) {
 			if (fs.existsSync(path)) {
 				fs.readdirSync(path).forEach(function(file, index) {
