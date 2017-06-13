@@ -1,5 +1,52 @@
 Swedesigner.model.packageDiagram.items = {};
-Swedesigner.model.packageDiagram.items.Package = joint.shapes.basic.Generic.extend({
+
+Swedesigner.model.packageDiagram.items.Base = joint.shapes.basic.Generic.extend({
+	toolMarkup: [
+		'<g class="element-tools">',
+        '<g class="element-tool-remove"><circle fill="red" r="11"/>',
+        '<path transform="scale(.8) translate(-16, -16)" d="M24.778,21.419 19.276,15.917 24.777,10.415 21.949,7.585 16.447,13.087 10.945,7.585 8.117,10.415 13.618,15.917 8.116,21.419 10.946,24.248 16.447,18.746 21.948,24.248z"/>',
+        '<title>Remove thi element</title>',
+        '</g>',
+        '</g>'].join(''),
+        defaults: _.defaultsDeep({
+            type: 'uml.packageDiagram.Base'
+        }, joint.shapes.basic.Generic.prototype.defaults),
+        initialize: function () {
+            this.on('change:values', function () {
+                this.updateRectangles();
+                this.trigger('uml-update');
+            }, this);
+            this.updateRectangles();
+            joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
+        },
+        updateRectangles: function() {}
+});
+
+Swedesigner.model.packageDiagram.items.BaseView = joint.dia.ElementView.extend({
+    initialize: function () {
+        joint.dia.ElementView.prototype.initialize.apply(this, arguments);
+        this.listenTo(this.model, 'uml-update', function () {
+            this.update();
+            this.resize();
+        });
+    },
+    render: function () {
+        joint.dia.ElementView.prototype.render.apply(this, arguments);
+        this.renderTools();
+        this.update();
+        return this;
+    },
+    renderTools: function () {
+        var toolMarkup = this.model.toolMarkup || this.model.get('toolMarkup');
+        if (toolMarkup) {
+            var nodes = joint.V(toolMarkup);
+            joint.V(this.el).append(nodes);
+        }
+        return this;
+    }
+});
+
+Swedesigner.model.packageDiagram.items.Package = Swedesigner.model.packageDiagram.items.Base.extend({
     markup: [
         '<g class="scalable">',
         '<rect class="uml-package-name-rect"/>',
@@ -7,7 +54,7 @@ Swedesigner.model.packageDiagram.items.Package = joint.shapes.basic.Generic.exte
         '<text class="uml-package-name-text"/>',
     ].join(''),
     defaults: _.defaultsDeep({
-        type: 'uml.Package',
+        type: 'uml.packageDiagram.Package',
         attrs: {
             rect: {'width': 200},
             '.uml-package-name-rect': {
@@ -28,14 +75,9 @@ Swedesigner.model.packageDiagram.items.Package = joint.shapes.basic.Generic.exte
             }
         },
         name: ['PackageName']
-    }, joint.shapes.basic.Generic.prototype.defaults),
+    }, Swedesigner.model.packageDiagram.items.Base.prototype.defaults),
     initialize: function() {
-        this.on('change:name', function() {
-            this.updateRectangles();
-            this.trigger('uml-update');
-        }, this);
-        this.updateRectangles();
-        joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
+    	Swedesigner.model.packageDiagram.items.Base.prototype.initialize.apply(this, arguments);
     },
     getPackageName: function() {
         return this.get('name');
@@ -53,16 +95,6 @@ Swedesigner.model.packageDiagram.items.Package = joint.shapes.basic.Generic.exte
             attrs['.uml-package-' + rect.type + '-rect'].height = rectHeight;
             attrs['.uml-package-' + rect.type + '-rect'].transform = 'translate(0,' + offsetY + ')';
             offsetY += rectHeight;
-        });
-    }
-});
-
-Swedesigner.model.packageDiagram.items.PackageView = joint.dia.ElementView.extend({
-    initialize: function() {
-        joint.dia.ElementView.prototype.initialize.apply(this, arguments);
-        this.listenTo(this.model, 'uml-update', function() {
-            this.update();
-            this.resize();
         });
     }
 });
