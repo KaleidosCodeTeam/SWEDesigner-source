@@ -40,7 +40,8 @@ var Builder = (function() {
 			}
 		},
 		/**
-		 *	@function Builder.mkFile
+		 *	@function Builder.mkJavaFile
+		 *	@param {!string} progDir - La directory indicante dove creare i file sorgenti del programma.
 		 *	@param {!string} name - Il nome del file.
 		 *	@param {!string} pkg - Il package del file.
 		 *	@param {!string[]} dependencies - L'array delle dipendenze del package.
@@ -49,9 +50,9 @@ var Builder = (function() {
 		 *	@private
 		 *	@throws fs exceptions.
 		 */
-		mkFile : function(name, pkg, dependencies, source) {
-			console.log('In mkFile');
-			var path=_private.generalPath+pkg.replace(/\./g, '/')+'/';
+		mkJavaFile : function(progDir, name, pkg, dependencies, source) {
+			console.log('In mkJavaFile');
+			var path=_private.generalPath+progDir+'/'+pkg.replace(/\./g, '/')+'/';
 			var filePath=path+name+'.java';
 			console.log('path: '+path+'\nfilePath: '+filePath+'\n');
 			if (!fs.existsSync(filePath)) {
@@ -68,18 +69,43 @@ var Builder = (function() {
 				/** SCRIVE il codice sorgente in append nel file già esistente. */
 				fs.appendFileSync(filePath, '\n'+source);
 			}
+		},
+		/**
+		 *	@function Builder.mkJavascriptFile
+		 *	@param {!string} progDir - La directory indicante dove creare i file sorgenti del programma.
+		 *	@param {!string} name - Il nome del file.
+		 *	@param {!string} pkg - Il package del file (identifica solamente la posizione del file all'interno delle directory del programma).
+		 *	@param {!string} source - Il codice sorgente da scrivere nel file.
+		 *	@summary Crea un file sorgente e/o scrive ulteriore codice in append se già esistente.
+		 *	@private
+		 *	@throws fs exceptions.
+		 */
+		mkJavascriptFile : function(progDir, name, pkg, source) {
+			console.log('In mkJavascriptFile');
+			var path=_private.generalPath+progDir+'/'+pkg.replace(/\./g, '/')+'/';
+			var filePath=path+name+'.js';
+			console.log('path: '+path+'\nfilePath: '+filePath+'\n');
+			if (!fs.existsSync(filePath)) {
+				mkdirp.sync(path);
+				console.log('Directory created');
+				/** SCRIVE il codice sorgente nel nuovo file. */
+				fs.writeFileSync(filePath, source);
+			} else {
+				/** SCRIVE il codice sorgente in append nel file già esistente. */
+				fs.appendFileSync(filePath, '\n'+source);
+			}
 		}
 	};
 	return {
 		/**
-		 *	@function Builder.build
+		 *	@function Builder.javaBuild
 		 *	@param {!CodedProgram} program - L'oggetto generato da CodedProgram, contente le informazioni necessarie alla creazione di file e directory.
 		 *	@summary Crea directory e file del progetto passato in input dal package CodedProgram ed invoca il metodo zip della classe Zipper.
 		 *	@throws fs exceptions.
 		 *	@throws Zipper exceptions.
 		 *	@throws {NO_FILES_TO_BUILD} Se non ci sono file da creare.
 		 */
-		build : function(program) {
+		javaBuild : function(program) {
 			/**
 			 *	@function
 			 *	@return Stringa contenente il nome della directory principale del programma da creare.
@@ -100,6 +126,7 @@ var Builder = (function() {
 			if (programDirectory==='') {
 				throw 'NO_FILES_TO_BUILD';
 			} else {
+				programDirectory=programDirectory+'_JavaCode';
 				var programPath=_private.generalPath+programDirectory;
 				_private.deleteFolderRecursive(programPath);
 				for (var i=0; i<program._classes.length; ++i) {
@@ -107,14 +134,60 @@ var Builder = (function() {
 					var filePkg=program._classes[i]._package;
 					var fileDep=program._classes[i]._dependencies;
 					var fileSrcCode=program._classes[i]._source;
-					_private.mkFile(fileName, filePkg, fileDep, fileSrcCode);
+					_private.mkJavaFile(programDirectory, fileName, filePkg, fileDep, fileSrcCode);
 				}
 				/* // COMMENTARE CHIAMATA A 'zip' PER EFFETTUARE TEST DI UNITÀ
 				Zipper.zip(programDirectory, programPath, function(err) {
 					if (err) throw err;
 					else console.log('PROGRAM CREATION: DONE');
-				});
-				*/
+				});*/
+				
+			}
+		},
+		/**
+		 *	@function Builder.javascriptBuild
+		 *	@param {!CodedProgram} program - L'oggetto generato da CodedProgram, contente le informazioni necessarie alla creazione di file e directory.
+		 *	@summary Crea directory e file del progetto passato in input dal package CodedProgram ed invoca il metodo zip della classe Zipper.
+		 *	@throws fs exceptions.
+		 *	@throws Zipper exceptions.
+		 *	@throws {NO_FILES_TO_BUILD} Se non ci sono file da creare.
+		 */
+		javascriptBuild : function(program) {
+			/**
+			 *	@function
+			 *	@return Stringa contenente il nome della directory principale del programma da creare.
+			 *	@ignore
+			 */
+			programDirectory=(function() {
+				if (program._classes.length>0) {
+					var pkgName=program._classes[0]._package;
+					var index=pkgName.indexOf('.');
+					var dir=pkgName;
+					if (index!=-1) {
+						dir=pkgName.substr(0, index);
+					}
+					return dir;
+				}
+				return '';
+			}());
+			if (programDirectory==='') {
+				throw 'NO_FILES_TO_BUILD';
+			} else {
+				programDirectory=programDirectory+'_JavascriptCode';
+				var programPath=_private.generalPath+programDirectory;
+				_private.deleteFolderRecursive(programPath);
+				for (var i=0; i<program._classes.length; ++i) {
+					var fileName=program._classes[i]._name;
+					var filePkg=program._classes[i]._package;
+					var fileSrcCode=program._classes[i]._source;
+					_private.mkJavascriptFile(programDirectory, fileName, filePkg, fileSrcCode);
+				}
+				/* // COMMENTARE CHIAMATA A 'zip' PER EFFETTUARE TEST DI UNITÀ
+				Zipper.zip(programDirectory, programPath, function(err) {
+					if (err) throw err;
+					else console.log('PROGRAM CREATION: DONE');
+				});*/
+				
 			}
 		}
 	};

@@ -4,15 +4,15 @@ define ([
     'backbone',
     'joint',
     'models/items/swedesignerItems',
-    'models/kaleidosDiagram',
+    'models/packageDiagram',
     'models/toolbarModel'
-], function ($, _, Backbone, joint, items, kaleidosDiagram, toolbar) {
+], function ($, _, Backbone, joint, items, packageDiagram, toolbar) {
 	var mainModel = Backbone.Model.extend({
-		kaleidosDiagram: {},
+		packageDiagram: {},
 		toolbarModel: {},
 		//urlRoot: '/path(forse)',
 		initialize: function() {
-			this.kaleidosDiagram=kaleidosDiagram;
+			this.packageDiagram=packageDiagram;
 			this.toolbarModel=toolbar;
 		}
 
