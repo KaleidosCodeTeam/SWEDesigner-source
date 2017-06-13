@@ -585,9 +585,9 @@ Swedesigner.model.classDiagram.items.Class=Swedesigner.model.classDiagram.items.
                 _name: "",
                 _type: "",
                 _default: "",
-                _visibility: "private"//,    /** @todo */
-                //isStatic: "false",
-                //isFinal: "false"
+                _visibility: "private",
+                isStatic: "false",
+                isFinal: "false"
             });
         },
     /**
