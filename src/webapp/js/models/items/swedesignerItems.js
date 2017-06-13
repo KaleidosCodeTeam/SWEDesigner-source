@@ -455,7 +455,7 @@ Swedesigner.model.classDiagram.items.Class=Swedesigner.model.classDiagram.items.
 						}
 					]
 				}*/
-			]
+			],
             //Attributi utili lato client
             static: "false",
             final: "false",
