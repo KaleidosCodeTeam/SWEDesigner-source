@@ -13,10 +13,9 @@ require.config({
 		}
 	}
 });
-
 /*
-console.log('Hey! I am main.js');
-require(['js/views/AppView'], function(AppView) {
-	var app_view=new AppView;
+//console.log('Hey! I am main.js');
+require(['js/views/mainView'], function(mainView) {
+	var main_view=new MainView;
 });
 */
