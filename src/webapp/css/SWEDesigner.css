@@ -28,8 +28,8 @@ body{
 }
 
 .btn-color-sq{
-    height: 2.51vw;
-    width: 2.51vw;
+    height: 2.4vw;
+    width: 2.35vw;
     border: 1px solid lightgrey;
 }
 
@@ -43,6 +43,8 @@ body{
     display: none;
     position: relative;
     right: 14px;
+    height: 90vh;
+    overflow-y: scroll;
 }
 
 .panel-heading{
