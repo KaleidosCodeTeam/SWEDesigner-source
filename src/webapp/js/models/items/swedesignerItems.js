@@ -817,7 +817,7 @@ Swedesigner.model.classDiagram.items.Interface=Swedesigner.model.classDiagram.it
         var attrs=this.get('attrs');
         var offsetY=0;
         rects = [
-            {type: 'name', text: this.getValues().name},
+            {type: 'name', text: this.getValues()._name},
             {
                 type: 'methods',
                 text: this.get('methodsExpanded') ? this.getValues().operations : "Metodi (premi per espandere)"
