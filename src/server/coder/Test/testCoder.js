@@ -38,6 +38,7 @@ var parsedProgram = {
 				{
 					_name : "_attr3",
 					_type : "int",
+					_default : null,
 					_visibility : "private",
 					isStatic : false,
 					isFinal : false
@@ -93,7 +94,9 @@ var parsedProgram = {
 			dependencies : [
 				{
 					_name : "F",
-					_type : "Generalization"
+					_type : "Generalization",
+					usage : "create/use",
+
 				},
 				{
 					_name : "G",
