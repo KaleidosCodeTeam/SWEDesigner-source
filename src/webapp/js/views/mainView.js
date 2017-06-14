@@ -6,9 +6,10 @@ define ([
 	'js/views/titlebarView',
 	'js/views/toolbarView',
 	'js/views/pathView',
-	'js/views/editPanelView'
+	'js/views/editPanelView',
+	'js/models/mainModel'
 	/** ecc. */
-], function ($, _, Backbone, joint, TitlebarView, ToolbarView, PathView, EditPanelView) {
+], function ($, _, Backbone, joint, TitlebarView, ToolbarView, PathView, EditPanelView, MainModel) {
 	var MainView = Backbone.View.extend({
 		el: 'body',
 		events: {},

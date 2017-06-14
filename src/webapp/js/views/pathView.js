@@ -7,7 +7,7 @@ define ([
 	'js/models/pathModel'
 	/** ecc. */
 ], function ($, _, Backbone, joint, PathModel) {
-	var PathView = Backbone.view.extend({
+	var PathView = Backbone.View.extend({
 		initialize: function() {
 			this.model = new PathModel();
 		}

@@ -15,6 +15,6 @@ define ([
 		},
 		render: function() {
 		}
-	)};
+	});
 	return EditPanelView;
 });
