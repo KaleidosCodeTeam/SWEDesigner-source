@@ -3,19 +3,14 @@ define ([
     'underscore',
     'backbone',
     'joint',
-    'models/items/swedesignerItems',
-    'models/packageDiagram',
-    'models/toolbarModel'
-], function ($, _, Backbone, joint, items, packageDiagram, toolbar) {
+    'js/models/project'
+], function ($, _, Backbone, joint, Project) {
 	var mainModel = Backbone.Model.extend({
-		packageDiagram: {},
-		toolbarModel: {},
 		//urlRoot: '/path(forse)',
+		project: {},
 		initialize: function() {
-			this.packageDiagram=packageDiagram;
-			this.toolbarModel=toolbar;
+			this.project = new Project();
 		}
-
 	});
 	return mainModel;
 });

@@ -4,9 +4,9 @@ define ([
     'backbone',
     'joint',
 ], function ($, _, Backbone, joint) {
-	var toolbarModel = Backbone.Model.extend({
+	var titlebarModel = Backbone.Model.extend({
 		initialize: function() {
 		}
 	});
-	return toolbarModel;
+	return titlebarModel;
 });
