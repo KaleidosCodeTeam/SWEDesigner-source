@@ -3,7 +3,7 @@ define ([
 	'underscore',
 	'backbone',
 	'joint',
-	'swedesignerItems'
+	'js/models/items/swedesignerItems'
 ], function($, _, Backbone, joint, Swedesigner) {
 	var ToolbarView = Backbone.View.extend({
 		el: $('.toolbar'),

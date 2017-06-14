@@ -4,9 +4,7 @@ require.config({
 		jquery: 'lib/js/jquery.min',
 		lodash: 'lib/js/lodash.min',
 		backbone: 'lib/js/backbone-min',
-		joint: 'lib/js/joint.min',
-		toolbarView: 'js/views/toolbarView',
-		swedesignerItems: 'js/models/items/swedesignerItems'
+		joint: 'lib/js/joint.min'
 		// SE CI SONO ALTRE LIBRERIE, AGGIUNGERLE
 	},
 	map: {

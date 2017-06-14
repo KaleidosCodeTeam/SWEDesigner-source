@@ -4,7 +4,7 @@ define ([
 	'underscore',
 	'backbone',
 	'joint',
-	'toolbarView'
+	'js/views/toolbarView'
 	/** ecc. */
 ], function ($, _, Backbone, joint, ToolbarView) {
 	var MainView = Backbone.View.extend({
@@ -19,8 +19,5 @@ define ([
 		render: function() {
 		}
 	});
-
-	//var mainView = new MainView();
-	// BISOGNERÀ FARE 
 	return MainView;
 });
