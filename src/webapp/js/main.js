@@ -13,9 +13,8 @@ require.config({
 		}
 	}
 });
-/*
+
 //console.log('Hey! I am main.js');
-require(['js/views/mainView'], function(mainView) {
-	var main_view=new MainView;
+require(['js/views/mainView'], function(MainView) {
+	var main_view=new MainView();
 });
-*/
