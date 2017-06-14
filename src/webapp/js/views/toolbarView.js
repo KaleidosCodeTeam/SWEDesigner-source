@@ -3,8 +3,10 @@ define ([
 	'underscore',
 	'backbone',
 	'joint',
-	'js/models/items/swedesignerItems'
-], function($, _, Backbone, joint, Swedesigner) {
+	'js/models/items/swedesignerItems',
+	'js/models/toolbarModel'
+	//'js/views/', riferimento alla view principale del progetto 
+], function($, _, Backbone, joint, Swedesigner, ToolbarModel) {
 	var ToolbarView = Backbone.View.extend({
 		el: $('.toolbar'),
 		events: {
@@ -23,6 +25,7 @@ define ([
 				    color: '#EDF6F6'
 				}
 			});
+			this.model = new ToolbarModel();
 			console.log("initialized");
 			this.addElement();
 		},

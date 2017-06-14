@@ -1,20 +1,29 @@
-/** Per Requirejs (da applicare a tutti i file che si creeranno) */
 define ([
 	'jquery',
 	'underscore',
 	'backbone',
 	'joint',
-	'js/views/toolbarView'
+	'js/views/titlebarView',
+	'js/views/toolbarView',
+	'js/views/pathView',
+	'js/views/editPanelView'
 	/** ecc. */
-], function ($, _, Backbone, joint, ToolbarView) {
+], function ($, _, Backbone, joint, TitlebarView, ToolbarView, PathView, EditPanelView) {
 	var MainView = Backbone.View.extend({
 		el: 'body',
 		events: {},
+		views: {
+			titleBarView: {},
+			toolbarView: {},
+			pathView: {},
+			editPanelView: {}
+		},
 		initialize: function() {
-			//titleBarView = new TitleBarView;
-			var toolbarView = new ToolbarView();
-			//addressView = new AddressView;
-			//editPanelView = new EditPanelView;
+			this.model = new MainModel();
+			this.titlebarView = new TitlebarView();
+			this.toolbarView = new ToolbarView();
+			this.pathView = new PathView();
+			this.editPanelView = new EditPanelView();
 		},
 		render: function() {
 		}
