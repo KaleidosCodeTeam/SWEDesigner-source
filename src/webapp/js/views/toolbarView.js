@@ -6,23 +6,37 @@ define ([
 	'swedesignerItems'
 ], function($, _, Backbone, joint, Swedesigner) {
 	var ToolbarView = Backbone.View.extend({
-		/*el: $('#toolbar'),
+		el: $('.toolbar'),
 		events: {
-			'click .toolbarbutton': addCell
+			'click .toolbarbutton': 'addElement'
 		},
+		graph: new joint.dia.Graph,
 		initialize: function() {
+			var paper = new joint.dia.Paper({
+				el: $('#canvas'),
+				width: $('#canvas').width(),
+				height:$('#canvas').height(),
+				model: this.graph,
+				gridSize: 10,
+				drawGrid: true,
+				background:{
+				    color: '#EDF6F6'
+				}
+			});
+			console.log("initialized");
+			this.addElement();
 		},
 		render: function() {
 		},
-		addCell: function(event) {
-			type = event.currentTarget.id;
+		addElement: function() {
 			var p = new Swedesigner.model.packageDiagram.items.Package({
 				position: { x:100  , y: 100 },
 				size: { width: 180, height: 50 },
 				_package: 'Prova'
 			});
-			graph.addCell(p);
-		}*/
+			console.log(p);
+			this.graph.addCell(p);
+		}
 	});
 	
 	return ToolbarView;
