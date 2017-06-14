@@ -4,21 +4,32 @@ define ([
 	'underscore',
 	'backbone',
 	'joint',
-	'views/toolbarView'
+	'toolbarView'
 	/** ecc. */
 ], function ($, _, Backbone, joint, ToolbarView) {
 	var MainView = Backbone.View.extend({
-		el: 'body',
+		/*el: 'body',
 		events: {},
 		initialize: function() {
+			var graph = new joint.dia.graph();
 			//titleBarView = new TitleBarView;
-			toolbarView = new ToolbarView;
+			var toolbarView = new ToolbarView();
 			//addressView = new AddressView;
 			//editPanelView = new EditPanelView;
-			//paper = new joint.dia.Paper;
+			var paper = new joint.dia.Paper({
+				el: $('#canvas'),
+				width: $('#canvas').width(),
+				height:$('#canvas').height(),
+				model: graph,
+				gridSize: 10,
+				drawGrid: true,
+				background:{
+				    color: '#EDF6F6'
+				}
+			});
 		},
 		render: function() {
-		}
+		}*/
 	});
 
 	//var mainView = new MainView();

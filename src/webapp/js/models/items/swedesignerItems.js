@@ -1,4 +1,11 @@
-Swedesigner = {};
+define ([
+	'jquery',
+	'underscore',
+	'backbone',
+	'joint'
+], function ($, _, Backbone, joint) {
+
+var Swedesigner = {};
 Swedesigner.model = {};
 Swedesigner.model.packageDiagram = {};
 Swedesigner.model.diagram = {};
@@ -1170,4 +1177,7 @@ Swedesigner.model.diagram.items.Association=Swedesigner.model.diagram.items.diag
         obj[path[i]]=value;
         this.updatelabel();
     }
+});
+
+	return Swedesigner;
 });
