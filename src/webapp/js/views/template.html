@@ -1,0 +1,216 @@
+<!--
+        Name: template.html
+        Author: KaleidosCode
+        Description: file template dei pannelli per la visualizzazione in dettaglio degli item del diagramma.
+-->
+
+<!-- PACKAGE TEMPLATE -->
+<script type="text/template" id="uml.packageDiagram.Package">
+    <div id="panel-package" class="col-lg-2 panel-swedesigner">
+        <h4>Package</h4>
+        <div class="form-group">
+            <label for="package-name">Nome:</label>
+            <input type="text" class="form-control" value="<%= _package %>" id="package-name">
+        </div>
+        <div class="form-group">
+            <label for="package-rank">Importanza:</label>
+            <select class="form-control" name="_importance" id="package-rank">
+                <option value="alta" <%if(_importance=="alta"){%> selected <%}%>>alta</option>
+                <option value="media" <%if(_importance=="media"){%> selected <%}%>>media</option>
+                <option value="bassa" <%if(_importance=="bassa"){%> selected <%}%>>bassa</option>
+            </select>
+        </div>
+        <!-- INSERITO PULSANTE PER ANDARE AL DIAGRAMMA DELLE CLASSI -->
+        <button class="switch" name="switch" value="<%= _package %>">Vai al diagramma delle classi</button>
+        <button class="btn btn-danger btn-block" name="deletePackage>">Elimina operazione</button>
+    </div>
+</script>
+
+<!-- CLASS TEMPLATE -->
+<script type="text/template" id="class.Class">
+    <div id="panel-class" class="col-lg-2 panel-swedesigner">
+        <h4>Classe</h4>
+        <div class="form-group">
+            <label for="class-name">Nome:</label>
+            <input type="text" class="form-control" value="<%= name %>" id="class-name">
+        </div>
+        <div class="form-group">
+            <label for="class-rank">Importanza:</label>
+            <select class="form-control" name="_importance" id="class-rank">
+                <option value="alta" <%if(_importance=="alta"){%> selected <%}%>>alta</option>
+                <option value="media" <%if(_importance=="media"){%> selected <%}%>>media</option>
+                <option value="bassa" <%if(_importance=="bassa"){%> selected <%}%>>bassa</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="class-visibility">Visibilità:</label>
+            <select class="form-control" name="_visibility" id="class-visibility">
+                <option value="public"
+                <%if(_visibility=="public"){%> selected <% }
+                %>>public</option>
+                <option value="private"
+                <%if(_visibility=="private"){%> selected <% }
+                %>>private</option>
+                <option value="public"
+                <%if(_visibility=="protected"){%> selected <% }
+                %>>protected</option>
+            </select>
+        </div>
+        <div id="class-properties">
+            <h5>Proprietà aggiuntive</h5>
+            <div class="checkbox">
+                <label><input type="checkbox" name="static" <% if(static=="true"){%>checked <% }%>>static</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="isAbstract" <% if(isAbstract=="true"){%>checked <% }%>>abstract</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="final" <% if(final=="true"){%>checked <% }%>>final</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="frozen" <% if(frozen=="true"){%>checked <% }%>>frozen</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="readOnly" <% if(readOnly=="true"){%>checked <% }%>>readonly</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="enum" <% if(enum=="true"){%>checked <% }%>>enum</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="generic" <% if(generic=="true"){%>checked <% }%>>generic</label>
+            </div>
+        </div>
+        <!-- ATTRIBUTI -->
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" href="#class-attributes">
+                        Attributi
+                        <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                    </h4>
+                </div>
+                <div id="class-attributes" class="panel-collapse collapse">
+                    <div> <!-- DIV CHE INCLUDE I VARI ATTRIBUTI DELLA CLASSE SELEZIONATA -->
+                        <% for(var attr in attributes) { %>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="attributes.<%=attr%>._name">Nome:</label>
+                                    <input type="text" class="form-control" value="<%= attributes[attr]._name %>" name="attributes.<%=attr%>._name" id="class-attribute-name">
+                                </div>
+                                <div class="form-group">    <!-- CAMBIATO DA SELECT A TEXT -->
+                                    <label for="attributes.<%=attr%>._type">Tipo:</label>
+                                    <input type="text" class="form-control" value="<%= attributes[attr]._type %>" name="attributes.<%=attr%>._type" id="class-attribute-type">
+                                </div>
+                                <div class="form-group">
+                                    <label for="class-attribute-visibility">Visibilità:</label>
+                                    <select class="form-control" name="attributes.<%=attr%>.visibility" id="class-attribute-visibility">
+                                        <option value="public" <%if(attributes[attr].visibility=="public"){%> selected <%}%>>public</option>
+                                        <option value="private" <%if(attributes[attr].visibility=="private"){%> selected <%}%>>private</option>
+                                        <option value="protected" <%if(attributes[attr].visibility=="protected"){%> selected <%}%>>protected</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="attributes.<%=attr%>._default">Valore di default:</label>
+                                    <input type="text" class="form-control" value="<%= attributes[attr]._default %>" name="attributes.<%=attr%>._default" id="class-attribute-default">
+                                </div>
+                                <button class="btn btn-danger btn-block" name="deleteAttribute.<%=attr%>">Elimina attributo</button>
+                            </div>
+                        <% } %>
+                        <button class="btn btn-primary btn-block" name="addAttribute">Aggiungi attributo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--OPERAZIONI-->
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" href="#class-operations">
+                        Operazioni
+                        <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                    </h4>
+                </div>
+                <div id="class-operations" class="panel-collapse collapse">
+                    <div> <!-- DIV CHE INCLUDE I VARI ATTRIBUTI DELLA CLASSE SELEZIONATA -->
+                        <% for(var op in operations) { %>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="<%=operations[op]._name%>">Nome:</label>
+                                    <input type="text" class="form-control" value="<%=operations[op]._name%>" name="operations<%=op%>._name" id="class-operation-name">
+                                </div>
+                                <div class="form-group">    <!-- PRIMA NON C'ERA! AGGIUNTA CREANDO IL TEMPLATE. CONTROLLARE CLASS E ID SUI MARKUP! -->
+                                    <label for="attributes.<%=attr%>._type">Tipo di ritorno:</label>
+                                    <input type="text" class="form-control" value="<%= operations[op].returnType %>" name="operations.<%=op%>.returnType" id="class-operation-returnType">
+                                </div>
+                                <div class="form-group">
+                                    <label for="class-operation-visibility">Visibilità:</label>
+                                    <select class="form-control" name="operatiorns.<%=op%>._visibility" id="class-operation-visibility">
+                                        <option value ="public" <%if(operations[op]._visibility=="public"){%> selected <% } %>>public</option>
+                                        <option value ="private" <%if(operations[op]._visibility=="private"){%> selected <% } %>>private</option>
+                                        <option value ="protected" <%if(operations[op]._visibility=="protected"){%> selected <% } %>>protected</option>
+                                    </select>
+                                </div>
+                                <div id="class-properties"> <!-- PRIMA NON C'ERA! AGGIUNTA CREANDO IL TEMPLATE. CONTROLLARE CLASS E ID SUI MARKUP! -->
+                                    <h5>Proprietà aggiuntive</h5>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" name="operations.<%=op%>.isStatic" <% if(operations[op].isStatic=="true"){%>checked <% }%>>static</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" name="operations.<%=op%>.isAbstract" <% if(operations[op].isAbstract=="true"){%>checked <% }%>>abstract</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" name="operations.<%=op%>.isFinal" <% if(operations[op].isFinal=="true"){%>checked <% }%>>final</label>
+                                    </div>
+                                </div>
+                                <!-- PARAMETRI -->
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title" data-toggle="collapse" href="#class-operation-parameters">
+                                                Parametri
+                                                <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                                            </h4>
+                                        </div>
+                                        <div id="class-operation-parameters" class="panel-collapse collapse">
+                                            <div>
+                                                <% for(var par in operations[op].parameters) { %>
+                                                    <div class="panel-body">
+                                                        <div class="form-group">
+                                                            <label for="operations.<%=op%>.parameters.<%=par%>._name>">Nome:</label>
+                                                            <input type="text" class="form-control" value="<%=operations[op].parameters[par]._name%>" name="operations.<%=op%>.parameters.<%=par%>._name" id="class-operation-parameter-name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="class-operation-parameter-direction">Direzione:</label>
+                                                            <select class="form-control" name="operations.<%=op%>.parameters.<%=par%>._direction" id="class-operation-parameter-direction">
+                                                                <option value="in" <%if(operations[op].parameters[par]._direction=="in"){%> selected <%}%>>in</option>
+                                                                <option value="out" <%if(operations[op].parameters[par]._direction=="out"){%> selected <%}%>>out</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">    <!-- CAMBIATO DA SELECT A TEXT -->
+                                                            <label for="operations.<%=op%>.parameters.<%=par%>._type">Tipo:</label>
+                                                            <input type="text" class="form-control" value="<%=operations[op].parameters[par]._type%>" name="operations.<%=op%>.parameters.<%=par%>._type" id="class-operation-parameter-type">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="operations.<%=op%>.parameters.<%=par%>._default">Valore di default:</label>
+                                                            <input type="text" class="form-control" value="<%=operations[op].parameters[par]._default%>" name="operations.<%=op%>.parameters.<%=par%>._default" id="class-operation-parameter-default">
+                                                        </div>
+                                                        <button class="btn btn-danger btn-block" name="deleteParameter.<%=op%>.<%=par%>">Elimina parametro</button>
+                                                    </div>
+                                                <% } %>
+                                                <button class="btn btn-primary btn-block" name="addParameter.<%=op%>">Aggiungi parametro</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- INSERITO PULSANTE PER ANDARE AL DIAGRAMMA DELL'ATTIVITÀ -->
+                                <button class="switch" name="switch" value="<%= operations[op].id %>">Vai al diagramma dell'attività</button>
+                                <button class="btn btn-danger btn-block" name="deleteOperation.<%=op%>>">Elimina operazione</button>
+                            </div>
+                        <% } %>
+                        <button class="btn btn-primary btn-block" name="addOperation">Aggiungi operazione</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

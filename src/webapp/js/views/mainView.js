@@ -21,10 +21,10 @@ define ([
 		},
 		initialize: function() {
 			this.model = new MainModel();
-			this.titlebarView = new TitlebarView();
-			this.toolbarView = new ToolbarView();
-			this.pathView = new PathView();
-			this.editPanelView = new EditPanelView();
+			this.views.titlebarView = new TitlebarView({parent: this});
+			this.views.toolbarView = new ToolbarView({parent: this});
+			this.views.pathView = new PathView({parent: this});
+			this.views.editPanelView = new EditPanelView({parent: this, model: this.model});
 		},
 		render: function() {
 		}
