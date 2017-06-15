@@ -11,15 +11,15 @@ define ([
 	 *  @classdesc Model per i diagrammi.
 	 *  @extends {Backbone.model}
 	 */
-	var Diagram = Backbone.Model.extend({
+	var Swedesigner.model.Diagram = Backbone.Model.extend({
 		/**
-	     *  @var {Object} Diagram#graph Joint.js Graph.
+	     *  @var {Object} Swedesigner.model.Diagram#graph Joint.js Graph.
 	     */
 		graph: {},
 		itemToBeAdded: null,
 		diagramType: null,
 		/**
-	     *  @function PackageDiagram#initialize
+	     *  @function Diagram#initialize
 	     *  @summary Metodo di inizializzazione.
 	     */
 		initialize: function(dType) {

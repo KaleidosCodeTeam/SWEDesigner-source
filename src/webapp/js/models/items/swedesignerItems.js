@@ -148,10 +148,11 @@ Swedesigner.model.packageDiagram.items.Package = Swedesigner.model.packageDiagra
     }, Swedesigner.model.packageDiagram.items.Base.prototype.defaults),
     /**
      *  @function Package#initialize
-     *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base.
+     *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza di Diagram associata al diagramma delle classi relativo al package.
      */
     initialize: function() {
     	Swedesigner.model.packageDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        this.classDiagram = new Swedesigner.model.Diagram('classDiagram');
     },
     /**
      *  @function Package#getPackageName
@@ -580,7 +581,8 @@ Swedesigner.model.classDiagram.items.Class=Swedesigner.model.classDiagram.items.
             //isStatic: "false",  /** @todo */
             //isAbstract: "false",
             //isFinal: "false",
-            parameters: []
+            parameters: [],
+            bubbleDiagram : new Swedesigner.model.Diagram('bubbleDiagram')
         });
     },
     /**
