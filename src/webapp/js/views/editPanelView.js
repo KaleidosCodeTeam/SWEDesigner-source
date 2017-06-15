@@ -3,16 +3,17 @@ define ([
 	'underscore',
 	'backbone',
 	'joint',
-	'js/views/projectView'
+	'js/views/projectView',
+	'text!js/views/template.html'
 	/** ecc. */
-], function ($, _, Backbone, joint, ProjectView) {
+], function ($, _, Backbone, joint, ProjectView, templates) {
 	var EditPanelView = Backbone.View.extend({
 		tagname: 'div',
 		el: $('#editpanel'),//{},//'editpanel',
 		currentTemplate: {},
 		events: {},
 		initialize: function(options) {
-			this.$el = $('#editpanel');
+			//this.$el = $('#editpanel');
 			this.listenTo(ProjectView.paper, "changed-cell", this.render);
 			//options.parent;
 			//options.model;
@@ -32,11 +33,10 @@ define ([
                 /*this.delegateEvents(_.extend(this.events, {	// Funzioni definite qui, che chiamano metodi di ProjectView
                     'keypress .edit': 'confirmEdit',
                     'change .edit': 'confirmEdit',
-                    'click .add': 'execCommand',
-                    'click .switch': 'switch',
-                    'click .togglable': 'toggle'
+                    'click .exec': 'execCommand',
+                    'click .switch': 'switch'
                 }));*/
-                /*f (ProjectView.getCurrentDiagramType() == "activity") {
+                /*if (ProjectView.getCurrentDiagramType() == "activity") {
                     var split = function (val) {
                         return val.split(/(,\s* | \s*)/);
                     };

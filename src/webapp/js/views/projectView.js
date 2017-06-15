@@ -8,20 +8,13 @@ define ([
 	/** ecc. */
 ], function ($, _, Backbone, joint, MainModel, Swedesigner) {
 	var ProjectView = Backbone.View.extend({
-		el: 'body',
-		events: {},
-		views: {
-			projectView: {},
-			titleBarView: {},
-			toolbarView: {},
-			pathView: {},
-			editPanelView: {}
-		},
+		paper: {},
+
 		initialize: function() {
-			this.model = MainModel;
+			this.model = new MainModel();
 			this.paper = new joint.dia.Paper({
 				el: $('#canvas'),
-				model: this.model,//.project.graph,
+				model: this.model.graph,//.project.graph,
 				width: $('#canvas').width(),
 				height:$('#canvas').height(),
 				gridSize: 10,
@@ -34,6 +27,7 @@ define ([
                         if (element.get("type") == "packageDiagram.Comment") {
                             return Swedesigner.model.packageDiagram.items.CommentView;
                         } else {
+                        	console.log("displaying package baseView");
                             return Swedesigner.model.packageDiagram.items.BaseView;
                         }
                     } else if (element.get("type").startsWith("classDiagram")) {
@@ -71,7 +65,15 @@ define ([
                     return true;
 				}
 			});
+			var p = new Swedesigner.model.packageDiagram.items.Package({
+				position: { x:100  , y: 100 },
+				size: { width: 180, height: 50 },
+				_package: 'Prova'
+			});
+			console.log(p);
+			this.model.graph.addCell(p);
 		},
+
 		render: function() {
 		}
 	});

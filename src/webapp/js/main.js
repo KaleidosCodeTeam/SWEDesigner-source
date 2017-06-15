@@ -4,7 +4,8 @@ require.config({
 		jquery: 'lib/js/jquery.min',
 		lodash: 'lib/js/lodash.min',
 		backbone: 'lib/js/backbone-min',
-		joint: 'lib/js/joint.min'
+		joint: 'lib/js/joint.min',
+		text: 'lib/js/text'
 		// SE CI SONO ALTRE LIBRERIE, AGGIUNGERLE
 	},
 	map: {

@@ -5,7 +5,8 @@ define ([
     'joint',
     //'js/models/project'
 ], function ($, _, Backbone, joint/*, Project*/) {
-	var mainModel = Backbone.Model.extend({
+	var MainModel = Backbone.Model.extend({
+		graph: {},
 		//urlRoot: '/path(forse)',
 		project: {
 			projectPkgDiagram: {},
@@ -21,6 +22,8 @@ define ([
 		openProject: function() {
 			this.project = Swedesigner.model.DAO.openProject();
 		}*/
+			this.graph = new joint.dia.Graph();
+		}
 	});
-	return mainModel;
+	return MainModel;
 });
