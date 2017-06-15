@@ -1,9 +1,16 @@
-<script type="text/template" id="packageDiagram-Package">
+<!--
+        Name: template.html
+        Author: KaleidosCode
+        Description: file template dei pannelli per la visualizzazione in dettaglio degli item del diagramma.
+-->
+
+<!-- PACKAGE TEMPLATE -->
+<script type="text/template" id="packageDiagram.Package">
     <div id="panel-package" class="col-lg-2 panel-swedesigner">
         <h4>Package</h4>
         <div class="form-group">
             <label for="package-name">Nome:</label>
-            <input type="text" class="edit form-control" value="<%= package %>" name="package" id="package-name" />
+            <input type="text" class="edit form-control" value="<%= _package %>" name="_package" id="package-name" />
         </div>
         <div class="form-group">
             <label for="package-rank">Importanza:</label>
