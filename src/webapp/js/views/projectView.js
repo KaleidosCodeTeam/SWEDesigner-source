@@ -4,7 +4,7 @@ define ([
 	'backbone',
 	'joint',
 	'js/models/mainModel',
-	'js/models/swedesignerItems'
+	'js/models/items/swedesignerItems'
 	/** ecc. */
 ], function ($, _, Backbone, joint, MainModel, Swedesigner) {
 	var ProjectView = Backbone.View.extend({
@@ -21,7 +21,7 @@ define ([
 			this.model = MainModel;
 			this.paper = new joint.dia.Paper({
 				el: $('#canvas'),
-				model: this.model.project.graph,
+				model: this.model,//.project.graph,
 				width: $('#canvas').width(),
 				height:$('#canvas').height(),
 				gridSize: 10,
@@ -43,7 +43,7 @@ define ([
                             return Swedesigner.model.classDiagram.items.BaseView;
                         }
                     } else {
-                    	return return Swedesigner.model.///////////////////////////////// NOME DIAGRAMMA Diagram.items.BaseView;
+                    	return null; //Swedesigner.model.///////////////////////////////// NOME DIAGRAMMA Diagram.items.BaseView;
                     }
                 },
                 highlighting: {
