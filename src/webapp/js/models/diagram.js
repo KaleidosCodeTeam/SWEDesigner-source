@@ -11,9 +11,9 @@ define ([
 	 *  @classdesc Model per i diagrammi.
 	 *  @extends {Backbone.model}
 	 */
-	var Swedesigner.model.Diagram = Backbone.Model.extend({
+	var Diagram = Backbone.Model.extend({
 		/**
-	     *  @var {Object} Swedesigner.model.Diagram#graph Joint.js Graph.
+	     *  @var {Object} Diagram#graph Joint.js Graph.
 	     */
 		graph: {},
 		itemToBeAdded: null,
@@ -23,7 +23,7 @@ define ([
 	     *  @summary Metodo di inizializzazione.
 	     */
 		initialize: function(dType) {
-			this.graph=new joint.dia.graph({}, {cellNamespace: Swedesigner.model.Diagram.items});
+			this.graph=new joint.dia.graph({}, {cellNamespace: Diagram.items});
 			this.diagramType = dType;
 			let myAdjustVertices=_.partial(this.adjustVerticies, this.graph);
 			this.graph.on('add remove change:source change:target', myAdjustVertices);

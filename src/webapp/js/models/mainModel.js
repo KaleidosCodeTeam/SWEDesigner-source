@@ -3,9 +3,10 @@ define ([
     'underscore',
     'backbone',
     'joint',
+    'models/diagram'
 
     //'js/models/project'
-], function ($, _, Backbone, joint/*, Project*/) {
+], function ($, _, Backbone, joint, diagram/*, Project*/) {
 	var MainModel = Backbone.Model.extend({
 		graph: {},
 		//urlRoot: '/path(forse)',
@@ -14,8 +15,8 @@ define ([
             currentGraph: {},
 		},
 		initialize: function() {
-			//this.project.projectPkgDiagram = new Swedesigner.model.Diagram('packageDiagram');
-			//this.currentGraph = this.project.projectPkgDiagram;
+			this.project.projectPkgDiagram = new Diagram('packageDiagram');
+			this.currentGraph = this.project.projectPkgDiagram;
 			this.graph = new joint.dia.Graph();
 		},
 		/*saveProject: function() {

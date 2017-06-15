@@ -2,8 +2,9 @@ define ([
 	'jquery',
 	'underscore',
 	'backbone',
-	'joint'
-], function ($, _, Backbone, joint) {
+	'joint',
+    'models/diagram'
+], function ($, _, Backbone, joint, diagram) {
 
 var Swedesigner = {};
 Swedesigner.model = {};
@@ -150,9 +151,10 @@ Swedesigner.model.packageDiagram.items.Package = Swedesigner.model.packageDiagra
      *  @function Package#initialize
      *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza di Diagram associata al diagramma delle classi relativo al package.
      */
+    classDiagram: {},
     initialize: function() {
     	Swedesigner.model.packageDiagram.items.Base.prototype.initialize.apply(this, arguments);
-        //this.classDiagram = new Swedesigner.model.Diagram('classDiagram');
+        this.classDiagram = new Diagram('classDiagram');
     },
     /**
      *  @function Package#getPackageName
@@ -582,7 +584,7 @@ Swedesigner.model.classDiagram.items.Class=Swedesigner.model.classDiagram.items.
             //isAbstract: "false",
             //isFinal: "false",
             parameters: [],
-            bubbleDiagram : new Swedesigner.model.Diagram('bubbleDiagram')
+            bubbleDiagram : new Diagram('bubbleDiagram')
         });
     },
     /**
