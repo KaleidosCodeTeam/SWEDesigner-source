@@ -9,7 +9,6 @@ define ([
 ], function ($, _, Backbone, joint, MainModel, Swedesigner) {
 	var ProjectView = Backbone.View.extend({
 		paper: {},
-
 		initialize: function() {
 			this.model = new MainModel();
 			this.paper = new joint.dia.Paper({
