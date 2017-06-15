@@ -3,6 +3,7 @@ define ([
     'underscore',
     'backbone',
     'joint',
+
     //'js/models/project'
 ], function ($, _, Backbone, joint/*, Project*/) {
 	var MainModel = Backbone.Model.extend({
@@ -13,8 +14,9 @@ define ([
             currentGraph: {},
 		},
 		initialize: function() {
-			this.project.projectPkgDiagram = new Swedesigner.model.Diagram('packageDiagram');
-			this.currentGraph = this.project.projectPkgDiagram;
+			//this.project.projectPkgDiagram = new Swedesigner.model.Diagram('packageDiagram');
+			//this.currentGraph = this.project.projectPkgDiagram;
+			this.graph = new joint.dia.Graph();
 		},
 		/*saveProject: function() {
 			Swedesigner.model.DAO.saveProject(this.project);
@@ -22,8 +24,6 @@ define ([
 		openProject: function() {
 			this.project = Swedesigner.model.DAO.openProject();
 		}*/
-			this.graph = new joint.dia.Graph();
-		}
 	});
 	return MainModel;
 });

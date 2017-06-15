@@ -4,13 +4,13 @@ define ([
 	'backbone',
 	'joint',
 	'js/views/projectView',
-	'text!js/views/template.html'
+	//'text!js/views/template.html'
 	/** ecc. */
-], function ($, _, Backbone, joint, ProjectView, templates) {
+], function ($, _, Backbone, joint, ProjectView) {
 	var EditPanelView = Backbone.View.extend({
 		tagname: 'div',
 		el: $('#editpanel'),//{},//'editpanel',
-		currentTemplate: {},
+		currentTemplate: _.template('<template id="packageDiagram.Package"><div id="panel-package" class="col-lg-2 panel-swedesigner"><h4>Package</h4>        <div class="form-group">        <label for="package-name">Nome:</label>            <input type="text" class="edit form-control" value="<%= _package %>" name="_package" id="package-name" />        </div>        <div class="form-group">            <label for="package-rank">Importanza:</label>            <select class="form-control edit" name="_importance" id="package-rank">                <option value="alta" <% if(_importance=="alta") { %> selected <% } %>>alta</option>                <option value="media" <%if(_importance=="media"){%> selected <%}%>>media</option>                <option value="bassa" <%if(_importance=="bassa"){%> selected <%}%>>bassa</option>            </select>        </div>        <!-- INSERITO PULSANTE PER ANDARE AL DIAGRAMMA DELLE CLASSI -->        <button class="switch" name="switch" value="<%= _package %>">Vai al diagramma delle classi</button>        <!--<button class="btn btn-danger btn-block" name="deletePackage>">Elimina package</button> NON DOVREBBE SERVIRE SE USIAMO L\'ELIMINAZIONE DALL\'ICONA GRAFICA DI JOINT -->    </div></template>'),
 		events: {},
 		initialize: function(options) {
 			//this.$el = $('#editpanel');
@@ -23,7 +23,7 @@ define ([
             if (ProjectView.paper.selectedCell) {
                 //console.log(templates);
                 //this.currentTemplate = _.template($('#' + ProjectView.paper.selectedCell.get("type").replace(/\./g, "\\.")).html());
-                this.currentTemplate = _.template($(templates).filter('#' + ProjectView.paper.selectedCell.get("type").replace(/\./g, "\\.")).html());
+                //this.currentTemplate = _.template($(templates).filter('#' + ProjectView.paper.selectedCell.get("type").replace(/\./g, "\\.")).html());
                 console.log(this.currentTemplate);
                 var c = ProjectView.paper.selectedCell;
                 var output = "";

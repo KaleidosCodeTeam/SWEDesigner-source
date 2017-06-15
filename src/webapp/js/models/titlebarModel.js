@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 define ([
     'jquery',
     'underscore',
@@ -11,8 +10,3 @@ define ([
 	});
 	return titlebarModel;
 });
-=======
-/**
- * Created by giulio on 14/06/17.
- */
->>>>>>> Stashed changes

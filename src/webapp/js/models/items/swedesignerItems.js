@@ -152,7 +152,7 @@ Swedesigner.model.packageDiagram.items.Package = Swedesigner.model.packageDiagra
      */
     initialize: function() {
     	Swedesigner.model.packageDiagram.items.Base.prototype.initialize.apply(this, arguments);
-        this.classDiagram = new Swedesigner.model.Diagram('classDiagram');
+        //this.classDiagram = new Swedesigner.model.Diagram('classDiagram');
     },
     /**
      *  @function Package#getPackageName

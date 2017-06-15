@@ -5,7 +5,7 @@
 -->
 
 <!-- PACKAGE TEMPLATE -->
-<script type="text/template" id="packageDiagram.Package">
+<template id="packageDiagram.Package">
     <div id="panel-package" class="col-lg-2 panel-swedesigner">
         <h4>Package</h4>
         <div class="form-group">
@@ -15,7 +15,7 @@
         <div class="form-group">
             <label for="package-rank">Importanza:</label>
             <select class="form-control edit" name="_importance" id="package-rank">
-                <option value="alta" <%if(_importance=="alta"){%> selected <%}%>>alta</option>
+                <option value="alta" <% if(_importance=="alta") { %> selected <% } %>>alta</option>
                 <option value="media" <%if(_importance=="media"){%> selected <%}%>>media</option>
                 <option value="bassa" <%if(_importance=="bassa"){%> selected <%}%>>bassa</option>
             </select>
@@ -24,7 +24,7 @@
         <button class="switch" name="switch" value="<%= _package %>">Vai al diagramma delle classi</button>
         <!--<button class="btn btn-danger btn-block" name="deletePackage>">Elimina package</button> NON DOVREBBE SERVIRE SE USIAMO L'ELIMINAZIONE DALL'ICONA GRAFICA DI JOINT -->
     </div>
-</script>
+</template>
 
 <!-- CLASS TEMPLATE -->
 <script type="text/template" id="class.Class">
