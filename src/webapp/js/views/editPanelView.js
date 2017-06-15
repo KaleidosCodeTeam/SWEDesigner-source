@@ -3,37 +3,40 @@ define ([
 	'underscore',
 	'backbone',
 	'joint',
-	//'js/views/', riferimento alla view principale del progetto
+	'js/views/projectView'
 	/** ecc. */
-], function ($, _, Backbone, joint) {
+], function ($, _, Backbone, joint, ProjectView) {
 	var EditPanelView = Backbone.View.extend({
 		tagname: 'div',
-		el: {},//'editpanel',
+		el: $('#editpanel'),//{},//'editpanel',
 		currentTemplate: {},
 		events: {},
 		initialize: function(options) {
+			this.$el = $('#editpanel');
+			this.listenTo(ProjectView.paper, "changed-cell", this.render);
 			//options.parent;
 			//options.model;
 		},
 		render: function() {
-			//console.log("i'm detailsview and i saw your change");
+			console.log("(editPanelView) Hey! I saw your change!");
             if (ProjectView.paper.selectedCell) {
                 //console.log(templates);
                 //this.currentTemplate = _.template($('#' + ProjectView.paper.selectedCell.get("type").replace(/\./g, "\\.")).html());
                 this.currentTemplate = _.template($(templates).filter('#' + ProjectView.paper.selectedCell.get("type").replace(/\./g, "\\.")).html());
+                console.log(this.currentTemplate);
                 var c = ProjectView.paper.selectedCell;
                 var output = "";
                 output = this.currentTemplate(c.getValues());
                 this.$el.html(output);
-                componentHandler.upgradeDom(); //refresh material design
-                this.delegateEvents(_.extend(this.events, {
+                //componentHandler.upgradeDom(); //refresh material design
+                /*this.delegateEvents(_.extend(this.events, {	// Funzioni definite qui, che chiamano metodi di ProjectView
                     'keypress .edit': 'confirmEdit',
                     'change .edit': 'confirmEdit',
                     'click .add': 'execCommand',
                     'click .switch': 'switch',
                     'click .togglable': 'toggle'
-                }));
-                if (ProjectView.getCurrentDiagramType() == "activity") {
+                }));*/
+                /*f (ProjectView.getCurrentDiagramType() == "activity") {
                     var split = function (val) {
                         return val.split(/(,\s* | \s*)/);
                     };
@@ -71,7 +74,7 @@ define ([
                                 .appendTo(ul);
                         }
                     });
-                }
+                }*/
             } else {
                 this.$el.html("");
             }

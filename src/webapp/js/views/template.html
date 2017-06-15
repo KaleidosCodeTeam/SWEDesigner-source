@@ -59,25 +59,25 @@
         <div id="class-properties">
             <h5>Proprietà aggiuntive</h5>
             <div class="checkbox">
-                <label><input type="checkbox" name="static" <% if(static=="true"){%>checked <% }%>>static</label>
+                <label><input type="checkbox" name="static" class="edit" <% if(static=="true"){%>checked <% }%>>static</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" name="isAbstract" <% if(isAbstract=="true"){%>checked <% }%>>abstract</label>
+                <label><input type="checkbox" name="isAbstract" class="edit" <% if(isAbstract=="true"){%>checked <% }%>>abstract</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" name="final" <% if(final=="true"){%>checked <% }%>>final</label>
+                <label><input type="checkbox" name="final" class="edit" <% if(final=="true"){%>checked <% }%>>final</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" name="frozen" <% if(frozen=="true"){%>checked <% }%>>frozen</label>
+                <label><input type="checkbox" name="frozen" class="edit" <% if(frozen=="true"){%>checked <% }%>>frozen</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" name="readOnly" <% if(readOnly=="true"){%>checked <% }%>>readonly</label>
+                <label><input type="checkbox" name="readOnly" class="edit" <% if(readOnly=="true"){%>checked <% }%>>readonly</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" name="enum" <% if(enum=="true"){%>checked <% }%>>enum</label>
+                <label><input type="checkbox" name="enum" class="edit" <% if(enum=="true"){%>checked <% }%>>enum</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" name="generic" <% if(generic=="true"){%>checked <% }%>>generic</label>
+                <label><input type="checkbox" name="generic" class="edit" <% if(generic=="true"){%>checked <% }%>>generic</label>
             </div>
         </div>
         <!-- ATTRIBUTI -->
@@ -153,13 +153,13 @@
                                 <div id="class-properties"> <!-- PRIMA NON C'ERA! AGGIUNTA CREANDO IL TEMPLATE. CONTROLLARE CLASS E ID SUI MARKUP! -->
                                     <h5>Proprietà aggiuntive</h5>
                                     <div class="checkbox">
-                                        <label><input type="checkbox" name="operations.<%=op%>.isStatic" <% if(operations[op].isStatic=="true"){%>checked <% }%>>static</label>
+                                        <label><input type="checkbox" name="operations.<%=op%>.isStatic"  class="edit" <% if(operations[op].isStatic=="true"){%>checked <% }%>>static</label>
                                     </div>
                                     <div class="checkbox">
-                                        <label><input type="checkbox" name="operations.<%=op%>.isAbstract" <% if(operations[op].isAbstract=="true"){%>checked <% }%>>abstract</label>
+                                        <label><input type="checkbox" name="operations.<%=op%>.isAbstract"  class="edit" <% if(operations[op].isAbstract=="true"){%>checked <% }%>>abstract</label>
                                     </div>
                                     <div class="checkbox">
-                                        <label><input type="checkbox" name="operations.<%=op%>.isFinal" <% if(operations[op].isFinal=="true"){%>checked <% }%>>final</label>
+                                        <label><input type="checkbox" name="operations.<%=op%>.isFinal"  class="edit" <% if(operations[op].isFinal=="true"){%>checked <% }%>>final</label>
                                     </div>
                                 </div>
                                 <!-- PARAMETRI -->

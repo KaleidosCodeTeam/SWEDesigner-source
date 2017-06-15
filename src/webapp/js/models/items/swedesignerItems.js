@@ -122,7 +122,7 @@ Swedesigner.model.packageDiagram.items.Package = Swedesigner.model.packageDiagra
      *  @var {Object} Package#defaults Attributi di default per l'oggetto Package (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
      */
     defaults: _.defaultsDeep({
-        type: 'uml.packageDiagram.Package',
+        type: 'packageDiagram.Package',
         position: {x: 200, y: 200},
         size: {width: 100, height: 100},
         attrs: {
