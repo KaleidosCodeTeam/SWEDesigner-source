@@ -3,7 +3,7 @@ define ([
     'underscore',
     'backbone',
     'joint',
-    'models/items/swedesignerItems'
+    'js/models/items/swedesignerItems'
 ], function ($, _, Backbone, joint, items) {
 	/**
 	 *  @module client.models
@@ -23,9 +23,15 @@ define ([
 	     *  @summary Metodo di inizializzazione.
 	     */
 		initialize: function(dType) {
-			this.graph=new joint.dia.graph({}, {cellNamespace: Diagram.items});
+			if (dType='packageDiagram') {
+				this.graph = new joint.dia.Graph({}, {cellNamespace: Swedesigner.model.packageDiagram.items});
+			} else if (dType='classDiagram') {
+				this.graph = new joint.dia.Graph({}, {cellNamespace: Swedesigner.model.classDiagram.items});
+			} else if (dType='bubbleDiagram') {
+				this.graph = new joint.dia.Graph({}, {cellNamespace: Swedesigner.model.bubbleDiagram.items});
+			}
 			this.diagramType = dType;
-			let myAdjustVertices=_.partial(this.adjustVerticies, this.graph);
+			let myAdjustVertices = _.partial(this.adjustVerticies, this.graph);
 			this.graph.on('add remove change:source change:target', myAdjustVertices);
 		},
 		/**
@@ -76,7 +82,7 @@ define ([
 		 *  @param {Object} cell - elemento del diagramma.
 	     *  @summary Aggiusta i vertici del graph quando ci sono link multipli tra elementi.
 	     */
-		/*adjustVertices: function (graph, cell) {
+		adjustVertices: function (graph, cell) {
             // If the cell is a view, find its model.
             cell = cell.model || cell;
 
@@ -157,7 +163,7 @@ define ([
                         sibling.set('vertices', [{x: vertex.x, y: vertex.y}]);
                     });
             }
-		}*/
+		}
 	});
 	return Diagram;
 });
