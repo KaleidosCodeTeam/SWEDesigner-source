@@ -113,16 +113,23 @@
     <div class="row">
         <!------------ Toolbar laterale ------------>
         <div class="col-lg-1 toolbar">
-            <button type="button" class="btn btn-default btn-large btn-block toolbarbutton">+ Classe</button>
-            <button type="button" class="btn btn-default btn-large btn-block toolbarbutton">+ Interfaccia</button>
-            <button type="button" class="btn btn-default btn-large btn-block toolbarbutton">+ Relazione</button>
-            <button type="button" class="btn btn-default btn-large btn-block toolbarbutton">+ Package</button>
-            <button type="button" class="btn btn-default btn-large btn-block toolbarbutton">+ Attività</button>
-            <button type="button" class="btn btn-default btn-large btn-block toolbarbutton">+ Decisione</button>
-            <button type="button" class="btn btn-default btn-large btn-block toolbarbutton">+ Espansione</button>
-            <button type="button" class="btn btn-default btn-large btn-block toolbarbutton">+ Trasformazione</button>
-            <button type="button" class="btn btn-default btn-large btn-block toolbarbutton">+ Attesa</button>
-            <button type="button" class="btn btn-default btn-large btn-block toolbarbutton">+ Commento</button>
+        	<div class="packageDiagram">
+            	<button id="Package" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Package</button>
+            	<button id="Comment" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Commento</button>
+            </div>
+            <div class="classDiagram">
+            	<button id="Class" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Classe</button>
+            	<button id="Interface" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Interfaccia</button>
+            	<button id="Relation" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Relazione</button>
+            	<button id="Comment" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Commento</button>
+            </div>
+            <div class="activityDiagram">
+		        <button id="Activity" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Attività</button>
+		        <button id="Decision" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Decisione</button>
+		        <button id="Expansion" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Espansione</button>
+		        <button id="Trasformation" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Trasformazione</button>
+		        <button id="Wait" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Attesa</button>
+   			</div>
         </div>
         <div class="centralWidget col-lg-9">
             <!------------ Canvas gestita da joint.js ------------>
