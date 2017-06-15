@@ -78,6 +78,7 @@ Swedesigner.model.Diagram.items.Package = Swedesigner.model.Diagram.items.Base.e
     }, Swedesigner.model.Diagram.items.Base.prototype.defaults),
     initialize: function() {
     	Swedesigner.model.Diagram.items.Base.prototype.initialize.apply(this, arguments);
+    	this.classDiagram = new Swedesigner.model.Diagram('classDiagram');
     },
     getPackageName: function() {
         return this.get('name');

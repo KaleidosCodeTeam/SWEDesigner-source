@@ -8,7 +8,7 @@ define ([
 var Swedesigner = {};
 Swedesigner.model = {};
 Swedesigner.model.packageDiagram = {};
-Swedesigner.model.diagram = {};
+Swedesigner.model.classDiagram = {};
 Swedesigner.model.activityDiagram = {};
 Swedesigner.model.bubbleFlowchart = {};
 
@@ -183,15 +183,15 @@ Swedesigner.model.packageDiagram.items.Package = Swedesigner.model.packageDiagra
 });
 
 
-Swedesigner.model.diagram.items={};
+Swedesigner.model.classDiagram.items={};
 
 /**
- *  @module Swedesigner.model.diagram.items
+ *  @module Swedesigner.model.classDiagram.items
  *  @class Base
  *  @classdesc Elemento base generico per diagramma delle classi UML.
  *  @extends {joint.shapes.basic.Generic}
  */
-Swedesigner.model.diagram.items.Base=joint.shapes.basic.Generic.extend({
+Swedesigner.model.classDiagram.items.Base=joint.shapes.basic.Generic.extend({
     /**
      *  @var {string} Base#markup Markup HTML per la rappresentazione grafica.
      */
@@ -262,12 +262,12 @@ Swedesigner.model.diagram.items.Base=joint.shapes.basic.Generic.extend({
 });
 
 /**
- *  @module Swedesigner.model.diagram.items
+ *  @module Swedesigner.model.classDiagram.items
  *  @class BaseView
  *  @classdesc View per oggetto "Base".
  *  @extends {joint.dia.ElementView}
  */
-Swedesigner.model.diagram.items.BaseView=joint.dia.ElementView.extend({
+Swedesigner.model.classDiagram.items.BaseView=joint.dia.ElementView.extend({
     /**
      *  @function BaseView#initialize
      *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e imposta un evento alla reazione del model chiamando sequenzialmente i metodi "update" e "resize".
@@ -346,18 +346,18 @@ Swedesigner.model.diagram.items.BaseView=joint.dia.ElementView.extend({
 });
 
 /**
- *  @module Swedesigner.model.diagram.items
+ *  @module Swedesigner.model.classDiagram.items
  *  @class Class
  *  @classdesc Elemento classe per diagramma delle classi UML.
- *  @extends {Swedesigner.model.diagram.items.Base}
+ *  @extends {Swedesigner.model.classDiagram.items.Base}
  */
-Swedesigner.model.diagram.items.Class=Swedesigner.model.diagram.items.Base.extend({
+Swedesigner.model.classDiagram.items.Class=Swedesigner.model.classDiagram.items.Base.extend({
     /**
      *  @function Class#initialize
      *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base.
      */
     initialize: function() {
-        Swedesigner.model.diagram.items.Base.prototype.initialize.apply(this, arguments);
+        Swedesigner.model.classDiagram.items.Base.prototype.initialize.apply(this, arguments);
     },
     /**
      *  @var {string} Class#markup Markup HTML per la rappresentazione grafica.
@@ -471,7 +471,7 @@ Swedesigner.model.diagram.items.Class=Swedesigner.model.diagram.items.Base.exten
             enum: "false",
             generic: "false",
         }
-    }, Swedesigner.model.diagram.items.Base.prototype.defaults),
+    }, Swedesigner.model.classDiagram.items.Base.prototype.defaults),
     /**
      *  @function Class#updateRectangles
      *  @summary Render della classe.
@@ -565,7 +565,7 @@ Swedesigner.model.diagram.items.Class=Swedesigner.model.diagram.items.Base.exten
         attrs['.uml-class-methods-rect'].height=rectHeight;
         attrs['.uml-class-methods-rect'].width=rectWidth;
         attrs['.uml-class-methods-rect'].transform='translate(0,'+offsetY+')';
-        Swedesigner.model.diagram.items.Base.prototype.updateRectangles.apply(this, arguments);
+        Swedesigner.model.classDiagram.items.Base.prototype.updateRectangles.apply(this, arguments);
     },
     /**
      *  @function Class#addMethod
@@ -731,12 +731,12 @@ Swedesigner.model.diagram.items.Class=Swedesigner.model.diagram.items.Base.exten
 });
 
 /**
- *  @module Swedesigner.model.diagram.items
+ *  @module Swedesigner.model.classDiagram.items
  *  @class Interface
  *  @classdesc Interfaccia UML.
- *  @extends {Swedesigner.model.diagram.items.Class}
+ *  @extends {Swedesigner.model.classDiagram.items.Class}
  */
-Swedesigner.model.diagram.items.Interface=Swedesigner.model.diagram.items.Base.extend({
+Swedesigner.model.classDiagram.items.Interface=Swedesigner.model.classDiagram.items.Base.extend({
     /**
      *  @var {string} Interface#markup Markup HTML per la rappresentazione grafica.
      */
@@ -808,13 +808,13 @@ Swedesigner.model.diagram.items.Interface=Swedesigner.model.diagram.items.Base.e
 				}*/
             ]
         }
-    }, Swedesigner.model.diagram.items.Base.prototype.defaults),
+    }, Swedesigner.model.classDiagram.items.Base.prototype.defaults),
     /**
      *  @function Interface#initialize
      *  @summary Metodo di inizializzazione.
      */
     initialise: function() {
-        Swedesigner.model.diagram.items.Base.prototype.initialise.apply(this, arguments);
+        Swedesigner.model.classDiagram.items.Base.prototype.initialise.apply(this, arguments);
     },
     /**
      *  @function Interface#updateRectangles
@@ -868,7 +868,7 @@ Swedesigner.model.diagram.items.Interface=Swedesigner.model.diagram.items.Base.e
         attrs['.uml-class-methods-rect'].height=rectHeight;
         attrs['.uml-class-methods-rect'].width=rectWidth;
         attrs['.uml-class-methods-rect'].transform='translate(0,'+offsetY+')';
-        Swedesigner.model.diagram.items.Base.prototype.updateRectangles.apply(this, arguments);
+        Swedesigner.model.classDiagram.items.Base.prototype.updateRectangles.apply(this, arguments);
     },
     /**
      *  @function Interface#addMethod
@@ -974,29 +974,29 @@ Swedesigner.model.diagram.items.Interface=Swedesigner.model.diagram.items.Base.e
 });
 
 /**
- *  @module Swedesigner.model.diagram.items
- *  @class diagramLink
+ *  @module Swedesigner.model.classDiagram.items
+ *  @class classDiagramLink
  *  @classdesc Collegamento tra due componenti di un diagramma delle classi UML.
  *  @extends {joint.dia.Link}
  */
-Swedesigner.model.diagram.items.diagramLink=joint.dia.Link.extend({
+Swedesigner.model.classDiagram.items.classDiagramLink=joint.dia.Link.extend({
     /**
-     *  @var {Object} diagramLink#defaults Attributi di default per l'oggetto.
+     *  @var {Object} classDiagramLink#defaults Attributi di default per l'oggetto.
      */
     defaults: _.defaultsDeep({
-        type: 'class.diagramLink',
+        type: 'class.classDiagramLink',
         source: {x: 30, y: 30},
         target: {x: 150, y: 120}
     }, joint.dia.Link.prototype.defaults),
     /**
-     *  @function diagramLink#initialize
+     *  @function classDiagramLink#initialize
      *  @summary Metodo di inizializzazione.
      */
     initialize: function() {
         joint.dia.Link.prototype.initialize.apply(this, arguments);
     },
     /**
-     *  @function diagramLink#getValues
+     *  @function classDiagramLink#getValues
      *  @summary Ritorna i valori del collegamento.
      *  @return {Object} I valori del collegamento.
      */
@@ -1004,7 +1004,7 @@ Swedesigner.model.diagram.items.diagramLink=joint.dia.Link.extend({
         return this.get("values");
     },
     /**
-     *  @function diagramLink#setToValue
+     *  @function classDiagramLink#setToValue
      *  @summary Imposta "values.<path>" a "<value>".
      *  @param {Object} value - valore da assegnare.
      *  @param {string} path - percorso al membro.
@@ -1022,28 +1022,28 @@ Swedesigner.model.diagram.items.diagramLink=joint.dia.Link.extend({
 });
 
 /**
- *  @module Swedesigner.model.diagram.items
+ *  @module Swedesigner.model.classDiagram.items
  *  @class Generalization
  *  @classdesc Generalizzazione tra due componenti UML.
- *  @extends {Swedesigner.model.diagram.items.diagramLink}
+ *  @extends {Swedesigner.model.classDiagram.items.classDiagramLink}
  */
-Swedesigner.model.diagram.items.Generalization=Swedesigner.model.diagram.items.diagramLink.extend({
+Swedesigner.model.classDiagram.items.Generalization=Swedesigner.model.classDiagram.items.classDiagramLink.extend({
     /**
      *  @var {Object} Generalization#defaults Attributi di default per l'oggetto.
      */
     defaults: _.defaultsDeep({
         type: 'class.Generalization',
         attrs: {'.marker-target': {d: 'M 20 0 L 0 10 L 20 20 z', fill: 'white'}}
-    }, Swedesigner.model.diagram.items.diagramLink.prototype.defaults)
+    }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
 });
 
 /**
- *  @module Swedesigner.model.diagram.items
+ *  @module Swedesigner.model.classDiagram.items
  *  @class Implementation
  *  @classdesc Implementazione tra due componenti UML.
- *  @extends {Swedesigner.model.diagram.items.diagramLink}
+ *  @extends {Swedesigner.model.classDiagram.items.classDiagramink}
  */
-Swedesigner.model.diagram.items.Implementation=Swedesigner.model.diagram.items.diagramLink.extend({
+Swedesigner.model.classDiagram.items.Implementation=Swedesigner.model.classDiagram.items.classDiagramLink.extend({
     /**
      *  @var {Object} Implementation#defaults Attributi di default per l'oggetto.
      */
@@ -1053,48 +1053,48 @@ Swedesigner.model.diagram.items.Implementation=Swedesigner.model.diagram.items.d
             '.marker-target': {d: 'M 20 0 L 0 10 L 20 20 z', fill: 'white'},
             '.connection': {'stroke-dasharray': '3,3'}
         }
-    }, Swedesigner.model.diagram.items.diagramLink.prototype.defaults)
+    }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
 });
 
 /**
- *  @module Swedesigner.model.diagram.items
+ *  @module Swedesigner.model.classDiagram.items
  *  @class Aggregation
  *  @classdesc Aggregazione tra due componenti UML.
- *  @extends {Swedesigner.model.diagram.items.diagramLink}
+ *  @extends {Swedesigner.model.classDiagram.items.classDiagramLink}
  */
-Swedesigner.model.diagram.items.Aggregation=Swedesigner.model.diagram.items.diagramLink.extend({
+Swedesigner.model.classDiagram.items.Aggregation=Swedesigner.model.classDiagram.items.classDiagramLink.extend({
     /**
      *  @var {Object} Aggregation#defaults Attributi di default per l'oggetto.
      */
     defaults: _.defaultsDeep({
         type: 'class.Aggregation',
         attrs: {'.marker-target': {d: 'M 40 10 L 20 20 L 0 10 L 20 0 z', fill: 'white'}}
-    }, Swedesigner.model.diagram.items.diagramLink.prototype.defaults)
+    }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
 });
 
 /**
- *  @module Swedesigner.model.diagram.items
+ *  @module Swedesigner.model.classDiagram.items
  *  @class Composition
  *  @classdesc Composizione tra due componenti UML.
- *  @extends {Swedesigner.model.diagram.items.diagramLink}
+ *  @extends {Swedesigner.model.classDiagram.items.classDiagramLink}
  */
-Swedesigner.model.diagram.items.Composition=Swedesigner.model.diagram.items.diagramLink.extend({
+Swedesigner.model.classDiagram.items.Composition=Swedesigner.model.classDiagram.items.classDiagramLink.extend({
     /**
      *  @var {Object} Composition#defaults Attributi di default per l'oggetto.
      */
     defaults: _.defaultsDeep({
         type: 'class.Composition',
         attrs: {'.marker-target': {d: 'M 40 10 L 20 20 L 0 10 L 20 0 z', fill: 'black'}}
-    }, Swedesigner.model.diagram.items.diagramLink.prototype.defaults)
+    }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
 });
 
 /**
- *  @module Swedesigner.model.diagram.items
+ *  @module Swedesigner.model.classDiagram.items
  *  @class Association
  *  @classdesc Associazione tra due componenti UML.
- *  @extends {Swedesigner.model.diagram.items.diagramLink}
+ *  @extends {Swedesigner.model.classDiagram.items.classDiagramLink}
  */
-Swedesigner.model.diagram.items.Association=Swedesigner.model.diagram.items.diagramLink.extend({
+Swedesigner.model.classDiagram.items.Association=Swedesigner.model.classDiagram.items.classDiagramLink.extend({
     /**
      *  @var {Object} Association#defaults Attributi di default per l'oggetto.
      */
@@ -1124,7 +1124,7 @@ Swedesigner.model.diagram.items.Association=Swedesigner.model.diagram.items.diag
             card: "1",
             attribute: ""
         }
-    }, Swedesigner.model.diagram.items.diagramLink.prototype.defaults),
+    }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults),
     /**
      *  @function Association#updatelabel
      *  @summary Aggiornamento della label.
@@ -1160,7 +1160,7 @@ Swedesigner.model.diagram.items.Association=Swedesigner.model.diagram.items.diag
      */
     initialize: function() {
         this.updatelabel();
-        Swedesigner.model.diagram.items.diagramLink.prototype.initialize.apply(this, arguments);
+        Swedesigner.model.classDiagram.items.classDiagramLink.prototype.initialize.apply(this, arguments);
     },
     /**
      *  @function Association#setToValue
