@@ -30,19 +30,22 @@ define ([
 				    color: '#EDF6F6'
 				},
 				elementView: function (element) {
-                    if (element.get("type").startsWith("class")) {
-                        
-                    } else if (element.get("type").startsWith("class")) {
-                    	if (element.get("type") == "class.HxComment") {
-                            return celltypes.class.CommentView;
+                    if (element.get("type").startsWith("packageDiagram")) {
+                        if (element.get("type") == "packageDiagram.Comment") {
+                            return Swedesigner.model.packageDiagram.items.CommentView;
                         } else {
-                            return celltypes.class.ClassDiagramElementView;
+                            return Swedesigner.model.packageDiagram.items.BaseView;
+                        }
+                    } else if (element.get("type").startsWith("classDiagram")) {
+                    	if (element.get("type") == "classDiagram.Comment") {
+                            return Swedesigner.model.classDiagram.items.CommentView;
+                        } else {
+                            return Swedesigner.model.classDiagram.items.BaseView;
                         }
                     } else {
-                    	return celltypes.activity.ActivityDiagramElementView;
+                    	return return Swedesigner.model.///////////////////////////////// NOME DIAGRAMMA Diagram.items.BaseView;
                     }
                 },
-
                 highlighting: {
                     'default': {
                         name: 'stroke',
@@ -51,7 +54,6 @@ define ([
                         }
                     }
                 },
-
                 linkView: joint.dia.LinkView.extend({
                     pointerdblclick: function (evt, x, y) {
                         if (joint.V(evt.target).hasClass('connection') || joint.V(evt.target).hasClass('connection-wrap')) {
@@ -59,12 +61,10 @@ define ([
                         }
                     },
                 }),
-
                 selectedCell: null,
                 isHighlighted: false,
-
-                interactive: function (cellView) {
-                    if (cellView.model instanceof joint.dia.Link) {
+                interactive: function (itemView) {
+                    if (itemView.model instanceof joint.dia.Link) {
                         // Disable the default vertex add functionality on pointerdown.
                         return {vertexAdd: false};
                     }
