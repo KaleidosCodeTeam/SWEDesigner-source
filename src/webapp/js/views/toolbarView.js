@@ -12,35 +12,24 @@ define ([
 		events: {
 			'click .toolbarbutton': 'addElement'
 		},
-		graph: new joint.dia.Graph,
-		initialize: function() {
-			var paper = new joint.dia.Paper({
-				el: $('#canvas'),
-				width: $('#canvas').width(),
-				height:$('#canvas').height(),
-				model: this.graph,
-				gridSize: 10,
-				drawGrid: true,
-				background:{
-				    color: '#EDF6F6'
-				}
-			});
-			this.model = new ToolbarModel();
-			console.log("initialized");
-			this.addElement();
+		parent: {},
+		initialize: function(options) {
+			this.model = new ToolbarModel({model: options.model});
+			this.parent = options.parent;
+			this.renderTools();
 		},
-		render: function() {
-		},
-		addElement: function() {
-			var p = new Swedesigner.model.packageDiagram.items.Package({
-				position: { x:100  , y: 100 },
-				size: { width: 180, height: 50 },
-				_package: 'Prova'
+		render: function() {},
+		renderTools: function () {
+			var currentDiagram = this.model.currentDiagram();
+			_.each(this.$el.children(), function(diagram) {
+				if(!($(diagram).attr('class') == currentDiagram))
+					$(diagram).hide();
 			});
-			console.log(p);
-			this.graph.addCell(p);
+		},
+		addElement: function(event) {
+			console.log(event.currentTarget);
+			this.model.addElement(event.currentTarget.id);
 		}
 	});
-	
 	return ToolbarView;
 });
