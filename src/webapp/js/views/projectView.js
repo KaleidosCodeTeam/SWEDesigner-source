@@ -37,7 +37,7 @@ define ([
                             return Swedesigner.model.classDiagram.items.BaseView;
                         }
                     } else {
-                    	return Swedesigner.model.bubbleDiagram.items.BaseView;
+                    	return joint.dia.elementView;//Swedesigner.model.bubbleDiagram.items.BaseView;
                     }
                 },
                 highlighting: {
