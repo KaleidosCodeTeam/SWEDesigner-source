@@ -9,14 +9,12 @@ define ([
 ], function ($, _, Backbone, joint, MainModel, Swedesigner) {
 	var ProjectView = Backbone.View.extend({
 		paper: {},
-
 		initialize: function() {
-			console.log("prima")
+			console.log("ProjectView initialized");
 			this.model = new MainModel();
-			console.log("dopo")
 			this.paper = new joint.dia.Paper({
 				el: $('#canvas'),
-				model: this.model.project.currentGraph,
+				model: this.model.project.currentGraph.graph,
 				width: $('#canvas').width(),
 				height:$('#canvas').height(),
 				gridSize: 10,
@@ -67,13 +65,13 @@ define ([
                     return true;
 				}
 			});
-			var p = new Swedesigner.model.packageDiagram.items.Package({
+			/*var p = new Swedesigner.model.packageDiagram.items.Package({
 				position: { x:100  , y: 100 },
 				size: { width: 180, height: 50 },
 				_package: 'Prova'
 			});
 			console.log(p);
-			this.model.project.currentGraph.graph.addCell(p);
+			this.model.project.currentGraph.graph.addCell(p);*/
 		},
 		render: function() {
 		},
