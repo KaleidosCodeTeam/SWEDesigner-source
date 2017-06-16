@@ -1261,7 +1261,7 @@ Swedesigner.model.classDiagram.items.Association=Swedesigner.model.classDiagram.
          *  @summary Ritorna il tipo del diagramma. 
          */
         getDiagramType: function() {
-            return diagramType;
+            return this.diagramType;
         },
         /**
          *  @function Diagram#adjustVertices
