@@ -21,6 +21,18 @@ define ([
 			console.log('Project.currentGraph ' + this.project.currentGraph);
 			this.graph = new joint.dia.Graph();
 		},
+		deleteCell: function (cell) {
+            /*if (cell.getValues().hasOwnProperty("operations")) {
+                for (var op in cell.getValues().operations) {
+                    this.deleteBubbleDiagram(cell.getValues().operations[op].id);
+                }
+            }*/
+            console.log(cell);
+            this.graph.removeCells([cell]);
+            console.log((this.graph));
+
+            //this.trigger('addcell');
+		}
 		/*saveProject: function() {
 			Swedesigner.model.DAO.saveProject(this.project);
 		},

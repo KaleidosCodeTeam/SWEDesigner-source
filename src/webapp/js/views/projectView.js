@@ -65,109 +65,74 @@ define ([
                     return true;
 				}
 			});
-			/*var p = new Swedesigner.model.packageDiagram.items.Package({
-				position: { x:100  , y: 100 },
-				size: { width: 180, height: 50 },
-				_package: 'Prova'
-			});
-			console.log(p);
-			this.model.project.currentGraph.graph.addCell(p);*/
+            this.paper.on('cell:pointerup', _.partial(this.pointerUpFunction, this));
+            this.paper.on('cell:pointerdown', _.partial(this.pointerDownFunction, this));
 		},
 		render: function() {
+
 		},
 		deleteCell: function(e) {
-            //console.log(e);
             this.model.deleteCell(this.paper.selectedCell);
-            this.paper.selectedCell = null;
+            this.paper.selectedCell=null;
             this.paper.trigger("changed-cell");
-            /*if (e.which == 46) {//ha premuto tasto canc
-                if (this.paper.selectedCell) {
-                    this.model.deleteCell(this.paper.selectedCell);
-                    this.paper.selectedCell = null;
-                    this.paper.trigger("changed-cell");
-                }
-            }*/
-        }
-        /*pointerDownFunction: function (prView, cellView, evt, x, y) {
-
+        },
+        pointerDownFunction: function (prView, cellView, evt, x, y) {
             if (cellView) {
-                //console.log(this.selectedCell,"cella selez");
-                //console.log("cellview ",cellView);
-                if (this.selectedCell != cellView.model) {
-                    changed = true;
-                    this.selectedCell = cellView.model;
+                //console.log("cella selezionata: ",this.selectedCell);
+                //console.log("cellview: ",cellView);
+                if (this.selectedCell!=cellView.model) {
+                    changed=true;
+                    this.selectedCell=cellView.model;
+                    console.log('changed-cell');
                     this.trigger("changed-cell");
                 }
             }
-
-
-
-            if (ProjectModel.options.cellToBeAdded && ProjectModel.options.cellToBeAdded.isLink()) {
-                //console.log(ProjectModel.options.cellToBeAdded.get("source").id);
-                if (ProjectModel.options.cellToBeAdded.get("source").id != undefined) {
-                    //console.log("set target");
-                    ProjectModel.options.cellToBeAdded.set("target", {id: cellView.model.id});
-                    ProjectModel.addCellToGraph();
-                } else {
-                    //console.log("set source");
-                    ProjectModel.options.cellToBeAdded.set("source", {id: cellView.model.id});
-                }
+        },
+        pointerUpFunction: function (prView,cellView, evt, x, y) {
+            var className=evt.target.parentNode.getAttribute('class');
+            switch (className) {
+                case 'element-tool-remove':
+                    prView.deleteCell(cellView.model);
+                    return;
+                default:
+                    return;
             }
+        },
 
-            if(this.selectedCell) {
-
-
-                if (cellView.model.get("type").startsWith("activity")) {
-                    var cell = cellView.model;
-                    console.log(cellView);
-                    if (cell.get('parent')) {
-                        this.model.getCell(cell.get('parent')).unembed(cell);
-                    }
-                    var g = this.model.attributes.cells.models;
-                    if (this.selectedCell) {
-                        var currentCell = this.selectedCell;
-                        var currentIndex = g.indexOf(currentCell);
-                        if (currentCell) {
-                            console.log("mousedown");
-                            var figli = this.selectedCell.getEmbeddedCells({deep: true});
-                            if (figli) {
-                                var move = function (a, old_index, new_index) {
-                                    if (new_index >= a.length) {
-                                        var k = new_index - a.length;
-                                        while ((k--) + 1) {
-                                            a.push(undefined);
-                                        }
-                                    }
-                                    a.splice(new_index, 0, a.splice(old_index, 1)[0]);
-                                    return a; // for testing purposes
-                                };
-                                // funzione di debug
-                                var debug = function () {
-                                    var x = "";
-
-                                    for (var d = 0; d < g.length; d++) {
-                                        x += "|" + g[d].get("values").comment[0] + "|";
-                                    }
-                                    //console.log(x);
-                                };
-
-                                //debug();
-
-                                move(g, currentIndex, g.length - 1);
-
-                                for (var i = 0; i < figli.length; i++) {
-                                    //console.log("SPOSTO", g[currentIndex].get("values").comment[0]);
-
-                                    move(g, currentIndex, g.length - 1);
-                                    //debug();
-                                }
-                            }
-                        }
-                        //debug();
-                    }
-                }
+        switch: function (id) {
+            this.panAndZoom.reset();
+            this.model.switchToGraph(id);
+            if (id!="class") {
+                this.visibleElements=this.model.getClassVisibleElements(this.paper.selectedCell);
+            } else {
+                this.visibleElements = [];
             }
-		},*/
+            //console.log("elementi: ", this.visibleElements);
+            this.paper.selectedCell = null;
+            this.paper.trigger("changed-cell");
+            this.trigger("Switchgraph");
+        },
+
+
+        /**
+         * Returns whether the current diagram is an
+         * activity or a class one.
+         * @name ProjectView#getCurrentDiagramType
+         * @function
+         */
+        getCurrentDiagramType: function () {
+            return this.model.getCurrentDiagramType();
+        },
+
+        /**
+         * Delets the `ind`th method of the diagram.
+         * @name ProjectView#deleteMethodAt
+         * @param  {number} ind the method index
+         * @function
+         */
+        deleteMethodAt: function (ind) {
+            this.model.deleteMethodDiagram(this.paper.selectedCell.getValues().methods[ind].id);
+        }
 	});
 	return ProjectView;
 });

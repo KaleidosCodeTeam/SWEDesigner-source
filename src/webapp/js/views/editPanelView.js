@@ -12,22 +12,29 @@ define ([
 		el: $('#editpanel'),//{},//'editpanel',
 		currentTemplate: {},
 		events: {},
+        paper: {},
 		initialize: function(options) {
+            //console.log('Initializing editPanelView...');
 			//this.$el = $('#editpanel');
-			this.listenTo(ProjectView.paper, "changed-cell", this.render);
+            paper=options.paper;
+            this.listenTo(paper, "changed-cell", this.render);
 			//options.parent;
 			//options.model;
 		},
 		render: function() {
-			console.log("(editPanelView) Hey! I saw your change!");
-            if (ProjectView.paper.selectedCell) {
+            if (paper.selectedCell) {
                 //console.log(templates);
+                //console.log(paper.selectedCell.getValues());
                 //this.currentTemplate = _.template($('#' + ProjectView.paper.selectedCell.get("type").replace(/\./g, "\\.")).html());
-                this.currentTemplate = _.template($(templates).filter('#' + ProjectView.paper.selectedCell.get("type").replace(/\./g, "\\.")).html());
-                console.log(this.currentTemplate);
-                var c = ProjectView.paper.selectedCell;
+                this.currentTemplate = _.template($(templates).filter('#' + paper.selectedCell.get("type").replace(/\./g, "\.")).html());
+                console.log("(editPanelView) Hey! I saw your change! " + _.template($(templates).filter('#' + paper.selectedCell.get("type").replace(/\./g, "\."))));
+                console.log('#' + paper.selectedCell.get("type").replace(/\./g, "\."));
+                var c = paper.selectedCell;
                 var output = "";
-                output = this.currentTemplate(c.getValues());
+                var v={ _package: c.get('_package'), _importance: c.get('_importance')};
+                output=this.currentTemplate(v);
+                //this.currentTemplate=_.template("<div><%=_package%> <%=_importance%></div>";
+                //output=this.currentTemplate(v);
                 this.$el.html(output);
                 //componentHandler.upgradeDom(); //refresh material design
                 /*this.delegateEvents(_.extend(this.events, {	// Funzioni definite qui, che chiamano metodi di ProjectView
