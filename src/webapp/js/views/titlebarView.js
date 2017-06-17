@@ -8,9 +8,10 @@ define ([
 	/** ecc. */
 ], function ($, _, Backbone, joint, TitlebarModel) {
 	var TitlebarView = Backbone.View.extend({
-		el: 'titlebar',
+		el: 'body',
 		events: {
-			//'click open-project': 'this.model.openProject',
+			'click #openFileButton': 'openProject',
+			'click #newProject': 'openProject',
 			'click save-project': 'this.model.saveProject',
 			'click save-poject-with-name': 'this.model.saveProjectWithName',
 			'click close-project': 'this.model.closeProject', //MAYBE NOT
@@ -28,11 +29,15 @@ define ([
 			this.model = new TitlebarModel({projModel:param.model});
 			this.parent = param.parent;
 			this.projModel = param.model;
-			$('#newProject').click(this.model.newProject);
-            $('#openFileButton').click(this.model.openProject);
+			//$('#newProject').click(this.model.newProject);
+            //$('#openFileButton').click(this.model.openProject);
 		},
 		render: function() {
 		},
+		openProject: function (event) {
+			console.log(event.currentTarget);
+			this.model.openProject();
+		}
 	});
 	return TitlebarView;
 });
