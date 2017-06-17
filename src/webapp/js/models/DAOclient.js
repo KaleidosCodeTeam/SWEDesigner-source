@@ -30,6 +30,7 @@ var DAOclient = {};
     }());
 
 DAOclient.openProject = function(mod) {
+    console.log('DAOClient openProj');
     myFile = document.getElementById("selectedFile").files[0];
     var myFileRead = {};
     var reader = new FileReader();
