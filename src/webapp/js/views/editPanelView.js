@@ -4,7 +4,7 @@ define ([
 	'backbone',
 	'joint',
 	'js/views/projectView',
-	'text!js/views/templates.html'
+	'text!js/views/templates'
 	/** ecc. */
 ], function ($, _, Backbone, joint, ProjectView, templates) {
 	var EditPanelView = Backbone.View.extend({
