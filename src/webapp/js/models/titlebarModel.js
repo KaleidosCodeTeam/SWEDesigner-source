@@ -6,15 +6,13 @@ define ([
     'js/models/DAOclient'
 ], function ($, _, Backbone, joint, DAOclient) {
 	var titlebarModel = Backbone.Model.extend({
-        projModel: {},
-		initialize: function(param) {
-		    this.projModel = param.model;
+		initialize: function() {
 		},
         newProject: function() {
 		    console.log('newProject clicked [model]');
         },
-        openProject: function() {
-            DAOclient.openProject()
+        openProject: function(mod) {
+            DAOclient.openProject(mod)
         },
         saveProject: function() {
         },

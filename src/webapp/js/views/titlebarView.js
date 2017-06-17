@@ -25,10 +25,10 @@ define ([
 			'click view-generated-code': 'this.model.viewGeneratedCode',
 		},
 		initialize: function(param) {
-			this.model = new TitlebarModel({model: param.model});
+			this.model = new TitlebarModel();
 			this.parent = param.parent;
 			$('#newProject').click(this.model.newProject);
-            $('#openFileButton').click(this.model.openProject);
+            $('#openFileButton').click(this.model.openProject(this.model));
 		},
 		render: function() {
 		},

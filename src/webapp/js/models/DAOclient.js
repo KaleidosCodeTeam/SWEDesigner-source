@@ -29,14 +29,14 @@ var DAOclient = {};
         };
     }());
 
-DAOclient.openProject = function() {
+DAOclient.openProject = function(mod) {
     myFile = document.getElementById("selectedFile").files[0];
     var myFileRead = {};
     var reader = new FileReader();
     reader.onload = function(event) {
         myFileRead = event.target.result;
-        mainModel.project.projectPkgDiagram = {}; /*JSONfn.parse(myFileRead)*/
-        mainModel.project.currentGraph = mainModel.project.projectPkgDiagram;
+        mod.project.projectPkgDiagram = {}; /*JSONfn.parse(myFileRead)*/
+        mod.project.currentGraph = mod.project.projectPkgDiagram;
         console.log('project loaded');
     };
     reader.readAsText(myFile);
