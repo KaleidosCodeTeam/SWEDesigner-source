@@ -10,54 +10,26 @@ define ([
 	var TitlebarView = Backbone.View.extend({
 		el: 'titlebar',
 		events: {
-			'click new-project': 'newProject',
-			'click open-project': 'openProject',
-			'click save-project': 'saveProject',
-			'click save-poject-with-name': 'saveProjectWithName',
-			'click close-project': 'closeProject', //MAYBE NOT
-			'click undo': 'undo',
-			'click redo': 'redo',
-			'click zoom-in': 'zoomIn',
-			'click zoom-out': 'zoomOut',
-			'click upper-layer': 'upperLayer', //MAYBE NOT
-			'click lower-layer': 'lowerLayer', //MAYBE NOT
-			'click generate-java': 'generateJava',
-			'click generate-js': 'generateJavascript',
-			'click view-generated-code': 'viewGeneratedCode', 
+			'click new-project': 'this.model.newProject',
+			//'click open-project': 'this.model.openProject',
+			'click save-project': 'this.model.saveProject',
+			'click save-poject-with-name': 'this.model.saveProjectWithName',
+			'click close-project': 'this.model.closeProject', //MAYBE NOT
+			'click undo': 'this.model.undo',
+			'click redo': 'this.model.redo',
+			'click zoom-in': 'this.model.zoomIn',
+			'click zoom-out': 'this.model.zoomOut',
+			'click upper-layer': 'this.model.upperLayer', //MAYBE NOT
+			'click lower-layer': 'this.model.lowerLayer', //MAYBE NOT
+			'click generate-java': 'this.model.generateJava',
+			'click generate-js': 'this.model.generateJavascript',
+			'click view-generated-code': 'this.model.viewGeneratedCode',
 		},
 		initialize: function() {
 			this.model = new TitlebarModel();
 		},
 		render: function() {
 		},
-		newProject: function() {
-		},
-		openProject: function() {
-		},
-		saveProject: function() {
-		},
-		saveProjectWithName: function() {
-		},
-		closeProject: function() { //MAYBE NOT
-		},
-		undo: function() {
-		},
-		redo: function() {
-		},
-		zoomIn: function() {
-		},
-		zoomOut: function() {
-		},
-		upperLayer: function() { //MAYBE NOT
-		},
-		lowerLayer: function() { //MAYBE NOT
-		},
-		generateJava: function() {
-		},
-		generateJavascript: function() {
-		},
-		viewGeneratedCode: function() {
-		}
 	});
 	return TitlebarView;
 });
