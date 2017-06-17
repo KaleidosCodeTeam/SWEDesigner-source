@@ -3,15 +3,29 @@ define ([
     'underscore',
     'backbone',
     'joint',
-], function ($, _, Backbone, joint) {
+    'jsonfn'
+], function ($, _, Backbone, joint, jsonfn) {
 	var titlebarModel = Backbone.Model.extend({
-		initialize: function() {
+        projModel: {},
+		initialize: function(param) {
+		    this.projModel = param.model;
 		},
         newProject: function() {
+		    console.log('newProject clicked [model]');
         },
-        /*openProject: function() {
-
-        },*/
+        openProject: function() {
+            myFile = document.getElementById("selectedFile").files[0];
+            var myFileRead = {};
+            var reader = new FileReader();
+            onloadFunction = function(event) {
+                myFileRead = event.target.result;
+                this.projModel.project.projectPkgDiagram = jsonfn.parse(myFileRead);
+                this.projModel.project.currentGraph = this.projModel.project.projectPkgDiagram;
+                console.log('project loaded');
+            };
+            reader.onload = onloadFunction(event);
+            reader.readAsText(myFile);
+        },
         saveProject: function() {
         },
         saveProjectWithName: function() {

@@ -10,7 +10,6 @@ define ([
 	var TitlebarView = Backbone.View.extend({
 		el: 'titlebar',
 		events: {
-			'click new-project': 'this.model.newProject',
 			//'click open-project': 'this.model.openProject',
 			'click save-project': 'this.model.saveProject',
 			'click save-poject-with-name': 'this.model.saveProjectWithName',
@@ -25,8 +24,11 @@ define ([
 			'click generate-js': 'this.model.generateJavascript',
 			'click view-generated-code': 'this.model.viewGeneratedCode',
 		},
-		initialize: function() {
-			this.model = new TitlebarModel();
+		initialize: function(param) {
+			this.model = new TitlebarModel({model: param.model});
+			this.parent = param.parent;
+			$('#newProject').click(this.model.newProject);
+            $('#openFileButton').click(this.model.openProject);
 		},
 		render: function() {
 		},
