@@ -4,8 +4,9 @@
 define ([
     'jquery',
     'underscore',
-    'jsonfn'
-], function ($, _, jsonfn) {
+    'jsonfn',
+    'js/models/mainModel'
+], function ($, _, jsonfn,mainModel) {
 var DAOclient = {};
     /**
      * @function DAOclient.save
@@ -13,7 +14,7 @@ var DAOclient = {};
      * @param {string} fileName - Nome del file da scaricare.
      * @summary Converte i dati da salvare in formato JSON e li scarica tramite il browser.
      */
-    DAOclient.save = (function () {
+    DAOclient.saveProject = (function () {
         var a = document.createElement("a");
         a.style = "display: none";
         document.body.appendChild(a);
@@ -28,8 +29,17 @@ var DAOclient = {};
         };
     }());
 
-DAOclient.open = function() {
-
+DAOclient.openProject = function() {
+    myFile = document.getElementById("selectedFile").files[0];
+    var myFileRead = {};
+    var reader = new FileReader();
+    reader.onload = function(event) {
+        myFileRead = event.target.result;
+        mainModel.project.projectPkgDiagram = {}; /*JSONfn.parse(myFileRead)*/
+        mainModel.project.currentGraph = mainModel.project.projectPkgDiagram;
+        console.log('project loaded');
+    };
+    reader.readAsText(myFile);
 };
 return DAOclient;
 });
