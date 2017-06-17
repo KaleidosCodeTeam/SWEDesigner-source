@@ -103,11 +103,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="class-attribute-visibility">Visibilità:</label>
-                                    <select class="form-control edit" name="attributes.<%=attr%>.visibility" id="class-attribute-visibility">
-                                        <option value="public" <%if(attributes[attr].visibility=="public"){%> selected <%}%>>public</option>
-                                        <option value="private" <%if(attributes[attr].visibility=="private"){%> selected <%}%>>private</option>
-                                        <option value="protected" <%if(attributes[attr].visibility=="protected"){%> selected <%}%>>protected</option>
+                                    <select class="form-control edit" name="attributes.<%=attr%>._visibility" id="class-attribute-visibility">
+                                        <option value="public" <%if(attributes[attr]._visibility=="public"){%> selected <%}%>>public</option>
+                                        <option value="private" <%if(attributes[attr]._visibility=="private"){%> selected <%}%>>private</option>
+                                        <option value="protected" <%if(attributes[attr]._visibility=="protected"){%> selected <%}%>>protected</option>
                                     </select>
+                                </div>
+                                <div id="class-properties"> <!-- PRIMA NON C'ERA! AGGIUNTA CREANDO IL TEMPLATE. CONTROLLARE CLASS E ID SUI MARKUP! -->
+                                    <h5>Proprietà aggiuntive</h5>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" name="attributes.<%=attr%>.isStatic"  class="edit" <% if(attributes[attr].isStatic=="true"){%>checked <% }%>>static</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" name="attributes.<%=attr%>.isFinal"  class="edit" <% if(attributes[attr].isFinal=="true"){%>checked <% }%>>final</label>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="attributes.<%=attr%>._default">Valore di default:</label>
@@ -179,16 +188,16 @@
                                                             <label for="operations.<%=op%>.parameters.<%=par%>._name>">Nome:</label>
                                                             <input type="text" class="form-control edit" value="<%=operations[op].parameters[par]._name%>" name="operations.<%=op%>.parameters.<%=par%>._name" id="class-operation-parameter-name">
                                                         </div>
+                                                        <div class="form-group">    <!-- CAMBIATO DA SELECT A TEXT -->
+                                                            <label for="operations.<%=op%>.parameters.<%=par%>._type">Tipo:</label>
+                                                            <input type="text" class="form-control edit" value="<%=operations[op].parameters[par]._type%>" name="operations.<%=op%>.parameters.<%=par%>._type" id="class-operation-parameter-type">
+                                                        </div>
                                                         <div class="form-group">
                                                             <label for="class-operation-parameter-direction">Direzione:</label>
                                                             <select class="form-control edit" name="operations.<%=op%>.parameters.<%=par%>._direction" id="class-operation-parameter-direction">
                                                                 <option value="in" <%if(operations[op].parameters[par]._direction=="in"){%> selected <%}%>>in</option>
                                                                 <option value="out" <%if(operations[op].parameters[par]._direction=="out"){%> selected <%}%>>out</option>
                                                             </select>
-                                                        </div>
-                                                        <div class="form-group">    <!-- CAMBIATO DA SELECT A TEXT -->
-                                                            <label for="operations.<%=op%>.parameters.<%=par%>._type">Tipo:</label>
-                                                            <input type="text" class="form-control edit" value="<%=operations[op].parameters[par]._type%>" name="operations.<%=op%>.parameters.<%=par%>._type" id="class-operation-parameter-type">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="operations.<%=op%>.parameters.<%=par%>._default">Valore di default:</label>
