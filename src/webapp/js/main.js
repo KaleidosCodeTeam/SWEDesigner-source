@@ -5,7 +5,8 @@ require.config({
 		lodash: 'lib/js/lodash.min',
 		backbone: 'lib/js/backbone-min',
 		joint: 'lib/js/joint.min',
-		text: 'lib/js/text'
+		text: 'lib/js/text',
+		jsonfn: 'lib/js/jsonfn.min'
 		// SE CI SONO ALTRE LIBRERIE, AGGIUNGERLE
 	},
 	map: {
