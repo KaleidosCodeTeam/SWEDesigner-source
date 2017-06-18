@@ -98,10 +98,8 @@ define ([
                     return;
             }
         },
-
         switch: function (id) {
-            //this.panAndZoom.reset();
-            this.model.switchToGraph(id);
+            this.model.project.currentGraph.switchToGraph(id);
             if (id!="class") {
                 this.visibleElements=this.model.getClassVisibleElements(this.paper.selectedCell);
             } else {

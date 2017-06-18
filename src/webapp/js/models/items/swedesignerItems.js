@@ -154,17 +154,17 @@ define ([
             },
             values: {
                 _package: "PackageName",
-                _importance: "alta"
+                _importance: "alta",
+                classDiagram: {}
             }
         }, Swedesigner.model.packageDiagram.items.Base.prototype.defaults),
-        classDiagram: {},
         /**
          *  @function Package#initialize
          *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza di Diagram associata al diagramma delle classi relativo al package.
          */
         initialize: function() {
         	Swedesigner.model.packageDiagram.items.Base.prototype.initialize.apply(this, arguments);
-            this.classDiagram = new Swedesigner.model.Diagram('classDiagram');
+            this.values.classDiagram = new Swedesigner.model.Diagram('classDiagram');
         },
         /**
          *  @function Package#getPackageName
@@ -181,7 +181,7 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getPackageName() }
+                { type: 'name', text: this.getValues()._package }
             ];
             var offsetY = 0;
             _.each(rects, function(rect) {
@@ -192,6 +192,22 @@ define ([
                 attrs['.uml-package-' + rect.type + '-rect'].transform = 'translate(0,' + offsetY + ')';
                 offsetY += rectHeight;
             });
+        },
+        /**
+         *  @function Base#setToValue
+         *  @summary Imposta "values.<path>" a "<value>".
+         *  @param {Object} value - valore da assegnare.
+         *  @param {string} path - percorso al membro.
+         */
+        setToValue: function(value, path) {
+            obj=this.getValues();
+            path=path.split('.');
+            for (i=0; i<path.length-1; i++) {
+                obj=obj[path[i]];
+            }
+            obj[path[i]]=value;
+            this.updateRectangles();
+            this.trigger("uml-update");
         }
     });
 
@@ -731,15 +747,15 @@ define ([
          *  @summary Aggiunge un nuovo attributo alla classe.
          */
         addAttribute: function() {
-                this.getValues().attributes.push({
-                    _name: "",
-                    _type: "",
-                    _default: "",
-                    _visibility: "private",
-                    isStatic: "false",
-                    isFinal: "false"
-                });
-            },
+            this.getValues().attributes.push({
+                _name: "",
+                _type: "",
+                _default: "",
+                _visibility: "private",
+                isStatic: "false",
+                isFinal: "false"
+            });
+        },
         /**
          *  @function Class#addParameter
          *  @param {Number} ind - indice dell'operazione.
@@ -1538,6 +1554,22 @@ define ([
         getDiagramType: function() {
             return this.diagramType;
         },
+        switchToGraph: function (id) {
+            /*if (id == "classDiagram") {
+                this.options.currentindex = id;
+                this.graph.resetCells(this.options.graphs.classes.classesArray.concat(this.options.graphs.classes.relationshipsArray));
+            }
+            else {
+                var index = this.getIndexFromId(id);
+                this.options.currentindex = id;
+                if (index != -1) {
+                    this.graph.resetCells(this.options.graphs.methods[index].cells);
+                } else {
+                    this.graph.resetCells([]);
+                }
+            }*/
+            this.graph.
+        }
         /**
          *  @function Diagram#adjustVertices
          *  @param {Object} graph - graph del diagramma.

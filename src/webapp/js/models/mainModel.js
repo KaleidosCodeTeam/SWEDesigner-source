@@ -28,8 +28,8 @@ define ([
                 }
             }*/
             console.log(cell);
-            this.graph.removeCells([cell]);
-            console.log((this.graph));
+            this.currentGraph.graph.removeCells([cell]);
+            console.log((this.currentGraph.graph));
 
             //this.trigger('addcell');
 		}
