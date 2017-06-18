@@ -1,6 +1,7 @@
 /**
  *	@file Contiene Parser
  *	@author Bonato Enrico - KaleidosCode
+ *  @requires jspn-fn
  *
  */
 var JSONfn = require('json-fn');
