@@ -961,7 +961,7 @@ define ([
          *  @summary Metodo di inizializzazione.
          */
         initialize: function() {
-            Swedesigner.model.classDiagram.items.Base.prototype.initialise.apply(this, arguments);
+            Swedesigner.model.classDiagram.items.Base.prototype.initialize.apply(this, arguments);
         },
         /**
          *  @function Interface#updateRectangles
@@ -1130,7 +1130,7 @@ define ([
      *  @classdesc Commento per diagramma delle classi UML.
      *  @extends {joint.shapes.basic.TextBlock}
      */
-    Swedesigner.model.packageDiagram.items.ClComment = joint.shapes.basic.TextBlock.extend({
+    Swedesigner.model.classDiagram.items.ClComment = joint.shapes.basic.TextBlock.extend({
         /**
          *  @var {string} ClComment#toolMarkup Markup HTML per la rappresentazione grafica.
          */
@@ -1216,7 +1216,7 @@ define ([
      *  @classdesc View per oggetto "ClComment".
      *  @extends {joint.shapes.basic.TextBlockView}
      */
-    Swedesigner.model.packageDiagram.items.ClCommentView = joint.shapes.basic.TextBlockView.extend({
+    Swedesigner.model.classDiagram.items.ClCommentView = joint.shapes.basic.TextBlockView.extend({
         /**
          *  @function ClCommentView#initialize
          *  @summary Metodo di inizializzazione.
