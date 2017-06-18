@@ -40,7 +40,7 @@ html,body{
 }
 
 .panel-swedesigner{
-    display: none;
+    display: inline;
     position: relative;
     right: 14px;
     height: 88vh;

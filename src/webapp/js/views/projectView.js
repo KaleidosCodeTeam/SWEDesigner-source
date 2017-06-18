@@ -100,7 +100,7 @@ define ([
         },
 
         switch: function (id) {
-            this.panAndZoom.reset();
+            //this.panAndZoom.reset();
             this.model.switchToGraph(id);
             if (id!="class") {
                 this.visibleElements=this.model.getClassVisibleElements(this.paper.selectedCell);

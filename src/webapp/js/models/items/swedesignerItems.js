@@ -55,7 +55,15 @@ define ([
          *  @summary Render dell'item.
          *  @abstract
          */
-        updateRectangles: function() {}
+        updateRectangles: function() {},
+        /**
+         *  @function Base#getValues
+         *  @summary Ritorna i valori dell'item.
+         *  @return {Object} I valori dell'item.
+         */
+        getValues: function() {
+            return this.get("values");
+        }
     });
 
     /**
@@ -144,8 +152,10 @@ define ([
                 	'font-family': 'Times New Roman'
                 }
             },
-            _package: 'PackageName',
-            _importance: "alta",
+            values: {
+                _package: "PackageName",
+                _importance: "alta"
+            }
         }, Swedesigner.model.packageDiagram.items.Base.prototype.defaults),
         classDiagram: {},
         /**
@@ -442,7 +452,7 @@ define ([
                 joint.V(this.el).append(nodes);
             }
             return this;
-        },
+        }
         // INIZIO ---- FORSE DA ELIMINARE 
         /*pointerclick: function (evt, x, y) {
             this._dx = x;
