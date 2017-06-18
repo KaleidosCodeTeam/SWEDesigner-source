@@ -16,10 +16,13 @@ define ([
 		initialize: function(options) {
 			this.model = new ToolbarModel({model: options.model});
 			this.parent = options.parent;
+			this.listenTo(this.parent.views.editPanelView,'switchgraph', this.renderTools);
+			this.listenTo(this.parent.views.pathView,'switchgraph',this.renderTools);
 			this.renderTools();
 		},
 		render: function() {},
 		renderTools: function () {
+			console.log("render tools here i am :)");
 			var currentDiagram = this.model.currentDiagram();
 			console.log(currentDiagram);
 			_.each(this.$el.children(), function(diagram) {
