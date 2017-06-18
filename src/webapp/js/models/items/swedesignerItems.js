@@ -192,6 +192,22 @@ define ([
                 attrs['.uml-package-' + rect.type + '-rect'].transform = 'translate(0,' + offsetY + ')';
                 offsetY += rectHeight;
             });
+        },
+        /**
+         *  @function Base#setToValue
+         *  @summary Imposta "values.<path>" a "<value>".
+         *  @param {Object} value - valore da assegnare.
+         *  @param {string} path - percorso al membro.
+         */
+        setToValue: function(value, path) {
+            obj=this.getValues();
+            path=path.split('.');
+            for (i=0; i<path.length-1; i++) {
+                obj=obj[path[i]];
+            }
+            obj[path[i]]=value;
+            this.updateRectangles();
+            this.trigger("uml-update");
         }
     });
 
@@ -1538,6 +1554,22 @@ define ([
         getDiagramType: function() {
             return this.diagramType;
         },
+        switchToGraph: function (id) {
+            /*if (id == "classDiagram") {
+                this.options.currentindex = id;
+                this.graph.resetCells(this.options.graphs.classes.classesArray.concat(this.options.graphs.classes.relationshipsArray));
+            }
+            else {
+                var index = this.getIndexFromId(id);
+                this.options.currentindex = id;
+                if (index != -1) {
+                    this.graph.resetCells(this.options.graphs.methods[index].cells);
+                } else {
+                    this.graph.resetCells([]);
+                }
+            }*/
+            this.graph.
+        }
         /**
          *  @function Diagram#adjustVertices
          *  @param {Object} graph - graph del diagramma.
