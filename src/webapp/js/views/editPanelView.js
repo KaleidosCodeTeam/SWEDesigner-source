@@ -30,20 +30,12 @@ define ([
                 var output = "";
                 output=this.currentTemplate(c.getValues());
                 this.$el.html(output);
-
-
-
-
-
-
-
-                //componentHandler.upgradeDom(); //refresh material design
-                /*this.delegateEvents(_.extend(this.events, {	// Funzioni definite qui, che chiamano metodi di ProjectView
+                this.delegateEvents(_.extend(this.events, {	// Funzioni definite qui, che chiamano metodi di ProjectView
                     'keypress .edit': 'confirmEdit',
                     'change .edit': 'confirmEdit',
                     'click .exec': 'execCommand',
                     'click .switch': 'switch'
-                }));*/
+                }));
                 /*if (ProjectView.getCurrentDiagramType() == "activity") {
                     var split = function (val) {
                         return val.split(/(,\s* | \s*)/);

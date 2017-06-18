@@ -154,17 +154,17 @@ define ([
             },
             values: {
                 _package: "PackageName",
-                _importance: "alta"
+                _importance: "alta",
+                classDiagram: {}
             }
         }, Swedesigner.model.packageDiagram.items.Base.prototype.defaults),
-        classDiagram: {},
         /**
          *  @function Package#initialize
          *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza di Diagram associata al diagramma delle classi relativo al package.
          */
         initialize: function() {
         	Swedesigner.model.packageDiagram.items.Base.prototype.initialize.apply(this, arguments);
-            this.classDiagram = new Swedesigner.model.Diagram('classDiagram');
+            this.values.classDiagram = new Swedesigner.model.Diagram('classDiagram');
         },
         /**
          *  @function Package#getPackageName
@@ -181,7 +181,7 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getPackageName() }
+                { type: 'name', text: this.getValues()._package }
             ];
             var offsetY = 0;
             _.each(rects, function(rect) {
@@ -731,15 +731,15 @@ define ([
          *  @summary Aggiunge un nuovo attributo alla classe.
          */
         addAttribute: function() {
-                this.getValues().attributes.push({
-                    _name: "",
-                    _type: "",
-                    _default: "",
-                    _visibility: "private",
-                    isStatic: "false",
-                    isFinal: "false"
-                });
-            },
+            this.getValues().attributes.push({
+                _name: "",
+                _type: "",
+                _default: "",
+                _visibility: "private",
+                isStatic: "false",
+                isFinal: "false"
+            });
+        },
         /**
          *  @function Class#addParameter
          *  @param {Number} ind - indice dell'operazione.
