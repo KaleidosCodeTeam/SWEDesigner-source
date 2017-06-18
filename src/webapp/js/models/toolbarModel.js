@@ -24,7 +24,7 @@ define ([
 		addElement: function (id) {
 			console.log(id);
 			var el = new this.items[id];
-			this.mainModel.project.currentGraph.graph.addCell(el);
+			this.mainModel.project.currentGraph.addItem(el);
 		}
 	});
 	return ToolbarModel;
