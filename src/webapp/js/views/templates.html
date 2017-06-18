@@ -1,5 +1,5 @@
 <!--
-        Name: template.html
+        Name: templates.html
         Author: KaleidosCode
         Description: file template dei pannelli per la visualizzazione in dettaglio degli item del diagramma.
 -->
@@ -10,19 +10,18 @@
         <h4>Package</h4>
         <div class="form-group">
             <label for="package-name">Nome:</label>
-            <input type="text" class="edit form-control" value="<%= _package %>" id="package-name" />
+            <input type="text" class="edit form-control" value="<%=_package%>" name="_package" id="package-name" />
         </div>
         <div class="form-group">
             <label for="package-rank">Importanza:</label>
             <select class="form-control edit" name="_importance" id="package-rank">
-                <option value="alta" <% if(_importance=="alta") { %> selected <% } %>>alta</option>
-                <option value="media" <%if(_importance=="media"){%> selected <%}%>>media</option>
-                <option value="bassa" <%if(_importance=="bassa"){%> selected <%}%>>bassa</option>
+                <option value="alta" <% if (_importance=="alta") { %> selected <% } %>>alta</option>
+                <option value="media" <% if (_importance=="media") { %> selected <% } %>>media</option>
+                <option value="bassa" <% if (_importance=="bassa") { %> selected <% } %>>bassa</option>
             </select>
         </div>
         <!-- INSERITO PULSANTE PER ANDARE AL DIAGRAMMA DELLE CLASSI -->
-        <button class="switch" name="switch" value="<%= _package %>">Vai al diagramma delle classi</button>
-        <!--<button class="btn btn-danger btn-block" name="deletePackage>">Elimina package</button> NON DOVREBBE SERVIRE SE USIAMO L'ELIMINAZIONE DALL'ICONA GRAFICA DI JOINT -->
+        <button class="switch" name="switch" value="<%=_package%>">Vai al diagramma delle classi</button>
     </div>
 </script>
 

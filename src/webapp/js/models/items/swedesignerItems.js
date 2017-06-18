@@ -925,7 +925,7 @@ define ([
             values: {
                 _name: "NomeInterfaccia",
                 _importance: "alta",
-                isInterface : "false",
+                isInterface : "true",
                 operations: [
                 	/*{
     					_name : "",
@@ -1206,7 +1206,7 @@ define ([
      *  @classdesc View per oggetto "ClComment".
      *  @extends {joint.shapes.basic.TextBlockView}
      */
-    Swedesigner.model.packageDiagram.items.PkgCommentView = joint.shapes.basic.TextBlockView.extend({
+    Swedesigner.model.packageDiagram.items.ClCommentView = joint.shapes.basic.TextBlockView.extend({
         /**
          *  @function ClCommentView#initialize
          *  @summary Metodo di inizializzazione.
