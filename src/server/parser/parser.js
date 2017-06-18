@@ -3,7 +3,7 @@
  *	@author Bonato Enrico - KaleidosCode
  *
  */
-
+var JSONfn = require('json-fn');
 /** @namespace */
 var Parser={
     /**
@@ -18,7 +18,7 @@ var Parser={
         var json=jsonFile;
         try{
                 
-            return JSON.parse(json);;
+            return JSONfn.parse(json);;
          }
         catch(err){
             console.log('Errore Parser :'+err);

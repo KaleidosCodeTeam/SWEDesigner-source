@@ -4,7 +4,9 @@
  *
  *	@requires fs
  *	@requires ./parser.js
+ *	@requires json-fn
  */
+var JSONfn = require('json-fn');
 var fs = require('fs');
 var Parser = require('./../parser.js');	
 /** ---------------- TEST DI UNITÀ ----------------- */
@@ -22,7 +24,7 @@ for (var i = 0; i < lung; i++) {
     console.log("\n Test file "+(i+1)+" di "+lung );
     element = files[i];
     var leggi=require(testFolder+element);
-    var tutto = Parser.parse(JSON.stringify(leggi));    
+    var tutto = Parser.parse(JSONfn.stringify(leggi));    
     if(tutto){
         console.log(' Parser Test: SUCCESS');
         superati++;
