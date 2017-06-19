@@ -11,7 +11,7 @@
 *	o Javascript; entrambe le funzioni restituiscono la stringa del codice 
 *	sorgente del parametro nel linguaggio scelto.
 */
-var CoderParameter = function() { }
+var CoderParameter = function() { 
 
 
 /**
@@ -53,3 +53,4 @@ coderParameter.codeElementJavascript = function(parameterObj) {
 
 /** Esportazione del modulo */
 module.exports = CoderParameter;
+};

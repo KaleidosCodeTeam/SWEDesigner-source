@@ -2,18 +2,24 @@
  *	@file Contiene requestHandler
  *	@author Bonato Enrico - KaleidosCode
  *
- *  requires express
- *  requires fs
- *  requires multer
+
+ *  requires JavaCoder      
+ *  requires JavascriptCoder 
+ *  requires zipper         
+ *  requires parser
+ *  requires builder         
+ *  requires dao             
+ *  requires multer	        
  *
  */
+var JavaCoder       =  require('../coder/javaCoder.js');
+var JavascriptCoder =  require('../coder/javascriptCoder.js');
+var zipper          =  require('../zipper/zipper.js');
+var parser          =  require('../parser/parser.js');
+var builder         =  require('../builder/builder.js');
+var dao             =  require('../DAO/DAO.js');
+var multer	        =  require('multer');
 
-var express	=	require("express");
-var fs      =   require("fs");
-var multer	=	require('multer');
-
-/** @namespace */
-var app	    =	express();
 var storage	=	multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, './uploads/JsonUpload');
@@ -22,76 +28,133 @@ var storage	=	multer.diskStorage({
         callback(null, file.fieldname + '-' + Date.now());
     }
 });
+
 var upload = multer({ storage : storage}).single('JsonUp');
 
-/**
-*	@public
-*	@function come lo chiamo ???? app.get('/')
-*	@summary Ritorna il file index.html della webapp.
-*/
-app.get('/',function(req,res){
-    res.sendFile(__dirname + "/index.html"); /*!!!!!!!!da cambiare!!!!!!!!!*/
-});
+/** @namespace */
+var requestHandler = function() {
 
-/**
-*	@param {?string} err - Contiene l'eventuale stringa di errore.
-*	@public
-*	@function come sopra
-*	@summary Permette di caricare il file json da convertire in codice javascript.
-*/
-app.post('/caricaJs',function(req,res){
-    upload(req,res,function(err) {
-        if(err) {
-            return res.end("Errore upload: "+err);
+    /**
+	/**
+	 *	@public
+	 *	@function requestHandler.getIndex
+	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - risposta alla richiesta descritta in req.
+	 *	@summary Invia il file index.
+	 */
+
+    getIndex= function(req,res){
+        if(index){
+            res.sendFile(__dirname + '/index.html');
         }
-        /*
-        genero lo zip gia compilato 
-        */
-        res.end(req.file.filename);
-    });
-});
+        else{
+            console.log('errore caricamento pagina iniziale');
+        } /*!!!!!!!!da cambiare!!!!!!!!!*/
+    }
 
-/**
-*	@param {?string} err - Contiene l'eventuale stringa di errore.
-*	@public
-*	@function come sopra
-*	@summary Permette di caricare il file json da convertire in codice Java.
-*/
-app.post('/caricaJa',function(req,res){
-    upload(req,res,function(err) {
-        if(err) {
-            return res.end("Errore upload: "+err);
-        }
-        /*
-        genero lo zip gia compilato 
-        */
-        res.end(req.file.filename);
-    });
-});
 
-/**
-*	@public
-*	@function problema??
-*	@summary Scarica lo zip precedentemente creato contenente il codice.
-*/
-app.get('/scarica/:response',function(req,res){
-    var i=req.params.response;
-    console.log(i);
-    res.download(__dirname+"/uploads/JsonUpload/"+i);
-});
+    /**
+	 *	@public
+	 *	@function requestHandler.getIndex
+	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - risposta alla richiesta descritta in req.
+	 *	@summary Invia il file index.
+	 */
 
-/**
-*	@public
-*	@function Parser.parse
-*	@param {?string} id - Contiene la categoria di bubble desiderate.
-*	@summary . Ritorna la categoria di bubble desiderate.
-*/
-app.get('/getBubble/:id',function(req,res){
-    var id = req.params.id;
-    //var bubble =cose serverose(id)
-    //res.send(bubble);
-});
+    getBubble= function(linguaggio, nome, callback){
+        dao.isPresentBubble(name,lenguage,function(presente){
+            if(presente){
+                dao.getBubble(name,language,function(bubble){
+                    callback(bubble);
+                });
+            }
+        });
+    }
 
-app.listen(3000,function(){
-    console.log("requestHandler avviato correttamente sulla porta 3000");
-});
+    /**
+	 *	@public
+	 *	@function requestHandler.getIndex
+	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - risposta alla richiesta descritta in req.
+	 *	@summary Invia il file index.
+	 */
+
+    getAllBubble= function(callback){
+        dao.getAllBubbles(function(risultato){
+            callback(risultato);    
+        });
+    }
+
+    /**
+	 *	@public
+	 *	@function requestHandler.caricaJs
+	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - risposta alla richiesta descritta in req.
+	 *	@summary carica il file json nel server e ne genera il codice Javascript restituendo il nome della cartella compressa.
+	 */
+
+    caricaJs= function(res, req){
+        upload(req,res,function(err) {
+            if(err) {
+                return res.end("Errore upload: "+err);
+            }
+            var nome = req.file.filename;
+            var nomezip="Programma-"+nome.split[1]+".zip";
+            var parsedProgram = parser.parse(req.file);
+            var program = JavascriptCoder.getCodedProgram(parsedProgram);
+            var cartella = builder.javascriptBuild(program);
+            var zippato =Zipper.zip(nomezip,cartella,function(err){
+                if(err)
+                    console.log(err);}
+                                   );
+            res.end(nomezipe);
+        });
+    };
+
+    /**
+	 *	@public
+	 *	@function requestHandler.caricaJa
+	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - risposta alla richiesta descritta in req.
+	 *	@summary carica il file json nel server e ne genera il codice Java restituendo il nome della cartella compressa.
+	 */
+
+    caricaJa= function(res, req){
+        upload(req,res,function(err) {
+            if(err) {
+                return res.end("Errore upload: "+err);
+            }
+            var nome = req.file.filename;
+            var nomezip="Programma-"+nome.split[1]+".zip";
+            var parsedProgram = parser.parse(req.file);
+            var program = JavaCoder.getCodedProgram(parsedProgram);
+            var cartella = builder.javaBuild(program);
+            var zippato =Zipper.zip(nomezip,cartella,function(err){
+                if(err)
+                    console.log(err);}
+                                   );
+            res.end(nomezipe);
+        });
+
+    };
+    
+    
+	/**
+	 *	@public
+	 *	@function requestHandler.scarica
+	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - risposta alla richiesta descritta in req.
+	 *	@summary Scarica il file zip indicato.
+	 */
+    
+    scarica=function(req,res){
+        var i=req.params.response;
+        console.log(i);
+        res.setHeader('Content-disposition', 'attachment; filename=Codice.zip'); 
+        res.setHeader('Content-type', 'application/zip'); 
+        res.download(__dirname+'/i'); 
+    };
+
+};
+/** Esportazione del modulo */
+module.exports=requestHandler;

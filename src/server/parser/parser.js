@@ -23,6 +23,7 @@ var Parser={
          }
         catch(err){
             console.log('Errore Parser :'+err);
+            return json;
         }
             
         }
