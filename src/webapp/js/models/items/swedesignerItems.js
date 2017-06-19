@@ -10,8 +10,7 @@ define ([
     Swedesigner.model = {};
     Swedesigner.model.packageDiagram = {};
     Swedesigner.model.classDiagram = {};
-    Swedesigner.model.activityDiagram = {};
-    Swedesigner.model.bubbleFlowchart = {};
+    Swedesigner.model.bubbleDiagram = {};
 
     Swedesigner.model.packageDiagram.items = {};
 
@@ -1474,6 +1473,176 @@ define ([
         }
     });
 
+    Swedesigner.model.bubbleDiagram.items = {};
+
+    /**
+     *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class Base
+     *  @classdesc Elemento base generico per il diagramma a bolle.
+     *  @extends {joint.shapes.basic.Generic}
+     */
+    Swedesigner.model.bubbleDiagram.items.Base = joint.shapes.basic.Generic.extend({
+        /**
+         *  @var {string} Base#toolMarkup Markup HTML per la rappresentazione grafica.
+         */
+        toolMarkup: [
+            '<g class="element-tools">',
+            '<g class="element-tool-remove"><circle fill="red" r="11"/>',
+            '<path transform="scale(.8) translate(-16, -16)" d="M24.778,21.419 19.276,15.917 24.777,10.415 21.949,7.585 16.447,13.087 10.945,7.585 8.117,10.415 13.618,15.917 8.116,21.419 10.946,24.248 16.447,18.746 21.948,24.248z"/>',
+            '<title>Remove this element</title>',
+            '</g>',
+            '</g>'].join(''),
+        /**
+         *  @var {Object} Base#defaults Attributi di default per l'oggetto.
+         */
+        defaults: _.defaultsDeep({
+            type: 'uml.packageDiagram.Base'
+        }, joint.shapes.basic.Generic.prototype.defaults),
+        /**
+         *  @function Base#initialize
+         *  @summary Metodo di inizializzazione: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
+         */
+        initialize: function () {
+            this.on('change:values', function () {
+                this.updateRectangles();
+                this.trigger('uml-update');
+            }, this);
+            this.updateRectangles();
+            joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
+        },
+        /**
+         *  @function Base#updateRectangles
+         *  @summary Render dell'item.
+         *  @abstract
+         */
+        updateRectangles: function() {},
+        /**
+         *  @function Base#getValues
+         *  @summary Ritorna i valori dell'item.
+         *  @return {Object} I valori dell'item.
+         */
+        getValues: function() {
+            return this.get("values");
+        }
+    });
+
+    Swedesigner.model.bubbleDiagram.items.BaseView = joint.dia.ElementView.extend({
+        /**
+         *  @function BaseView#initialize
+         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e imposta un evento alla reazione del model chiamando sequenzialmente i metodi "update" e "resize".
+         */
+        initialize: function () {
+            joint.dia.ElementView.prototype.initialize.apply(this, arguments);
+            this.listenTo(this.model, 'uml-update', function () {
+                this.update();
+                this.resize();
+            });
+        },
+        /**
+         *  @function BaseView#render
+         *  @summary Renderizzazione dell'item.
+         *  @return {Object} L'oggetto BaseView.
+         */
+        render: function () {
+            joint.dia.ElementView.prototype.render.apply(this, arguments);
+            this.renderTools();
+            this.update();
+            return this;
+        },
+        /**
+         *  @function BaseView#renderTools
+         *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
+         *  @return {Object} L'oggetto BaseView.
+         */
+        renderTools: function () {
+            var toolMarkup = this.model.toolMarkup || this.model.get('toolMarkup');
+            if (toolMarkup) {
+                var nodes = joint.V(toolMarkup);
+                joint.V(this.el).append(nodes);
+            }
+            return this;
+        }
+    });
+
+    Swedesigner.model.bubbleDiagram.items.CustomBubble = joint.shapes.basic.Circle.extend({
+        /**
+         *  @var {string} CustomBubble#toolMarkup Markup HTML per la rappresentazione grafica.
+         */
+        toolMarkup: [
+            '<g class="element-tools">',
+            '<g class="element-tool-remove"><circle fill="red" r="11"/>',
+            '<path transform="scale(.8) translate(-16, -16)" d="M24.778,21.419 19.276,15.917 24.777,10.415 21.949,7.585 16.447,13.087 10.945,7.585 8.117,10.415 13.618,15.917 8.116,21.419 10.946,24.248 16.447,18.746 21.948,24.248z"/>',
+            '<title>Elimina</title>',
+            '</g>',
+            '</g>'
+        ].join(''),
+        /**
+         *  @var {Object} CustomBubble#defaults Attributi di default per l'oggetto CustomBubble.
+         */
+        defaults: _.defaultsDeep({
+            type: "bubbleDiagram.CustomBubble",
+            position: {x: 200, y: 200},
+            size: {width: 100, height: 100},
+            values: {
+                comment: ""
+            }
+        }, joint.shapes.basic.Circle.prototype.defaults),
+        /**
+         *  @function CustomBubble#initialize
+         *  @summary Metodo di inizializzazione.
+         */
+        initialize: function () {
+            joint.shapes.basic.Circle.prototype.initialize.apply(this, arguments);
+        },
+        /**
+         *  @function CustomBubble#getValues
+         *  @summary Ritorna i valori dell'item CustomBubble.
+         *  @returns {Object} Valori dell'item CustomBubble (values.code per accedere al codice della bolla).
+         */
+        getValues: function () {
+            return this.get("values");
+        },
+        /**
+         *  @function CustomBubble#setToValue
+         *  @summary Imposta "values.<path>" a "<value>".
+         *  @param {Object} value - valore da assegnare.
+         *  @param {string} path - percorso al membro.
+         */
+        setToValue: function (value, path) {
+            obj = this.getValues();
+            path = path.split('.');
+            for (i = 0; i < path.length - 1; i++) {
+                obj = obj[path[i]];
+            }
+            obj[path[i]] = value;
+            this.updateContent();
+            //this.get('content')=value;
+            //this.updateRectangles();
+            //this.trigger("uml-update");
+        },
+        /**
+         *  @function CustomBubble#updateContent
+         *  @summary Aggiorna l'item CustomBubble.
+         */
+        updateContent: function () {
+            if (joint.env.test('svgforeignobject')) {
+                // Content element is a <div> element.
+                this.attr({
+                    '.content': {
+                        html: joint.util.breakText(this.getValues().comment, this.get('size'), this.get('attrs')['.content'])
+                    }
+                });
+            } else {
+                // Content element is a <text> element.
+                // SVG elements don't have innerHTML attribute.
+                this.attr({
+                    '.content': {
+                        text: joint.util.breakText(this.getValues().comment, cell.get('size'), this.get('attrs')['.content'])
+                    }
+                });
+            }
+        }
+    });
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
