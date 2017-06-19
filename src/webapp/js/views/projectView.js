@@ -65,11 +65,19 @@ define ([
                     return true;
 				}
 			});
-            this.paper.on('cell:pointerup', _.partial(this.pointerUpFunction, this));
-            this.paper.on('cell:pointerdown', _.partial(this.pointerDownFunction, this));
+			this.listenTo(this.paper, 'blank:pointerdown', _.partial(this.addCell, this));
+            this.listenTo(this.paper, 'cell:pointerup', _.partial(this.pointerUpFunction, this));
+            this.listenTo(this.paper, 'cell:pointerdown', _.partial(this.pointerDownFunction, this));
 		},
 		render: function() {
 
+		},
+		addCell: function(event, type, x, y) {
+			console.log(this.model.project);
+			if(this.model.project.currentGraph.itemToBeAdded != null/* && this.model.project.currentGraph.itemToBeAdded.isElement()*/) {
+				this.model.project.currentGraph.itemToBeAdded.position(x, y);
+				this.model.project.currentGraph.addItemToGraph();
+			}
 		},
 		deleteCell: function(e) {
             this.model.deleteCell(this.paper.selectedCell);
@@ -87,6 +95,14 @@ define ([
                     this.trigger("changed-cell");
                 }
             }
+            if (this.model.project.currentGraph.itemToBeAdded && this.model.project.currentGraph.itemToBeAdded.isLink()) {
+                if (this.model.project.currentGraph.itemToBeAdded.get("source").id != undefined) {
+                    this.model.project.currentGraph.itemToBeAdded.set("target", {id: cellView.model.id});
+                    this.model.project.currentGraph.item.addCellToGraph();
+                } else {
+                    this.model.project.currentGraph.itemToBeAdded.set("source", {id: cellView.model.id});
+                }
+			}
         },
         pointerUpFunction: function (prView,cellView, evt, x, y) {
             var className=evt.target.parentNode.getAttribute('class');
