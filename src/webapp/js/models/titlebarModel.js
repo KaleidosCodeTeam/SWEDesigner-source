@@ -21,7 +21,9 @@ define ([
         saveProject: function() {
 		    DAOclient.save(this.projModel.project.projectPkgDiagram,'newProject.swed');
         },
-        saveProjectWithName: function() {
+        saveProjectAs: function() {
+		    var fName = document.getElementById("fileNameInput").value + ".swed";
+            DAOclient.save(this.projModel.project.projectPkgDiagram,fName);
         },
         closeProject: function() { //MAYBE NOT
         },

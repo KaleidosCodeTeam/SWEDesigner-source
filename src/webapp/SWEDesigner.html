@@ -25,12 +25,34 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="openFileButton">Apri</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="openFile-button">Apri</button>
             </div>
         </div>
     </div>
 </div>
 <!-- Fine finestra di apertura file -->
+<!-- Finestra salva con nome -->
+<div class="modal fade" id="saveProjectAs" tabindex="-1" role="dialog" aria-labelledby="openFileModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="saveProjectAs-Modal">Apri progetto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="fileNameInput">Nome file:</label>
+                    <input type="text" class="form-control" id="fileNameInput">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveProjectAs-button">Apri</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fine finestra salva con nome -->
 
 <!-- Link di download per il progetto -->
 <a href="" id="lnkDownload" download="" style="display: none">Download Link</a>
@@ -62,8 +84,8 @@
                                     <li><a href="#" data-toggle="modal" data-target="#openFile">Apri</a></li>
                                     <li><a href="#">Apri Progetto Recente (?)</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#">Salva</a></li>
-                                    <li><a href="#">Salva con Nome</a></li>
+                                    <li><a href="#" id="saveProject">Salva</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#saveProjectAs">Salva con Nome</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#">Chiudi</a></li>
                                 </ul>

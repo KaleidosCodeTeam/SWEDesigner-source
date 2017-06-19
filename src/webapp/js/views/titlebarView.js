@@ -10,10 +10,10 @@ define ([
 	var TitlebarView = Backbone.View.extend({
 		el: 'body',
 		events: {
-			'click #openFileButton': 'openProject',
+			'click #openFile-button': 'openProject',
 			'click #newProject': 'newProject',
-			'click save-project': 'saveProject',
-			'click save-project-with-name': 'this.model.saveProjectWithName',
+			'click #saveProject': 'saveProject',
+			'click #saveProjectAs-button': 'saveProjectAs',
 			'click close-project': 'this.model.closeProject', //MAYBE NOT
 			'click undo': 'this.model.undo',
 			'click redo': 'this.model.redo',
@@ -45,6 +45,10 @@ define ([
         saveProject: function (event) {
             console.log(event.currentTarget);
             this.model.saveProject();
+        },
+        saveProjectAs: function (event) {
+		    console.log(event.currentTarget);
+		    this.model.saveProjectAs();
         }
 	});
 	return TitlebarView;
