@@ -1553,22 +1553,6 @@ define ([
          */
         getDiagramType: function() {
             return this.diagramType;
-        },
-        switchToGraph: function (id) {
-            /*if (id == "classDiagram") {
-                this.options.currentindex = id;
-                this.graph.resetCells(this.options.graphs.classes.classesArray.concat(this.options.graphs.classes.relationshipsArray));
-            }
-            else {
-                var index = this.getIndexFromId(id);
-                this.options.currentindex = id;
-                if (index != -1) {
-                    this.graph.resetCells(this.options.graphs.methods[index].cells);
-                } else {
-                    this.graph.resetCells([]);
-                }
-            }*/
-            this.graph.
         }
         /**
          *  @function Diagram#adjustVertices
