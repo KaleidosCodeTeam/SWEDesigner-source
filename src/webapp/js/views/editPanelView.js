@@ -105,9 +105,9 @@ define ([
          * @function
          */
         visib: function () {
-
-            if (ProjectView.paper.selectedCell)
-                this.$el.html(ProjectView.paper.selectedCell.getMethods());
+            if (ProjectView.paper.selectedCell) {
+                this.$el.html(paper.selectedCell.getMethods());
+            }
         },
 
         /**

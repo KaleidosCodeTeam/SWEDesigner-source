@@ -950,6 +950,7 @@ define ([
             methodsExpanded: true,
             values: {
                 _name: "NomeInterfaccia",
+                _visibility: "public",
                 _importance: "alta",
                 isInterface : "true",
                 operations: [
