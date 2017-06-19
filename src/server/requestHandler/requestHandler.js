@@ -19,7 +19,9 @@ var parser          =  require('../parser/parser.js');
 var builder         =  require('../builder/builder.js');
 var dao             =  require('../DAO/DAO.js');
 var multer	        =  require('multer');
+var path            =  require('path');
 
+var root=__dirname+'/../webapp';
 var storage	=	multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, './uploads/JsonUpload');
@@ -31,8 +33,8 @@ var storage	=	multer.diskStorage({
 
 var upload = multer({ storage : storage}).single('JsonUp');
 
-/** @namespace */
-var requestHandler = function() {
+//** @namespace */
+var requestHandler= {
 
     /**
 	/**
@@ -43,14 +45,10 @@ var requestHandler = function() {
 	 *	@summary Invia il file index.
 	 */
 
-    getIndex= function(req,res){
-        if(index){
-            res.sendFile(__dirname + '/index.html');
-        }
-        else{
-            console.log('errore caricamento pagina iniziale');
-        } /*!!!!!!!!da cambiare!!!!!!!!!*/
-    }
+     getIndex: function(req,res){
+         var percorso=root + '/../../webapp/SWEDesigner.html';
+            res.sendFile(path.resolve(percorso));
+    },
 
 
     /**
@@ -61,7 +59,7 @@ var requestHandler = function() {
 	 *	@summary Invia il file index.
 	 */
 
-    getBubble= function(linguaggio, nome, callback){
+    getBubble: function(linguaggio, nome, callback){
         dao.isPresentBubble(name,lenguage,function(presente){
             if(presente){
                 dao.getBubble(name,language,function(bubble){
@@ -69,7 +67,7 @@ var requestHandler = function() {
                 });
             }
         });
-    }
+    },
 
     /**
 	 *	@public
@@ -79,11 +77,11 @@ var requestHandler = function() {
 	 *	@summary Invia il file index.
 	 */
 
-    getAllBubble= function(callback){
+    getAllBubble: function(callback){
         dao.getAllBubbles(function(risultato){
             callback(risultato);    
         });
-    }
+    },
 
     /**
 	 *	@public
@@ -93,7 +91,7 @@ var requestHandler = function() {
 	 *	@summary carica il file json nel server e ne genera il codice Javascript restituendo il nome della cartella compressa.
 	 */
 
-    caricaJs= function(res, req){
+    caricaJs: function(res, req){
         upload(req,res,function(err) {
             if(err) {
                 return res.end("Errore upload: "+err);
@@ -109,7 +107,7 @@ var requestHandler = function() {
                                    );
             res.end(nomezipe);
         });
-    };
+    },
 
     /**
 	 *	@public
@@ -119,7 +117,7 @@ var requestHandler = function() {
 	 *	@summary carica il file json nel server e ne genera il codice Java restituendo il nome della cartella compressa.
 	 */
 
-    caricaJa= function(res, req){
+    caricaJa : function(res, req){
         upload(req,res,function(err) {
             if(err) {
                 return res.end("Errore upload: "+err);
@@ -136,24 +134,24 @@ var requestHandler = function() {
             res.end(nomezipe);
         });
 
-    };
-    
-    
-	/**
+    },
+
+
+    /**
 	 *	@public
 	 *	@function requestHandler.scarica
 	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
 	 *	@param {!string} res - risposta alla richiesta descritta in req.
 	 *	@summary Scarica il file zip indicato.
 	 */
-    
-    scarica=function(req,res){
+
+    scarica : function(req,res){
         var i=req.params.response;
         console.log(i);
         res.setHeader('Content-disposition', 'attachment; filename=Codice.zip'); 
         res.setHeader('Content-type', 'application/zip'); 
         res.download(__dirname+'/i'); 
-    };
+    }
 
 };
 /** Esportazione del modulo */

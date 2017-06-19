@@ -12,6 +12,8 @@ var fs              =  require("fs");
 var requestHandler  =  require('./requestHandler.js');
 /** @namespace */
 var app	    =	express();
+var path            =  require('path');
+app.use(express.static('../../webapp'));
 
 /**
 *	@public
