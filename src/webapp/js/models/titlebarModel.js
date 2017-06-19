@@ -19,6 +19,7 @@ define ([
             DAOclient.openProject(this.projModel);
         },
         saveProject: function() {
+		    DAOclient.save(this.projModel.project.projectPkgDiagram,'newProject.swed');
         },
         saveProjectWithName: function() {
         },

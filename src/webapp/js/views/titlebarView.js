@@ -11,9 +11,9 @@ define ([
 		el: 'body',
 		events: {
 			'click #openFileButton': 'openProject',
-			'click #newProject': 'openProject',
-			'click save-project': 'this.model.saveProject',
-			'click save-poject-with-name': 'this.model.saveProjectWithName',
+			'click #newProject': 'newProject',
+			'click save-project': 'saveProject',
+			'click save-project-with-name': 'this.model.saveProjectWithName',
 			'click close-project': 'this.model.closeProject', //MAYBE NOT
 			'click undo': 'this.model.undo',
 			'click redo': 'this.model.redo',
@@ -23,7 +23,7 @@ define ([
 			'click lower-layer': 'this.model.lowerLayer', //MAYBE NOT
 			'click generate-java': 'this.model.generateJava',
 			'click generate-js': 'this.model.generateJavascript',
-			'click view-generated-code': 'this.model.viewGeneratedCode',
+			'click view-generated-code': 'this.model.viewGeneratedCode'
 		},
 		initialize: function(param) {
 			this.model = new TitlebarModel({projModel:param.model});
@@ -37,7 +37,15 @@ define ([
 		openProject: function (event) {
 			console.log(event.currentTarget);
 			this.model.openProject();
-		}
+		},
+        newProject: function (event) {
+            console.log(event.currentTarget);
+            this.model.newProject();
+        },
+        saveProject: function (event) {
+            console.log(event.currentTarget);
+            this.model.saveProject();
+        }
 	});
 	return TitlebarView;
 });
