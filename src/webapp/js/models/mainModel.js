@@ -7,7 +7,7 @@ define ([
 
     //'js/models/project'
 ], function ($, _, Backbone, joint, Swedesigner/*, Project*/) {
-	var MainModel = Backbone.Model.extend({
+	return MainModel = Backbone.Model.extend({
 		//urlRoot: '/path(forse)',
 		project: {
 			projectPkgDiagram: {},
@@ -34,15 +34,15 @@ define ([
 		},
 		// Metodo chiamato dalla editPanelView per spostarsi solamente in un graph in profondità - NON ANCORA TESTATO
 		switchInGraph: function(id) {
-			if (this.project.currentGraph.diagramType=='packageDiagram') {
+			if (this.project.currentGraph.diagramType =='packageDiagram') {
 				// id contiene il cid del package selezionato
 				this.project.currentGraph=this.project.currentGraph.graph.getCell(id).classDiagram;
-			} else if (this.project.currentGraph.diagramType=='classDiagram') {
+			} else if (this.project.currentGraph.diagramType == 'classDiagram') {
 				// id contiene l'id dell'operazione della classe selezionata
 				// Scorro tutte le classi e per ogni classe, tutte le sue operazioni e ritorno la classe e l'indice dell'operazione
 				var cl=this.project.currentGraph.graph.getElements().forEach(function(element) {
 					for (var i=0; i<element.operations.length; ++i) {
-						if (element.operations[i].id==id) {
+						if (element.operations[i].id == id) {
 							return { el: element, op: i };
 						}
 					}
@@ -69,5 +69,4 @@ define ([
 			this.project = Swedesigner.model.DAO.openProject();
 		}*/
 	});
-	return MainModel;
 });

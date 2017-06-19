@@ -21,8 +21,7 @@ define ([
         var myBlob = new Blob([file], {type: "application/octet-stream"});
         var reader = new FileReader();
         reader.onload = function(event) {
-            var URL = event.target.result;
-            document.getElementById("lnkDownload").href = URL;
+            document.getElementById("lnkDownload").href = event.target.result;
             document.getElementById("lnkDownload").download = fileName;
             document.getElementById("lnkDownload").click();
         };

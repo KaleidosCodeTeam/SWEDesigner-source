@@ -11,7 +11,7 @@ define ([
      * @classdesc Model della barra del titolo, si occupa di fornire i metodi necessari alla gestione delle funzionalità richieste alla barra del titolo.
      * @extends Backbone.Model
      */
-	var titlebarModel = Backbone.Model.extend({
+	return titlebarModel = Backbone.Model.extend({
 		projModel: {},
 
         /**
@@ -29,7 +29,7 @@ define ([
          * @summary Dopo aver chiesto conferma all'utente, crea un nuovo progetto sovrascrivendo quello correntemente aperto.
          */
         newProject: function() {
-            if (confirm("Il nuovo progetto sovrascriverà quello attualmente aperto. Sei sicuro?") == true) {
+            if (confirm("Il nuovo progetto sovrascriverà quello attualmente aperto. Sei sicuro?") === true) {
                 this.projModel.project.projectPkgDiagram = new Swedesigner.model.Diagram('packageDiagram');
                 this.projModel.project.currentGraph = this.projModel.project.projectPkgDiagram;
                 console.log('newProject created');
@@ -84,5 +84,4 @@ define ([
         viewGeneratedCode: function() { //MAYBE NOT
         }
 	});
-	return titlebarModel;
 });

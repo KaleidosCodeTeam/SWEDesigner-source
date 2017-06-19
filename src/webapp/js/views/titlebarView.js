@@ -12,7 +12,7 @@ define ([
      * @classdesc View della barra del titolo, si occupa di gestire gli eventi ad essa associati invocando le apposite funzioni del model.
      * @extends Backbone.View
      */
-	var TitlebarView = Backbone.View.extend({
+	return TitlebarView = Backbone.View.extend({
 		el: 'body',
 		events: {
 			'click #openFile-button': 'openProject',
@@ -85,5 +85,4 @@ define ([
 		    this.model.saveProjectAs();
         }
 	});
-	return TitlebarView;
 });
