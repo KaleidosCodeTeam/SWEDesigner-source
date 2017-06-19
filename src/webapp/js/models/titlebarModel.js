@@ -3,8 +3,9 @@ define ([
     'underscore',
     'backbone',
     'joint',
-    'js/models/DAOclient'
-], function ($, _, Backbone, joint, DAOclient) {
+    'js/models/DAOclient',
+    'js/models/items/swedesignerItems'
+], function ($, _, Backbone, joint, DAOclient, Swedesigner) {
     /**
      * @class TitlebarModel
      * @classdesc Model della barra del titolo, si occupa di fornire i metodi necessari alla gestione delle funzionalità richieste alla barra del titolo.
@@ -25,10 +26,16 @@ define ([
 
         /**
          * @function TitlebarModel#newProject
-         * @summary
+         * @summary Dopo aver chiesto conferma all'utente, crea un nuovo progetto sovrascrivendo quello correntemente aperto.
          */
         newProject: function() {
-		    console.log('newProject clicked [model]');
+            if (confirm("Il nuovo progetto sovrascriverà quello attualmente aperto. Sei sicuro?") == true) {
+                this.projModel.project.projectPkgDiagram = new Swedesigner.model.Diagram('packageDiagram');
+                this.projModel.project.currentGraph = this.projModel.project.projectPkgDiagram;
+                console.log('newProject created');
+            } else {
+                console.log('New project creation aborted');
+            }
         },
 
         /**
