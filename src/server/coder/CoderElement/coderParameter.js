@@ -11,7 +11,7 @@
 *	o Javascript; entrambe le funzioni restituiscono la stringa del codice 
 *	sorgente del parametro nel linguaggio scelto.
 */
-var CoderParameter = function() { 
+var CoderParameter = function() { };
 
 
 /**
@@ -25,7 +25,7 @@ var CoderParameter = function() {
 *	@description funzione statica di CoderParameter; riceve in input parameterObj, un oggetto che rappresenta un parametro; 
 *	restituisce la stringa del codice sorgente, in Java, del parametro parameterObj di input.
 */
-coderParameter.codeElementJava = function(parameterObj) {
+CoderParameter.codeElementJava = function(parameterObj) {
 	source = parameterObj._type + " " + parameterObj._name;
 	if(parameterObj._default) {
 		source += "=" + parameterObj._default;
@@ -43,7 +43,7 @@ coderParameter.codeElementJava = function(parameterObj) {
 *	@description funzione statica di CoderParameter; riceve in input parameterObj, un oggetto che rappresenta un parametro; 
 *	restituisce la stringa del codice sorgente, in Javascript, del parametro parameterObj di input.
 */
-coderParameter.codeElementJavascript = function(parameterObj) {
+CoderParameter.codeElementJavascript = function(parameterObj) {
 	source = parameterObj._name;
 	if(parameterObj._default) {
 		source += "=" + parameterObj._default;
@@ -53,4 +53,3 @@ coderParameter.codeElementJavascript = function(parameterObj) {
 
 /** Esportazione del modulo */
 module.exports = CoderParameter;
-};

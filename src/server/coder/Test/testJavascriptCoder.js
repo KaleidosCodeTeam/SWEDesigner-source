@@ -1,7 +1,20 @@
+/**
+ *	@file Contiene test per JavascriptCoder
+ *	@author Sanna Giovanni - KaleidosCode
+ *
+ *	@requires ./javascriptCoder.js
+ */
 
-var JavaCoder = require('./../javaCoder.js');
+
 var JavascriptCoder = require('./../javascriptCoder.js');
 
+
+/** ---------------- TEST DI UNITÀ ----------------- */
+/** Crea un oggetto parsedProgram e chiama la funzione statica di JavascriptCoder, 'getCodedProgram(parsedProgram)',
+ per ottenere un oggetto CodedProgram contenente il codice sorgente in linguaggio Javascript, corrispondente
+ al programma in input. */
+
+/** */
 var parsedProgram = {
 	classes : [
 		{
@@ -107,7 +120,10 @@ var parsedProgram = {
 	]
 };
 
-var cpj = JavaCoder.getCodedProgram(parsedProgram);
+
+/** viene chiamata la funzione statica di JavascriptCoder che traduce l'oggetto parsedProgram di input 
+* in un oggetto codedProgram e lo restituisce. 
+*/
 var cpjs = JavascriptCoder.getCodedProgram(parsedProgram);
-console.log(cpj.getSource(0));
+
 console.log(cpjs.getSource(0));
