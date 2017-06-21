@@ -1645,6 +1645,244 @@ define ([
         }
     });
 
+    /**
+     * @classdesc Rappresenta un'istruzione condizionale.
+     *
+     * @module Swedesigner.model.bubbleDiagram.items
+     * @name bubbleIf
+     * @class bubbleIf
+     * @extends {Swedesigner.model.bubbleDiagram.items}
+     */
+    Swedesigner.model.bubbleDiagram.items.bubbleIf = Swedesigner.model.bubbleDiagram.items.extend({
+        defaults: _.defaultsDeep({
+
+            type: 'uml.bubbleDiagram.bubbleIf',
+
+            attrs: {
+                rect: {'width': 200},
+                '.activity-element-name-rect': {
+                    'stroke': 'black', 'stroke-width': 0, 'fill': '#15b13e'
+                },
+                '.activity-element-type-rect': {'stroke': '#15b13e', 'stroke-width': 0, 'fill': '#15b13e'},
+            },
+
+            values: {
+                xType: 'If',
+                condition: ""
+            }
+
+        }, Swedesigner.model.bubbleDiagram.items.prototype.defaults),
+
+        initialize: function () {
+            Swedesigner.model.bubbleDiagram.items.prototype.initialize.apply(this, arguments);
+        },
+
+        getDescription: function () {
+            return "if (" + this.getValues().condition + ")";
+        }
+    });
+
+    /**
+     * @classdesc Rappresenta il ramo 'else' di un'istruzione condizionale.
+     *
+     * @module Swedesigner.model.bubbleDiagram.items
+     * @name bubbleElse
+     * @class bubbleElse
+     * @extends {Swedesigner.model.bubbleDiagram.items}
+     */
+    Swedesigner.model.bubbleDiagram.items.bubbleElse = Swedesigner.model.bubbleDiagram.items.extend({
+        defaults: _.defaultsDeep({
+
+            type: 'uml.bubbleDiagram.bubbleElse',
+
+            attrs: {
+                rect: {'width': 200},
+                '.activity-element-name-rect': {
+                    'stroke': 'black', 'stroke-width': 0, 'fill': '#00701d'
+                },
+                '.activity-element-type-rect': {'stroke': '#00701d', 'stroke-width': 0, 'fill': '#00701d'},
+
+            },
+            values: {
+                xType: 'Else'
+            }
+        }, Swedesigner.model.bubbleDiagram.items.prototype.defaults),
+
+        initialize: function () {
+            Swedesigner.model.bubbleDiagram.items.prototype.initialize.apply(this, arguments);
+        },
+
+        getDescription: function () {
+            return "";
+        }
+    });
+
+
+    /**
+     * @classdesc Rappresenta un'iterazione lungo una sequenza di istruzioni.
+     *
+     * @module Swedesigner.model.bubbleDiagram.items
+     * @name bubbleFor
+     * @class bubbleFor
+     * @extends {Swedesigner.model.bubbleDiagram.items}
+     */
+    Swedesigner.model.bubbleDiagram.items.bubbleFor = Swedesigner.model.bubbleDiagram.items.extend({
+        defaults: _.defaultsDeep({
+
+            type: 'uml.bubbleDiagram.bubbleFor',
+
+            attrs: {
+                rect: {'width': 200},
+
+                '.activity-element-name-rect': {
+                    'stroke': 'black', 'stroke-width': 0, 'fill': '#ed341c'
+                },
+
+                '.activity-element-type-rect': {'stroke': '#ed341c', 'stroke-width': 1, 'fill': '#ed341c'},
+            },
+
+            values: {
+                xType: 'For',
+                initialization: "",
+                termination: "",
+                increment: ""
+            }
+
+        }, Swedesigner.model.bubbleDiagram.items.prototype.defaults),
+
+        initialize: function () {
+            Swedesigner.model.bubbleDiagram.items.prototype.initialize.apply(this, arguments);
+        },
+
+        getDescription: function () {
+            return this.getValues().initialization + ";" + this.getValues().termination + ";" + this.getValues().increment;
+        }
+    });
+
+
+    /**
+     * @classdesc Rappresenta una dichiarazione, un'inizializzazione o un'operazione su una variabile.
+     *
+     * @module Swedesigner.model.bubbleDiagram.items
+     * @name bubbleVariable
+     * @class bubbleVariable
+     * @extends {Swedesigner.model.bubbleDiagram.items}
+     */
+    Swedesigner.model.bubbleDiagram.items.bubbleVariable = Swedesigner.model.bubbleDiagram.items.extend({
+        defaults: _.defaultsDeep({
+
+            type: 'uml.bubbleDiagram.bubbleVariable',
+
+            attrs: {
+                rect: {'width': 200},
+
+                '.activity-element-name-rect': {
+                    'stroke': 'black', 'stroke-width': 0, 'fill': '#edae1c'
+                },
+                '.activity-element-type-rect': {'stroke': '#edae1c', 'stroke-width': 1, 'fill': '#edae1c'},
+            },
+
+            values: {
+                xType: 'Variabile',
+                name: "",
+                type: "",
+                operation: "",
+                value: ""
+            },
+
+            canHaveChildren: false,
+
+        }, Swedesigner.model.bubbleDiagram.items.prototype.defaults),
+
+        initialize: function () {
+            Swedesigner.model.bubbleDiagram.items.prototype.initialize.apply(this, arguments);
+        },
+
+        getDescription: function () {
+            return this.getValues().type + " " + this.getValues().name + this.getValues().operation + this.getValues().value;
+        }
+    });
+
+
+    /**
+     * @classdesc Rappresenta un'istruzione per uscire da un metodo e ritornare degli argomenti al chiamante.
+     *
+     * @module Swedesigner.model.bubbleDiagram.items
+     * @name bubbleReturn
+     * @class bubbleReturn
+     * @extends {Swedesigner.model.bubbleDiagram.items}
+     */
+    Swedesigner.model.bubbleDiagram.items.bubbleReturn = Swedesigner.model.bubbleDiagram.items.extend({
+        defaults: _.defaultsDeep({
+
+            type: 'uml.bubbleDiagram.bubbleReturn',
+
+            attrs: {
+                rect: {'width': 200},
+
+                '.activity-element-name-rect': {
+                    'stroke': 'black', 'stroke-width': 0, 'fill': '#ed841c'
+                },
+                '.activity-element-type-rect': {'stroke': '#ed841c', 'stroke-width': 0, 'fill': '#ed841c'},
+            },
+
+            values: {
+                xType: 'Return',
+                value: ""
+            },
+
+            canHaveChildren: false,
+
+        }, Swedesigner.model.bubbleDiagram.items.prototype.defaults),
+
+        initialize: function () {
+            Swedesigner.model.bubbleDiagram.items.prototype.initialize.apply(this, arguments);
+        },
+
+        getDescription: function () {
+            return "return " + this.getValues().value;
+        }
+    });
+
+
+    /**
+     * @classdesc Rappresenta un loop con controllo di condizione lungo una sequenza di istruzioni.
+     *
+     * @module Swedesigner.model.bubbleDiagram.items
+     * @name bubbleWhile
+     * @class bubbleWhile
+     * @extends {Swedesigner.model.bubbleDiagram.items}
+     */
+    Swedesigner.model.bubbleDiagram.items.bubbleWhile = Swedesigner.model.bubbleDiagram.items.extend({
+        defaults: _.defaultsDeep({
+
+            type: 'uml.bubbleDiagram.bubbleWhile',
+
+            attrs: {
+                rect: {'width': 200},
+
+                '.activity-element-name-rect': {
+                    'stroke': 'black', 'stroke-width': 0, 'fill': '#157b92'
+                },
+                '.activity-element-type-rect': {'stroke': '#157b92', 'stroke-width': 0, 'fill': '#157b92'},
+            },
+
+            values: {
+                xType: 'While',
+                condition: ""
+            }
+
+        }, Swedesigner.model.bubbleDiagram.items.prototype.defaults),
+
+        initialize: function () {
+            Swedesigner.model.bubbleDiagram.items.prototype.initialize.apply(this, arguments);
+        },
+
+        getDescription: function () {
+            return "while (" + this.getValues().condition + ")";
+        }
+    });
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
