@@ -3,18 +3,18 @@ define ([
 	'underscore',
 	'backbone',
 	'joint',
-	'js/models/mainModel',
+	'js/models/projectModel',
 	'js/models/items/swedesignerItems'
-	/** ecc. */
-], function ($, _, Backbone, joint, MainModel, Swedesigner) {
-	var ProjectView = Backbone.View.extend({
+	/* ecc. */
+], function ($, _, Backbone, joint, projectModel, Swedesigner) {
+	var projectView = Backbone.View.extend({
 		paper: {},
 		initialize: function() {
 			console.log("ProjectView initialized");
-			this.model = new MainModel();
+			this.model = projectModel;
 			this.paper = new joint.dia.Paper({
 				el: $('#canvas'),
-				model: this.model.project.currentGraph.graph,
+				model: projectModel.project.currentGraph.graph,
 				width: $('#canvas').width(),
 				height:$('#canvas').height(),
 				gridSize: 10,
@@ -24,15 +24,15 @@ define ([
 				},
 				elementView: function (element) {
                     if (element.get("type").startsWith("packageDiagram")) {
-                        if (element.get("type") == "packageDiagram.Comment") {
-                            return Swedesigner.model.packageDiagram.items.CommentView;
+                        if (element.get("type") === "packageDiagram.PkgComment") {
+                            return Swedesigner.model.packageDiagram.items.PkgCommentView;
                         } else {
                         	console.log("displaying package baseView");
                             return Swedesigner.model.packageDiagram.items.BaseView;
                         }
                     } else if (element.get("type").startsWith("classDiagram")) {
-                    	if (element.get("type") == "classDiagram.Comment") {
-                            return Swedesigner.model.classDiagram.items.CommentView;
+                    	if (element.get("type") === "classDiagram.ClComment") {
+                            return Swedesigner.model.classDiagram.items.ClCommentView;
                         } else {
                             return Swedesigner.model.classDiagram.items.BaseView;
                         }
@@ -66,21 +66,21 @@ define ([
 				}
 			});
 			this.listenTo(this.paper, 'blank:pointerdown', _.partial(this.addCell, this));
-            this.listenTo(this.paper, 'cell:pointerup', _.partial(this.pointerUpFunction, this));
-            this.listenTo(this.paper, 'cell:pointerdown', _.partial(this.pointerDownFunction, this));
+            this.paper.on('cell:pointerup', _.partial(this.pointerUpFunction, this));
+            this.paper.on('cell:pointerdown', _.partial(this.pointerDownFunction, this));
 		},
 		render: function() {
 
 		},
 		addCell: function(event, type, x, y) {
-			console.log(this.model.project);
-			if(this.model.project.currentGraph.itemToBeAdded != null/* && this.model.project.currentGraph.itemToBeAdded.isElement()*/) {
-				this.model.project.currentGraph.itemToBeAdded.position(x, y);
-				this.model.project.currentGraph.addItemToGraph();
+			console.log(projectModel.project);
+			if(projectModel.project.currentGraph.itemToBeAdded !== null/* && this.model.project.currentGraph.itemToBeAdded.isElement()*/) {
+                projectModel.project.currentGraph.itemToBeAdded.position(x, y);
+                projectModel.project.currentGraph.addItemToGraph();
 			}
 		},
 		deleteCell: function(e) {
-            this.model.deleteCell(this.paper.selectedCell);
+            projectModel.deleteCell(this.paper.selectedCell);
             this.paper.selectedCell=null;
             this.paper.trigger("changed-cell");
         },
@@ -88,21 +88,24 @@ define ([
             if (cellView) {
                 //console.log("cella selezionata: ",this.selectedCell);
                 //console.log("cellview: ",cellView);
-                if (this.selectedCell!=cellView.model) {
+                if (this.selectedCell!==cellView.model) {
                     changed=true;
                     this.selectedCell=cellView.model;
                     console.log('changed-cell');
                     this.trigger("changed-cell");
                 }
             }
-            if (this.model.project.currentGraph.itemToBeAdded && this.model.project.currentGraph.itemToBeAdded.isLink()) {
-                if (this.model.project.currentGraph.itemToBeAdded.get("source").id != undefined) {
-                    this.model.project.currentGraph.itemToBeAdded.set("target", {id: cellView.model.id});
-                    this.model.project.currentGraph.item.addCellToGraph();
+            /**
+             * @todo
+             */
+            /*if (projectModel.project.currentGraph.itemToBeAdded && this.model.project.currentGraph.itemToBeAdded.isLink()) {
+                if (projectModel.project.currentGraph.itemToBeAdded.get("source").id !== undefined) {
+                    projectModel.project.currentGraph.itemToBeAdded.set("target", {id: cellView.model.id});
+                    projectModel.project.currentGraph.item.addCellToGraph();
                 } else {
-                    this.model.project.currentGraph.itemToBeAdded.set("source", {id: cellView.model.id});
+                    projectModel.project.currentGraph.itemToBeAdded.set("source", {id: cellView.model.id});
                 }
-			}
+			}*/
         },
         pointerUpFunction: function (prView,cellView, evt, x, y) {
             var className=evt.target.parentNode.getAttribute('class');
@@ -115,28 +118,13 @@ define ([
             }
         },
         switch: function (id) {
-            this.model.project.currentGraph.switchToGraph(id);
-            if (id!="class") {
-                this.visibleElements=this.model.getClassVisibleElements(this.paper.selectedCell);
-            } else {
-                this.visibleElements = [];
-            }
-            //console.log("elementi: ", this.visibleElements);
+            projectModel.switchInGraph(id);
+            this.paper.render();
             this.paper.selectedCell = null;
             this.paper.trigger("changed-cell");
-            this.trigger("Switchgraph");
+            this.trigger("switchgraph");
         },
 
-
-        /**
-         * Returns whether the current diagram is an
-         * activity or a class one.
-         * @name ProjectView#getCurrentDiagramType
-         * @function
-         */
-        getCurrentDiagramType: function () {
-            return this.model.getCurrentDiagramType();
-        },
 
         /**
          * Delets the `ind`th method of the diagram.
@@ -144,9 +132,9 @@ define ([
          * @param  {number} ind the method index
          * @function
          */
-        deleteMethodAt: function (ind) {
-            this.model.deleteMethodDiagram(this.paper.selectedCell.getValues().methods[ind].id);
-        }
+        /*deleteMethodAt: function (ind) {
+            projectModel.deleteMethodDiagram(this.paper.selectedCell.getValues().methods[ind].id);
+        }*/
 	});
-	return ProjectView;
+	return new projectView;
 });

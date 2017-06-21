@@ -163,7 +163,9 @@ define ([
          */
         initialize: function() {
         	Swedesigner.model.packageDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        	console.log(this.values.classDiagram);
             this.values.classDiagram = new Swedesigner.model.Diagram('classDiagram');
+            console.log(this.values.classDiagram);
         },
         /**
          *  @function Package#getPackageName
@@ -1906,17 +1908,17 @@ define ([
          *  @summary Metodo di inizializzazione.
          */
         initialize: function(dType) {
-            if (dType=='packageDiagram') {
+            if (dType==='packageDiagram') {
                 this.graph = new joint.dia.Graph({}, {cellNamespace: Swedesigner.model.packageDiagram.items});
-                console.log(this.graph)
-            } else if (dType=='classDiagram') {
+            } else if (dType==='classDiagram') {
                 this.graph = new joint.dia.Graph({}, {cellNamespace: Swedesigner.model.classDiagram.items});
-            } else if (dType=='bubbleDiagram') {
+            } else if (dType==='bubbleDiagram') {
                 this.graph = new joint.dia.Graph({}, {cellNamespace: Swedesigner.model.bubbleDiagram.items});
             } else {
                 this.graph=null;
             }
             this.diagramType = dType;
+            this.itemToBeAdded = null;
             //let myAdjustVertices = _.partial(this.adjustVerticies, this.graph);
             //this.graph.on('add remove change:source change:target', myAdjustVertices);
         },
@@ -1952,7 +1954,7 @@ define ([
          *  @summary Ritorna il Graph del diagramma.
          */
         getCurrentGraph: function() {
-            return this.get("graph");
+            return this.graph;
         },
         /**
          *  @function Diagram#getDiagramType
