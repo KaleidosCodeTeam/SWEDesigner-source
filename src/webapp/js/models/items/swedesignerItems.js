@@ -1644,7 +1644,7 @@ define ([
             }
         }
     });
-
+    /*
     /**
      * @classdesc Rappresenta un'istruzione condizionale.
      *
@@ -1653,7 +1653,7 @@ define ([
      * @class bubbleIf
      * @extends {Swedesigner.model.bubbleDiagram.items}
      */
-    Swedesigner.model.bubbleDiagram.items.bubbleIf = Swedesigner.model.bubbleDiagram.items.extend({
+  /*  Swedesigner.model.bubbleDiagram.items.bubbleIf = Swedesigner.model.bubbleDiagram.items.extend({
         defaults: _.defaultsDeep({
 
             type: 'uml.bubbleDiagram.bubbleIf',
@@ -1690,7 +1690,7 @@ define ([
      * @class bubbleElse
      * @extends {Swedesigner.model.bubbleDiagram.items}
      */
-    Swedesigner.model.bubbleDiagram.items.bubbleElse = Swedesigner.model.bubbleDiagram.items.extend({
+ /*   Swedesigner.model.bubbleDiagram.items.bubbleElse = Swedesigner.model.bubbleDiagram.items.extend({
         defaults: _.defaultsDeep({
 
             type: 'uml.bubbleDiagram.bubbleElse',
@@ -1726,7 +1726,7 @@ define ([
      * @class bubbleFor
      * @extends {Swedesigner.model.bubbleDiagram.items}
      */
-    Swedesigner.model.bubbleDiagram.items.bubbleFor = Swedesigner.model.bubbleDiagram.items.extend({
+/*    Swedesigner.model.bubbleDiagram.items.bubbleFor = Swedesigner.model.bubbleDiagram.items.extend({
         defaults: _.defaultsDeep({
 
             type: 'uml.bubbleDiagram.bubbleFor',
@@ -1768,7 +1768,7 @@ define ([
      * @class bubbleVariable
      * @extends {Swedesigner.model.bubbleDiagram.items}
      */
-    Swedesigner.model.bubbleDiagram.items.bubbleVariable = Swedesigner.model.bubbleDiagram.items.extend({
+ /*   Swedesigner.model.bubbleDiagram.items.bubbleVariable = Swedesigner.model.bubbleDiagram.items.extend({
         defaults: _.defaultsDeep({
 
             type: 'uml.bubbleDiagram.bubbleVariable',
@@ -1812,7 +1812,7 @@ define ([
      * @class bubbleReturn
      * @extends {Swedesigner.model.bubbleDiagram.items}
      */
-    Swedesigner.model.bubbleDiagram.items.bubbleReturn = Swedesigner.model.bubbleDiagram.items.extend({
+ /*   Swedesigner.model.bubbleDiagram.items.bubbleReturn = Swedesigner.model.bubbleDiagram.items.extend({
         defaults: _.defaultsDeep({
 
             type: 'uml.bubbleDiagram.bubbleReturn',
@@ -1853,7 +1853,7 @@ define ([
      * @class bubbleWhile
      * @extends {Swedesigner.model.bubbleDiagram.items}
      */
-    Swedesigner.model.bubbleDiagram.items.bubbleWhile = Swedesigner.model.bubbleDiagram.items.extend({
+/*    Swedesigner.model.bubbleDiagram.items.bubbleWhile = Swedesigner.model.bubbleDiagram.items.extend({
         defaults: _.defaultsDeep({
 
             type: 'uml.bubbleDiagram.bubbleWhile',
