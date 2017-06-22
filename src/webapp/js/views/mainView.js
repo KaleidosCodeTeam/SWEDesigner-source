@@ -10,7 +10,7 @@ define ([
 	'js/views/projectView'
 	/** ecc. */
 ], function ($, _, Backbone, joint, TitlebarView, ToolbarView, PathView, EditPanelView, ProjectView) {
-	var MainView = Backbone.View.extend({
+	var mainView = Backbone.View.extend({
 		el: 'body',
 		events: {},
 		views: {
@@ -31,5 +31,5 @@ define ([
 		render: function() {
 		}
 	});
-	return MainView;
+	return new mainView;
 });

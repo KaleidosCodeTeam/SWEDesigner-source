@@ -3,15 +3,17 @@ define ([
     'underscore',
     'backbone',
     'joint',
-    'js/models/items/swedesignerItems'
-], function ($, _, Backbone, joint, Swedesigner) {
+    'js/models/items/swedesignerItems',
+    'js/models/projectModel',
+
+], function ($, _, Backbone, joint, Swedesigner, projectModel) {
 	/**
      *  @module 
      *  @class ToolbarModel
      *  @classdesc Elemento che rappresenta il modello dei dati della Toolbar.
      *  @extends {Backbone.Model.extend}
      */
-	var ToolbarModel = Backbone.Model.extend({
+	var toolbarModel = Backbone.Model.extend({
 		/**
          *  @var {Object} ToolbarModel#mainModel Riferimento all'istanza del MainModel.
          */
@@ -23,10 +25,8 @@ define ([
 		/**
          *  @function ToolbarModel#initialize
          *  @summary Metodo di inizializzazione: salva il riferimento al mainModel e chiama il metodo ToolbarModel#createItems.
-         *  @param {Object} options - contiene il riferimento all'istanza del mainModel.
          */
-		initialize: function(options) {
-			this.mainModel = options.model;
+		initialize: function() {
 			this.createItems();
 		},
 		/**
@@ -34,7 +34,7 @@ define ([
          *  @summary Metodo che ritorna il tipo del diagramma corrente.
          */
 		currentDiagram: function() {
-			return this.mainModel.project.currentGraph.getDiagramType();
+			return projectModel.project.currentGraph.getDiagramType();
 		},
 		/**
          *  @function ToolbarModel#createItems
@@ -53,8 +53,8 @@ define ([
 		addElement: function (id) {
 			console.log(id);
 			var el = new this.items[id];
-			this.mainModel.project.currentGraph.addItem(el);
+			projectModel.project.currentGraph.addItem(el);
 		}
 	});
-	return ToolbarModel;
+	return new toolbarModel;
 });

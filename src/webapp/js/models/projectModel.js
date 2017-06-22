@@ -4,11 +4,8 @@ define ([
     'backbone',
     'joint',
     'js/models/items/swedesignerItems'
-
-    //'js/models/project'
-], function ($, _, Backbone, joint, Swedesigner/*, Project*/) {
-	return MainModel = Backbone.Model.extend({
-		//urlRoot: '/path(forse)',
+], function ($, _, Backbone, joint, Swedesigner) {
+	var projectModel = Backbone.Model.extend({
 		project: {
 			projectPkgDiagram: {},
             currentGraph: {},
@@ -34,15 +31,17 @@ define ([
 		},
 		// Metodo chiamato dalla editPanelView per spostarsi solamente in un graph in profondità - NON ANCORA TESTATO
 		switchInGraph: function(id) {
-			if (this.project.currentGraph.diagramType =='packageDiagram') {
+			if (this.project.currentGraph.diagramType ==='packageDiagram') {
 				// id contiene il cid del package selezionato
-				this.project.currentGraph=this.project.currentGraph.graph.getCell(id).classDiagram;
-			} else if (this.project.currentGraph.diagramType == 'classDiagram') {
+                console.log(this.project.currentGraph);
+                console.log(this.project.currentGraph.getCurrentGraph().getCell(id));
+				this.project.currentGraph = this.project.currentGraph.getCurrentGraph().getCell(id).getValues().classDiagram;
+			} else if (this.project.currentGraph.diagramType === 'classDiagram') {
 				// id contiene l'id dell'operazione della classe selezionata
 				// Scorro tutte le classi e per ogni classe, tutte le sue operazioni e ritorno la classe e l'indice dell'operazione
 				var cl=this.project.currentGraph.graph.getElements().forEach(function(element) {
 					for (var i=0; i<element.operations.length; ++i) {
-						if (element.operations[i].id == id) {
+						if (element.operations[i].id === id) {
 							return { el: element, op: i };
 						}
 					}
@@ -62,11 +61,6 @@ define ([
 			}
 			var change=this.project.currentGraph.graph.getCell(id);
 		}
-		/*saveProject: function() {
-			Swedesigner.model.DAO.saveProject(this.project);
-		},
-		openProject: function() {
-			this.project = Swedesigner.model.DAO.openProject();
-		}*/
 	});
+	return new projectModel;
 });

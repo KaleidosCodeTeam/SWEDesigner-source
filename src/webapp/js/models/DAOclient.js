@@ -5,8 +5,8 @@ define ([
     'jquery',
     'underscore',
     'jsonfn',
-    'js/models/mainModel'
-], function ($, _, jsonfn,mainModel) {
+    'js/models/projectModel'
+], function ($, _, jsonfn,projectModel) {
 
     var DAOclient = {};
 
@@ -33,15 +33,15 @@ define ([
      * @param {Object} mod - mainModel dell'applicazione.
      * @summary Legge un file JSON e ne salva il contenuto in mainModel come progetto attualmente aperto.
      */
-    DAOclient.openProject = function(mod) {
+    DAOclient.openProject = function() {
         console.log('DAOClient openProj');
         var myFile = document.getElementById("selectedFile").files[0];
         var myFileRead = {};
         var reader = new FileReader();
         reader.onload = function(event) {
             myFileRead = event.target.result;
-            mod.project.projectPkgDiagram = JSON.parse(myFileRead); /*JSONfn.parse(myFileRead);*/
-            mod.project.currentGraph = mod.project.projectPkgDiagram;
+            projectModel.project.projectPkgDiagram = JSON.parse(myFileRead); /*JSONfn.parse(myFileRead);*/
+            projectModel.project.currentGraph = projectModel.project.projectPkgDiagram;
             console.log('project loaded');
         };
         reader.readAsText(myFile);

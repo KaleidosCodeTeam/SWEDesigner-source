@@ -4,16 +4,18 @@ define ([
 	'backbone',
 	'joint',
 	'js/models/items/swedesignerItems',
-	'js/models/toolbarModel'
-	//'js/views/', riferimento alla view principale del progetto 
-], function($, _, Backbone, joint, Swedesigner, ToolbarModel) {
+	'js/views/editPanelView',
+    'js/views/pathView',
+    'js/models/toolbarModel'
+], function($, _, Backbone, joint, Swedesigner, editPanelView, pathView, toolbarModel) {
+
 	/**
      *  @module 
      *  @class ToolbarView
      *  @classdesc Elemento che rappresenta la view dei dati della Toolbar.
      *  @extends {Backbone.View.extend}
      */
-	var ToolbarView = Backbone.View.extend({
+	var toolbarView = Backbone.View.extend({
 		/**
          *  @var {Object} ToolbarView#el Elemento HTML del DOM utilizzato per renderizzare l'interfaccia grafica.
          */
@@ -31,13 +33,11 @@ define ([
 		/**
          *  @function ToolbarView#initialize
          *  @summary Metodo di inizializzazione: istanzia il ToolbarModel, salva i riferimenti passati come parametro e definisce gli eventi su cui mettersi in ascolto.
-         *  @param {Object} options - contiene il riferimento all'istanza della MainView.
          */
-		initialize: function(options) {
-			this.model = new ToolbarModel({model: options.model});
-			this.parent = options.parent;
-			this.listenTo(this.parent.views.editPanelView,'switchgraph', this.render);
-			this.listenTo(this.parent.views.pathView,'switchgraph',this.render);
+		initialize: function() {
+			this.model = toolbarModel;
+			this.listenTo(editPanelView,'switchgraph', this.render);
+			this.listenTo(pathView,'switchgraph',this.render);
 			this.render();
 		},
 		/**
@@ -53,10 +53,10 @@ define ([
          */
 		renderTools: function () {
 			console.log("render tools here i am :)");
-			var currentDiagram = this.model.currentDiagram();
+			var currentDiagram = toolbarModel.currentDiagram();
 			console.log(currentDiagram);
 			_.each(this.$el.children(), function(diagram) {
-				if($(diagram).attr('class') == currentDiagram)
+				if($(diagram).attr('class') === currentDiagram)
 					$(diagram).show();
 				else
 					$(diagram).hide();
@@ -68,8 +68,8 @@ define ([
          */
 		addElement: function(event) {
 			console.log(event.currentTarget);
-			this.model.addElement(event.currentTarget.id);
+			toolbarModel.addElement(event.currentTarget.id);
 		}
 	});
-	return ToolbarView;
+	return new toolbarView;
 });
