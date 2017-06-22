@@ -1646,7 +1646,6 @@ define ([
             }
         }
     });
-    /*
     /**
      * @classdesc Rappresenta un'istruzione condizionale.
      *
@@ -1655,7 +1654,7 @@ define ([
      * @class bubbleIf
      * @extends {Swedesigner.model.bubbleDiagram.items}
      */
-  /*  Swedesigner.model.bubbleDiagram.items.bubbleIf = Swedesigner.model.bubbleDiagram.items.extend({
+    Swedesigner.model.bubbleDiagram.items.bubbleIf = Swedesigner.model.bubbleDiagram.items.Base.extend({
         defaults: _.defaultsDeep({
 
             type: 'uml.bubbleDiagram.bubbleIf',
@@ -1673,10 +1672,10 @@ define ([
                 condition: ""
             }
 
-        }, Swedesigner.model.bubbleDiagram.items.prototype.defaults),
+        }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
 
         initialize: function () {
-            Swedesigner.model.bubbleDiagram.items.prototype.initialize.apply(this, arguments);
+            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
         },
 
         getDescription: function () {
@@ -1692,7 +1691,7 @@ define ([
      * @class bubbleElse
      * @extends {Swedesigner.model.bubbleDiagram.items}
      */
- /*   Swedesigner.model.bubbleDiagram.items.bubbleElse = Swedesigner.model.bubbleDiagram.items.extend({
+    Swedesigner.model.bubbleDiagram.items.bubbleElse = Swedesigner.model.bubbleDiagram.items.Base.extend({
         defaults: _.defaultsDeep({
 
             type: 'uml.bubbleDiagram.bubbleElse',
@@ -1708,10 +1707,10 @@ define ([
             values: {
                 xType: 'Else'
             }
-        }, Swedesigner.model.bubbleDiagram.items.prototype.defaults),
+        }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
 
         initialize: function () {
-            Swedesigner.model.bubbleDiagram.items.prototype.initialize.apply(this, arguments);
+            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
         },
 
         getDescription: function () {
@@ -1728,7 +1727,7 @@ define ([
      * @class bubbleFor
      * @extends {Swedesigner.model.bubbleDiagram.items}
      */
-/*    Swedesigner.model.bubbleDiagram.items.bubbleFor = Swedesigner.model.bubbleDiagram.items.extend({
+    Swedesigner.model.bubbleDiagram.items.bubbleFor = Swedesigner.model.bubbleDiagram.items.Base.extend({
         defaults: _.defaultsDeep({
 
             type: 'uml.bubbleDiagram.bubbleFor',
@@ -1750,10 +1749,10 @@ define ([
                 increment: ""
             }
 
-        }, Swedesigner.model.bubbleDiagram.items.prototype.defaults),
+        }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
 
         initialize: function () {
-            Swedesigner.model.bubbleDiagram.items.prototype.initialize.apply(this, arguments);
+            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
         },
 
         getDescription: function () {
@@ -1770,7 +1769,7 @@ define ([
      * @class bubbleVariable
      * @extends {Swedesigner.model.bubbleDiagram.items}
      */
- /*   Swedesigner.model.bubbleDiagram.items.bubbleVariable = Swedesigner.model.bubbleDiagram.items.extend({
+    Swedesigner.model.bubbleDiagram.items.bubbleVariable = Swedesigner.model.bubbleDiagram.items.Base.extend({
         defaults: _.defaultsDeep({
 
             type: 'uml.bubbleDiagram.bubbleVariable',
@@ -1794,10 +1793,10 @@ define ([
 
             canHaveChildren: false,
 
-        }, Swedesigner.model.bubbleDiagram.items.prototype.defaults),
+        }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
 
         initialize: function () {
-            Swedesigner.model.bubbleDiagram.items.prototype.initialize.apply(this, arguments);
+            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
         },
 
         getDescription: function () {
@@ -1814,7 +1813,7 @@ define ([
      * @class bubbleReturn
      * @extends {Swedesigner.model.bubbleDiagram.items}
      */
- /*   Swedesigner.model.bubbleDiagram.items.bubbleReturn = Swedesigner.model.bubbleDiagram.items.extend({
+    Swedesigner.model.bubbleDiagram.items.bubbleReturn = Swedesigner.model.bubbleDiagram.items.Base.extend({
         defaults: _.defaultsDeep({
 
             type: 'uml.bubbleDiagram.bubbleReturn',
@@ -1835,10 +1834,10 @@ define ([
 
             canHaveChildren: false,
 
-        }, Swedesigner.model.bubbleDiagram.items.prototype.defaults),
+        }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
 
         initialize: function () {
-            Swedesigner.model.bubbleDiagram.items.prototype.initialize.apply(this, arguments);
+            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
         },
 
         getDescription: function () {
@@ -1855,7 +1854,7 @@ define ([
      * @class bubbleWhile
      * @extends {Swedesigner.model.bubbleDiagram.items}
      */
-/*    Swedesigner.model.bubbleDiagram.items.bubbleWhile = Swedesigner.model.bubbleDiagram.items.extend({
+    Swedesigner.model.bubbleDiagram.items.bubbleWhile = Swedesigner.model.bubbleDiagram.items.Base.extend({
         defaults: _.defaultsDeep({
 
             type: 'uml.bubbleDiagram.bubbleWhile',
@@ -1874,10 +1873,10 @@ define ([
                 condition: ""
             }
 
-        }, Swedesigner.model.bubbleDiagram.items.prototype.defaults),
+        }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
 
         initialize: function () {
-            Swedesigner.model.bubbleDiagram.items.prototype.initialize.apply(this, arguments);
+            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
         },
 
         getDescription: function () {
