@@ -73,11 +73,12 @@ define ([
 
 		},
 		addCell: function(event, type, x, y) {
-			if(this.model.project.currentGraph.itemToBeAdded != null && this.model.project.currentGraph.itemToBeAdded.isElement()) {
-				this.model.project.currentGraph.itemToBeAdded.position(x, y);
-				this.model.project.currentGraph.addItemToGraph();
-			}
-		},
+            console.log(projectModel.project);
+            if(projectModel.project.currentGraph.itemToBeAdded !== null/* && this.model.project.currentGraph.itemToBeAdded.isElement()*/) {
+                projectModel.project.currentGraph.itemToBeAdded.position(x, y);
+                projectModel.project.currentGraph.addItemToGraph();
+            }
+        },
 		deleteCell: function(e) {
             projectModel.deleteCell(this.paper.selectedCell);
             this.paper.selectedCell=null;
@@ -113,13 +114,13 @@ define ([
                     prView.deleteCell(cellView.model);
                     return;
                 default:
-					if (prView.model.project.currentGraph.itemToBeAdded && prView.model.project.currentGraph.itemToBeAdded.isLink()) {
-						if (prView.model.project.currentGraph.itemToBeAdded.get("source").id != undefined) {
-						    prView.model.project.currentGraph.itemToBeAdded.set("target", {id: cellView.model.id});
-						    console.log(prView.model.project.currentGraph.itemToBeAdded);
-						    prView.model.project.currentGraph.addItemToGraph();
+					if (projectModel.project.currentGraph.itemToBeAdded && projectModel.project.currentGraph.itemToBeAdded.isLink()) {
+						if (projectModel.project.currentGraph.itemToBeAdded.get("source").id != undefined) {
+						    projectModel.project.currentGraph.itemToBeAdded.set("target", {id: cellView.model.id});
+						    console.log(projectModel.project.currentGraph.itemToBeAdded);
+						    projectModel.project.currentGraph.addItemToGraph();
 						} else {
-						    prView.model.project.currentGraph.itemToBeAdded.set("source", {id: cellView.model.id});
+						    projectModel.project.currentGraph.itemToBeAdded.set("source", {id: cellView.model.id});
 						}
 					}
                     return;
