@@ -11,13 +11,7 @@ define ([
 		paper: {},
 		initialize: function() {
 			console.log("ProjectView initialized");
-<<<<<<< HEAD
 			this.model = new MainModel();
-			console.log('ProjectView.model.project.currentGraph');
-			console.log(this.model.project.currentGraph);
-=======
-			this.model = projectModel;
->>>>>>> b40c662913b1ed863d1af9792bafbebb68ae259d
 			this.paper = new joint.dia.Paper({
 				el: $('#canvas'),
 				model: projectModel.project.currentGraph.graph,
@@ -79,16 +73,9 @@ define ([
 
 		},
 		addCell: function(event, type, x, y) {
-<<<<<<< HEAD
 			if(this.model.project.currentGraph.itemToBeAdded != null && this.model.project.currentGraph.itemToBeAdded.isElement()) {
 				this.model.project.currentGraph.itemToBeAdded.position(x, y);
 				this.model.project.currentGraph.addItemToGraph();
-=======
-			console.log(projectModel.project);
-			if(projectModel.project.currentGraph.itemToBeAdded !== null/* && this.model.project.currentGraph.itemToBeAdded.isElement()*/) {
-                projectModel.project.currentGraph.itemToBeAdded.position(x, y);
-                projectModel.project.currentGraph.addItemToGraph();
->>>>>>> b40c662913b1ed863d1af9792bafbebb68ae259d
 			}
 		},
 		deleteCell: function(e) {
