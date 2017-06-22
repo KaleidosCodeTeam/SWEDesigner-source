@@ -56,7 +56,7 @@ define ([
 			var currentDiagram = toolbarModel.currentDiagram();
 			console.log(currentDiagram);
 			_.each(this.$el.children(), function(diagram) {
-				if($(diagram).attr('class') == currentDiagram)
+				if($(diagram).attr('class') === currentDiagram)
 					$(diagram).show();
 				else
 					$(diagram).hide();
