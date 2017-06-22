@@ -11,7 +11,7 @@ define ([
 		paper: {},
 		initialize: function() {
 			console.log("ProjectView initialized");
-			this.model = new MainModel();
+			this.model = projectModel;
 			this.paper = new joint.dia.Paper({
 				el: $('#canvas'),
 				model: projectModel.project.currentGraph.graph,
