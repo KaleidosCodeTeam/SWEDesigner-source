@@ -12,6 +12,8 @@ define ([
 		initialize: function() {
 			console.log("ProjectView initialized");
 			this.model = new MainModel();
+			console.log('ProjectView.model.project.currentGraph');
+			console.log(this.model.project.currentGraph);
 			this.paper = new joint.dia.Paper({
 				el: $('#canvas'),
 				model: this.model.project.currentGraph.graph,
@@ -66,15 +68,14 @@ define ([
 				}
 			});
 			this.listenTo(this.paper, 'blank:pointerdown', _.partial(this.addCell, this));
-            this.listenTo(this.paper, 'cell:pointerup', _.partial(this.pointerUpFunction, this));
-            this.listenTo(this.paper, 'cell:pointerdown', _.partial(this.pointerDownFunction, this));
+            this.paper.on('cell:pointerup', _.partial(this.pointerUpFunction, this));
+            this.paper.on('cell:pointerdown', _.partial(this.pointerDownFunction, this));
 		},
 		render: function() {
 
 		},
 		addCell: function(event, type, x, y) {
-			console.log(this.model.project);
-			if(this.model.project.currentGraph.itemToBeAdded != null/* && this.model.project.currentGraph.itemToBeAdded.isElement()*/) {
+			if(this.model.project.currentGraph.itemToBeAdded != null && this.model.project.currentGraph.itemToBeAdded.isElement()) {
 				this.model.project.currentGraph.itemToBeAdded.position(x, y);
 				this.model.project.currentGraph.addItemToGraph();
 			}
@@ -95,14 +96,7 @@ define ([
                     this.trigger("changed-cell");
                 }
             }
-            if (this.model.project.currentGraph.itemToBeAdded && this.model.project.currentGraph.itemToBeAdded.isLink()) {
-                if (this.model.project.currentGraph.itemToBeAdded.get("source").id != undefined) {
-                    this.model.project.currentGraph.itemToBeAdded.set("target", {id: cellView.model.id});
-                    this.model.project.currentGraph.item.addCellToGraph();
-                } else {
-                    this.model.project.currentGraph.itemToBeAdded.set("source", {id: cellView.model.id});
-                }
-			}
+				    
         },
         pointerUpFunction: function (prView,cellView, evt, x, y) {
             var className=evt.target.parentNode.getAttribute('class');
@@ -111,6 +105,15 @@ define ([
                     prView.deleteCell(cellView.model);
                     return;
                 default:
+					if (prView.model.project.currentGraph.itemToBeAdded && prView.model.project.currentGraph.itemToBeAdded.isLink()) {
+						if (prView.model.project.currentGraph.itemToBeAdded.get("source").id != undefined) {
+						    prView.model.project.currentGraph.itemToBeAdded.set("target", {id: cellView.model.id});
+						    console.log(prView.model.project.currentGraph.itemToBeAdded);
+						    prView.model.project.currentGraph.addItemToGraph();
+						} else {
+						    prView.model.project.currentGraph.itemToBeAdded.set("source", {id: cellView.model.id});
+						}
+					}
                     return;
             }
         },

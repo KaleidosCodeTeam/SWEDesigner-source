@@ -25,7 +25,7 @@ define ([
 			this.views.projectView = new ProjectView({parent: this});
 			this.views.titlebarView = new TitlebarView({parent: this, model: this.views.projectView.model});
 			this.views.toolbarView = new ToolbarView({parent: this, model: this.views.projectView.model});
-			//this.views.pathView = new PathView({parent: this, model: this.views.projectView.model});
+			this.views.pathView = new PathView({parent: this, model: this.views.projectView.model});
 			this.views.editPanelView = new EditPanelView({parent: this, paper: this.views.projectView.paper});
 		},
 		render: function() {

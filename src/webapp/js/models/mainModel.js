@@ -17,7 +17,7 @@ define ([
 			console.log("MainModel initialized");
 			this.project.projectPkgDiagram = new Swedesigner.model.Diagram('packageDiagram');
 			console.log('Project.projectPkgDiagram ' + this.project.projectPkgDiagram);
-			this.project.currentGraph = this.project.projectPkgDiagram;
+			this.project.currentGraph = /*new Swedesigner.model.Diagram('classDiagram')*/this.project.projectPkgDiagram;
 			console.log('Project.currentGraph ' + this.project.currentGraph);
 		},
 		deleteCell: function (cell) {
