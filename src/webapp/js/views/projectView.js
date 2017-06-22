@@ -115,7 +115,7 @@ define ([
                     return;
                 default:
 					if (projectModel.project.currentGraph.itemToBeAdded && projectModel.project.currentGraph.itemToBeAdded.isLink()) {
-						if (projectModel.project.currentGraph.itemToBeAdded.get("source").id != undefined) {
+						if (projectModel.project.currentGraph.itemToBeAdded.get("source").id !== undefined) {
 						    projectModel.project.currentGraph.itemToBeAdded.set("target", {id: cellView.model.id});
 						    console.log(projectModel.project.currentGraph.itemToBeAdded);
 						    projectModel.project.currentGraph.addItemToGraph();
@@ -128,6 +128,7 @@ define ([
         },
         switch: function (id) {
             projectModel.switchInGraph(id);
+            this.paper.model = projectModel.project.currentGraph.getCurrentGraph();
             this.paper.render();
             this.paper.selectedCell = null;
             this.paper.trigger("changed-cell");

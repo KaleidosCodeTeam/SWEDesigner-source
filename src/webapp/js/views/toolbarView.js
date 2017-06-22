@@ -6,8 +6,9 @@ define ([
 	'js/models/items/swedesignerItems',
 	'js/views/editPanelView',
     'js/views/pathView',
+    'js/views/projectView',
     'js/models/toolbarModel'
-], function($, _, Backbone, joint, Swedesigner, editPanelView, pathView, toolbarModel) {
+], function($, _, Backbone, joint, Swedesigner, editPanelView, pathView, projectView, toolbarModel) {
 
 	/**
      *  @module 
@@ -36,8 +37,9 @@ define ([
          */
 		initialize: function() {
 			this.model = toolbarModel;
-			this.listenTo(editPanelView,'switchgraph', this.render);
-			this.listenTo(pathView,'switchgraph',this.render);
+			this.listenTo(editPanelView, 'switchgraph', this.render);
+			this.listenTo(pathView, 'switchgraph',this.render);
+			this.listenTo(projectView, 'switchgraph',this.render);
 			this.render();
 		},
 		/**

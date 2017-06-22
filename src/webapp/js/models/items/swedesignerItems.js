@@ -49,6 +49,8 @@ define ([
             this.updateRectangles();
             joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         },
+        setDiagram: function(diagram) {
+        },
         /**
          *  @function Base#updateRectangles
          *  @summary Render dell'item.
@@ -167,6 +169,9 @@ define ([
         	console.log(this.values.classDiagram);
             this.values.classDiagram = new Swedesigner.model.Diagram('classDiagram');
             console.log(this.values.classDiagram);
+        },
+        setDiagram: function(diagram) {
+            this.attributes.values.classDiagram = diagram;
         },
         /**
          *  @function Package#getPackageName
@@ -379,6 +384,9 @@ define ([
             this.updateRectangles();
             joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         },
+        setDiagram: function(diagram) {
+            this.attributes.values.classDiagram = diagram;
+        },
         /**
          *  @function Base#getValues
          *  @summary Ritorna i valori dell'item (nome, attributi, metodi, ...).
@@ -517,6 +525,9 @@ define ([
         initialize: function() {
             Swedesigner.model.classDiagram.items.Base.prototype.initialize.apply(this, arguments);
         },
+        setDiagram: function(diagram) {
+            this.attributes.values.bubbleDiagram = diagram;
+        },
         /**
          *  @var {string} Class#markup Markup HTML per la rappresentazione grafica.
          */
@@ -584,7 +595,7 @@ define ([
                     'fill': '#222222',
                     'font-size': 12,
                     'font-family': 'monospace'
-                }
+                },
             },
             attributesExpanded: true,
             methodsExpanded: true,
@@ -629,7 +640,8 @@ define ([
                 frozen: "false",
                 readOnly: "false",
                 enum: "false",
-                generic: "false"
+                generic: "false",
+                bubbleDiagram: {}
             }
         }, Swedesigner.model.classDiagram.items.Base.prototype.defaults),
         /**
@@ -972,7 +984,8 @@ define ([
     						}
     					]
     				}*/
-                ]
+                ],
+                bubbleDiagram: {}
             }
         }, Swedesigner.model.classDiagram.items.Base.prototype.defaults),
         /**
@@ -981,6 +994,9 @@ define ([
          */
         initialize: function() {
             Swedesigner.model.classDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        },
+        setDiagram: function(diagram) {
+            this.attributes.values.bubbleDiagram = diagram;
         },
         /**
          *  @function Interface#updateRectangles
@@ -1934,7 +1950,15 @@ define ([
             _.each(this.graph.get('cells').models, function(el) {   // Non sono sicuro se funzionerà
                 el.set("z", 1);
             });
+            var diagram = new Swedesigner.model.Diagram('classDiagram');
+            console.log('questo è diagram');
+            console.log(diagram);
+            console.log('e viene aggiunto a itemtobeadded');
+            this.itemToBeAdded.setDiagram(diagram);
+            console.log(this.itemToBeAdded);
             this.graph.addCell(this.itemToBeAdded);
+            console.log('This is the object added: ');
+            console.log(this.itemToBeAdded);
             this.trigger('addCell', this.itemToBeAdded);
             this.itemToBeAdded=null;
         },
