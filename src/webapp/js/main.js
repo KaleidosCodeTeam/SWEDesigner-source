@@ -17,6 +17,12 @@ require.config({
 });
 
 //console.log('Hey! I am main.js');
-require(['js/views/mainView'], function(MainView) {
-	var main_view=new MainView();
+require(['js/models/projectModel'], function(projectModel) {            // Mi assicuro che prima di tutto sia caricato il model.
+    require(['js/views/projectView'], function(projectView) {           // Poi la projectView
+        require(['js/views/editPanelView'], function(editPanelView) {   // Poi la editPanelView
+            require(['js/views/mainView'], function(mainView) {         // E solo alla fine la mainView
+            });
+        });
+    });
 });
+

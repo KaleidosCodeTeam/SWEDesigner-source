@@ -4,24 +4,21 @@ define ([
     'backbone',
     'joint',
     'js/models/DAOclient',
-    'js/models/items/swedesignerItems'
-], function ($, _, Backbone, joint, DAOclient, Swedesigner) {
+    'js/models/items/swedesignerItems',
+    'js/models/projectModel'
+], function ($, _, Backbone, joint, DAOclient, Swedesigner, projectModel) {
     /**
      * @class TitlebarModel
      * @classdesc Model della barra del titolo, si occupa di fornire i metodi necessari alla gestione delle funzionalità richieste alla barra del titolo.
      * @extends Backbone.Model
      */
-	return titlebarModel = Backbone.Model.extend({
-		projModel: {},
+	var titlebarModel = Backbone.Model.extend({
 
         /**
          * @function TitlebarModel#initialize
-         * @param param
          * @summary Metodo di inizializzazione.
          */
-		initialize: function(param) {
-            this.projModel = param.projModel;
-            console.log(this.projModel);
+		initialize: function() {
 		},
 
         /**
@@ -30,8 +27,8 @@ define ([
          */
         newProject: function() {
             if (confirm("Il nuovo progetto sovrascriverà quello attualmente aperto. Sei sicuro?") === true) {
-                this.projModel.project.projectPkgDiagram = new Swedesigner.model.Diagram('packageDiagram');
-                this.projModel.project.currentGraph = this.projModel.project.projectPkgDiagram;
+                projectModel.project.projectPkgDiagram = new Swedesigner.model.Diagram('packageDiagram');
+                projectModel.project.currentGraph = projectModel.project.projectPkgDiagram;
                 console.log('newProject created');
             } else {
                 console.log('New project creation aborted');
@@ -43,8 +40,7 @@ define ([
          * @summary Invoca la funzione del DAO per l'apertura da file di un progetto.
          */
         openProject: function() {
-            console.log('titleBarModel openProj ='+this.projModel);
-            DAOclient.openProject(this.projModel);
+            DAOclient.openProject();
         },
 
         /**
@@ -52,7 +48,7 @@ define ([
          * @summary Invoca la funzione del DAO per il salvataggio del progetto corrente in un file nominato "newProject.swed".
          */
         saveProject: function() {
-		    DAOclient.save(this.projModel.project.projectPkgDiagram,'newProject.swed');
+		    DAOclient.save(projectModel.project.projectPkgDiagram,'newProject.swed');
         },
 
         /**
@@ -61,7 +57,7 @@ define ([
          */
         saveProjectAs: function() {
 		    var fName = document.getElementById("fileNameInput").value + ".swed";
-            DAOclient.save(this.projModel.project.projectPkgDiagram,fName);
+            DAOclient.save(projectModel.project.projectPkgDiagram,fName);
         },
         closeProject: function() { //MAYBE NOT
         },
@@ -84,4 +80,5 @@ define ([
         viewGeneratedCode: function() { //MAYBE NOT
         }
 	});
+	return new titlebarModel;
 });

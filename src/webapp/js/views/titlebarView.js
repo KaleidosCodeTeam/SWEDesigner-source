@@ -4,15 +4,14 @@ define ([
 	'backbone',
 	'joint',
 	'js/models/titlebarModel'
-	//'js/views/' riferimento alla view principale del progetto 
 	/** ecc. */
-], function ($, _, Backbone, joint, TitlebarModel) {
+], function ($, _, Backbone, joint, titlebarModel) {
     /**
      * @class TitlebarView
      * @classdesc View della barra del titolo, si occupa di gestire gli eventi ad essa associati invocando le apposite funzioni del model.
      * @extends Backbone.View
      */
-	return TitlebarView = Backbone.View.extend({
+	var titlebarView = Backbone.View.extend({
 		el: 'body',
 		events: {
 			'click #openFile-button': 'openProject',
@@ -32,12 +31,10 @@ define ([
 		},
         /**
          * @function TitlebarView#initialize
-         * @param param
          * @summary Metodo di inizializzazione.
          */
-		initialize: function(param) {
-			this.model = new TitlebarModel({projModel:param.model});
-			this.parent = param.parent;
+		initialize: function() {
+			this.model = titlebarModel;
 		},
 		render: function() {
 		},
@@ -49,7 +46,7 @@ define ([
          */
 		openProject: function (event) {
 			console.log(event.currentTarget);
-			this.model.openProject();
+			titlebarModel.openProject();
 		},
 
         /**
@@ -59,7 +56,7 @@ define ([
          */
         newProject: function (event) {
             console.log(event.currentTarget);
-            this.model.newProject();
+            titlebarModel.newProject();
         },
 
         /**
@@ -69,7 +66,7 @@ define ([
          */
         saveProject: function (event) {
             console.log(event.currentTarget);
-            this.model.saveProject();
+            titlebarModel.saveProject();
         },
 
         /**
@@ -79,7 +76,8 @@ define ([
          */
         saveProjectAs: function (event) {
 		    console.log(event.currentTarget);
-		    this.model.saveProjectAs();
+            titlebarModel.saveProjectAs();
         }
 	});
+	return new titlebarView;
 });

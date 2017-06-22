@@ -10,7 +10,7 @@ define ([
 	'js/views/projectView'
 	/** ecc. */
 ], function ($, _, Backbone, joint, TitlebarView, ToolbarView, PathView, EditPanelView, ProjectView) {
-	var MainView = Backbone.View.extend({
+	var mainView = Backbone.View.extend({
 		el: 'body',
 		events: {},
 		views: {
@@ -22,14 +22,14 @@ define ([
 		},
 		initialize: function() {
 			console.log("MainView initialized");
-			this.views.projectView = new ProjectView({parent: this});
-			this.views.titlebarView = new TitlebarView({parent: this, model: this.views.projectView.model});
-			this.views.toolbarView = new ToolbarView({parent: this, model: this.views.projectView.model});
+			this.views.projectView = ProjectView;
+			this.views.titlebarView = TitlebarView;
+			this.views.toolbarView = ToolbarView;
 			//this.views.pathView = new PathView({parent: this, model: this.views.projectView.model});
-			this.views.editPanelView = new EditPanelView({parent: this, paper: this.views.projectView.paper});
+			this.views.editPanelView = EditPanelView;
 		},
 		render: function() {
 		}
 	});
-	return MainView;
+	return new mainView;
 });
