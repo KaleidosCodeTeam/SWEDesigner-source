@@ -35,18 +35,18 @@ define ([
             this.itemToBeAdded=null;
         },
 		deleteCell: function (cell) {
-            /*
-            * controlloTipo(cell){
-            *       cellDiTipoPackage => invoco cancellaClassiDi(idPackage) nel project
-            *       cellDiTipoClasse  => invoco cancellaMetodiDi(idClasse) nel project
-            * */
-
+            if (cell.type === 'packageDiagram.Package') {
+                project.deleteClassesOf(cell.id);
+            }
+            if (cell.type === 'classDiagram.Class') {
+                project.deleteOperationsOf(cell.id);
+            }
+            /* ~~~~~~ Legacy code ~~~~~~
             if (cell.getValues().hasOwnProperty("operations")) {
                 for (var op in cell.getValues().operations) {
                     project.deleteBubbleDiagram(cell.getValues().operations[op].id);
                 }
-            }
-            // va esteso per controllare la cancellazione di package non vuoti
+            }*/
             this.graph.removeCells([cell]);
             this.trigger('addcell');
 		},

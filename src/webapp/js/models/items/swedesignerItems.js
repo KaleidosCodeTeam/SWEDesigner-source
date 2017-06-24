@@ -37,11 +37,13 @@ define ([
         defaults: _.defaultsDeep({
             type: 'uml.packageDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
+        parentId: null,
         /**
          *  @function Base#initialize
          *  @summary Metodo di inizializzazione: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
          */
-        initialize: function () {
+        initialize: function (parentId) {
+            this.parentId = parentId;
             this.on('change:values', function () {
                 this.updateRectangles();
                 this.trigger('uml-update');
@@ -364,11 +366,13 @@ define ([
         defaults: _.defaultsDeep({
             type: 'uml.classDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
+        parentId: null,
         /**
          *  @function Base#initialize
          *  @summary Metodo di inizializzazione: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
          */
-        initialize: function() {
+        initialize: function(parentId) {
+            this.parentId = parentId;
             this.on('change:values', function() {
                 this.updateRectangles();
                 this.trigger('uml-update');
@@ -1501,11 +1505,13 @@ define ([
         defaults: _.defaultsDeep({
             type: 'uml.packageDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
+        parentId: null,
         /**
          *  @function Base#initialize
          *  @summary Metodo di inizializzazione: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
          */
-        initialize: function () {
+        initialize: function (parentId) {
+            this.parentId = parentId;
             this.on('change:values', function () {
                 this.updateRectangles();
                 this.trigger('uml-update');
