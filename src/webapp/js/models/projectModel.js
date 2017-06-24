@@ -85,6 +85,40 @@ define ([
 		*/},
         saveCurrentDiagram: function() {
             // salva in project il graph correntemente aperto
+            if (this.currentDiagramType === 'packageDiagram') {
+                for (var cell in this.graph.getCells()) {
+                    if (cell.type === 'packageDiagram.Package') {
+                        project.packages.packagesArray.push(cell)
+                    } else if (cell.type === 'packageDiagram.PkgComment') {
+                        project.packages.pkgCommentsArray.push(cell)
+                    } // else if (cell.type === 'packageDiagram.dependency') {}
+                }
+            } else if (this.currentDiagramType === 'classDiagram') {
+                for (var cell in this.graph.getCells()) {
+                    if ((cell.type === 'classDiagram.Class') || (cell.type === 'classDiagram.Interface') {
+                        project.classes.classesArray.push(cell);
+                        /*
+
+                        Come funziona la gestione delle operazioni interne alle cell? Vanno salvate in quale momento?
+                        Se alcuni parametri sono modificabili da qui vanno aggiornati i salvataggi
+
+                         */
+                    } else if (cell.type === 'classDiagram.ClComment') {
+                        project.classes.clCommentsArray.push(cell)
+                    } else if ((cell.type === 'classDiagram.classDiagramLink')||
+                                (cell.type === 'classDiagram.Generalization') ||
+                                (cell.type === 'classDiagram.Implementation') ||
+                                (cell.type === 'classDiagram.Aggregation') ||
+                                (cell.type === 'classDiagram.Composition') ||
+                                (cell.type === 'classDiagram.Association')) {
+                        project.classes.relationshipsArray.push(cell)
+                    }
+                }
+            } else if (this.currentDiagramType === 'bubbleDiagram') {
+                for (var cell in this.graph.getCells()) {
+                    project.bubbles.push(cell)
+                }
+            }
         },
         /**
          *  @function Diagram#adjustVertices

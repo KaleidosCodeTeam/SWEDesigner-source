@@ -10,20 +10,18 @@ define ([
     var project = Backbone.Model.extend({
         packages: {
             packagesArray: [],
-            dependenciesArray: []
+            dependenciesArray: [],
+            pkgCommentsArray: []
         },
         classes: {
             classesArray: [],
             relationshipsArray: [],
+            clCommentsArray: []
         },
         operations: [],
+        bubbles: [],
         initialize: function() {},
-        deleteBubbleDiagram: function(id) {
-            this.operations.splice(this.getIndexFromId(id),1);
-        },
-        getIndexFromId: function(id) {
-            return this.operations.findIndex((x) => x.id === id);
-        },
+
         deleteClassesOf: function(id) {
             for (var cl in this.classes.classesArray) {
                 if (cl.parentId === id) {
@@ -37,6 +35,7 @@ define ([
                 }
             }
         },
+
         deleteOperationsOf: function(id) {
             for (var op in this.operations) {
                 if (op.parentId === id) {
