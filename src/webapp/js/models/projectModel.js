@@ -95,7 +95,7 @@ define ([
                 }
             } else if (this.currentDiagramType === 'classDiagram') {
                 for (var cell in this.graph.getCells()) {
-                    if ((cell.type === 'classDiagram.Class') || (cell.type === 'classDiagram.Interface') {
+                    if ((cell.type === 'classDiagram.Class') || (cell.type === 'classDiagram.Interface')) {
                         project.classes.classesArray.push(cell);
                         /*
 
