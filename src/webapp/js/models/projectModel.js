@@ -7,7 +7,7 @@ define ([
     'js/models/project'
 ], function ($, _, Backbone, joint, Swedesigner, project) {
 	var projectModel = Backbone.Model.extend({
-		graph,
+		graph: {},
 		currentDiagram: null,	//	conterrà un Id del diagramma corrente
 		currentDiagramType: '',
         itemToBeAdded: null,

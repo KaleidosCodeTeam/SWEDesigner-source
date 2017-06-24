@@ -14,7 +14,7 @@ define ([
 			this.model = projectModel;
 			this.paper = new joint.dia.Paper({
 				el: $('#canvas'),
-				model: projectModel.project.currentGraph.graph,
+				model: projectModel.graph,
 				width: $('#canvas').width(),
 				height:$('#canvas').height(),
 				gridSize: 10,
@@ -74,9 +74,9 @@ define ([
 		},
 		addCell: function(event, type, x, y) {
             console.log(projectModel.project);
-            if(projectModel.project.currentGraph.itemToBeAdded !== null/* && this.model.project.currentGraph.itemToBeAdded.isElement()*/) {
-                projectModel.project.currentGraph.itemToBeAdded.position(x, y);
-                projectModel.project.currentGraph.addItemToGraph();
+            if(projectModel.itemToBeAdded !== null/* && this.model.project.currentGraph.itemToBeAdded.isElement()*/) {
+                projectModel.itemToBeAdded.position(x, y);
+                projectModel.addItemToGraph();
             }
         },
 		deleteCell: function(e) {
@@ -114,13 +114,12 @@ define ([
                     prView.deleteCell(cellView.model);
                     return;
                 default:
-					if (projectModel.project.currentGraph.itemToBeAdded && projectModel.project.currentGraph.itemToBeAdded.isLink()) {
-						if (projectModel.project.currentGraph.itemToBeAdded.get("source").id !== undefined) {
-						    projectModel.project.currentGraph.itemToBeAdded.set("target", {id: cellView.model.id});
-						    console.log(projectModel.project.currentGraph.itemToBeAdded);
-						    projectModel.project.currentGraph.addItemToGraph();
+					if (projectModel.itemToBeAdded && projectModel.itemToBeAdded.isLink()) {
+						if (projectModel.itemToBeAdded.get("source").id !== undefined) {
+						    projectModel.itemToBeAdded.set("target", {id: cellView.model.id});
+						    projectModel.addItemToGraph();
 						} else {
-						    projectModel.project.currentGraph.itemToBeAdded.set("source", {id: cellView.model.id});
+						    projectModel.itemToBeAdded.set("source", {id: cellView.model.id});
 						}
 					}
                     return;

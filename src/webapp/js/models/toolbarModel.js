@@ -34,7 +34,7 @@ define ([
          *  @summary Metodo che ritorna il tipo del diagramma corrente.
          */
 		currentDiagram: function() {
-			return projectModel.project.currentGraph.getDiagramType();
+			return projectModel.currentDiagramType;
 		},
 		/**
          *  @function ToolbarModel#createItems
@@ -53,7 +53,7 @@ define ([
 		addElement: function (id) {
 			console.log(id);
 			var el = new this.items[id];
-			projectModel.project.currentGraph.addItem(el);
+			projectModel.addItem(el);
 		}
 	});
 	return new toolbarModel;
