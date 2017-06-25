@@ -24,7 +24,6 @@ define ([
                 var c = projectView.paper.selectedCell;
                 var output = "";
                 var v = c.getValues();
-                console.log(projectView.paper.selectedCell.get('cid'));
                 var p = projectView.paper.selectedCell.id;
                 v['id'] = p;
                 output = this.currentTemplate(v);
@@ -87,8 +86,8 @@ define ([
         },
 
         switch: function (e) {
-            console.log(e.target.value);
-            projectView.switch(e.target.value);
+            //console.log(e.target.value);
+            projectView.switchIn(e.target.value);
         },
 
         /**

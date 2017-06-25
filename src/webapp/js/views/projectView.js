@@ -73,8 +73,7 @@ define ([
 
 		},
 		addCell: function(event, type, x, y) {
-            console.log(projectModel.project);
-            if(projectModel.itemToBeAdded !== null/* && this.model.project.currentGraph.itemToBeAdded.isElement()*/) {
+            if(projectModel.itemToBeAdded !== null && projectModel.itemToBeAdded.isElement()) {
                 projectModel.itemToBeAdded.position(x, y);
                 projectModel.addItemToGraph();
             }
@@ -125,13 +124,13 @@ define ([
                     return;
             }
         },
-        switch: function (id) {
+        switchIn: function (id) {
             projectModel.switchInGraph(id);
-            this.paper.model = projectModel.project.currentGraph.getCurrentGraph();
-            this.paper.render();
             this.paper.selectedCell = null;
             this.paper.trigger("changed-cell");
             this.trigger("switchgraph");
+            console.log(projectModel);
+            console.log(this.paper);
         },
 
 

@@ -10,16 +10,14 @@ define ([
     var project = Backbone.Model.extend({
         packages: {
             packagesArray: [],
-            dependenciesArray: [],
-            pkgCommentsArray: []
+            dependenciesArray: []
         },
         classes: {
             classesArray: [],
-            relationshipsArray: [],
-            clCommentsArray: []
+            relationshipsArray: []
         },
         operations: [],
-        bubbles: [],
+
         initialize: function() {},
 
         deleteClassesOf: function(id) {
@@ -30,7 +28,7 @@ define ([
                 }
             }
             for (var rl in this.classes.relationshipsArray) {
-                if (rl.parentId ===id) {
+                if (rl.parentId === id) {
                     this.classes.relationshipsArray.splice(this.relationshipsArray.indexOf(rl),1);
                 }
             }
@@ -42,6 +40,10 @@ define ([
                     this.operations.splice(this.operations.indexOf(op),1);
                 }
             }
+        },
+
+        getOperationIndex: function(id) {
+            return this.operations.findIndex((x) => x.id == id);
         }
     });
     return new project;

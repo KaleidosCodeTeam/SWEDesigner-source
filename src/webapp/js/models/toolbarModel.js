@@ -33,7 +33,7 @@ define ([
          *  @function ToolbarModel#currentDiagram
          *  @summary Metodo che ritorna il tipo del diagramma corrente.
          */
-		currentDiagram: function() {
+		getCurrentDiagram: function() {
 			return projectModel.currentDiagramType;
 		},
 		/**

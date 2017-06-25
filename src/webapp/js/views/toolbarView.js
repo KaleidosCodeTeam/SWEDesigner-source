@@ -37,8 +37,6 @@ define ([
          */
 		initialize: function() {
 			this.model = toolbarModel;
-			this.listenTo(editPanelView, 'switchgraph', this.render);
-			this.listenTo(pathView, 'switchgraph',this.render);
 			this.listenTo(projectView, 'switchgraph',this.render);
 			this.render();
 		},
@@ -55,7 +53,7 @@ define ([
          */
 		renderTools: function () {
 			console.log("render tools here i am :)");
-			var currentDiagram = toolbarModel.currentDiagram();
+			var currentDiagram = toolbarModel.getCurrentDiagram();
 			console.log(currentDiagram);
 			_.each(this.$el.children(), function(diagram) {
 				if($(diagram).attr('class') === currentDiagram)

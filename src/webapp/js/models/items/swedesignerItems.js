@@ -627,12 +627,12 @@ define ([
     				}*/
     			],
                 //Attributi utili lato client
-                static: "false",
-                final: "false",
-                frozen: "false",
-                readOnly: "false",
-                enum: "false",
-                generic: "false"
+                isStatic: "false",
+                isFinal: "false",
+                isFrozen: "false",
+                isReadOnly: "false",
+                isEnum: "false",
+                isGeneric: "false"
             }
         }, Swedesigner.model.classDiagram.items.Base.prototype.defaults),
         /**

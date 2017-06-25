@@ -31,7 +31,7 @@
         <h4>Commento</h4>
         <div class="form-group">
             <label for="comment">Testo:</label>
-            <textarea class="form-control edit" rows="5" value="<%=comment%>" id="comment"></textarea>
+            <input type="text" class="form-control edit" value="<%=comment%>" name="comment" id="comment" />
         </div>
     </div>
 </script>
@@ -42,11 +42,11 @@
         <h4>Classe</h4>
         <div class="form-group">
             <label for="class-name">Nome:</label>
-            <input type="text" class="form-control edit" value="<%= _name %>" id="class-name" />
+            <input type="text" class="form-control edit" value="<%=_name%>" name="_name" id="class-name" />
         </div>
         <div class="form-group">
             <label for="class-rank">Importanza:</label>
-            <select class="form-control edit" name="_importance" id="class-rank">
+            <select class="form-control edit" name="_importance" name="_importance" id="class-rank">
                 <option value="alta" <% if(_importance=="alta") { %> selected <% } %>>alta</option>
                 <option value="media" <% if(_importance=="media") { %> selected <% } %>>media</option>
                 <option value="bassa" <% if(_importance=="bassa") { %> selected <% } %>>bassa</option>
@@ -54,37 +54,37 @@
         </div>
         <div class="form-group">
             <label for="class-visibility">Visibilità:</label>
-            <select class="form-control edit" name="_visibility" id="class-visibility">
+            <select class="form-control edit" name="_visibility" name="_visibility" id="class-visibility">
                 <option value="public"
                 <% if(_visibility=="public") { %> selected <% } %>>public</option>
                 <option value="private"
                 <% if(_visibility=="private") { %> selected <% } %>>private</option>
-                <option value="public"
+                <option value="protected"
                 <% if(_visibility=="protected") { %> selected <% } %>>protected</option>
             </select>
         </div>
         <div id="class-properties">
             <h5>Proprietà aggiuntive</h5>
             <div class="checkbox">
-                <label><input type="checkbox" name="static" class="edit" <% if(static=="true") { %>checked <% } %>>static</label>
+                <label><input type="checkbox" name="isStatic" class="edit" <% if(isStatic=="true") { %>checked <% } %>>static</label>
             </div>
             <div class="checkbox">
                 <label><input type="checkbox" name="isAbstract" class="edit" <% if(isAbstract=="true") { %>checked <% } %>>abstract</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" name="final" class="edit" <% if(final=="true") { %>checked <% } %>>final</label>
+                <label><input type="checkbox" name="isFinal" class="edit" <% if(isFinal=="true") { %>checked <% } %>>final</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" name="frozen" class="edit" <% if(frozen=="true") { %>checked <% } %>>frozen</label>
+                <label><input type="checkbox" name="isFrozen" class="edit" <% if(isFrozen=="true") { %>checked <% } %>>frozen</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" name="readOnly" class="edit" <% if(readOnly=="true") { %>checked <% } %>>readonly</label>
+                <label><input type="checkbox" name="isReadOnly" class="edit" <% if(isReadOnly=="true") { %>checked <% } %>>readonly</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" name="enum" class="edit" <% if(enum=="true") { %>checked <% } %>>enum</label>
+                <label><input type="checkbox" name="isEnum" class="edit" <% if(isEnum=="true") { %>checked <% } %>>enum</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" name="generic" class="edit" <% if(generic=="true") { %>checked <% } %>>generic</label>
+                <label><input type="checkbox" name="isGeneric" class="edit" <% if(isGeneric=="true") { %>checked <% } %>>generic</label>
             </div>
         </div>
         <!-- ATTRIBUTI -->
@@ -152,7 +152,7 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label for="<%=operations[op]._name%>">Nome:</label>
-                                    <input type="text" class="form-control edit" value="<%=operations[op]._name%>" name="operations<%=op%>._name" id="class-operation-name" />
+                                    <input type="text" class="form-control edit" value="<%= operations[op]._name %>" name="operations.<%=op%>._name" id="class-operation-name" />
                                 </div>
                                 <div class="form-group">    <!-- PRIMA NON C'ERA! AGGIUNTA CREANDO IL TEMPLATE. CONTROLLARE CLASS E ID SUI MARKUP! -->
                                     <label for="attributes.<%=attr%>._type">Tipo di ritorno:</label>
@@ -160,7 +160,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="class-operation-visibility">Visibilità:</label>
-                                    <select class="form-control edit" name="operatiorns.<%=op%>._visibility" id="class-operation-visibility">
+                                    <select class="form-control edit" name="operations.<%=op%>._visibility" id="class-operation-visibility">
                                         <option value ="public" <% if(operations[op]._visibility=="public") { %> selected <% } %>>public</option>
                                         <option value ="private" <% if(operations[op]._visibility=="private") { %> selected <% } %>>private</option>
                                         <option value ="protected" <% if(operations[op]._visibility=="protected") { %> selected <% } %>>protected</option>
@@ -237,11 +237,11 @@
         <h4>Interfaccia</h4>
         <div class="form-group">
             <label for="interface-name">Nome:</label>
-            <input type="text" class="form-control edit" value="<%= _name %>" id="interface-name" />
+            <input type="text" class="form-control edit" value="<%= _name %>" name="_name" id="interface-name" />
         </div>
         <div class="form-group">
             <label for="interface-rank">Importanza:</label>
-            <select class="form-control edit" name="_importance" id="interface-rank">
+            <select class="form-control edit" name="_importance" name="_importance" id="interface-rank">
                 <option value="alta" <% if(_importance=="alta") { %> selected <% } %>>alta</option>
                 <option value="media" <% if(_importance=="media") { %> selected <% } %>>media</option>
                 <option value="bassa" <% if(_importance=="bassa") { %> selected <% } %>>bassa</option>
@@ -249,7 +249,7 @@
         </div>
         <div class="form-group">
             <label for="interface-visibility">Visibilità:</label>
-            <select class="form-control edit" name="_visibility" id="interface-visibility">
+            <select class="form-control edit" name="_visibility" name="_visibility" id="interface-visibility">
                 <option value="public"
                 <% if(_visibility=="public") { %> selected <% } %>>public</option>
                 <option value="private"
@@ -273,7 +273,7 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label for="<%=operations[op]._name%>">Nome:</label>
-                                    <input type="text" class="form-control edit" value="<%=operations[op]._name%>" name="operations<%=op%>._name" id="interface-operation-name" />
+                                    <input type="text" class="form-control edit" value="<%= operations[op]._name %>" name="operations.<%=op%>._name" id="interface-operation-name" />
                                 </div>
                                 <div class="form-group">    <!-- PRIMA NON C'ERA! AGGIUNTA CREANDO IL TEMPLATE. CONTROLLARE CLASS E ID SUI MARKUP! -->
                                     <label for="attributes.<%=attr%>._type">Tipo di ritorno:</label>
@@ -281,7 +281,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="interface-operation-visibility">Visibilità:</label>
-                                    <select class="form-control edit" name="operatiorns.<%=op%>._visibility" id="interface-operation-visibility">
+                                    <select class="form-control edit" name="operations.<%=op%>._visibility" id="interface-operation-visibility">
                                         <option value ="public" <% if(operations[op]._visibility=="public") { %> selected <% } %>>public</option>
                                         <option value ="private" <% if(operations[op]._visibility=="private") { %> selected <% } %>>private</option>
                                         <option value ="protected" <% if(operations[op]._visibility=="protected") { %> selected <% } %>>protected</option>
@@ -358,7 +358,7 @@
         <h4>Commento</h4>
         <div class="form-group">
             <label for="comment">Testo:</label>
-            <textarea class="form-control edit" rows="5" value="<%=comment%>" id="comment"></textarea>
+            <input type="text" class="form-control edit" value="<%=comment%>" name="comment" id="comment" />
         </div>
     </div>
 </script>
