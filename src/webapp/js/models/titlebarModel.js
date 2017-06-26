@@ -34,6 +34,8 @@ define ([
                 project.classes.relationshipsArray= [];
                 project.operations= [];
                 projectModel.graph.resetCells([]);
+                projectModel.currentDiagramType = 'packageDiagram';
+                projectModel.currentDiagram = null;
                 console.log('newProject created');
             } else {
                 console.log('New project creation aborted');

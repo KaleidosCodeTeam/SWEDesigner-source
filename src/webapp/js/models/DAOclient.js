@@ -4,10 +4,9 @@
 define ([
     'jquery',
     'underscore',
-    'jsonfn',
     'js/models/projectModel',
     'js/models/project'
-], function ($, _, jsonfn,projectModel,project) {
+], function ($, _, projectModel,project) {
 
     var DAOclient = {};
 
@@ -24,6 +23,7 @@ define ([
         myProject.classes = project.classes;
         myProject.operations = project.operations;
         var file = JSON.stringify(myProject);
+        console.log(file);
         var myBlob = new Blob([file], {type: "application/octet-stream"});
         var reader = new FileReader();
         reader.onload = function(event) {
@@ -32,6 +32,16 @@ define ([
             document.getElementById("lnkDownload").click();
         };
         reader.readAsDataURL(myBlob);
+    };
+
+    DAOclient.keyPaired = function(array) {
+        var newArray = [];
+        var i = 0;
+        for (var el in array) {
+            newArray[i] = el;
+            i++;
+        }
+        return newArray;
     };
 
     /**
@@ -46,11 +56,20 @@ define ([
         var reader = new FileReader();
         reader.onload = function(event) {
             myFileRead = event.target.result;
-            projectModel.project.projectPkgDiagram = JSON.parse(myFileRead); /*JSONfn.parse(myFileRead);*/
-            projectModel.project.currentGraph = projectModel.project.projectPkgDiagram;
+            console.log(myFileRead);
+            var myProject = JSON.parse(myFileRead);
+            console.log(myProject);
+            console.log(myProject.packages);
+            project.packages = myProject.packages;
+            project.classes = myProject.classes;
+            project.operations = myProject.operations;
+            projectModel.currentDiagramType = 'packageDiagram';
+            projectModel.currentDiagram = null;
+            // projectModel.graph.resetCells(project.packages.packagesArray.concat(project.packages.relationshipsArray));
             console.log('project loaded');
         };
         reader.readAsText(myFile);
+
     };
 
     return DAOclient;
