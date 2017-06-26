@@ -5,8 +5,9 @@ define ([
     'joint',
     'js/models/DAOclient',
     'js/models/items/swedesignerItems',
-    'js/models/projectModel'
-], function ($, _, Backbone, joint, DAOclient, Swedesigner, projectModel) {
+    'js/models/projectModel',
+    'js/models/project'
+], function ($, _, Backbone, joint, DAOclient, Swedesigner, projectModel,project) {
     /**
      * @class TitlebarModel
      * @classdesc Model della barra del titolo, si occupa di fornire i metodi necessari alla gestione delle funzionalità richieste alla barra del titolo.
@@ -27,8 +28,12 @@ define ([
          */
         newProject: function() {
             if (confirm("Il nuovo progetto sovrascriverà quello attualmente aperto. Sei sicuro?") === true) {
-                projectModel.project.projectPkgDiagram = new Swedesigner.model.Diagram('packageDiagram');
-                projectModel.project.currentGraph = projectModel.project.projectPkgDiagram;
+                project.packages.packagesArray = [];
+                project.packages.dependenciesArray = [];
+                project.classes.classesArray= [];
+                project.classes.relationshipsArray= [];
+                project.operations= [];
+                projectModel.graph.resetCells([]);
                 console.log('newProject created');
             } else {
                 console.log('New project creation aborted');
