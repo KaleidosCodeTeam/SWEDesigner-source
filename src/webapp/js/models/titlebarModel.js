@@ -48,7 +48,7 @@ define ([
          * @summary Invoca la funzione del DAO per il salvataggio del progetto corrente in un file nominato "newProject.swed".
          */
         saveProject: function() {
-		    DAOclient.save(projectModel.project.projectPkgDiagram,'newProject.swed');
+		    DAOclient.save('newProject.swed');
         },
 
         /**
@@ -57,7 +57,7 @@ define ([
          */
         saveProjectAs: function() {
 		    var fName = document.getElementById("fileNameInput").value + ".swed";
-            DAOclient.save(projectModel.project.projectPkgDiagram,fName);
+            DAOclient.save(fName);
         },
         closeProject: function() { //MAYBE NOT
         },

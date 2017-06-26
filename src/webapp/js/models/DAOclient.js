@@ -5,8 +5,9 @@ define ([
     'jquery',
     'underscore',
     'jsonfn',
-    'js/models/projectModel'
-], function ($, _, jsonfn,projectModel) {
+    'js/models/projectModel',
+    'js/models/project'
+], function ($, _, jsonfn,projectModel,project) {
 
     var DAOclient = {};
 
@@ -16,8 +17,13 @@ define ([
      * @param {string} fileName - Nome del file da scaricare.
      * @summary Converte i dati da salvare in formato JSON e li scarica tramite il browser.
      */
-    DAOclient.save = function(data,fileName){
-        var file = JSON.stringify(data); /*JSONfn.stringify(data);*/
+    DAOclient.save = function(fileName){
+        projectModel.saveCurrentDiagram();
+        var myProject = {};
+        myProject.packages = project.packages;
+        myProject.classes = project.classes;
+        myProject.operations = project.operations;
+        var file = JSON.stringify(myProject);
         var myBlob = new Blob([file], {type: "application/octet-stream"});
         var reader = new FileReader();
         reader.onload = function(event) {

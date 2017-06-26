@@ -75,7 +75,7 @@ define ([
          * @summary Fornisce informazioni utili al debug mediante console.log e invoca la funzione corrispondente nel model.
          */
         saveProjectAs: function (event) {
-		    console.log(event.currentTarget);
+            console.log(event.currentTarget);
             titlebarModel.saveProjectAs();
         }
 	});
