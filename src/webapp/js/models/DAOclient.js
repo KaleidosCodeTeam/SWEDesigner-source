@@ -65,7 +65,7 @@ define ([
             project.operations = myProject.operations;
             projectModel.currentDiagramType = 'packageDiagram';
             projectModel.currentDiagram = null;
-            // projectModel.graph.resetCells(project.packages.packagesArray.concat(project.packages.relationshipsArray));
+            projectModel.graph.resetCells(project.packages.packagesArray.concat(project.packages.dependenciesArray));
             console.log('project loaded');
         };
         reader.readAsText(myFile);
