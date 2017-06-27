@@ -14,7 +14,7 @@ define ([
 			'click .switchDiagram': 'switchDiagram'
 		},
 		initialize: function(options) {
-			this.model = pathModel();
+			this.model = pathModel;
 			this.listenTo(projectView,'switchgraph',this.render);
 			this.render();
 		},

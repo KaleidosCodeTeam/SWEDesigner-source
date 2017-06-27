@@ -25,7 +25,7 @@ define ([
 			this.views.projectView = ProjectView;
 			this.views.titlebarView = TitlebarView;
 			this.views.toolbarView = ToolbarView;
-			this.views.pathView = new PathView({parent: this, model: this.views.projectView.model});
+			this.views.pathView = PathView;
 			this.views.editPanelView = EditPanelView;
 		},
 		render: function() {

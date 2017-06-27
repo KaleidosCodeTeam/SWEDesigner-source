@@ -9,14 +9,15 @@ define ([
 		initialize: function() {
 		},
 		currentDiagram: function() {
-			return projectModel.project.currentGraph.getDiagramType();
+			return projectModel.currentDiagramType;
 		},
 		switchDiagram: function(type) {
-			if(type == "packageDiagram")
+			if(type == "packageDiagram") {
 				//devo chiamare la funzione switch di projectView passando come parametro l'id del diagramma dei package
-			else
-				if(type == "classDiagram")
+			} else
+				if(type == "classDiagram") {
 					//devo chiamare la funzione switch di projectView passando l'id del diagramma delle classi che contiene il metodo corrente
+			}
 		}
 	});
 	return new pathModel;
