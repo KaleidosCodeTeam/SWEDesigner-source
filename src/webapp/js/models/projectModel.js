@@ -13,7 +13,7 @@ define ([
         itemToBeAdded: null,
 		initialize: function() {
 			console.log("MainModel initialized");
-            this.graph = new joint.dia.Graph();
+            this.graph = new joint.dia.Graph({},{cellNamespace: Swedesigner.model});
             this.currentDiagramType = 'packageDiagram';
             let myAdjustVertices = _.partial(this.adjustVertices, this.graph);
             this.graph.on('add remove change:source change:target', myAdjustVertices);
