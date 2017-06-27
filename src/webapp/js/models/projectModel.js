@@ -26,6 +26,7 @@ define ([
         addItem: function(item) {
             this.itemToBeAdded=item;
         },
+
         addItemToGraph: function() {
             _.each(this.graph.get('cells').models, function(el) {   // Non sono sicuro se funzionerà
                 el.set("z", 1);
@@ -34,12 +35,15 @@ define ([
             this.trigger('addCell', this.itemToBeAdded);
             this.itemToBeAdded=null;
         },
+
 		deleteCell: function (cell) {
             if (cell.get("type") === 'packageDiagram.items.Package') {
-                project.deleteClassesOf(cell.get("id"));
+                project.deleteClassesDiagramOfPkg(cell.get("id"));
             }
             if (cell.get("type") === 'classDiagram.items.Class') {
-                project.deleteOperationsOf(cell.get("id"));
+                for (var op in cell.getValues().operations) {
+                    project.deleteOperationDiagram(cell.getValues().operations[op].id);
+                }
             }
             /* ~~~~~~ Legacy code ~~~~~~
             if (cell.getValues().hasOwnProperty("operations")) {
@@ -49,10 +53,16 @@ define ([
             }*/
             this.graph.removeCells([cell]);
             this.trigger('addcell');
-            console.log(project.packages.packagesArray);
-            console.log(project.classes.classesArray);
+            //console.log(project.packages.packagesArray);
+            //console.log(project.classes.classesArray);
+            //console.log(project.classes.relationshipsArray);
+            //console.log(project.operations);
 		},
-		// Metodo chiamato dalla editPanelView per spostarsi solamente in un graph in profondità - NON ANCORA TESTATO
+
+        deleteOperation: function(id) {
+            project.deleteOperationDiagram(id);
+        },
+		
 		switchInGraph: function(id) {
             this.saveCurrentDiagram();
 			if (this.currentDiagramType === 'packageDiagram') {
@@ -69,11 +79,10 @@ define ([
                 this.itemToBeAdded = null;
 			} else if (this.currentDiagramType === 'classDiagram') {
 				// id contiene l'id dell'operazione della classe selezionata
-				// Scorro tutte le classi e per ogni classe, tutte le sue operazioni e ritorno la classe e l'indice dell'operazione
                 var index = project.getOperationIndex(id);
                 this.currentDiagram = id;
                 if (index != -1) {
-                    this.graph.resetCells(project.operations[index].cells);
+                    this.graph.resetCells(project.operations[index].items);
                 } else {
                     this.graph.resetCells([]);
                 }
@@ -82,15 +91,17 @@ define ([
 			};
             this.trigger("switchgraph");
 		},
-		// Metodo chiamato dalla pathView per spostarsi solamente in un graph "soprastante" - NON ANCORA TESTATO
+		
 		switchOutGraph: function(diagramType) {
             this.saveCurrentDiagram();
             if (diagramType == 'packageDiagram') {
+                // Devo spostarmi al diagramma dei package
                 this.currentDiagram = null;
                 this.graph.resetCells(project.packages.packagesArray.concat(project.packages.dependenciesArray));
                 this.currentDiagramType = 'packageDiagram';
                 this.itemToBeAdded = null;
             } else if (diagramType == 'classDiagram') {
+                // Devo spostarmi ad un diagramma delle classi
                 var OpIndex = project.getOperationIndex(this.currentDiagram);
                 var found = false;
                 var ClIndex = -1;
@@ -115,8 +126,8 @@ define ([
             };
             this.trigger("switchgraph");
         },
+
         saveCurrentDiagram: function() {
-            // salva in project il graph correntemente aperto
             if (this.currentDiagramType === 'packageDiagram') {
                 project.packages.packagesArray = (this.graph.getElements());
                 project.packages.dependenciesArray = (this.graph.getLinks());
@@ -149,6 +160,7 @@ define ([
                 }
             }
         },
+
         graphSwitched: function() {
             this.trigger("switchgraph");
         },

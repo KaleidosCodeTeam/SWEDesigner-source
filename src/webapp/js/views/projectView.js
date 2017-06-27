@@ -176,16 +176,9 @@ define ([
 		    console.log(this.paper);
         }
 
-
-        /**
-         * Delets the `ind`th method of the diagram.
-         * @name ProjectView#deleteMethodAt
-         * @param  {number} ind the method index
-         * @function
-         */
-        /*deleteMethodAt: function (ind) {
-            projectModel.deleteMethodDiagram(this.paper.selectedCell.getValues().methods[ind].id);
-        }*/
+        deleteOperationAt: function (ind) {
+            projectModel.deleteOperation(this.paper.selectedCell.getValues().operations[ind].id);
+        }
 	});
 	return new projectView;
 });

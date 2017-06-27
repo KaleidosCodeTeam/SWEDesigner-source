@@ -109,8 +109,8 @@ define ([
          */
         execCommand: function (e) {
             var tmp = e.target.name.split(".");
-            if (tmp[0] === "deleteMethod") {
-                projectView.paper.deleteMethodAt(tmp[1]);
+            if (tmp[0] === "deleteOperation") {
+                projectView.deleteOperationAt(tmp[1]);
             }
             projectView.paper.selectedCell.executeMethod(tmp[0], Array.prototype.slice.call(tmp, 1));
             this.render();
