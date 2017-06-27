@@ -24,6 +24,7 @@ define ([
 		renderPath: function() {
 			var currentDiagram = this.model.currentDiagram();
 			var diagrams = {'packageDiagram': 1, 'classDiagram': 2, 'bubbleFlowchart': 3};
+			this.$el.empty();
 			if(diagrams[currentDiagram] > diagrams['packageDiagram'])
 				this.$el.append('<li id="packageDiagram" class="switchDiagram"><a href=#">Package</a></li>');
 			else
