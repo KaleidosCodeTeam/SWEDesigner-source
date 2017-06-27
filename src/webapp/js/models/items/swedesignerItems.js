@@ -802,7 +802,7 @@ define ([
          */
         addOperation: function() {
             this.getValues().operations.push({
-                _name: "",
+                _name: "nuovaOperazione",
                 _visibility: "private",
                 id: joint.util.uuid(),
                 returnType: "",
@@ -818,7 +818,7 @@ define ([
          */
         addAttribute: function() {
             this.getValues().attributes.push({
-                _name: "",
+                _name: "nuovoAttributo",
                 _type: "",
                 _default: "",
                 _visibility: "private",
