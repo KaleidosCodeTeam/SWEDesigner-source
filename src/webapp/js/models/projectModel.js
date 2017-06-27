@@ -55,8 +55,14 @@ define ([
             this.saveCurrentDiagram();
 			if (this.currentDiagramType === 'packageDiagram') {
 				// id contiene l'id del package selezionato
+                var index = project.getClassIndex(id);
                 this.currentDiagram = id;
-                this.graph.resetCells(project.classes.classesArray.concat(project.classes.relationshipsArray));
+                if (index != -1) {
+                    this.graph.resetCells(project.classes.classesArray[index].items.concat(project.classes.relationshipsArray[index].items));
+                } else {
+                    this.graph.resetCells([]);
+                }
+                this.currentDiagram = id;
                 this.currentDiagramType = 'classDiagram';
                 this.itemToBeAdded = null;
 			} else if (this.currentDiagramType === 'classDiagram') {
@@ -71,39 +77,62 @@ define ([
                 }
                 this.currentDiagramType = 'bubbleDiagram';
                 this.itemToBeAdded = null;
-				/*var cl=this.project.currentGraph.graph.getElements().forEach(function(element) {
-					for (var i=0; i<element.operations.length; ++i) {
-						if (element.operations[i].id === id) {
-							return { el: element, op: i };
-						}
-					}
-				});
-				this.project.currentGraph=cl.el.operations[op].bubbleDiagram;	// Non so se funziona*/
-			};
-            this.trigger("switchgraph");
+			}
 		},
 		// Metodo chiamato dalla pathView per spostarsi solamente in un graph "soprastante" - NON ANCORA TESTATO
-		switchOutGraph: function(pkgId, classId) {/*
-			if (classId) {
-				// Se classId è diverso da null, torno al diagramma delle classi
-				// Utilizzo l'id del package per caricare il suo diagramma delle classi
-				this.project.currentDiagram=this.project.projectPkgDiagram.graph.getCell(pkgId).classDiagram;
-			} else {
-				// Switch sul diagramma dei package
-				this.project.currentDiagram=this.project.projectPkgDiagram;
-			}
-			var change=this.project.currentGraph.graph.getCell(id);
-		*/},
+		switchOutGraph: function(diagramType) {
+            this.saveCurrentDiagram();
+            if (diagramType == 'packageDiagram') {
+                this.currentDiagram = null;
+                this.graph.resetCells(project.packages.packagesArray.concat(project.packages.dependenciesArray));
+                this.currentDiagramType = 'packageDiagram';
+                this.itemToBeAdded = null;
+            } else if (diagramType == 'classDiagram') {
+                var OpIndex = project.getOperationIndex(this.currentDiagram);
+                var found = false;
+                var ClIndex = -1;
+                for (var i=0; i<project.classes.classesArray.length && found==false; ++i) {
+                    for (var j=0; j<project.classes.classesArray[i].items.length && found==false; ++j) {
+                        for (var k=0; k<project.classes.classesArray[i].items[j].getValues().operations.length && found==false; ++k) {
+                            if (project.classes.classesArray[i].items[j].getValues().operations[k].id == this.currentDiagram) {
+                                ClIndex = i;
+                                found = true;
+                            }
+                        }
+                    }
+                }
+                if (ClIndex != -1) {
+                    this.graph.resetCells(project.classes.classesArray[ClIndex].items.concat(project.classes.relationshipsArray[ClIndex].items));
+                } else {
+                    this.graph.resetCells([]);
+                }
+                this.currentDiagram = project.classes.classesArray[ClIndex].id;
+                this.currentDiagramType = 'classDiagram';
+                this.itemToBeAdded = null;
+            }
+        },
         saveCurrentDiagram: function() {
             // salva in project il graph correntemente aperto
             if (this.currentDiagramType === 'packageDiagram') {
                 project.packages.packagesArray = (this.graph.getElements());
                 project.packages.dependenciesArray = (this.graph.getLinks());
-                console.log('Into saveCurrentDiagram (from package to class diagram) - packagesArray: ');
-                console.log(project.packages.packagesArray);
+                //console.log('Into saveCurrentDiagram (from package to class diagram) - packagesArray: ');
+                //console.log(project.packages.packagesArray);
             } else if (this.currentDiagramType === 'classDiagram') {
-                project.classes.classesArray = (this.graph.getElements());
-                project.classes.relationshipsArray = (this.graph.getLinks());
+                var index = project.getClassIndex(this.currentDiagram);
+                if (index != -1) {
+                    project.classes.classesArray[index].items = this.graph.getElements();
+                    project.classes.relationshipsArray[index].items = this.graph.getLinks();
+                } else {
+                    project.classes.classesArray.push({
+                        id: this.currentDiagram,
+                        items: this.graph.getElements()
+                    });
+                    project.classes.relationshipsArray.push({
+                        id: this.currentDiagram,
+                        items: this.graph.getLinks()
+                    });
+                }
             } else {
                 var index = project.getOperationIndex(this.currentDiagram);
                 if (index != -1) {
@@ -115,47 +144,7 @@ define ([
                     });
                 }
             }
-
-            /*
-            if (this.currentDiagramType === 'packageDiagram') {
-                for (var cell in this.graph.getCells()) {
-                    if (cell.type === 'packageDiagram.Package') {
-                        project.packages.packagesArray.push(cell)
-                    } else if (cell.type === 'packageDiagram.PkgComment') {
-                        project.packages.pkgCommentsArray.push(cell)
-                    } // else if (cell.type === 'packageDiagram.dependency') {}
-                }
-            } else if (this.currentDiagramType === 'classDiagram') {
-                for (var cell in this.graph.getCells()) {
-                    if ((cell.type === 'classDiagram.Class') || (cell.type === 'classDiagram.Interface')) {
-                        project.classes.classesArray.push(cell);
-                        /*
-
-                        Come funziona la gestione delle operazioni interne alle cell? Vanno salvate in quale momento?
-                        Se alcuni parametri sono modificabili da qui vanno aggiornati i salvataggi
-
-                         *//*
-                    } else if (cell.type === 'classDiagram.ClComment') {
-                        project.classes.clCommentsArray.push(cell)
-                    } else if ((cell.type === 'classDiagram.classDiagramLink')||
-                                (cell.type === 'classDiagram.Generalization') ||
-                                (cell.type === 'classDiagram.Implementation') ||
-                                (cell.type === 'classDiagram.Aggregation') ||
-                                (cell.type === 'classDiagram.Composition') ||
-                                (cell.type === 'classDiagram.Association')) {
-                        project.classes.relationshipsArray.push(cell)
-                    }
-                }
-            } else if (this.currentDiagramType === 'bubbleDiagram') {
-                for (var cell in this.graph.getCells()) {
-                    project.bubbles.push(cell)
-                }
-            }*/
         },
-        graphSwitched: function() {
-            this.trigger("switchgraph");
-        },
-
         /**
          *  @function Diagram#adjustVertices
          *  @param {Object} graph - graph del diagramma.

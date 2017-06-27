@@ -42,7 +42,8 @@ define ([
 					this.$el.append('<li id="bubbleFlowchart" class="active">Bubble</li>');
 		},
 		switchDiagram: function(event) {
-			this.model.switchDiagram(event.currentTarget.id);
+			projectView.switchOut(event.currentTarget.id);
+			//this.model.switchDiagram(event.currentTarget.id);
 		}
 	});
 	return new PathView;
