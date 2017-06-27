@@ -174,7 +174,7 @@ define ([
 		    this.paper.trigger('changed-cell');
 		    console.log(projectModel);
 		    console.log(this.paper);
-        }
+        },
 
         deleteOperationAt: function (ind) {
             projectModel.deleteOperation(this.paper.selectedCell.getValues().operations[ind].id);
