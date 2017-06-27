@@ -1573,7 +1573,7 @@ define ([
         }
     });
 
-    Swedesigner.model.bubbleDiagram.items.CustomBubble = joint.shapes.basic.Circle.extend({
+    Swedesigner.model.bubbleDiagram.items.customBubble = joint.shapes.basic.Circle.extend({
         /**
          *  @var {string} CustomBubble#toolMarkup Markup HTML per la rappresentazione grafica.
          */
@@ -1589,7 +1589,7 @@ define ([
          *  @var {Object} CustomBubble#defaults Attributi di default per l'oggetto CustomBubble.
          */
         defaults: _.defaultsDeep({
-            type: "bubbleDiagram.items.CustomBubble",
+            type: "bubbleDiagram.items.customBubble",
             position: {x: 200, y: 200},
             size: {width: 100, height: 100},
             values: {
@@ -1605,14 +1605,14 @@ define ([
         },
         /**
          *  @function CustomBubble#getValues
-         *  @summary Ritorna i valori dell'item CustomBubble.
-         *  @returns {Object} Valori dell'item CustomBubble (values.code per accedere al codice della bolla).
+         *  @summary Ritorna i valori dell'item customBubble.
+         *  @returns {Object} Valori dell'item customBubble (values.code per accedere al codice della bolla).
          */
         getValues: function () {
             return this.get("values");
         },
         /**
-         *  @function CustomBubble#setToValue
+         *  @function customBubble#setToValue
          *  @summary Imposta "values.<path>" a "<value>".
          *  @param {Object} value - valore da assegnare.
          *  @param {string} path - percorso al membro.
@@ -1630,8 +1630,8 @@ define ([
             //this.trigger("uml-update");
         },
         /**
-         *  @function CustomBubble#updateContent
-         *  @summary Aggiorna l'item CustomBubble.
+         *  @function customBubble#updateContent
+         *  @summary Aggiorna l'item customBubble.
          */
         updateContent: function () {
             if (joint.env.test('svgforeignobject')) {
