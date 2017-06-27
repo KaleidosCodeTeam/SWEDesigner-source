@@ -183,37 +183,38 @@
                                     </div>
                                 </div>
                                 <!-- PARAMETRI -->
-                                <div>
+                                <div id="parameter-head" class="panel-heading" style="background-color: lightyellow" onclick="$(this).next().toggle()">
                                     <h4>Parametri</h4>
                                 </div>
-                                <div>
-                                    <div>
-                                        <% for(var par in operations[op].parameters) { %>
-                                        <div>
-                                            <div class="form-group">
-                                                <label for="operations.<%=op%>.parameters.<%=par%>._name>">Nome:</label>
-                                                <input type="text" class="form-control edit" value="<%=operations[op].parameters[par]._name%>" name="operations.<%=op%>.parameters.<%=par%>._name" id="class-operation-parameter-name" />
-                                            </div>
-                                            <div class="form-group">    <!-- CAMBIATO DA SELECT A TEXT -->
-                                                <label for="operations.<%=op%>.parameters.<%=par%>._type">Tipo:</label>
-                                                <input type="text" class="form-control edit" value="<%=operations[op].parameters[par]._type%>" name="operations.<%=op%>.parameters.<%=par%>._type" id="class-operation-parameter-type" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="class-operation-parameter-direction">Direzione:</label>
-                                                <select class="form-control edit" name="operations.<%=op%>.parameters.<%=par%>._direction" id="class-operation-parameter-direction">
-                                                    <option value="in" <% if(operations[op].parameters[par]._direction=="in") { %> selected <% } %>>in</option>
-                                                    <option value="out" <% if(operations[op].parameters[par]._direction=="out") { %> selected <% } %>>out</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="operations.<%=op%>.parameters.<%=par%>._default">Valore di default:</label>
-                                                <input type="text" class="form-control edit" value="<%=operations[op].parameters[par]._default%>" name="operations.<%=op%>.parameters.<%=par%>._default" id="class-operation-parameter-default" />
-                                            </div>
-                                            <button class="btn btn-danger btn-block exec" name="deleteParameter.<%=op%>.<%=par%>">Elimina parametro</button>
-                                        </div>
-                                        <% } %>
-                                        <button class="btn btn-primary btn-block exec" name="addParameter.<%=op%>">Aggiungi parametro</button>
+                                <div id="parameter-body" style="display: none">
+                                    <% for(var par in operations[op].parameters) { %>
+                                    <div class="panel-heading" style="background-color: #9acfea" onclick="$(this).next().toggle()">
+                                        "<%=operations[op].parameters[par]._name%>"
                                     </div>
+                                    <div style="display: none">
+                                        <div class="form-group">
+                                            <label for="operations.<%=op%>.parameters.<%=par%>._name>">Nome:</label>
+                                            <input type="text" class="form-control edit" value="<%=operations[op].parameters[par]._name%>" name="operations.<%=op%>.parameters.<%=par%>._name" id="class-operation-parameter-name" />
+                                        </div>
+                                        <div class="form-group">    <!-- CAMBIATO DA SELECT A TEXT -->
+                                            <label for="operations.<%=op%>.parameters.<%=par%>._type">Tipo:</label>
+                                            <input type="text" class="form-control edit" value="<%=operations[op].parameters[par]._type%>" name="operations.<%=op%>.parameters.<%=par%>._type" id="class-operation-parameter-type" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="class-operation-parameter-direction">Direzione:</label>
+                                            <select class="form-control edit" name="operations.<%=op%>.parameters.<%=par%>._direction" id="class-operation-parameter-direction">
+                                                <option value="in" <% if(operations[op].parameters[par]._direction=="in") { %> selected <% } %>>in</option>
+                                                <option value="out" <% if(operations[op].parameters[par]._direction=="out") { %> selected <% } %>>out</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="operations.<%=op%>.parameters.<%=par%>._default">Valore di default:</label>
+                                            <input type="text" class="form-control edit" value="<%=operations[op].parameters[par]._default%>" name="operations.<%=op%>.parameters.<%=par%>._default" id="class-operation-parameter-default" />
+                                        </div>
+                                        <button class="btn btn-danger btn-block exec" name="deleteParameter.<%=op%>.<%=par%>">Elimina parametro</button>
+                                    </div>
+                                    <% } %>
+                                    <button class="btn btn-primary btn-block exec" name="addParameter.<%=op%>">Aggiungi parametro</button>
                                 </div>
                                 <!-- INSERITO PULSANTE PER ANDARE AL DIAGRAMMA DELL'ATTIVITÀ -->
                                 <button class="switch btn btn-success btn-block" name="switch" value="<%= operations[op].id %>">Vai al diagramma dell'attività</button>

@@ -833,7 +833,7 @@ define ([
          */
         addParameter: function(ind) {
             this.getValues().operations[ind].parameters.push({
-                _name: "",
+                _name: "nuovoParametro",
                 _type: "",
                 _default: "",
                 _direction: "in"
