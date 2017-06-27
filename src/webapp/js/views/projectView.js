@@ -66,8 +66,45 @@ define ([
 				}
 			});
 			this.listenTo(this.paper, 'blank:pointerdown', _.partial(this.addCell, this));
+			this.paper.on('blank:pointerdown', _.partial(this.blankPointerDown, this));
+			this.paper.on('blank:pointerup', _.partial(this.blankPointerUp, this));
+			$("#canvas").on('mousemove', {paper: this.paper}, this.mouseMoveFunction);
             this.paper.on('cell:pointerup', _.partial(this.pointerUpFunction, this));
             this.paper.on('cell:pointerdown', _.partial(this.pointerDownFunction, this));
+            
+            this.paper.$el.on('wheel', _.partial(this.onMouseWheel, this));
+            dragging = false;
+
+		},
+		mouseMoveFunction: function(event) {
+			if(dragging == true)
+				event.data.paper.translate(event.offsetX - dragStartPosition.x, event.offsetY - dragStartPosition.y);
+		},
+		blankPointerDown: function(elem, event, x, y) {
+				dragStartPosition = { 'x': x, 'y': y};
+				dragging = true;
+		},
+		blankPointerUp: function(elem, event, x, y) {
+				delete dragStartPosition;
+				dragging = false;
+		},
+		onMouseWheel: function(el, event) {
+			event.preventDefault();
+			event = event.originalEvent;
+
+			var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail))) / 50;
+			var offsetX = (event.offsetX || event.clientX - $(this).offset().left); // offsetX is not defined in FF
+			var offsetY = (event.offsetY || event.clientY - $(this).offset().top); // offsetY is not defined in FF
+			var svgPoint = el.paper.svg.createSVGPoint();
+			svgPoint.x = offsetX;
+			svgPoint.y = offsetY;
+			var p = svgPoint.matrixTransform(el.paper.viewport.getCTM().inverse());
+			var newScale = joint.V(el.paper.viewport).scale().sx + delta; // the current paper scale changed by delta
+
+			if (newScale > 0.5 && newScale < 1.8) {
+				el.paper.translate(0, 0); // reset the previous viewport translation
+				el.paper.scale(newScale, newScale, p.x, p.y);
+			}
 		},
 		render: function() {
 
