@@ -51,6 +51,6 @@ html,body{
     cursor: pointer;
 }
 
-.packageDiagram, .classDiagram, .activityDiagram {
+.packageDiagram, .classDiagram, .bubbleDiagram {
 	display: none;
 }
