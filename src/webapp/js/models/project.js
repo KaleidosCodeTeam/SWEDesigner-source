@@ -44,6 +44,10 @@ define ([
 
         getOperationIndex: function(id) {
             return this.operations.findIndex((x) => x.id == id);
+        },
+
+        getClassIndex: function(id) {
+            return this.classes.classesArray.findIndex((x) => x.id == id);
         }
     });
     return new project;

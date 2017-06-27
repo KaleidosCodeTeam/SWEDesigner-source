@@ -128,10 +128,16 @@ define ([
             projectModel.switchInGraph(id);
             this.paper.selectedCell = null;
             this.paper.trigger("changed-cell");
-            // this.trigger("switchgraph");
             console.log(projectModel);
             console.log(this.paper);
         },
+        switchOut: function(diagramType) {
+		    projectModel.switchOutGraph(diagramType);
+		    this.paper.selectedCell = null;
+		    this.paper.trigger('changed-cell');
+		    console.log(projectModel);
+		    console.log(this.paper);
+        }
 
 
         /**

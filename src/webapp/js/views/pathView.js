@@ -4,18 +4,19 @@ define ([
 	'backbone',
 	'joint',
 	'js/views/projectView',
+	'js/models/projectModel',
 	'js/models/pathModel'
 	/** ecc. */
-], function ($, _, Backbone, joint, projectView, pathModel) {
+], function ($, _, Backbone, joint, projectView, projectModel, pathModel) {
 	var PathView = Backbone.View.extend({
 		el: $('.breadcrumb'),
 		parent: {},
 		events: {
 			'click .switchDiagram': 'switchDiagram'
 		},
-		initialize: function(options) {
+		initialize: function() {
 			this.model = pathModel;
-			this.listenTo(projectView,'switchgraph',this.render);
+			this.listenTo(projectModel,'switchgraph',this.render);
 			this.render();
 		},
 		render: function() {

@@ -77,7 +77,8 @@ define ([
                 }
                 this.currentDiagramType = 'bubbleDiagram';
                 this.itemToBeAdded = null;
-			}
+			};
+            this.trigger("switchgraph");
 		},
 		// Metodo chiamato dalla pathView per spostarsi solamente in un graph "soprastante" - NON ANCORA TESTATO
 		switchOutGraph: function(diagramType) {
@@ -109,7 +110,8 @@ define ([
                 this.currentDiagram = project.classes.classesArray[ClIndex].id;
                 this.currentDiagramType = 'classDiagram';
                 this.itemToBeAdded = null;
-            }
+            };
+            this.trigger("switchgraph");
         },
         saveCurrentDiagram: function() {
             // salva in project il graph correntemente aperto
@@ -144,6 +146,9 @@ define ([
                     });
                 }
             }
+        },
+        graphSwitched: function() {
+            this.trigger("switchgraph");
         },
         /**
          *  @function Diagram#adjustVertices
