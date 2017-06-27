@@ -339,6 +339,72 @@ define ([
             return this;
         }
     });
+    
+    /**
+     *  @module Swedesigner.model.packageDiagram.items
+     *  @class packageDiagramLink
+     *  @classdesc Collegamento tra due componenti di un diagramma dei package UML.
+     *  @extends {joint.dia.Link}
+     */
+    Swedesigner.model.packageDiagram.items.packageDiagramLink=joint.dia.Link.extend({
+        /**
+         *  @var {Object} packageDiagramLink#defaults Attributi di default per l'oggetto.
+         */
+        defaults: _.defaultsDeep({
+            type: 'packageDiagram.items.packageDiagramLink',
+            source: {x: 30, y: 30},
+            target: {x: 150, y: 120}
+        }, joint.dia.Link.prototype.defaults),
+        /**
+         *  @function packageDiagramLink#initialize
+         *  @summary Metodo di inizializzazione.
+         */
+        initialize: function() {
+            joint.dia.Link.prototype.initialize.apply(this, arguments);
+        },
+        /**
+         *  @function packageDiagramLink#getValues
+         *  @summary Ritorna i valori del collegamento.
+         *  @return {Object} I valori del collegamento.
+         */
+        getValues: function() {
+            return this.get("values");
+        },
+        /**
+         *  @function packageDiagramLink#setToValue
+         *  @summary Imposta "values.<path>" a "<value>".
+         *  @param {Object} value - valore da assegnare.
+         *  @param {string} path - percorso al membro.
+         */
+        setToValue: function(value, path) {
+            obj=this.getValues();
+            path=path.split('.');
+            for (i=0; i<path.length-1; i++) {
+                obj=obj[path[i]];
+            }
+            obj[path[i]]=value;
+            this.updateRectangles();
+            this.trigger("uml-update");
+        }
+    });
+    
+    /**
+     *  @module Swedesigner.model.packageDiagram.items
+     *  @class PkgCommentLink
+     *  @classdesc Link tra un commento e un componente UML del diagramma dei package.
+     *  @extends {Swedesigner.model.packageDiagram.items.packageDiagramLink}
+     */
+    Swedesigner.model.packageDiagram.items.PkgCommentLink=Swedesigner.model.packageDiagram.items.packageDiagramLink.extend({
+        /**
+         *  @var {Object} PkgCommentLink#defaults Attributi di default per l'oggetto.
+         */
+        defaults: _.defaultsDeep({
+            type: 'packageDiagram.items.PkgCommentLink',
+            attrs: {
+            		'.connection': { stroke: 'black', 'stroke-width': 2, 'stroke-dasharray': '5 5' }
+			}
+        }, Swedesigner.model.packageDiagram.items.packageDiagramLink.prototype.defaults)
+    });
 
     Swedesigner.model.classDiagram.items={};
 
@@ -1320,6 +1386,24 @@ define ([
             this.updateRectangles();
             this.trigger("uml-update");
         }
+    });
+    
+    /**
+     *  @module Swedesigner.model.classDiagram.items
+     *  @class ClCommentLink
+     *  @classdesc Link tra un commento e un componente UML del diagramma delle classi.
+     *  @extends {Swedesigner.model.classDiagram.items.classDiagramLink}
+     */
+    Swedesigner.model.classDiagram.items.ClCommentLink=Swedesigner.model.classDiagram.items.classDiagramLink.extend({
+        /**
+         *  @var {Object} ClCommentLink#defaults Attributi di default per l'oggetto.
+         */
+        defaults: _.defaultsDeep({
+            type: 'classDiagram.items.ClCommentLink',
+            attrs: {
+            		'.connection': { stroke: 'black', 'stroke-width': 2, 'stroke-dasharray': '5 5' }
+			}
+        }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
     });
 
     /**
