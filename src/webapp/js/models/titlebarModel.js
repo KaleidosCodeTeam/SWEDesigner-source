@@ -36,6 +36,7 @@ define ([
                 projectModel.graph.resetCells([]);
                 projectModel.currentDiagramType = 'packageDiagram';
                 projectModel.currentDiagram = null;
+                projectModel.graphSwitched();
                 console.log('newProject created');
             } else {
                 console.log('New project creation aborted');

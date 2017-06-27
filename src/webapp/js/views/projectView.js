@@ -128,7 +128,7 @@ define ([
             projectModel.switchInGraph(id);
             this.paper.selectedCell = null;
             this.paper.trigger("changed-cell");
-            this.trigger("switchgraph");
+            // this.trigger("switchgraph");
             console.log(projectModel);
             console.log(this.paper);
         },

@@ -66,10 +66,10 @@ define ([
             projectModel.currentDiagramType = 'packageDiagram';
             projectModel.currentDiagram = null;
             projectModel.graph.resetCells(project.packages.packagesArray.concat(project.packages.dependenciesArray));
+            projectModel.graphSwitched();
             console.log('project loaded');
         };
         reader.readAsText(myFile);
-
     };
 
     return DAOclient;

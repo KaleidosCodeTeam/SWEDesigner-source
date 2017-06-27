@@ -79,7 +79,8 @@ define ([
 					}
 				});
 				this.project.currentGraph=cl.el.operations[op].bubbleDiagram;	// Non so se funziona*/
-			}
+			};
+            this.trigger("switchgraph");
 		},
 		// Metodo chiamato dalla pathView per spostarsi solamente in un graph "soprastante" - NON ANCORA TESTATO
 		switchOutGraph: function(pkgId, classId) {/*
@@ -151,6 +152,10 @@ define ([
                 }
             }*/
         },
+        graphSwitched: function() {
+            this.trigger("switchgraph");
+        },
+
         /**
          *  @function Diagram#adjustVertices
          *  @param {Object} graph - graph del diagramma.
