@@ -35,11 +35,11 @@ define ([
             this.itemToBeAdded=null;
         },
 		deleteCell: function (cell) {
-            if (cell.type === 'packageDiagram.Package') {
-                project.deleteClassesOf(cell.id);
+            if (cell.get("type") === 'packageDiagram.items.Package') {
+                project.deleteClassesOf(cell.get("id"));
             }
-            if (cell.type === 'classDiagram.Class') {
-                project.deleteOperationsOf(cell.id);
+            if (cell.get("type") === 'classDiagram.items.Class') {
+                project.deleteOperationsOf(cell.get("id"));
             }
             /* ~~~~~~ Legacy code ~~~~~~
             if (cell.getValues().hasOwnProperty("operations")) {
@@ -49,6 +49,8 @@ define ([
             }*/
             this.graph.removeCells([cell]);
             this.trigger('addcell');
+            console.log(project.packages.packagesArray);
+            console.log(project.classes.classesArray);
 		},
 		// Metodo chiamato dalla editPanelView per spostarsi solamente in un graph in profondità - NON ANCORA TESTATO
 		switchInGraph: function(id) {
