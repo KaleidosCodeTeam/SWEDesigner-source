@@ -52,7 +52,6 @@ define ([
          *  @summary Metodo utilizzato per fare il rendering grafico degli strumenti utilizzabili nel diagramma corrente.
          */
 		renderTools: function () {
-			console.log("render tools here i am :)");
 			var currentDiagram = toolbarModel.getCurrentDiagram();
 			console.log(currentDiagram);
 			_.each(this.$el.children(), function(diagram) {

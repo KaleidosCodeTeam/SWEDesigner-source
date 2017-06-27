@@ -45,6 +45,8 @@ define ([
 				this.items['packageDiagram-'+obj] = Swedesigner.model.packageDiagram.items[obj];
 			for(obj in Swedesigner.model.classDiagram.items)
 				this.items['classDiagram-'+obj] = Swedesigner.model.classDiagram.items[obj];
+			for(obj in Swedesigner.model.bubbleDiagram.items)
+				this.items['bubbleDiagram-'+obj] = Swedesigner.model.bubbleDiagram.items[obj];
 		},
 		/**
          *  @function Package#updateRectangles
