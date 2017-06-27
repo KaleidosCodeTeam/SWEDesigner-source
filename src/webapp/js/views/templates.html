@@ -159,7 +159,7 @@
                                     <input type="text" class="form-control edit" value="<%= operations[op]._name %>" name="operations.<%=op%>._name" id="class-operation-name" />
                                 </div>
                                 <div class="form-group">    <!-- PRIMA NON C'ERA! AGGIUNTA CREANDO IL TEMPLATE. CONTROLLARE CLASS E ID SUI MARKUP! -->
-                                    <label for="attributes.<%=attr%>._type">Tipo di ritorno:</label>
+                                    <label for="operations.<%=op%>.returnType">Tipo di ritorno:</label>
                                     <input type="text" class="form-control edit" value="<%= operations[op].returnType %>" name="operations.<%=op%>.returnType" id="class-operation-returnType" />
                                 </div>
                                 <div class="form-group">
@@ -266,7 +266,7 @@
                     </h4>
                 </div>
                 <div id="interface-operations" class="panel-collapse collapse">
-                    <div> <!-- DIV CHE INCLUDE I VARI ATTRIBUTI DELLA CLASSE SELEZIONATA -->
+                    <div>
                         <% for(var op in operations) { %>
                             <div class="panel-body">
                                 <div class="form-group">
@@ -274,7 +274,7 @@
                                     <input type="text" class="form-control edit" value="<%= operations[op]._name %>" name="operations.<%=op%>._name" id="interface-operation-name" />
                                 </div>
                                 <div class="form-group">    <!-- PRIMA NON C'ERA! AGGIUNTA CREANDO IL TEMPLATE. CONTROLLARE CLASS E ID SUI MARKUP! -->
-                                    <label for="attributes.<%=attr%>._type">Tipo di ritorno:</label>
+                                    <label for="operations.<%=op%>.returnType">Tipo di ritorno:</label>
                                     <input type="text" class="form-control edit" value="<%= operations[op].returnType %>" name="operations.<%=op%>.returnType" id="interface-operation-returnType" />
                                 </div>
                                 <div class="form-group">
