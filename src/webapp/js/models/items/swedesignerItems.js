@@ -132,7 +132,7 @@ define ([
          *  @var {Object} Package#defaults Attributi di default per l'oggetto Package (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
-            type: 'packageDiagram.Package',
+            type: 'packageDiagram.items.Package',
             position: {x: 200, y: 200},
             size: {width: 100, height: 100},
             attrs: {
@@ -234,7 +234,7 @@ define ([
          *  @var {Object} PkgComment#defaults Attributi di default per l'oggetto PkgComment.
          */
         defaults: _.defaultsDeep({
-            type: "packageDiagram.PkgComment",
+            type: "packageDiagram.items.PkgComment",
             position: {x: 200, y: 200},
             size: {width: 100, height: 100},
             values: {
@@ -535,7 +535,7 @@ define ([
          *  @var {Object} Class#defaults Attributi di default per l'oggetto Class (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
-            type: 'classDiagram.Class',
+            type: 'classDiagram.items.Class',
             position: {x: 200, y: 200},
             size: {width: 100, height: 100},
             attrs: {
@@ -916,7 +916,7 @@ define ([
          *  @var {Object} Interface#defaults Attributi di default per l'oggetto (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
-            type: 'classDiagram.Interface',
+            type: 'classDiagram.items.Interface',
             position: {x: 200, y: 200},
             size: {width: 100, height: 100},
             attrs: {
@@ -1168,7 +1168,7 @@ define ([
          *  @var {Object} ClComment#defaults Attributi di default per l'oggetto ClComment.
          */
         defaults: _.defaultsDeep({
-            type: "classDiagram.ClComment",
+            type: "classDiagram.items.ClComment",
             position: {x: 200, y: 200},
             size: {width: 100, height: 100},
             values: {
@@ -1285,7 +1285,7 @@ define ([
          *  @var {Object} classDiagramLink#defaults Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
-            type: 'classDiagram.classDiagramLink',
+            type: 'classDiagram.items.classDiagramLink',
             source: {x: 30, y: 30},
             target: {x: 150, y: 120}
         }, joint.dia.Link.prototype.defaults),
@@ -1333,7 +1333,7 @@ define ([
          *  @var {Object} Generalization#defaults Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
-            type: 'classDiagram.Generalization',
+            type: 'classDiagram.items.Generalization',
             attrs: {'.marker-target': {d: 'M 20 0 L 0 10 L 20 20 z', fill: 'white'}}
         }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
     });
@@ -1349,7 +1349,7 @@ define ([
          *  @var {Object} Implementation#defaults Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
-            type: 'classDiagram.Implementation',
+            type: 'classDiagram.items.Implementation',
             attrs: {
                 '.marker-target': {d: 'M 20 0 L 0 10 L 20 20 z', fill: 'white'},
                 '.connection': {'stroke-dasharray': '3,3'}
@@ -1368,7 +1368,7 @@ define ([
          *  @var {Object} Aggregation#defaults Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
-            type: 'classDiagram.Aggregation',
+            type: 'classDiagram.items.Aggregation',
             attrs: {'.marker-target': {d: 'M 40 10 L 20 20 L 0 10 L 20 0 z', fill: 'white'}}
         }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
     });
@@ -1384,7 +1384,7 @@ define ([
          *  @var {Object} Composition#defaults Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
-            type: 'classDiagram.Composition',
+            type: 'classDiagram.items.Composition',
             attrs: {'.marker-target': {d: 'M 40 10 L 20 20 L 0 10 L 20 0 z', fill: 'black'}}
         }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
     });
@@ -1400,7 +1400,7 @@ define ([
          *  @var {Object} Association#defaults Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
-            type: 'classDiagram.Association',
+            type: 'classDiagram.items.Association',
             attrs: {
                 '.marker-target': {
                     d: 'M 50 10 L 60 3 M 50 10 L 60 16',
@@ -1503,7 +1503,7 @@ define ([
          *  @var {Object} Base#defaults Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
-            type: 'uml.packageDiagram.Base'
+            type: 'uml.bubbleDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
         parentId: null,
         /**
@@ -1589,7 +1589,7 @@ define ([
          *  @var {Object} CustomBubble#defaults Attributi di default per l'oggetto CustomBubble.
          */
         defaults: _.defaultsDeep({
-            type: "bubbleDiagram.CustomBubble",
+            type: "bubbleDiagram.items.CustomBubble",
             position: {x: 200, y: 200},
             size: {width: 100, height: 100},
             values: {
@@ -1663,7 +1663,7 @@ define ([
     Swedesigner.model.bubbleDiagram.items.bubbleIf = Swedesigner.model.bubbleDiagram.items.Base.extend({
         defaults: _.defaultsDeep({
 
-            type: 'uml.bubbleDiagram.bubbleIf',
+            type: 'bubbleDiagram.items.bubbleIf',
 
             attrs: {
                 rect: {'width': 200},
@@ -1700,7 +1700,7 @@ define ([
     Swedesigner.model.bubbleDiagram.items.bubbleElse = Swedesigner.model.bubbleDiagram.items.Base.extend({
         defaults: _.defaultsDeep({
 
-            type: 'uml.bubbleDiagram.bubbleElse',
+            type: 'bubbleDiagram.items.bubbleElse',
 
             attrs: {
                 rect: {'width': 200},
@@ -1736,7 +1736,7 @@ define ([
     Swedesigner.model.bubbleDiagram.items.bubbleFor = Swedesigner.model.bubbleDiagram.items.Base.extend({
         defaults: _.defaultsDeep({
 
-            type: 'uml.bubbleDiagram.bubbleFor',
+            type: 'bubbleDiagram.items.bubbleFor',
 
             attrs: {
                 rect: {'width': 200},
@@ -1778,7 +1778,7 @@ define ([
     Swedesigner.model.bubbleDiagram.items.bubbleVariable = Swedesigner.model.bubbleDiagram.items.Base.extend({
         defaults: _.defaultsDeep({
 
-            type: 'uml.bubbleDiagram.bubbleVariable',
+            type: 'bubbleDiagram.items.bubbleVariable',
 
             attrs: {
                 rect: {'width': 200},
@@ -1822,7 +1822,7 @@ define ([
     Swedesigner.model.bubbleDiagram.items.bubbleReturn = Swedesigner.model.bubbleDiagram.items.Base.extend({
         defaults: _.defaultsDeep({
 
-            type: 'uml.bubbleDiagram.bubbleReturn',
+            type: 'bubbleDiagram.items.bubbleReturn',
 
             attrs: {
                 rect: {'width': 200},
@@ -1863,7 +1863,7 @@ define ([
     Swedesigner.model.bubbleDiagram.items.bubbleWhile = Swedesigner.model.bubbleDiagram.items.Base.extend({
         defaults: _.defaultsDeep({
 
-            type: 'uml.bubbleDiagram.bubbleWhile',
+            type: 'bubbleDiagram.items.bubbleWhile',
 
             attrs: {
                 rect: {'width': 200},
