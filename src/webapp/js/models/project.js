@@ -21,22 +21,24 @@ define ([
         deleteClassesDiagramOfPkg: function(id) {
             // Individuo il diagramma delle classi associato al package
             var cl = this.getClassIndex(id);
-            // Scorro tutte le classi del diagramma
-            for (var i in this.classes.classesArray[cl].items) {
-                // Scorro tutte le operazioni del diagramma delle classi 
-                for (var op in this.classes.classesArray[cl].items[i].getValues().operations) {
-                    // Elimino il diagramma associato a ciascuna operazione
-                    this.deleteOperationDiagram(this.classes.classesArray[cl].items[i].getValues().operations[op].id);
-                }
-            }
-            // Elimino il diagramma delle classi
-            this.classes.classesArray.splice(this.classes.classesArray.indexOf(cl),1);
-            // Elimino le relazioni appartenenti al diagramma
-            for (var rl in this.classes.relationshipsArray) {
-                if (this.classes.relationshipsArray[rl].id === id) {
-                    this.classes.relationshipsArray.splice(this.classes.relationshipsArray.indexOf(rl),1);
-                }
-            }
+            if (cl != -1) {
+            	// Scorro tutte le classi del diagramma
+	            for (var i in this.classes.classesArray[cl].items) {
+	                // Scorro tutte le operazioni del diagramma delle classi 
+	                for (var op in this.classes.classesArray[cl].items[i].getValues().operations) {
+	                    // Elimino il diagramma associato a ciascuna operazione
+	                    this.deleteOperationDiagram(this.classes.classesArray[cl].items[i].getValues().operations[op].id);
+	                }
+	            }
+	            // Elimino il diagramma delle classi
+	            this.classes.classesArray.splice(this.classes.classesArray.indexOf(cl),1);
+	            // Elimino le relazioni appartenenti al diagramma
+	            for (var rl in this.classes.relationshipsArray) {
+	                if (this.classes.relationshipsArray[rl].id === id) {
+	                    this.classes.relationshipsArray.splice(this.classes.relationshipsArray.indexOf(rl),1);
+	                }
+	            }
+	        }
         },
 
         deleteOperationDiagram: function(id) {
