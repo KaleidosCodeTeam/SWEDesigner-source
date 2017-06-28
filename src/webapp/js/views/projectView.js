@@ -118,7 +118,7 @@ define ([
 		deleteCell: function(e) {
             projectModel.deleteCell(this.paper.selectedCell);
             this.paper.selectedCell=null;
-            this.paper.trigger("changed-cell");
+            this.paper.trigger("changed-selected-cell");
         },
         pointerDownFunction: function (prView, cellView, evt, x, y) {
             if (cellView) {
@@ -127,8 +127,8 @@ define ([
                 if (this.selectedCell!==cellView.model) {
                     changed=true;
                     this.selectedCell=cellView.model;
-                    console.log('changed-cell');
-                    this.trigger("changed-cell");
+                    console.log('changed-selected-cell');
+                    this.trigger("changed-selected-cell");
                 }
             }
             /**
@@ -164,14 +164,14 @@ define ([
         switchIn: function (id) {
             projectModel.switchInGraph(id);
             this.paper.selectedCell = null;
-            this.paper.trigger("changed-cell");
+            this.paper.trigger("changed-selected-cell");
             console.log(projectModel);
             console.log(this.paper);
         },
         switchOut: function(diagramType) {
 		    projectModel.switchOutGraph(diagramType);
 		    this.paper.selectedCell = null;
-		    this.paper.trigger('changed-cell');
+		    this.paper.trigger('changed-selected-cell');
 		    console.log(projectModel);
 		    console.log(this.paper);
         },

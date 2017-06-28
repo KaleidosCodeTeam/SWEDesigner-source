@@ -15,7 +15,12 @@ define ([
 		initialize: function() {
 			this.$el = $('#editpanel');
             this.listenTo(projectView.paper, "changed-cell", this.render);
+            this.listenTo(projectView.paper, "changed-selected-cell", this.reset);
 		},
+        reset: function() {
+		    this.render();
+		    $(".togglable").css("display","none");
+        },
 		render: function() {
             if (projectView.paper.selectedCell) {
                 console.log("(editPanelView) Hey! I saw your change!");
