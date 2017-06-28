@@ -14,12 +14,12 @@ define ([
 		events: {},
 		initialize: function() {
 			this.$el = $('#editpanel');
-            this.listenTo(projectView.paper, "changed-cell", this.render);
+            // this.listenTo(projectView.paper, "changed-cell", this.render);
             this.listenTo(projectView.paper, "changed-selected-cell", this.reset);
 		},
         reset: function() {
 		    this.render();
-		    $(".togglable").css("display","none");
+		    $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details ").css("display","none");
         },
 		render: function() {
             if (projectView.paper.selectedCell) {
@@ -119,6 +119,15 @@ define ([
             }
             projectView.paper.selectedCell.executeMethod(tmp[0], Array.prototype.slice.call(tmp, 1));
             this.render();
+            if (tmp[0] === "addOperation" || tmp[0] === "deleteOperation") {
+                $(".class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
+                $(".interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display", "none");
+            } else if (tmp[0] === "addParameter" || tmp[0] === "deleteParameter") {
+                $(".class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
+                $(".interface-operation-parameter-details").css("display", "none");
+            } else if (tmp[0] === "addAttribute" || tmp[0] === "deleteAttribute") {
+                $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, .class-attribute-details").css("display", "none");
+            };
         },
 
         /**
