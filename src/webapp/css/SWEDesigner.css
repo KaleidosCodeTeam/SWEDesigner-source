@@ -2,9 +2,35 @@ html,body{
     overflow-x: hidden;
 }
 
+.row {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+.col-lg-12, .col-lg-9, .col-lg-2, .col-lg-1, #editpanel {
+    padding: 3px;
+    margin: 0px;
+}
+
+.col-lg-12 {
+    width: 100%;
+}
+
+.col-lg-1 {
+    width: 9%;
+}
+
+.col-lg-9 {
+    width: 75%;
+}
+
+.col-lg-2{
+    width: 16%;
+}
+
 .toolbar{
     position: relative;
-    left: 14px;
 }
 
 .toolbarbutton{
@@ -41,8 +67,8 @@ html,body{
 
 .panel-swedesigner{
     display: inline;
-    position: relative;
-    right: 14px;
+    /*position: relative;
+    right: 14px;*/
     height: 88vh;
     overflow-y: scroll;
 }
@@ -52,5 +78,5 @@ html,body{
 }
 
 .packageDiagram, .classDiagram, .bubbleDiagram {
-	display: none;
+    display: none;
 }
