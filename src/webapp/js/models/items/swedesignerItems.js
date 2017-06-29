@@ -184,12 +184,16 @@ define ([
             var rects = [
                 { type: 'name', text: this.getValues()._package }
             ];
+            var rectWidth = this.getValues()._package.length * 5 + 300;
+            console.log('package#updateRectangles');
+            console.log(rectWidth);
             var offsetY = 0;
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
                 attrs['.uml-package-' + rect.type + '-text'].text = lines.join('\n');
                 attrs['.uml-package-' + rect.type + '-rect'].height = rectHeight;
+                attrs['.uml-package-' + rect.type + '-rect'].width = rectWidth;
                 attrs['.uml-package-' + rect.type + '-rect'].transform = 'translate(0,' + offsetY + ')';
                 offsetY += rectHeight;
             });
@@ -1619,6 +1623,12 @@ define ([
         }
     });
 
+	/**
+     *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class BaseView
+     *  @classdesc Elemento view base generico per il diagramma a bolle.
+     *  @extends {joint.dia.ElementView}
+     */
     Swedesigner.model.bubbleDiagram.items.BaseView = joint.dia.ElementView.extend({
         /**
          *  @function BaseView#initialize
@@ -1656,120 +1666,214 @@ define ([
             return this;
         }
     });
-
-    Swedesigner.model.bubbleDiagram.items.customBubble = joint.shapes.basic.Circle.extend({
+    
+    /**
+     *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class CustomBubble
+     *  @classdesc Elemento custom bubble per il bubble diagram.
+     *  @extends {Swedesigner.model.bubbleDiagram.items.Base}
+     */
+    Swedesigner.model.bubbleDiagram.items.CustomBubble = Swedesigner.model.bubbleDiagram.items.Base.extend({
         /**
-         *  @var {string} CustomBubble#toolMarkup Markup HTML per la rappresentazione grafica.
+         *  @var {string} CustomBubble#markup Markup HTML per la rappresentazione grafica.
          */
-        toolMarkup: [
-            '<g class="element-tools">',
-            '<g class="element-tool-remove"><circle fill="red" r="11"/>',
-            '<path transform="scale(.8) translate(-16, -16)" d="M24.778,21.419 19.276,15.917 24.777,10.415 21.949,7.585 16.447,13.087 10.945,7.585 8.117,10.415 13.618,15.917 8.116,21.419 10.946,24.248 16.447,18.746 21.948,24.248z"/>',
-            '<title>Elimina</title>',
+        markup: [
+            '<g class="rotatable">',
+            '<g class="scalable">',
+            '<circle class="bubble" />',
             '</g>',
-            '</g>'
+            '<text class="bubble-type-text" /><text class="bubble-name-text" />',
+            '</g>',
         ].join(''),
         /**
-         *  @var {Object} CustomBubble#defaults Attributi di default per l'oggetto CustomBubble.
+         *  @var {Object} CustomBubble#defaults Attributi di default per l'oggetto CustomBubble (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
-            type: "bubbleDiagram.items.customBubble",
-            position: {x: 200, y: 200},
-            size: {width: 100, height: 100},
+            type: 'bubbleDiagram.items.CustomBubble',
+		    size: { width: 150, height: 150 },
+		    attrs: {
+		        '.bubble': {
+		            fill: '#ff5733',
+		            stroke: '#000000',
+		            r: 100,
+		            cx: 50,
+		            cy: 50
+		        },
+		        '.bubble-type-text': {
+		        	'ref': '.bubble',
+                    'ref-y': .2,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 18,
+                    'font-family': 'Roboto'
+		        },
+		        '.bubble-name-text': {
+		            'ref': '.bubble',
+                    'ref-y': .5,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 11,
+                    'font-family': 'Monospace'
+		        }
+		    },
             values: {
-                comment: ""
+            	_type: 'CUSTOM',
+            	_name : 'CustomBubbleName'
             }
-        }, joint.shapes.basic.Circle.prototype.defaults),
+        }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
          *  @function CustomBubble#initialize
-         *  @summary Metodo di inizializzazione.
+         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto CustomBubble.
          */
-        initialize: function () {
-            joint.shapes.basic.Circle.prototype.initialize.apply(this, arguments);
+        initialize: function() {
+        	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        	console.log("I'm the CustomBubble Initialize");
         },
         /**
-         *  @function CustomBubble#getValues
-         *  @summary Ritorna i valori dell'item customBubble.
-         *  @returns {Object} Valori dell'item customBubble (values.code per accedere al codice della bolla).
+         *  @function CustomBubble#updateRectangles
+         *  @summary Render del CustomBubble.
          */
-        getValues: function () {
-            return this.get("values");
+        updateRectangles: function() {
+            var attrs = this.get('attrs');
+            var rects = [
+                { type: 'name', text: this.getValues()._name },
+                { type: 'type', text: this.getValues()._type }
+            ];
+            var offsetY = 0;
+            _.each(rects, function(rect) {
+                var lines = _.isArray(rect.text) ? rect.text : [rect.text];
+                var rectHeight = lines.length * 20 + 20;
+                attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
+                attrs['.bubble'].height += rectHeight;
+                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                offsetY += rectHeight;
+            });
         },
         /**
-         *  @function customBubble#setToValue
+         *  @function CustomBubble#setToValue
          *  @summary Imposta "values.<path>" a "<value>".
          *  @param {Object} value - valore da assegnare.
          *  @param {string} path - percorso al membro.
          */
-        setToValue: function (value, path) {
-            obj = this.getValues();
-            path = path.split('.');
-            for (i = 0; i < path.length - 1; i++) {
-                obj = obj[path[i]];
+        setToValue: function(value, path) {
+            obj=this.getValues();
+            path=path.split('.');
+            for (i=0; i<path.length-1; i++) {
+                obj=obj[path[i]];
             }
-            obj[path[i]] = value;
-            this.updateContent();
-            //this.get('content')=value;
-            //this.updateRectangles();
-            //this.trigger("uml-update");
-        },
-        /**
-         *  @function customBubble#updateContent
-         *  @summary Aggiorna l'item customBubble.
-         */
-        updateContent: function () {
-            if (joint.env.test('svgforeignobject')) {
-                // Content element is a <div> element.
-                this.attr({
-                    '.content': {
-                        html: joint.util.breakText(this.getValues().comment, this.get('size'), this.get('attrs')['.content'])
-                    }
-                });
-            } else {
-                // Content element is a <text> element.
-                // SVG elements don't have innerHTML attribute.
-                this.attr({
-                    '.content': {
-                        text: joint.util.breakText(this.getValues().comment, cell.get('size'), this.get('attrs')['.content'])
-                    }
-                });
-            }
+            obj[path[i]]=value;
+            this.updateRectangles();
+            this.trigger("uml-update");
         }
     });
+    
     /**
      * @classdesc Rappresenta un'istruzione condizionale.
      *
      * @module Swedesigner.model.bubbleDiagram.items
      * @name bubbleIf
      * @class bubbleIf
-     * @extends {Swedesigner.model.bubbleDiagram.items}
+     * @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
     Swedesigner.model.bubbleDiagram.items.bubbleIf = Swedesigner.model.bubbleDiagram.items.Base.extend({
+        /**
+         *  @var {string} bubbleIf#markup Markup HTML per la rappresentazione grafica.
+         */
+        markup: [
+            '<g class="rotatable">',
+            '<g class="scalable">',
+            '<circle class="bubble" />',
+            '</g>',
+            '<text class="bubble-type-text" /><text class="bubble-name-text" />',
+            '</g>',
+        ].join(''),
+        /**
+         *  @var {Object} bubbleIf#defaults Attributi di default per l'oggetto bubbleIf (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         */
         defaults: _.defaultsDeep({
-
             type: 'bubbleDiagram.items.bubbleIf',
-
-            attrs: {
-                rect: {'width': 200},
-                '.activity-element-name-rect': {
-                    'stroke': 'black', 'stroke-width': 0, 'fill': '#15b13e'
-                },
-                '.activity-element-type-rect': {'stroke': '#15b13e', 'stroke-width': 0, 'fill': '#15b13e'},
-            },
-
+		    size: { width: 150, height: 150 },
+		    attrs: {
+		        '.bubble': {
+		            fill: '#33ff57',
+		            stroke: '#000000',
+		            r: 100,
+		            cx: 50,
+		            cy: 50
+		        },
+		        '.bubble-type-text': {
+		        	'ref': '.bubble',
+                    'ref-y': .2,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 18,
+                    'font-family': 'Roboto'
+		        },
+		        '.bubble-name-text': {
+		            'ref': '.bubble',
+                    'ref-y': .5,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 11,
+                    'font-family': 'Monospace'
+		        }
+		    },
             values: {
-                xType: 'If',
-                condition: ""
+            	_type: 'IF',
+            	_name : 'bubbleIfName'
             }
-
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
-
-        initialize: function () {
-            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        /**
+         *  @function bubbleIf#initialize
+         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleIf.
+         */
+        initialize: function() {
+        	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        	console.log("I'm the bubbleIf Initialize");
         },
-
-        getDescription: function () {
-            return "if (" + this.getValues().condition + ")";
+        /**
+         *  @function bubbleIf#updateRectangles
+         *  @summary Render del bubbleIf.
+         */
+        updateRectangles: function() {
+            var attrs = this.get('attrs');
+            var rects = [
+                { type: 'name', text: this.getValues()._name },
+                { type: 'type', text: this.getValues()._type }
+            ];
+            var offsetY = 0;
+            _.each(rects, function(rect) {
+                var lines = _.isArray(rect.text) ? rect.text : [rect.text];
+                var rectHeight = lines.length * 20 + 20;
+                attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
+                attrs['.bubble'].height += rectHeight;
+                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                offsetY += rectHeight;
+            });
+        },
+        /**
+         *  @function bubbleIf#setToValue
+         *  @summary Imposta "values.<path>" a "<value>".
+         *  @param {Object} value - valore da assegnare.
+         *  @param {string} path - percorso al membro.
+         */
+        setToValue: function(value, path) {
+            obj=this.getValues();
+            path=path.split('.');
+            for (i=0; i<path.length-1; i++) {
+                obj=obj[path[i]];
+            }
+            obj[path[i]]=value;
+            this.updateRectangles();
+            this.trigger("uml-update");
         }
     });
 
@@ -1779,32 +1883,103 @@ define ([
      * @module Swedesigner.model.bubbleDiagram.items
      * @name bubbleElse
      * @class bubbleElse
-     * @extends {Swedesigner.model.bubbleDiagram.items}
+     * @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
     Swedesigner.model.bubbleDiagram.items.bubbleElse = Swedesigner.model.bubbleDiagram.items.Base.extend({
+        /**
+         *  @var {string} bubbleElse#markup Markup HTML per la rappresentazione grafica.
+         */
+        markup: [
+            '<g class="rotatable">',
+            '<g class="scalable">',
+            '<circle class="bubble" />',
+            '</g>',
+            '<text class="bubble-type-text" /><text class="bubble-name-text" />',
+            '</g>',
+        ].join(''),
+        /**
+         *  @var {Object} bubbleElse#defaults Attributi di default per l'oggetto bubbleElse (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         */
         defaults: _.defaultsDeep({
-
             type: 'bubbleDiagram.items.bubbleElse',
-
-            attrs: {
-                rect: {'width': 200},
-                '.activity-element-name-rect': {
-                    'stroke': 'black', 'stroke-width': 0, 'fill': '#00701d'
-                },
-                '.activity-element-type-rect': {'stroke': '#00701d', 'stroke-width': 0, 'fill': '#00701d'},
-
-            },
+		    size: { width: 150, height: 150 },
+		    attrs: {
+		        '.bubble': {
+		            fill: '#33ff57',
+		            stroke: '#000000',
+		            r: 100,
+		            cx: 50,
+		            cy: 50
+		        },
+		        '.bubble-type-text': {
+		        	'ref': '.bubble',
+                    'ref-y': .2,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 18,
+                    'font-family': 'Roboto'
+		        },
+		        '.bubble-name-text': {
+		            'ref': '.bubble',
+                    'ref-y': .5,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 11,
+                    'font-family': 'Monospace'
+		        }
+		    },
             values: {
-                xType: 'Else'
+            	_type: 'ELSE',
+            	_name : 'bubbleElseName'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
-
-        initialize: function () {
-            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        /**
+         *  @function bubbleElse#initialize
+         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleElse.
+         */
+        initialize: function() {
+        	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        	console.log("I'm the bubbleElse Initialize");
         },
-
-        getDescription: function () {
-            return "";
+        /**
+         *  @function bubbleElse#updateRectangles
+         *  @summary Render del bubbleElse.
+         */
+        updateRectangles: function() {
+            var attrs = this.get('attrs');
+            var rects = [
+                { type: 'name', text: this.getValues()._name },
+                { type: 'type', text: this.getValues()._type }
+            ];
+            var offsetY = 0;
+            _.each(rects, function(rect) {
+                var lines = _.isArray(rect.text) ? rect.text : [rect.text];
+                var rectHeight = lines.length * 20 + 20;
+                attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
+                attrs['.bubble'].height += rectHeight;
+                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                offsetY += rectHeight;
+            });
+        },
+        /**
+         *  @function bubbleElse#setToValue
+         *  @summary Imposta "values.<path>" a "<value>".
+         *  @param {Object} value - valore da assegnare.
+         *  @param {string} path - percorso al membro.
+         */
+        setToValue: function(value, path) {
+            obj=this.getValues();
+            path=path.split('.');
+            for (i=0; i<path.length-1; i++) {
+                obj=obj[path[i]];
+            }
+            obj[path[i]]=value;
+            this.updateRectangles();
+            this.trigger("uml-update");
         }
     });
 
@@ -1815,38 +1990,103 @@ define ([
      * @module Swedesigner.model.bubbleDiagram.items
      * @name bubbleFor
      * @class bubbleFor
-     * @extends {Swedesigner.model.bubbleDiagram.items}
+     * @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
     Swedesigner.model.bubbleDiagram.items.bubbleFor = Swedesigner.model.bubbleDiagram.items.Base.extend({
+        /**
+         *  @var {string} bubbleFor#markup Markup HTML per la rappresentazione grafica.
+         */
+        markup: [
+            '<g class="rotatable">',
+            '<g class="scalable">',
+            '<circle class="bubble" />',
+            '</g>',
+            '<text class="bubble-type-text" /><text class="bubble-name-text" />',
+            '</g>',
+        ].join(''),
+        /**
+         *  @var {Object} bubbleFor#defaults Attributi di default per l'oggetto bubbleFor (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         */
         defaults: _.defaultsDeep({
-
             type: 'bubbleDiagram.items.bubbleFor',
-
-            attrs: {
-                rect: {'width': 200},
-
-                '.activity-element-name-rect': {
-                    'stroke': 'black', 'stroke-width': 0, 'fill': '#ed341c'
-                },
-
-                '.activity-element-type-rect': {'stroke': '#ed341c', 'stroke-width': 1, 'fill': '#ed341c'},
-            },
-
+		    size: { width: 150, height: 150 },
+		    attrs: {
+		        '.bubble': {
+		            fill: '#ffbd33',
+		            stroke: '#000000',
+		            r: 100,
+		            cx: 50,
+		            cy: 50
+		        },
+		        '.bubble-type-text': {
+		        	'ref': '.bubble',
+                    'ref-y': .2,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 18,
+                    'font-family': 'Roboto'
+		        },
+		        '.bubble-name-text': {
+		            'ref': '.bubble',
+                    'ref-y': .5,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 11,
+                    'font-family': 'Monospace'
+		        }
+		    },
             values: {
-                xType: 'For',
-                initialization: "",
-                termination: "",
-                increment: ""
+            	_type: 'FOR',
+            	_name : 'bubbleForName'
             }
-
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
-
-        initialize: function () {
-            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        /**
+         *  @function bubbleFor#initialize
+         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleFor.
+         */
+        initialize: function() {
+        	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        	console.log("I'm the bubbleFor Initialize");
         },
-
-        getDescription: function () {
-            return this.getValues().initialization + ";" + this.getValues().termination + ";" + this.getValues().increment;
+        /**
+         *  @function bubbleFor#updateRectangles
+         *  @summary Render del bubbleFor.
+         */
+        updateRectangles: function() {
+            var attrs = this.get('attrs');
+            var rects = [
+                { type: 'name', text: this.getValues()._name },
+                { type: 'type', text: this.getValues()._type }
+            ];
+            var offsetY = 0;
+            _.each(rects, function(rect) {
+                var lines = _.isArray(rect.text) ? rect.text : [rect.text];
+                var rectHeight = lines.length * 20 + 20;
+                attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
+                attrs['.bubble'].height += rectHeight;
+                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                offsetY += rectHeight;
+            });
+        },
+        /**
+         *  @function bubbleFor#setToValue
+         *  @summary Imposta "values.<path>" a "<value>".
+         *  @param {Object} value - valore da assegnare.
+         *  @param {string} path - percorso al membro.
+         */
+        setToValue: function(value, path) {
+            obj=this.getValues();
+            path=path.split('.');
+            for (i=0; i<path.length-1; i++) {
+                obj=obj[path[i]];
+            }
+            obj[path[i]]=value;
+            this.updateRectangles();
+            this.trigger("uml-update");
         }
     });
 
@@ -1901,37 +2141,103 @@ define ([
      * @module Swedesigner.model.bubbleDiagram.items
      * @name bubbleReturn
      * @class bubbleReturn
-     * @extends {Swedesigner.model.bubbleDiagram.items}
+     * @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
     Swedesigner.model.bubbleDiagram.items.bubbleReturn = Swedesigner.model.bubbleDiagram.items.Base.extend({
+        /**
+         *  @var {string} bubbleReturn#markup Markup HTML per la rappresentazione grafica.
+         */
+        markup: [
+            '<g class="rotatable">',
+            '<g class="scalable">',
+            '<circle class="bubble" />',
+            '</g>',
+            '<text class="bubble-type-text" /><text class="bubble-name-text" />',
+            '</g>',
+        ].join(''),
+        /**
+         *  @var {Object} bubbleReturn#defaults Attributi di default per l'oggetto bubbleReturn (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         */
         defaults: _.defaultsDeep({
-
             type: 'bubbleDiagram.items.bubbleReturn',
-
-            attrs: {
-                rect: {'width': 200},
-
-                '.activity-element-name-rect': {
-                    'stroke': 'black', 'stroke-width': 0, 'fill': '#ed841c'
-                },
-                '.activity-element-type-rect': {'stroke': '#ed841c', 'stroke-width': 0, 'fill': '#ed841c'},
-            },
-
+		    size: { width: 150, height: 150 },
+		    attrs: {
+		        '.bubble': {
+		            fill: '#33ffbd',
+		            stroke: '#000000',
+		            r: 100,
+		            cx: 50,
+		            cy: 50
+		        },
+		        '.bubble-type-text': {
+		        	'ref': '.bubble',
+                    'ref-y': .2,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 18,
+                    'font-family': 'Roboto'
+		        },
+		        '.bubble-name-text': {
+		            'ref': '.bubble',
+                    'ref-y': .5,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 11,
+                    'font-family': 'Monospace'
+		        }
+		    },
             values: {
-                xType: 'Return',
-                value: ""
-            },
-
-            canHaveChildren: false,
-
+            	_type: 'RETURN',
+            	_name : 'bubbleReturnName'
+            }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
-
-        initialize: function () {
-            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        /**
+         *  @function bubbleReturn#initialize
+         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleReturn.
+         */
+        initialize: function() {
+        	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        	console.log("I'm the bubbleReturn Initialize");
         },
-
-        getDescription: function () {
-            return "return " + this.getValues().value;
+        /**
+         *  @function bubbleReturn#updateRectangles
+         *  @summary Render del bubbleReturn.
+         */
+        updateRectangles: function() {
+            var attrs = this.get('attrs');
+            var rects = [
+                { type: 'name', text: this.getValues()._name },
+                { type: 'type', text: this.getValues()._type }
+            ];
+            var offsetY = 0;
+            _.each(rects, function(rect) {
+                var lines = _.isArray(rect.text) ? rect.text : [rect.text];
+                var rectHeight = lines.length * 20 + 20;
+                attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
+                attrs['.bubble'].height += rectHeight;
+                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                offsetY += rectHeight;
+            });
+        },
+        /**
+         *  @function bubbleReturn#setToValue
+         *  @summary Imposta "values.<path>" a "<value>".
+         *  @param {Object} value - valore da assegnare.
+         *  @param {string} path - percorso al membro.
+         */
+        setToValue: function(value, path) {
+            obj=this.getValues();
+            path=path.split('.');
+            for (i=0; i<path.length-1; i++) {
+                obj=obj[path[i]];
+            }
+            obj[path[i]]=value;
+            this.updateRectangles();
+            this.trigger("uml-update");
         }
     });
 
@@ -1942,36 +2248,171 @@ define ([
      * @module Swedesigner.model.bubbleDiagram.items
      * @name bubbleWhile
      * @class bubbleWhile
-     * @extends {Swedesigner.model.bubbleDiagram.items}
+     * @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
     Swedesigner.model.bubbleDiagram.items.bubbleWhile = Swedesigner.model.bubbleDiagram.items.Base.extend({
+        /**
+         *  @var {string} bubbleWhile#markup Markup HTML per la rappresentazione grafica.
+         */
+        markup: [
+            '<g class="rotatable">',
+            '<g class="scalable">',
+            '<circle class="bubble" />',
+            '</g>',
+            '<text class="bubble-type-text" /><text class="bubble-name-text" />',
+            '</g>',
+        ].join(''),
+        /**
+         *  @var {Object} bubbleWhile#defaults Attributi di default per l'oggetto bubbleWhile (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         */
         defaults: _.defaultsDeep({
-
             type: 'bubbleDiagram.items.bubbleWhile',
-
-            attrs: {
-                rect: {'width': 200},
-
-                '.activity-element-name-rect': {
-                    'stroke': 'black', 'stroke-width': 0, 'fill': '#157b92'
-                },
-                '.activity-element-type-rect': {'stroke': '#157b92', 'stroke-width': 0, 'fill': '#157b92'},
-            },
-
+		    size: { width: 150, height: 150 },
+		    attrs: {
+		        '.bubble': {
+		            fill: '#ffbd33',
+		            stroke: '#000000',
+		            r: 100,
+		            cx: 50,
+		            cy: 50
+		        },
+		        '.bubble-type-text': {
+		        	'ref': '.bubble',
+                    'ref-y': .2,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 18,
+                    'font-family': 'Roboto'
+		        },
+		        '.bubble-name-text': {
+		            'ref': '.bubble',
+                    'ref-y': .5,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 11,
+                    'font-family': 'Monospace'
+		        }
+		    },
             values: {
-                xType: 'While',
-                condition: ""
+            	_type: 'WHILE',
+            	_name : 'bubbleWhileName'
             }
-
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
-
-        initialize: function () {
-            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        /**
+         *  @function bubbleWhile#initialize
+         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleWhile.
+         */
+        initialize: function() {
+        	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        	console.log("I'm the bubbleWhile Initialize");
         },
-
-        getDescription: function () {
-            return "while (" + this.getValues().condition + ")";
+        /**
+         *  @function bubbleWhile#updateRectangles
+         *  @summary Render del bubbleWhile.
+         */
+        updateRectangles: function() {
+            var attrs = this.get('attrs');
+            var rects = [
+                { type: 'name', text: this.getValues()._name },
+                { type: 'type', text: this.getValues()._type }
+            ];
+            var offsetY = 0;
+            _.each(rects, function(rect) {
+                var lines = _.isArray(rect.text) ? rect.text : [rect.text];
+                var rectHeight = lines.length * 20 + 20;
+                attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
+                attrs['.bubble'].height += rectHeight;
+                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                offsetY += rectHeight;
+            });
+        },
+        /**
+         *  @function bubbleWhile#setToValue
+         *  @summary Imposta "values.<path>" a "<value>".
+         *  @param {Object} value - valore da assegnare.
+         *  @param {string} path - percorso al membro.
+         */
+        setToValue: function(value, path) {
+            obj=this.getValues();
+            path=path.split('.');
+            for (i=0; i<path.length-1; i++) {
+                obj=obj[path[i]];
+            }
+            obj[path[i]]=value;
+            this.updateRectangles();
+            this.trigger("uml-update");
         }
+    });
+    
+    /**
+     *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class bubbleDiagramLink
+     *  @classdesc Collegamento tra due componenti di un diagramma delle bubble.
+     *  @extends {joint.dia.Link}
+     */
+    Swedesigner.model.bubbleDiagram.items.bubbleDiagramLink=joint.dia.Link.extend({
+        /**
+         *  @var {Object} bubbleDiagramLink#defaults Attributi di default per l'oggetto.
+         */
+        defaults: _.defaultsDeep({
+            type: 'bubbleDiagram.items.bubbleDiagramLink',
+            source: {x: 30, y: 30},
+            target: {x: 150, y: 120}
+        }, joint.dia.Link.prototype.defaults),
+        /**
+         *  @function bubbleDiagramLink#initialize
+         *  @summary Metodo di inizializzazione.
+         */
+        initialize: function() {
+            joint.dia.Link.prototype.initialize.apply(this, arguments);
+        },
+        /**
+         *  @function bubbleDiagramLink#getValues
+         *  @summary Ritorna i valori del collegamento.
+         *  @return {Object} I valori del collegamento.
+         */
+        getValues: function() {
+            return this.get("values");
+        },
+        /**
+         *  @function bubbleDiagramLink#setToValue
+         *  @summary Imposta "values.<path>" a "<value>".
+         *  @param {Object} value - valore da assegnare.
+         *  @param {string} path - percorso al membro.
+         */
+        setToValue: function(value, path) {
+            obj=this.getValues();
+            path=path.split('.');
+            for (i=0; i<path.length-1; i++) {
+                obj=obj[path[i]];
+            }
+            obj[path[i]]=value;
+            this.updateRectangles();
+            this.trigger("uml-update");
+        }
+    });
+    
+    /**
+     *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class bubbleLink
+     *  @classdesc Link tra due elementi del diagramma delle bubble.
+     *  @extends {Swedesigner.model.bubbleDiagram.items.bubbleDiagramLink}
+     */
+    Swedesigner.model.bubbleDiagram.items.bubbleLink=Swedesigner.model.bubbleDiagram.items.bubbleDiagramLink.extend({
+        /**
+         *  @var {Object} bubbleLink#defaults Attributi di default per l'oggetto.
+         */
+        defaults: _.defaultsDeep({
+            type: 'bubbleDiagram.items.bubbleLink',
+            attrs: {
+            		'.connection': { stroke: 'black', 'stroke-width': 2/*, 'stroke-dasharray': '5 5'*/ },
+            		'.marker-target': {d: 'M 20 0 L 0 10 L 20 20 z', fill: 'white'}
+			}
+        }, Swedesigner.model.bubbleDiagram.items.bubbleDiagramLink.prototype.defaults)
     });
 
 	return Swedesigner;
