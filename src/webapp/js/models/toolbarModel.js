@@ -15,10 +15,6 @@ define ([
      */
 	var toolbarModel = Backbone.Model.extend({
 		/**
-         *  @var {Object} ToolbarModel#mainModel Riferimento all'istanza del MainModel.
-         */
-		mainModel: {},
-		/**
          *  @var {Object} ToolbarModel#items Contiene tutti gli elementi definibili nel diagramma corrente.
          */
 		items: {},
@@ -54,7 +50,17 @@ define ([
          */
 		addElement: function (id) {
 			console.log(id);
-			var el = new this.items[id];
+			var el = '';
+			if (id === "bubbleDiagram-nesting"){
+				el = {
+					type: 'nesting',
+					isLink: function() {return false;},
+					source: null,
+					target: null
+				}
+			} else {
+                el = new this.items[id]
+			}
 			projectModel.addItem(el);
 		}
 	});

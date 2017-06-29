@@ -89,10 +89,14 @@ define ([
         },
 
         addItemToGraph: function() {
-            _.each(this.graph.get('cells').models, function(el) {   // Non sono sicuro se funzionerà
-                el.set("z", 1);
-            });
-            this.graph.addCell(this.itemToBeAdded);
+            if (this.itemToBeAdded.type === 'nesting'){
+                this.itemToBeAdded.target.embed(this.itemToBeAdded.source);
+            } else {
+                _.each(this.graph.get('cells').models, function(el) {   // Non sono sicuro se funzionerà
+                    el.set("z", 1);
+                });
+                this.graph.addCell(this.itemToBeAdded);
+            }
             this.trigger('addCell', this.itemToBeAdded);
             this.itemToBeAdded=null;
         },

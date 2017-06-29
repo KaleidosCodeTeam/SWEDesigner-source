@@ -150,6 +150,14 @@ define ([
                     prView.deleteCell(cellView.model);
                     return;
                 default:
+                    if (projectModel.itemToBeAdded && projectModel.itemToBeAdded.type === 'nesting') {
+                        if (projectModel.itemToBeAdded.source !== null) {
+                            projectModel.itemToBeAdded.target = cellView.model;
+                            projectModel.addItemToGraph();
+                        } else {
+                            projectModel.itemToBeAdded.source = cellView.model;
+                        }
+                    }
 					if (projectModel.itemToBeAdded && projectModel.itemToBeAdded.isLink()) {
 						if (projectModel.itemToBeAdded.get("source").id !== undefined) {
 						    projectModel.itemToBeAdded.set("target", {id: cellView.model.id});
