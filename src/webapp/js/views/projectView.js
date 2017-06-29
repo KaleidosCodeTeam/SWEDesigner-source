@@ -122,6 +122,19 @@ define ([
         },
         pointerDownFunction: function (prView, cellView, evt, x, y) {
             if (cellView) {
+                // sezione aggiunta per il reparenting
+                var cell = cellView.model;
+
+                if (!cell.get('embeds') || cell.get('embeds').length === 0) {
+                    // Show the dragged element above all the other cells (except when the
+                    // element is a parent).
+                    cell.toFront();
+                }
+
+                if (cell.get('parent')) {
+                    projectModel.graph.getCell(cell.get('parent')).unembed(cell);
+                }
+                // fine aggiunta per reparenting
                 //console.log("cella selezionata: ",this.selectedCell);
                 //console.log("cellview: ",cellView);
                 if (this.selectedCell!==cellView.model) {
@@ -144,6 +157,23 @@ define ([
 			}*/
         },
         pointerUpFunction: function (prView,cellView, evt, x, y) {
+            // sezione aggiunta per il reparenting
+		    var cell = cellView.model;
+            var cellViewsBelow = prView.paper.findViewsFromPoint(cell.getBBox().center());
+
+            if (cellViewsBelow.length) {
+                // Note that the findViewsFromPoint() returns the view for the `cell` itself.
+                var cellViewBelow = _.find(cellViewsBelow, function (c) {
+                    return c.model.id !== cell.id
+                });
+
+                // Prevent recursive embedding.
+                if (cellViewBelow && cellViewBelow.model.get('parent') !== cell.id) {
+                    cellViewBelow.model.embed(cell);
+                }
+            }
+            // fine aggiunta reparenting
+
             var className=evt.target.parentNode.getAttribute('class');
             switch (className) {
                 case 'element-tool-remove':
