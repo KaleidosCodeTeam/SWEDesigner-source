@@ -28,16 +28,19 @@ CoderAttribute.codeElementJava = function(attributeObj) {
 	if(attributeObj._visibility != 'package') {
 		source += attributeObj._visibility + " ";
 	}
-	if(attributeObj.isStatic) {
+	if(attributeObj.isStatic == "true") {
 		source += "static ";
 	}
-	if(attributeObj.isFinal) {
+	if(attributeObj.isFinal == "true") {
 		source += "final ";
 	}
 	source += attributeObj._type + " " + attributeObj._name + " ";
-	if(attributeObj._default) {
+	if(attributeObj._default != "") {
 		if(attributeObj._type == "String"){
 			source += " = \"" + attributeObj._default +"\"";
+		}
+		else if(attributeObj._type == "char"){
+			source += " = \'" + attributeObj._default +"\'";
 		}
 		else {
 			source += " = " + attributeObj._default;
@@ -60,7 +63,7 @@ CoderAttribute.codeElementJava = function(attributeObj) {
 */
 CoderAttribute.codeElementJavascript = function(attributeObj, className) {
 		source = "";
-		if(!attributeObj.isStatic){
+		if(attributeObj.isStatic == "false"){
 			if(attributeObj._visibility == "private") {
 				source += "var " + attributeObj._name + " = ";
 			}
@@ -72,16 +75,19 @@ CoderAttribute.codeElementJavascript = function(attributeObj, className) {
 			source += className + "." + attributeObj._name + " = ";
 		}	
 
-		if(attributeObj._default) {
+		if(attributeObj._default != "") {
 			if(attributeObj._type == "String"){
 				source += "\"" + attributeObj._default + "\";";
+			}
+			else if (attributeObj._type == "char") {
+				source += "\'" + attributeObj._default + "\';";
 			}
 			else {
 				source += attributeObj._default + ";";
 			}				
 		}
 		else {
-			source += "null;";
+			source += "undefined;";
 		}
 		return source;	
 }

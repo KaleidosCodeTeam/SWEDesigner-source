@@ -18,6 +18,19 @@ var CoderClass = function() {
 	
 }
 
+CoderClass.getNameById = function(classId, parsedProgram) {
+	var classesArray = parsedProgram.classes.classesArray;
+	for(var i=0; i<classesArray.length; i++) {
+		var items = classesArray[i].items;
+		for(var j=0; j<items.length; j++) {
+			if(items[j].id == classId) {
+				return items[j].values._name;
+			}
+		}		
+	}
+	return undefined;
+}
+
 /**
 *	@function CoderClass.codeParentJava
 *	@static
@@ -28,12 +41,20 @@ var CoderClass = function() {
 *	classe; restituisce la stringa del codice sorgente, in Java, della parte di intestazione relativa alle specifiche
 *	di estensione.
 */
-CoderClass.codeParentJava = function(classObj) {
+CoderClass.codeParentJava = function(sourceId, parsedProgram) {
 	source = "";
-	for(var i=0; i<classObj.dependencies.length; i++) { 
-		if(classObj.dependencies[i]._type == 'Generalization') {
-			source += "extends "+ classObj.dependencies[i]._name + " ";
+	finded = false;
+	relationshipsArray = parsedProgram.classes.relationshipsArray;
+	for(var i=0; i<relationshipsArray.length && !finded; i++) { 
+		var items = relationshipsArray[i].items;
+		for(var j=0; j<items.length && !finded; j++) {
+			if(items[j].type == 'classDiagram.items.Generalization' && items[j].source.id == sourceId) {
+				finded = true;
+				targetId = items[j].target.id;
+				source += "extends "+ CoderClass.getNameById(targetId,parsedProgram) + " ";
+			}
 		}
+		
 	}
 	return source;
 }
@@ -48,14 +69,21 @@ CoderClass.codeParentJava = function(classObj) {
 *	classe; restituisce la stringa del codice sorgente, in Javascript, della parte di intestazione relativa alle specifiche
 *	di estensione.
 */
-CoderClass.codeParentJavascript = function(classObj) {
+CoderClass.codeParentJavascript = function(sourceId, parsedProgram) {
 	source = "";
-	for(var i=0; i<classObj.dependencies.length; i++) { 
-		if(classObj.dependencies[i]._type == 'Generalization') {
-			// bisogna aggiungere un costruttore corretto; dipende dalla struttura dell'oggetto
-			source += classObj._name + ".prototype = new " + classObj.dependencies[i]._name + "();\n ";
-			source += classObj._name + ".prototype.constructor = " + classObj._name;
-		}
+	finded = false;
+	relationshipsArray = parsedProgram.classes.relationshipsArray;
+	for(var i=0; i<relationshipsArray.length && !finded; i++) { 
+		var items =relationshipsArray[i].items;
+		for(var j=0; j<items.length && !finded; j++) {
+			if(items[j].type == 'classDiagram.items.Generalization' && items[j].source.id == sourceId) {
+				finded = true;
+				targetId = items[j].target.id;
+				// bisogna aggiungere un costruttore corretto; dipende dalla struttura dell'oggetto
+				source += CoderClass.getNameById(sourceId,parsedProgram) + ".prototype = new " + CoderClass.getNameById(targetId,parsedProgram) + "();\n ";
+				source += CoderClass.getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + CoderClass.getNameById(sourceId,parsedProgram) + "; \n";
+			}
+		}		
 	}
 	return source;
 }
@@ -69,22 +97,30 @@ CoderClass.codeParentJavascript = function(classObj) {
 *	@description funzione statica di CoderClass; riceve in input classObj, un oggetto che rappresenta una  
 *	classe; restituisce la stringa del codice sorgente, in Java, dell'intestazione della classe classObj di input.
 */
-CoderClass.codeElementJava = function(classObj) {
+CoderClass.codeElementJava = function(classObj, parsedProgram) {
 	var source = "";
 
 	// visibilità della classe
-	if(classObj._visibility != 'package') {
-		source += classObj._visibility+" ";
+	if(classObj.values._visibility != 'package') {
+		source += classObj.values._visibility+" ";
 	}
 
 	// se la classe è astratta si aggiunge la relativa keyword
-	if(classObj.isAbstract) {
+	if(classObj.values.isAbstract == "true") {
 		source += "abstract ";
+	}
+
+	if(classObj.values.isStatic == "true") {
+		source += "static ";
+	}
+
+	if(classObj.values.isFinal == "true") {
+		source += "final ";
 	}
 
 	// se la classe è un'interfaccia si aggiunge la relativa keyword, altrimenti si aggiunge la keyword 'class'
 	// NOTA: nessun controllo d'errore nel caso la classe sia  marcata abstract ed interface  
-	if(classObj.isInterface) {
+	if(classObj.values.isInterface == "true") {
 		source += "interface ";
 	}
 	else {
@@ -92,26 +128,32 @@ CoderClass.codeElementJava = function(classObj) {
 	}
 
 	// si aggiunge il nome della classe
-	source += classObj._name + " ";
+	source += classObj.values._name + " ";
 
 	// si aggiunge la classe padre, se esiste
 	// dependencies è la proprietà che contiene le dipendenze OUT della classe
 	// NOTA: nessun controllo d'errore nel caso ci sia più di una classe padre
-	source += CoderClass.codeParentJava(classObj);
+	source += CoderClass.codeParentJava(classObj.id, parsedProgram);
 
 	// di aggiungono le interfacce che implementa
 	// NOTA: nessun controllo d'errore nel caso la classe padre sia effettivamente un'interfaccia
 	var firstClass = true;
-	for(var i=0; i<classObj.dependencies.length; i++) { 
-		if(classObj.dependencies[i]._type == 'Implementation') {
-			if(firstClass){
-				source += "implements "+ classObj.dependencies[i]._name + " ";
-				firstClass = false;
+	relationshipsArray = parsedProgram.classes.relationshipsArray;
+	for(var i=0; i<relationshipsArray.length; i++) { 
+		var items = relationshipsArray[i].items;
+		for(var j=0; j<items.length; j++) {
+			if(items[j].type == 'classDiagram.items.Implementation' && items[j].source.id == classObj.id) {
+				targetId = items[j].target.id;
+				if(firstClass){
+					source += "implements "+ CoderClass.getNameById(targetId,parsedProgram) + " ";
+					firstClass = false;
+				}
+				else {
+					source += "," + CoderClass.getNameById(targetId,parsedProgram) + " ";
+				}				
 			}
-			else {
-				source += "," + classObj.dependencies[i]._name + " ";
-			}				
 		}
+		
 	}
 	// ritorno la stringa del codice Java: i.e. public class X extends Y implements Z ,W
 	return source;
@@ -128,14 +170,14 @@ CoderClass.codeElementJava = function(classObj) {
 *	classe; restituisce la stringa del codice sorgente, in Javascript, relativa all'intestazione della classe classObj di input.
 */
 CoderClass.codeElementJavascript = function(classObj) {
-	var source = "function " + classObj._name + "(";
+	var source = "function " + classObj.values._name + "(";
 
 	// constructorList : proprietà che contiene la lista dei parametri del costruttore
 	//                   dell'oggetto.
-	if(classObj.constructorList){
-		for (var i=0; i<classObj.constructorList.length; i++) {
-			source += classObj.constructorList[i];
-			if(i!=classObj.constructorList.length-1) {
+	if(classObj.values.constructorList){
+		for (var i=0; i<classObj.values.constructorList.length; i++) {
+			source += classObj.values.constructorList[i];
+			if(i!=classObj.values.constructorList.length-1) {
 				source += ",";
 			}
 		}

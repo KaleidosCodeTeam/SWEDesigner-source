@@ -76,9 +76,9 @@ i.e.  " this.attr1 = "attrValue";
 */
 JavascriptCoder.coderInstanceAttributes = function(classObj) {
 	var source = "";
-	var attrs = classObj.attributes; // array degli attributi della classe classes[i]			
+	var attrs = classObj.values.attributes; // array degli attributi della classe classes[i]			
 	for(var x=0; x<attrs.length; x++) {
-		if(!attrs[x].isStatic) {
+		if(!attrs[x].isStatic == "true") {
 			source += CoderAttribute.codeElementJavascript(attrs[x]) + "\n";
 		}
 	}
@@ -105,9 +105,9 @@ i.e.  " this.doStuff = function() { }
 */
 JavascriptCoder.coderInstanceOperations = function(classObj) {
 	source = "";
-	var opers = classObj.operations; // array dei metodi della classe
+	var opers = classObj.values.operations; // array dei metodi della classe
 	for(var y=0; y<opers.length; y++) {
-		if(!(opers[y].isStatic)) {
+		if(opers[y].isStatic == "false") {
 			source += CoderOperation.codeElementJavascript(opers[y]);
 			source += "("; 											// apre la lista dei parametri		
 			source += JavascriptCoder.coderParameters(opers[y]);					
@@ -138,10 +138,10 @@ i.e.  " className.attributeName = "attributeValue" "
 */
 JavascriptCoder.coderStaticAttributes = function(classObj) {
 	var source = "";
-	var attrs = classObj.attributes; // array degli attributi della classe classes[i]			
+	var attrs = classObj.values.attributes; // array degli attributi della classe classes[i]			
 	for(var x=0; x<attrs.length; x++) {
-		if(attrs[x].isStatic) {
-			source += CoderAttribute.codeElementJavascript(attrs[x],classObj._name) + "\n";
+		if(attrs[x].isStatic == "true") {
+			source += CoderAttribute.codeElementJavascript(attrs[x],classObj.values._name) + "\n";
 		}
 	}
 	return source;
@@ -167,10 +167,10 @@ i.e.  " className1.functionName1 = function() { }
 */
 JavascriptCoder.coderStaticOperations = function(classObj) {
 	source = "";
-	var opers = classObj.operations; // array dei metodi della classe
+	var opers = classObj.values.operations; // array dei metodi della classe
 	for(var y=0; y<opers.length; y++) {
-		if(opers[y].isStatic) {
-			source += CoderOperation.codeElementJavascript(opers[y],classObj._name);
+		if(opers[y].isStatic == "true") {
+			source += CoderOperation.codeElementJavascript(opers[y],classObj.values._name);
 			source += "("; // apre la lista dei parametri			
 			source += JavascriptCoder.coderParameters(opers[y]);					
 			source += ") \n { \n"; // chiude la lista dei parametri e apre l'implementazione
@@ -183,19 +183,35 @@ JavascriptCoder.coderStaticOperations = function(classObj) {
 
 JavascriptCoder.getCodedProgram = function(parsedProgram) {
 		var codedP = new CodedProgram();
-		var classes = parsedProgram.classes; // array delle classi
+		var classes = parsedProgram.classes.classesArray; // array delle classi
 		for(var i=0; i<classes.length; i++) {
-			var source = "";
-			source += CoderClass.codeElementJavascript(classes[i]); // restituisce l'intestazione della classe
-			source += "\n { \n"; // apre la definizione della classe			
-			source += JavascriptCoder.coderInstanceAttributes(classes[i]);			
-			source += JavascriptCoder.coderInstanceOperations(classes[i]);		
-			source += "} \n"; // chiude l'implementazione della classe
-			source += JavascriptCoder.coderStaticAttributes(classes[i]);
-			source += JavascriptCoder.coderStaticOperations(classes[i]);
-			source += CoderClass.codeParentJavascript(classes[i]);
+			var items = classes[i].items;
+			for(var j=0; j<items.length; j++) {
+				var source = "";
+				source += CoderClass.codeElementJavascript(items[j],parsedProgram); // restituisce l'intestazione della classe
+				source += "\n { \n"; // apre la definizione della classe	
 
-			codedP.add(new Class(classes[i]._name, source, classes[i]._package, classes[i].file, classes[i].dependencies));
+				if(items[j].values.isInterface == "false"){		//   *** lanciare eccezione? ***
+					source += JavascriptCoder.coderInstanceAttributes(items[j]);	
+				}		
+
+				source += JavascriptCoder.coderInstanceOperations(items[j]);
+
+				if(items[j].values.isFrozen == "true" || items[j].values.isReadOnly == "true") {
+					source += "\n var freeze = function() { \n Object.freeze(this); \n }(); \n";									
+				}
+
+				source += "} \n"; // chiude l'implementazione della classe
+
+				if(items[j].values.isInterface == "false"){ //   *** lanciare eccezione? ***
+					source += JavascriptCoder.coderStaticAttributes(items[j]);
+				}
+
+				source += JavascriptCoder.coderStaticOperations(items[j]);
+				source += CoderClass.codeParentJavascript(items[j].id,parsedProgram);
+
+				codedP.add(new Class(items[j].values._name, source, "", items[j].file, items[j].dependencies));		
+			}
 		}
 		return codedP;	
 }

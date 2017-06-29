@@ -18,7 +18,7 @@ var Builder = (function() {
 		 *	@var {string} Builder.generalPath - Contiene il path alla directory dove vengono creati tutti i programmi (directories, file sorgenti, ...).
 		 *	@private
 		 */
-		generalPath : __dirname+'/',	// !!!!!!!! DA CAMBIARE !!!!!!!!
+		generalPath : __dirname+'/../',	// !!!!!!!! DA CAMBIARE !!!!!!!!
 		/**
 		 *	@function Builder.deleteFolderRecursive
 		 *	@param {!string} path - Il percorso alla directory da rimuovere.
@@ -136,6 +136,10 @@ var Builder = (function() {
 					var fileSrcCode=program._classes[i]._source;
 					_private.mkJavaFile(programDirectory, fileName, filePkg, fileDep, fileSrcCode);
 				}
+				return {
+					progDirectory : programDirectory,
+					progPath : programPath
+				};
 				/* // COMMENTARE CHIAMATA A 'zip' PER EFFETTUARE TEST DI UNITÀ
 				Zipper.zip(programDirectory, programPath, function(err) {
 					if (err) throw err;
@@ -182,6 +186,10 @@ var Builder = (function() {
 					var fileSrcCode=program._classes[i]._source;
 					_private.mkJavascriptFile(programDirectory, fileName, filePkg, fileSrcCode);
 				}
+				return {
+					progDirectory : programDirectory,
+					progPath : programPath
+				};
 				/* // COMMENTARE CHIAMATA A 'zip' PER EFFETTUARE TEST DI UNITÀ
 				Zipper.zip(programDirectory, programPath, function(err) {
 					if (err) throw err;

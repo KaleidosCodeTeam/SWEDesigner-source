@@ -28,18 +28,18 @@ CoderOperation.codeElementJava = function(operationObj) {
 		if(operationObj._visibility != 'package') {
 			source += operationObj._visibility + " ";
 		}
-		if(operationObj.isAbstract) {
+		if(operationObj.isAbstract  == "true") {
 			source += "abstract ";
 		}
-		if(operationObj.isStatic) {
+		if(operationObj.isStatic  == "true") {
 			source += "static ";
 		}
-		if(operationObj.isFinal) {
+		if(operationObj.isFinal  == "true") {
 			source += "final ";
 		}
-		if(operationObj.isSynchronized) {
+		/*if(operationObj.isSynchronized) {
 			source += "synchronized ";
-		}
+		}*/
 		source += operationObj.returnType + " ";
 		source += operationObj._name;
 		return source;
@@ -59,7 +59,7 @@ CoderOperation.codeElementJava = function(operationObj) {
 */
 CoderOperation.codeElementJavascript = function(operationObj, className) {
 		source = "";
-		if(!operationObj.isStatic){   //  funzione statica
+		if(operationObj.isStatic == "false"){   //  funzione statica
 			if(operationObj._visibility == "private") {  // funzione privata
 				source += "var " + operationObj._name + " = function";
 			}

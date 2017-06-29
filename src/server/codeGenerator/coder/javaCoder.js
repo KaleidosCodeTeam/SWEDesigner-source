@@ -28,6 +28,16 @@ var CodedProgram = require('./codedProgram.js');
 */
 var JavaCoder = function() { };
 
+
+JavaCoder.getPackNameById = function(packageId, packages){
+	for(var i=0; i<packages.packagesArray.length; i++) {
+		if(packages.packagesArray[i].values.id == packageId) {
+			return packages.packagesArray[i].values._package;
+		}
+	}
+}
+
+
 /**
 *	@function JavaCoder.coderParameters
 *	@static
@@ -58,7 +68,7 @@ JavaCoder.coderParameters = function(operationObj) {
 */
 JavaCoder.coderAttributes = function(classObj) {
 	source = "";
-	var attrs = classObj.attributes; // array degli attributi della classe classes[i]
+	var attrs = classObj.values.attributes; // array degli attributi della classe classes[i]
 	for(var x=0; x<attrs.length; x++) {
 		source += CoderAttribute.codeElementJava(attrs[x]) + "\n";
 	}
@@ -77,14 +87,20 @@ JavaCoder.coderAttributes = function(classObj) {
 */
 JavaCoder.coderOperations = function(classObj) {
 	source = "";
-	var opers = classObj.operations; // array dei metodi della classe
+	var opers = classObj.values.operations; // array dei metodi della classe
 	for(var y=0; y<opers.length; y++) {
 		source += CoderOperation.codeElementJava(opers[y]);
 		source += "("; // apre la lista dei parametri		
 		source += JavaCoder.coderParameters(opers[y]);				
-		source += ") \n { \n"; // chiude la lista dei parametri e apre l'implementazione
-		//source += new CoderActivity().codeElementJava(opers[y]); // gli passo tutta l'operazione o basta il suo oggetto activity?
-		source += " \n }; \n"; // chiude l'implementazione dell'operazione
+		source += ")"; 
+		if(opers[y].isAbstract == "true" || classObj.type == "classDiagram.items.Interface") {
+			source += "; \n";
+		}
+		else {
+			source += " { \n";
+			//source += CoderActivity.codeElementJava(opers[y]); // gli passo tutta l'operazione o basta il suo oggetto activity?
+			source += " \n }; \n";
+		}		
 	}
 	return source;
 }
@@ -103,15 +119,22 @@ JavaCoder.getCodedProgram = function(parsedProgram) {
 		var codedP = new CodedProgram();
 		
 		/* *** parsedProgram.classes chiave riservata, da modificare ***  */
-		var classes = parsedProgram.classes; // array delle classi
+		var classes = parsedProgram.classes.classesArray; // array delle classi
 		for(var i=0; i<classes.length; i++) {
-			var source = "";
-			source += CoderClass.codeElementJava(classes[i]); // restituisce l'intestazione della classe
-			source += "\n { \n"; // apre la definizione della classe			
-			source += JavaCoder.coderAttributes(classes[i]);			
-			source += JavaCoder.coderOperations(classes[i]);
-			source += "};"; // chiude l'implementazione della classe
-			codedP.add(new Class(classes[i]._name, source, classes[i]._package, classes[i].file, classes[i].dependencies));
+			var packageId = classes[i].id;
+			var packageName = JavaCoder.getPackNameById(packageId, parsedProgram.packages);
+			var items = classes[i].items;
+			for(var j=0; j<items.length; j++) {
+				var source = "";
+				source += CoderClass.codeElementJava(items[j],parsedProgram); // restituisce l'intestazione della classe
+				source += "\n { \n"; // apre la definizione della classe	
+				if(items[j].values.isInterface == "false"){
+					source += JavaCoder.coderAttributes(items[j]);
+				}								
+				source += JavaCoder.coderOperations(items[j]);
+				source += "};"; // chiude l'implementazione della classe
+				codedP.add(new Class(items[j]._name, source, packageName, items[j].file, items[j].dependencies));
+			}			
 		}
 		return codedP;
 }

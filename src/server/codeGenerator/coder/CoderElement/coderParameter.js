@@ -27,8 +27,17 @@ var CoderParameter = function() { };
 */
 CoderParameter.codeElementJava = function(parameterObj) {
 	source = parameterObj._type + " " + parameterObj._name;
-	if(parameterObj._default) {
-		source += "=" + parameterObj._default;
+	if(parameterObj._default != "") {
+		if(parameterObj._type == "String"){
+			source += " = \"" + parameterObj._default +"\"";
+		}
+		else if(parameterObj._type == "char"){
+			source += " = \'" + parameterObj._default +"\'";
+		}
+		else {
+			source += "=" + parameterObj._default;
+		}
+		
 	}
 	return source;
 }
@@ -45,8 +54,16 @@ CoderParameter.codeElementJava = function(parameterObj) {
 */
 CoderParameter.codeElementJavascript = function(parameterObj) {
 	source = parameterObj._name;
-	if(parameterObj._default) {
-		source += "=" + parameterObj._default;
+	if(parameterObj._default != "") {
+		if(parameterObj._type == "String"){
+			source += " = \"" + parameterObj._default +"\"";
+		}
+		else if(parameterObj._type == "char"){
+			source += " = \'" + parameterObj._default +"\'";
+		}
+		else {
+			source += "=" + parameterObj._default;
+		}
 	}
 	return source;
 }
