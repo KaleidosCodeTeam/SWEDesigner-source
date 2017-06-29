@@ -68,7 +68,6 @@ define ([
                 if (childBbox.corner().x > newCornerX) { newCornerX = childBbox.corner().x; }
                 if (childBbox.corner().y > newCornerY) { newCornerY = childBbox.corner().y; }
             });
-
             // Note that we also pass a flag so that we know we shouldn't adjust the
             // `originalPosition` and `originalSize` in our handlers as a reaction
             // on the following `set()` call.
