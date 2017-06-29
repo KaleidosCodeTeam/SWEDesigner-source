@@ -409,6 +409,24 @@ define ([
 			}
         }, Swedesigner.model.packageDiagram.items.packageDiagramLink.prototype.defaults)
     });
+    
+    /**
+     *  @module Swedesigner.model.packageDiagram.items
+     *  @class PkgDependency
+     *  @classdesc Dipendenza tra due package UML del diagramma dei package.
+     *  @extends {Swedesigner.model.packageDiagram.items.packageDiagramLink}
+     */
+    Swedesigner.model.packageDiagram.items.PkgDependency=Swedesigner.model.packageDiagram.items.packageDiagramLink.extend({
+        /**
+         *  @var {Object} PkgDependency#defaults Attributi di default per l'oggetto.
+         */
+        defaults: _.defaultsDeep({
+            type: 'packageDiagram.items.PkgDependency',
+            attrs: {
+            		'.connection': { stroke: 'black', 'stroke-width': 2}
+			}
+        }, Swedesigner.model.packageDiagram.items.packageDiagramLink.prototype.defaults)
+    });
 
     Swedesigner.model.classDiagram.items={};
 
