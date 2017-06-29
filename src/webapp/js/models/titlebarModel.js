@@ -6,8 +6,10 @@ define ([
     'js/models/DAOclient',
     'js/models/items/swedesignerItems',
     'js/models/projectModel',
-    'js/models/project'
-], function ($, _, Backbone, joint, DAOclient, Swedesigner, projectModel,project) {
+    'js/models/project',
+    'js/views/editPanelView',
+    'js/views/projectView'
+], function ($, _, Backbone, joint, DAOclient, Swedesigner, projectModel, project, editPanelView, projectView) {
     /**
      * @class TitlebarModel
      * @classdesc Model della barra del titolo, si occupa di fornire i metodi necessari alla gestione delle funzionalità richieste alla barra del titolo.
@@ -36,6 +38,8 @@ define ([
                 projectModel.graph.resetCells([]);
                 projectModel.currentDiagramType = 'packageDiagram';
                 projectModel.currentDiagram = null;
+                projectView.paper.selectedCell = null;
+                editPanelView.render();
                 projectModel.graphSwitched();
                 console.log('newProject created');
             } else {
