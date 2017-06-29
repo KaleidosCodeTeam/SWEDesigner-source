@@ -20,7 +20,7 @@ define ([
 				gridSize: 10,
 				drawGrid: true,
 				background:{
-				    color: '#EDF6F6'
+				    color: "#373737"
 				},
 				elementView: function (element) {
                     if (element.get("type").startsWith("packageDiagram")) {
