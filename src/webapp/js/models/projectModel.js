@@ -17,7 +17,6 @@ define ([
             this.currentDiagramType = 'packageDiagram';
             let myAdjustVertices = _.partial(this.adjustVertices, this.graph);
             this.graph.on('add remove change:source change:target', myAdjustVertices);
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////// RIDIMENSIONAMENTO IN BASE AI FIGLI
             this.graph.on('change:position', _.partial(this.changedPosition, this.graph));
             this.graph.on('change:size', function(cell, newPosition, opt) {
                 if (opt.skipParentHandler) return;
@@ -78,7 +77,7 @@ define ([
                 size: { width: newCornerX - newX, height: newCornerY - newY }
             }, { skipParentHandler: true });
         },
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////// FINE RIDIMENSIONAMENTO IN BASE AI FIGLI
+
         /**
          *  @function projectModel#addItem
          *  @param {Object} item - elemento del diagramma definito in swedesignerItems.
@@ -89,10 +88,48 @@ define ([
         },
 
         addItemToGraph: function() {
-            _.each(this.graph.get('cells').models, function(el) {   // Non sono sicuro se funzionerà
-                el.set("z", 1);
-            });
-            this.graph.addCell(this.itemToBeAdded);
+            if (this.itemToBeAdded.type === 'nesting'){
+                var cell = this.itemToBeAdded.source;
+                var parent = this.itemToBeAdded.target;
+
+                // Prevent recursive embedding.
+                if (parent.get('parent') !== cell.id) {
+                    parent.embed(cell);
+                    cell.toFront();
+                    var parentBbox = parent.getBBox();
+
+                    if (!parent.get('originalPosition')) parent.set('originalPosition', parent.get('position'));
+                    if (!parent.get('originalSize')) parent.set('originalSize', parent.get('size'));
+
+                    var originalPosition = parent.get('originalPosition');
+                    var originalSize = parent.get('originalSize');
+
+                    var newX = originalPosition.x;
+                    var newY = originalPosition.y;
+                    var newCornerX = originalPosition.x + originalSize.width;
+                    var newCornerY = originalPosition.y + originalSize.height;
+
+                    _.each(parent.getEmbeddedCells(), function(child) {
+
+                        var childBbox = child.getBBox();
+
+                        if (childBbox.x < newX) { newX = childBbox.x; }
+                        if (childBbox.y < newY) { newY = childBbox.y; }
+                        if (childBbox.corner().x > newCornerX) { newCornerX = childBbox.corner().x; }
+                        if (childBbox.corner().y > newCornerY) { newCornerY = childBbox.corner().y; }
+                    });
+
+                    parent.set({
+                        position: { x: newX, y: newY },
+                        size: { width: newCornerX - newX, height: newCornerY - newY }
+                    }, { skipParentHandler: true });
+                }
+            } else {
+                _.each(this.graph.get('cells').models, function(el) {   // Non sono sicuro se funzionerà
+                    el.set("z", 1);
+                });
+                this.graph.addCell(this.itemToBeAdded);
+            }
             this.trigger('addCell', this.itemToBeAdded);
             this.itemToBeAdded=null;
         },
