@@ -833,6 +833,8 @@ define ([
                 isFinal: "false",
                 parameters: []
             });
+            this.updateRectangles();
+            this.trigger("uml-update");
         },
         /**
          *  @function Class#addAttribute
@@ -847,6 +849,8 @@ define ([
                 isStatic: "false",
                 isFinal: "false"
             });
+            this.updateRectangles();
+            this.trigger("uml-update");
         },
         /**
          *  @function Class#addParameter
@@ -860,6 +864,8 @@ define ([
                 _default: "",
                 _direction: "in"
             });
+            this.updateRectangles();
+            this.trigger("uml-update");
         },
         /**
          *  @function Class#deleteParameter
@@ -1142,6 +1148,8 @@ define ([
                 isFinal: "false",
                 parameters: []
             });
+            this.updateRectangles();
+            this.trigger("uml-update");
         },
         /**
          *  @function Interface#addParameter
@@ -1155,6 +1163,8 @@ define ([
                 _default: "",
                 _direction: "in"
             });
+            this.updateRectangles();
+            this.trigger("uml-update");
         },
         // FORSE DA CAMBIARE /** @todo */
         /**
@@ -1164,6 +1174,8 @@ define ([
          */
         deleteParameter: function(met) {
             this.getValues().operations[met[0]].parameters.splice(met[1], 1);
+            this.updateRectangles();
+            this.trigger("uml-update");
         },
         /**
          *  @function Interface#deleteOperation
@@ -1172,6 +1184,8 @@ define ([
          */
         deleteOperation: function(ind) {
             this.getValues().operations.splice(ind, 1);
+            this.updateRectangles();
+            this.trigger("uml-update");
         },
         // FORSE DA CAMBIARE /** @todo */
         /**
@@ -1687,13 +1701,13 @@ define ([
     
     /**
      *  @module Swedesigner.model.bubbleDiagram.items
-     *  @class CustomBubble
+     *  @class customBubble
      *  @classdesc Elemento custom bubble per il bubble diagram.
      *  @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
-    Swedesigner.model.bubbleDiagram.items.CustomBubble = Swedesigner.model.bubbleDiagram.items.Base.extend({
+    Swedesigner.model.bubbleDiagram.items.customBubble = Swedesigner.model.bubbleDiagram.items.Base.extend({
         /**
-         *  @var {string} CustomBubble#markup Markup HTML per la rappresentazione grafica.
+         *  @var {string} customBubble#markup Markup HTML per la rappresentazione grafica.
          */
         markup: [
             '<g class="rotatable">',
@@ -1704,10 +1718,10 @@ define ([
             '</g>',
         ].join(''),
         /**
-         *  @var {Object} CustomBubble#defaults Attributi di default per l'oggetto CustomBubble (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         *  @var {Object} customBubble#defaults Attributi di default per l'oggetto customBubble (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
-            type: 'bubbleDiagram.items.CustomBubble',
+            type: 'bubbleDiagram.items.customBubble',
 		    size: { width: 150, height: 150 },
 		    attrs: {
 		        '.bubble': {
@@ -1740,25 +1754,26 @@ define ([
 		    },
             values: {
             	_type: 'CUSTOM',
-            	_name : 'CustomBubbleName'
+            	bubbleCode: '',
+            	comment : 'customBubbleName'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
-         *  @function CustomBubble#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto CustomBubble.
+         *  @function customBubble#initialize
+         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto customBubble.
          */
         initialize: function() {
         	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
-        	console.log("I'm the CustomBubble Initialize");
+        	console.log("I'm the customBubble Initialize");
         },
         /**
-         *  @function CustomBubble#updateRectangles
-         *  @summary Render del CustomBubble.
+         *  @function customBubble#updateRectangles
+         *  @summary Render del customBubble.
          */
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues()._name },
+                { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
             var offsetY = 0;
@@ -1772,7 +1787,7 @@ define ([
             });
         },
         /**
-         *  @function CustomBubble#setToValue
+         *  @function customBubble#setToValue
          *  @summary Imposta "values.<path>" a "<value>".
          *  @param {Object} value - valore da assegnare.
          *  @param {string} path - percorso al membro.
@@ -1846,7 +1861,8 @@ define ([
 		    },
             values: {
             	_type: 'IF',
-            	_name : 'bubbleIfName'
+            	condition: '',
+            	comment : 'bubbleIfName'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
@@ -1864,7 +1880,7 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues()._name },
+                { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
             var offsetY = 0;
@@ -1952,7 +1968,7 @@ define ([
 		    },
             values: {
             	_type: 'ELSE',
-            	_name : 'bubbleElseName'
+            	comment : 'bubbleElseName'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
@@ -1970,7 +1986,7 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues()._name },
+                { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
             var offsetY = 0;
@@ -2059,7 +2075,10 @@ define ([
 		    },
             values: {
             	_type: 'FOR',
-            	_name : 'bubbleForName'
+            	initialization: '',
+            	termination: '',
+            	increment: '',
+            	comment : 'bubbleForName'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
@@ -2077,7 +2096,7 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues()._name },
+                { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
             var offsetY = 0;
@@ -2210,7 +2229,8 @@ define ([
 		    },
             values: {
             	_type: 'RETURN',
-            	_name : 'bubbleReturnName'
+            	value: '',
+            	comment : 'bubbleReturnName'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
@@ -2228,7 +2248,7 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues()._name },
+                { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
             var offsetY = 0;
@@ -2317,7 +2337,8 @@ define ([
 		    },
             values: {
             	_type: 'WHILE',
-            	_name : 'bubbleWhileName'
+            	condition: '',
+            	comment : 'bubbleWhileName'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
@@ -2335,7 +2356,7 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues()._name },
+                { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
             var offsetY = 0;
