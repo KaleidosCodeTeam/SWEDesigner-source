@@ -119,6 +119,7 @@ define ([
                 var cell = this.itemToBeAdded.source;
                 var parent = this.itemToBeAdded.target;
                 areRelatives = function(cell, ancestorId, grph) {
+                    if (cell.id === ancestorId) return true;
                     if (!cell.get('parent')) return false;
                     if (cell.get('parent') === ancestorId) return true;
                     return areRelatives(grph.getCell(cell.get('parent')), ancestorId, grph);

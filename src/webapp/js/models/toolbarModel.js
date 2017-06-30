@@ -55,6 +55,7 @@ define ([
 				el = {
 					type: 'nesting',
 					isLink: function() {return false;},
+					isElement: function() {return false;},
 					source: null,
 					target: null
 				}
