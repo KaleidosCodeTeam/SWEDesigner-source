@@ -1706,7 +1706,7 @@ define ([
         markup: [
             '<g class="rotatable">',
             '<g class="scalable">',
-            '<circle class="bubble" />',
+            '<rect class="bubble" />',
             '</g>',
             '<text class="bubble-type-text" /><text class="bubble-name-text" />',
             '</g>',
@@ -1716,14 +1716,13 @@ define ([
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.customBubble',
-		    size: { width: 150, height: 150 },
+            position: {x: 200, y: 200},
+		    size: { width: 200, height: 70 },
 		    attrs: {
+		    	rect: {width: 200},
 		        '.bubble': {
 		            fill: '#ff5733',
-		            stroke: '#000000',
-		            r: 100,
-		            cx: 50,
-		            cy: 50
+		            stroke: '#000000'
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
@@ -1770,14 +1769,14 @@ define ([
                 { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
-            var offsetY = 0;
+            //var offsetY = 0;
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
                 attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
-                attrs['.bubble'].height += rectHeight;
-                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
-                offsetY += rectHeight;
+            	attrs['.bubble'].height = rectHeight;
+            	//attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                //offsetY += rectHeight;
             });
         },
         /**
@@ -1813,7 +1812,7 @@ define ([
         markup: [
             '<g class="rotatable">',
             '<g class="scalable">',
-            '<circle class="bubble" />',
+            '<rect class="bubble" />',
             '</g>',
             '<text class="bubble-type-text" /><text class="bubble-name-text" />',
             '</g>',
@@ -1823,14 +1822,13 @@ define ([
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleIf',
-		    size: { width: 150, height: 150 },
+		    position: {x: 200, y: 200},
+		    size: { width: 200, height: 70 },
 		    attrs: {
+		    	rect: {width: 200},
 		        '.bubble': {
 		            fill: '#33ff57',
-		            stroke: '#000000',
-		            r: 100,
-		            cx: 50,
-		            cy: 50
+		            stroke: '#000000'
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
@@ -1877,14 +1875,14 @@ define ([
                 { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
-            var offsetY = 0;
+            //var offsetY = 0;
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
                 attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
-                attrs['.bubble'].height += rectHeight;
-                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
-                offsetY += rectHeight;
+                attrs['.bubble'].height = rectHeight;
+                //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                //offsetY += rectHeight;
             });
         },
         /**
@@ -1920,7 +1918,7 @@ define ([
         markup: [
             '<g class="rotatable">',
             '<g class="scalable">',
-            '<circle class="bubble" />',
+            '<rect class="bubble" />',
             '</g>',
             '<text class="bubble-type-text" /><text class="bubble-name-text" />',
             '</g>',
@@ -1930,14 +1928,13 @@ define ([
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleElse',
-		    size: { width: 150, height: 150 },
+		    position: {x: 200, y: 200},
+		    size: { width: 200, height: 70 },
 		    attrs: {
+		    	rect: {width: 200},
 		        '.bubble': {
 		            fill: '#33ff57',
-		            stroke: '#000000',
-		            r: 100,
-		            cx: 50,
-		            cy: 50
+		            stroke: '#000000'
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
@@ -1983,14 +1980,14 @@ define ([
                 { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
-            var offsetY = 0;
+            //var offsetY = 0;
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
                 attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
-                attrs['.bubble'].height += rectHeight;
-                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
-                offsetY += rectHeight;
+                attrs['.bubble'].height = rectHeight;
+                //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                //offsetY += rectHeight;
             });
         },
         /**
@@ -2027,7 +2024,7 @@ define ([
         markup: [
             '<g class="rotatable">',
             '<g class="scalable">',
-            '<circle class="bubble" />',
+            '<rect class="bubble" />',
             '</g>',
             '<text class="bubble-type-text" /><text class="bubble-name-text" />',
             '</g>',
@@ -2037,14 +2034,13 @@ define ([
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleFor',
-		    size: { width: 150, height: 150 },
+		    position: {x: 200, y: 200},
+		    size: { width: 200, height: 70 },
 		    attrs: {
+		    	rect: {width: 200},
 		        '.bubble': {
 		            fill: '#ffbd33',
-		            stroke: '#000000',
-		            r: 100,
-		            cx: 50,
-		            cy: 50
+		            stroke: '#000000'
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
@@ -2093,14 +2089,14 @@ define ([
                 { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
-            var offsetY = 0;
+            //var offsetY = 0;
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
                 attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
-                attrs['.bubble'].height += rectHeight;
-                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
-                offsetY += rectHeight;
+                attrs['.bubble'].height = rectHeight;
+                //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                //offsetY += rectHeight;
             });
         },
         /**
@@ -2181,7 +2177,7 @@ define ([
         markup: [
             '<g class="rotatable">',
             '<g class="scalable">',
-            '<circle class="bubble" />',
+            '<rect class="bubble" />',
             '</g>',
             '<text class="bubble-type-text" /><text class="bubble-name-text" />',
             '</g>',
@@ -2191,14 +2187,13 @@ define ([
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleReturn',
-		    size: { width: 150, height: 150 },
+		    position: {x: 200, y: 200},
+		    size: { width: 200, height: 70 },
 		    attrs: {
+		    	rect: {width: 200},
 		        '.bubble': {
 		            fill: '#33ffbd',
-		            stroke: '#000000',
-		            r: 100,
-		            cx: 50,
-		            cy: 50
+		            stroke: '#000000'
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
@@ -2245,14 +2240,14 @@ define ([
                 { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
-            var offsetY = 0;
+            //var offsetY = 0;
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
                 attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
-                attrs['.bubble'].height += rectHeight;
-                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
-                offsetY += rectHeight;
+                attrs['.bubble'].height = rectHeight;
+                //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                //offsetY += rectHeight;
             });
         },
         /**
@@ -2288,7 +2283,7 @@ define ([
         markup: [
             '<g class="rotatable">',
             '<g class="scalable">',
-            '<circle class="bubble" />',
+            '<rect class="bubble" />',
             '</g>',
             '<text class="bubble-type-text" /><text class="bubble-name-text" />',
             '</g>',
@@ -2298,14 +2293,13 @@ define ([
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleStart',
-            size: { width: 50, height: 50 },
-            attrs: {
+            position: {x: 200, y: 200},
+		    size: { width: 50, height: 50 },
+		    attrs: {
+		    	rect: {width: 50},
                 '.bubble': {
                     fill: '#ff8000',
-                    stroke: '#000000',
-                    r: 100,
-                    cx: 50,
-                    cy: 50
+                    stroke: '#000000'
                 },
                 '.bubble-type-text': {
                     'ref': '.bubble',
@@ -2352,14 +2346,14 @@ define ([
                 { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
-            var offsetY = 0;
+            //var offsetY = 0;
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
                 attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
-                attrs['.bubble'].height += rectHeight;
-                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
-                offsetY += rectHeight;
+                attrs['.bubble'].height = rectHeight;
+                //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                //offsetY += rectHeight;
             });
         },
     });
@@ -2380,7 +2374,7 @@ define ([
         markup: [
             '<g class="rotatable">',
             '<g class="scalable">',
-            '<circle class="bubble" />',
+            '<rect class="bubble" />',
             '</g>',
             '<text class="bubble-type-text" /><text class="bubble-name-text" />',
             '</g>',
@@ -2390,14 +2384,13 @@ define ([
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleWhile',
-		    size: { width: 150, height: 150 },
+		    position: {x: 200, y: 200},
+		    size: { width: 200, height: 70 },
 		    attrs: {
+		    	rect: {width: 200},
 		        '.bubble': {
 		            fill: '#ffbd33',
-		            stroke: '#000000',
-		            r: 100,
-		            cx: 50,
-		            cy: 50
+		            stroke: '#000000'
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
@@ -2444,14 +2437,14 @@ define ([
                 { type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
-            var offsetY = 0;
+            //var offsetY = 0;
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
                 attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
-                attrs['.bubble'].height += rectHeight;
-                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
-                offsetY += rectHeight;
+                attrs['.bubble'].height = rectHeight;
+                //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                //offsetY += rectHeight;
             });
         },
         /**
