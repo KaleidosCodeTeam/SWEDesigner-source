@@ -21,7 +21,9 @@
             </select>
         </div>
         <!-- INSERITO PULSANTE PER ANDARE AL DIAGRAMMA DELLE CLASSI -->
-        <button class="switch btn btn-success btn-block" name="switch" value="<%=id%>">Vai al diagramma delle classi</button>
+        <button class="switch btn btn-success btn-block" name="switch" value="<%=id%>">
+            <span class="pull-left glyphicon glyphicon-share-alt" aria-hidden="true"></span> Diagramma delle classi
+        </button>
     </div>
 </script>
 
@@ -114,20 +116,30 @@
                                                 <label for="operations.<%=op%>.parameters.<%=par%>._default">Valore di default:</label>
                                                 <input type="text" class="form-control edit" value="<%=operations[op].parameters[par]._default%>" name="operations.<%=op%>.parameters.<%=par%>._default" id="class-operation-parameter-default" />
                                             </div>
-                                            <button class="btn btn-danger btn-block exec" name="deleteParameter.<%=op%>.<%=par%>">Elimina parametro</button>
+                                            <button class="btn btn-danger btn-block exec" name="deleteParameter.<%=op%>.<%=par%>">
+                                                <span class="pull-left glyphicon glyphicon-remove" aria-hidden="true"></span> Elimina
+                                            </button>
                                         </div>
                                     </div>
                                     <% } %>
-                                    <button class="btn btn-primary btn-block exec" name="addParameter.<%=op%>">Aggiungi parametro</button>
+                                    <button class="btn btn-primary btn-block exec" name="addParameter.<%=op%>">
+                                        <span class="pull-left glyphicon glyphicon-plus" aria-hidden="true"></span> Parametro
+                                    </button>
                                 </div>
                             </div>
                             <!-- INSERITO PULSANTE PER ANDARE AL DIAGRAMMA DELL'ATTIVITÀ -->
-                            <button class="switch btn btn-success btn-block" name="switch" value="<%= operations[op].id %>">Vai al bubbleDiagram</button>
-                            <button class="btn btn-danger btn-block exec" name="deleteOperation.<%=op%>">Elimina operazione</button>
+                            <button class="switch btn btn-success btn-block" name="switch" value="<%= operations[op].id %>">
+                                <span class="pull-left glyphicon glyphicon-share-alt" aria-hidden="true"></span> BubbleDiagram
+                            </button>
+                            <button class="btn btn-danger btn-block exec" name="deleteOperation.<%=op%>">
+                                <span class="pull-left glyphicon glyphicon-remove" aria-hidden="true"></span> Elimina
+                            </button>
                         </div>
                     </div>
                     <% } %>
-                    <button class="btn btn-primary btn-block exec" name="addOperation">Aggiungi operazione</button>
+                    <button class="btn btn-primary btn-block exec" name="addOperation">
+                        <span class="pull-left glyphicon glyphicon-plus" aria-hidden="true"></span> Operazione
+                    </button>
                 </div>
             </div>
         </div>
@@ -174,11 +186,15 @@
                                 <label for="attributes.<%=attr%>._default">Valore di default:</label>
                                 <input type="text" class="form-control edit" value="<%= attributes[attr]._default %>" name="attributes.<%=attr%>._default" id="class-attribute-default" />
                             </div>
-                            <button class="btn btn-danger btn-block exec" name="deleteAttribute.<%=attr%>">Elimina attributo</button>
+                            <button class="btn btn-danger btn-block exec" name="deleteAttribute.<%=attr%>">
+                                <span class="pull-left glyphicon glyphicon-remove" aria-hidden="true"></span> Elimina
+                            </button>
                         </div>
                     </div>
                     <% } %>
-                    <button class="btn btn-primary btn-block exec" name="addAttribute">Aggiungi attributo</button>
+                    <button class="btn btn-primary btn-block exec" name="addAttribute">
+                        <span class="pull-left glyphicon glyphicon-plus" aria-hidden="true"></span> Attributo
+                    </button>
                 </div>
             </div>
         </div>
@@ -310,20 +326,30 @@
                                                 <label for="operations.<%=op%>.parameters.<%=par%>._default">Valore di default:</label>
                                                 <input type="text" class="form-control edit" value="<%=operations[op].parameters[par]._default%>" name="operations.<%=op%>.parameters.<%=par%>._default" id="interface-operation-parameter-default" />
                                             </div>
-                                            <button class="btn btn-danger btn-block exec" name="deleteParameter.<%=op%>.<%=par%>">Elimina parametro</button>
+                                            <button class="btn btn-danger btn-block exec" name="deleteParameter.<%=op%>.<%=par%>">
+                                                <span class="pull-left glyphicon glyphicon-remove" aria-hidden="true"></span> Elimina
+                                            </button>
                                         </div>
                                     </div>
                                     <% } %>
-                                    <button class="btn btn-primary btn-block exec" name="addParameter.<%=op%>">Aggiungi parametro</button>
+                                    <button class="btn btn-primary btn-block exec" name="addParameter.<%=op%>">
+                                        <span class="pull-left glyphicon glyphicon-plus" aria-hidden="true"></span> Parametro
+                                    </button>
                                 </div>
                             </div>
                             <!-- INSERITO PULSANTE PER ANDARE AL DIAGRAMMA DELL'ATTIVITÀ -->
-                            <button class="switch btn btn-success btn-block" name="switch" value="<%= operations[op].id %>">Vai al bubbleDiagram</button>
-                            <button class="btn btn-danger btn-block exec" name="deleteOperation.<%=op%>">Elimina operazione</button>
+                            <button class="switch btn btn-success btn-block" name="switch" value="<%= operations[op].id %>">
+                                <span class="pull-left glyphicon glyphicon-share-alt" aria-hidden="true"></span> BubbleDiagram
+                            </button>
+                            <button class="btn btn-danger btn-block exec" name="deleteOperation.<%=op%>">
+                                <span class="pull-left glyphicon glyphicon-remove" aria-hidden="true"></span> Elimina
+                            </button>
                         </div>
                     </div>
                     <% } %>
-                    <button class="btn btn-primary btn-block exec" name="addOperation">Aggiungi operazione</button>
+                    <button class="btn btn-primary btn-block exec" name="addOperation">
+                        <span class="pull-left glyphicon glyphicon-plus" aria-hidden="true"></span> Operazione
+                    </button>
                 </div>
             </div>
         </div>
@@ -391,7 +417,9 @@
             <label for="comment">Commento:</label>
             <input type="text" class="form-control edit" value="<%=comment%>" name="comment" id="comment" />
         </div>
-        <button class="btn btn-warning btn-block unembed" name="unembed">Disinnesta</button>
+        <button class="btn btn-warning btn-block unembed" name="unembed">
+            <span class="pull-left glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Disinnesta
+        </button>
     </div>
 </script>
 
@@ -407,7 +435,9 @@
             <label for="comment">Commento:</label>
             <input type="text" class="form-control edit" value="<%=comment%>" name="comment" id="comment" />
         </div>
-        <button class="btn btn-warning btn-block unembed" name="unembed">Disinnesta</button>
+        <button class="btn btn-warning btn-block unembed" name="unembed">
+            <span class="pull-left glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Disinnesta
+        </button>
     </div>
 </script>
 
@@ -419,7 +449,9 @@
             <label for="comment">Commento:</label>
             <input type="text" class="form-control edit" value="<%=comment%>" name="comment" id="comment" />
         </div>
-        <button class="btn btn-warning btn-block unembed" name="unembed">Disinnesta</button>
+        <button class="btn btn-warning btn-block unembed" name="unembed">
+            <span class="pull-left glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Disinnesta
+        </button>
     </div>
 </script>
 
@@ -443,7 +475,9 @@
             <label for="comment">Commento:</label>
             <input type="text" class="form-control edit" value="<%=comment%>" name="comment" id="comment" />
         </div>
-        <button class="btn btn-warning btn-block unembed" name="unembed">Disinnesta</button>
+        <button class="btn btn-warning btn-block unembed" name="unembed">
+            <span class="pull-left glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Disinnesta
+        </button>
     </div>
 </script>
 
@@ -459,7 +493,9 @@
             <label for="comment">Commento:</label>
             <input type="text" class="form-control edit" value="<%=comment%>" name="comment" id="comment" />
         </div>
-        <button class="btn btn-warning btn-block unembed" name="unembed">Disinnesta</button>
+        <button class="btn btn-warning btn-block unembed" name="unembed">
+            <span class="pull-left glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Disinnesta
+        </button>
     </div>
 </script>
 
@@ -475,6 +511,8 @@
             <label for="comment">Commento:</label>
             <input type="text" class="form-control edit" value="<%=comment%>" name="comment" id="comment" />
         </div>
-        <button class="btn btn-warning btn-block unembed" name="unembed">Disinnesta</button>
+        <button class="btn btn-warning btn-block unembed" name="unembed">
+            <span class="pull-left glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Disinnesta
+        </button>
     </div>
 </script>
