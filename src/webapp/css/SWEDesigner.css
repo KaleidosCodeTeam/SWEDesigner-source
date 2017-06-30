@@ -76,6 +76,7 @@ html,body{
 
 .panel-heading{
     cursor: pointer;
+    overflow: hidden;
 }
 
 .packageDiagram, .classDiagram, .bubbleDiagram {
