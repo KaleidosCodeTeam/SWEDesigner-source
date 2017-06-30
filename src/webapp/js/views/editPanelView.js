@@ -148,10 +148,12 @@ define ([
             if ((e.type === "keypress" && e.which === 13) || e.type === "change") {
                 if (e.target.type === "checkbox") {
                     projectView.paper.selectedCell.setToValue(e.target.checked ? "true" : "false", e.target.name);
+                    this.render();
                 } else {
                     console.log(projectView.paper.selectedCell);
                     projectView.paper.selectedCell.setToValue(e.target.value, e.target.name);
-                    console.log(projectView.paper.selectedCell)
+                    console.log(projectView.paper.selectedCell);
+                    this.render();
                 }
             }
         }

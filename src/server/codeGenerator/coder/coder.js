@@ -1,3 +1,17 @@
+/**
+ *	@module Contiene: JavaCoder; JavascriptCoder.
+ *	@author Sanna Giovanni - KaleidosCode
+ *	@summary Esporta le funzioni: JavascriptCoder.getCodedProgram; JavaCoder.getCodedProgram.
+ *
+ *	@requires ./CoderElement/coderClass.js
+ *  @requires ./CoderElement/coderAttribute.js
+ *  @requires ./CoderElement/coderOperation.js
+ *  @requires ./CoderElement/coderParameter.js
+ *  @requires ./CoderElement/coderActivity.js
+ *  @requires ./class.js
+ *  @requires ./codedProgram.js
+ */
+
 
 var CoderClass = require('./CoderElement/coderClass.js');
 var CoderAttribute = require('./CoderElement/coderAttribute.js');
@@ -14,8 +28,14 @@ var CodedProgram = require('./codedProgram.js');
 */
 var JavaCoder = function() { };
 
-
-JavaCoder.getPackNameById = function(packageId, packages){
+/**
+*	@function getPackNameById
+*	@param {!String} packageId - Stringa identificativa del package di cui si vuole ottenere il nome.
+*	@param {!Object} packages - Oggetto che contiene l'array di tutti gli oggetti package.
+*	@return {String} - Nome del package corrispondente al packageId di input. 
+*	@description funzione che ritorna il nome del package corrispondente al packageId di input.
+*/
+function getPackNameById(packageId, packages){
 	for(var i=0; i<packages.packagesArray.length; i++) {
 		if(packages.packagesArray[i].values.id == packageId) {
 			return packages.packagesArray[i].values._package;
@@ -108,7 +128,7 @@ JavaCoder.getCodedProgram = function(parsedProgram) {
 		var classes = parsedProgram.classes.classesArray; // array delle classi
 		for(var i=0; i<classes.length; i++) {
 			var packageId = classes[i].id;
-			var packageName = JavaCoder.getPackNameById(packageId, parsedProgram.packages);
+			var packageName = getPackNameById(packageId, parsedProgram.packages);
 			var items = classes[i].items;
 			for(var j=0; j<items.length; j++) {
 				var source = "";
@@ -119,7 +139,7 @@ JavaCoder.getCodedProgram = function(parsedProgram) {
 				}								
 				source += JavaCoder.coderOperations(items[j]);
 				source += "};"; // chiude l'implementazione della classe
-				codedP.add(new Class(items[j]._name, source, packageName, items[j].file, new Array()));
+				codedP.add(new Class(items[j].values._name, source, packageName, items[j]._name, new Array()));
 			}			
 		}
 		return codedP;
@@ -285,12 +305,22 @@ JavascriptCoder.coderStaticOperations = function(classObj) {
 	return source;
 }
 
+/**
+*	@function JavascriptCoder.getCodedProgram
+*	@static
+*	@param {!Object} parsedProgram - Oggetto contenente le informazioni necessarie a codificare un programma in linguaggio Javascript.
+*	@return {codedProgram} codedP - istanza di CodedProgram, contenente il codice sorgente in Javascript corrispondente all'oggetto parsedProgram
+*	di input, più le informazioni necessarie per organizzare i vari file.	 
+*	@description funzione statica di JavascriptCoder; riceve in input parsedProgram, un oggetto che rappresenta un programma; 
+*	restituisce un oggetto istanza di CodedProgram, contente il codice sorgente in Javascript di tutte le classi presenti nell'oggetto 
+*	parsedProgram di input. Questa funzione viene esportata dal modulo.
+*/
 JavascriptCoder.getCodedProgram = function(parsedProgram) {
 		var codedP = new CodedProgram();
 		var classes = parsedProgram.classes.classesArray; // array delle classi
 		for(var i=0; i<classes.length; i++) {
 			var packageId = classes[i].id;
-			var packageName = JavaCoder.getPackNameById(packageId, parsedProgram.packages);
+			var packageName = getPackNameById(packageId, parsedProgram.packages);
 			var items = classes[i].items;
 			for(var j=0; j<items.length; j++) {
 				var source = "";
@@ -315,7 +345,6 @@ JavascriptCoder.getCodedProgram = function(parsedProgram) {
 
 				source += JavascriptCoder.coderStaticOperations(items[j]);
 				source += CoderClass.codeParentJavascript(items[j].id,parsedProgram);
-				
 				codedP.add(new Class(items[j].values._name, source, packageName, packageName, items[j].dependencies));		
 			}
 		}

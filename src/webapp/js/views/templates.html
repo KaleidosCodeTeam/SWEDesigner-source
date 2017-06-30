@@ -7,7 +7,7 @@
 <!-- PACKAGE TEMPLATE -->
 <script type="text/template" id="packageDiagram.items.Package">
     <div id="panel-package" class="panel-swedesigner">
-        <h4>Package</h4>
+        <h4><%= _package %></h4>
         <div class="form-group">
             <label for="package-name">Nome:</label>
             <input type="text" class="form-control edit" value="<%=_package%>" name="_package" id="package-name" />
@@ -51,7 +51,7 @@
                     <% for(var op in operations) { %>
                     <div class="panel panel-default">
                         <div class="panel-title panel-heading" onclick="$('.class-operation-details').not($(this).next()).hide();$(this).next().toggle()">
-                            "<%= operations[op]._name %>"
+                            <%= operations[op]._name %>
                         </div>
                         <div class='class-operation-details panel-body'>
                             <div class="form-group">
@@ -92,7 +92,7 @@
                                     <% for(var par in operations[op].parameters) { %>
                                     <div class="panel panel-default">
                                         <div class="panel-title panel-heading" onclick="$('.class-operation-parameter-details').not($(this).next()).hide();$(this).next().toggle()">
-                                            "<%=operations[op].parameters[par]._name%>"
+                                            <%=operations[op].parameters[par]._name%>
                                         </div>
                                         <div class="class-operation-parameter-details panel-body">
                                             <div class="form-group">
@@ -247,7 +247,7 @@
                     <% for(var op in operations) { %>
                     <div class="panel panel-default">
                         <div class="panel-title panel-heading" onclick="$('.interface-operation-details').not($(this).next()).hide();$(this).next().toggle()">
-                            "<%= operations[op]._name %>"
+                            <%= operations[op]._name %>
                         </div>
                         <div class='interface-operation-details panel-body'>
                             <div class="form-group">
@@ -288,7 +288,7 @@
                                     <% for(var par in operations[op].parameters) { %>
                                     <div class="panel panel-default">
                                         <div class="panel-title panel-heading" onclick="$('.interface-operation-parameter-details').not($(this).next()).hide();$(this).next().toggle()">
-                                            "<%=operations[op].parameters[par]._name%>"
+                                            <%=operations[op].parameters[par]._name%>
                                         </div>
                                         <div class="interface-operation-parameter-details panel-body">
                                             <div class="form-group">
@@ -385,7 +385,7 @@
         <h4>Bolla personalizzata</h4>
         <div class="form-group">
             <label for="bubbleCode">Testo:</label>
-            <textarea class="form-control edit" rows="5" value="<%=bubbleCode%>" id="bubbleCode"></textarea>
+            <textarea class="form-control edit" rows="5" value="<%=bubbleCode%>" name="bubbleCode" id="bubbleCode"></textarea>
         </div>
         <div class="from-group">
             <label for="comment">Commento:</label>

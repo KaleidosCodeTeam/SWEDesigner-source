@@ -2,9 +2,8 @@ define ([
 	'jquery',
 	'underscore',
 	'backbone',
-	'joint',
-    'js/models/projectModel'
-], function ($, _, Backbone, joint, projectModel) {
+	'joint'
+], function ($, _, Backbone, joint) {
 
     var Swedesigner = {};
     Swedesigner.model = {};

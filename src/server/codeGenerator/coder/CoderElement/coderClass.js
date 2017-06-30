@@ -18,7 +18,14 @@ var CoderClass = function() {
 	
 }
 
-CoderClass.getNameById = function(classId, parsedProgram) {
+/**
+*	@function getNameById
+*	@param {!String} classId - Stringa identificativa della classe di cui si vuole ottenere il nome.
+*	@param {!Object} parsedProgram - Oggetto che contiene l'array di tutti gli oggetti che rappresentano una classe.
+*	@return {String} - Nome della classe corrispondente al classId di input. 
+*	@description funzione che ritorna il nome della classe corrispondente al classId di input.
+*/
+function getNameById(classId, parsedProgram) {
 	var classesArray = parsedProgram.classes.classesArray;
 	for(var i=0; i<classesArray.length; i++) {
 		var items = classesArray[i].items;
@@ -35,11 +42,11 @@ CoderClass.getNameById = function(classId, parsedProgram) {
 *	@function CoderClass.codeParentJava
 *	@static
 *	@public
-*	@param {!Object} classObj - Oggetto che contiene le informazioni necessarie a codificare una classe
+*	@param {!String} sourceId - Oggetto che contiene le informazioni necessarie a codificare una classe
+*	@param {!Object} parsedProgram - Oggetto che contiene le informazioni necessarie a codificare un programma.
 *	@return {String} source - Stringa del codice sorgente, in Java, relativo alle specifiche di estensione della classe di input
-*	@description funzione statica di CoderClass; riceve in input classObj, un oggetto che rappresenta una 
-*	classe; restituisce la stringa del codice sorgente, in Java, della parte di intestazione relativa alle specifiche
-*	di estensione.
+*	@description funzione statica di CoderClass; codifica, in Java, le specifiche di estensione della classe di identificativo @sourceId, 
+*	contenuta in @parsedProgram.
 */
 CoderClass.codeParentJava = function(sourceId, parsedProgram) {
 	source = "";
@@ -51,7 +58,7 @@ CoderClass.codeParentJava = function(sourceId, parsedProgram) {
 			if(items[j].type == 'classDiagram.items.Generalization' && items[j].source.id == sourceId) {
 				finded = true;
 				targetId = items[j].target.id;
-				source += "extends "+ CoderClass.getNameById(targetId,parsedProgram) + " ";
+				source += "extends "+ getNameById(targetId,parsedProgram) + " ";
 			}
 		}
 		
@@ -63,11 +70,11 @@ CoderClass.codeParentJava = function(sourceId, parsedProgram) {
 *	@function CoderClass.codeParentJavascript
 *	@static
 *	@public
-*	@param {!Object} classObj - Oggetto che contiene le informazioni necessarie a codificare una classe
+*	@param {!String} sourceId - Oggetto che contiene le informazioni necessarie a codificare una classe
+*	@param {!Object} parsedProgram - Oggetto che contiene le informazioni necessarie a codificare un programma.
 *	@return {String} source - Stringa del codice sorgente, in Javascript, relativo alle specifiche di estensione della classe di input
-*	@description funzione statica di CoderClass; riceve in input classObj, un oggetto che rappresenta una 
-*	classe; restituisce la stringa del codice sorgente, in Javascript, della parte di intestazione relativa alle specifiche
-*	di estensione.
+*	@description funzione statica di CoderClass; codifica, in Javascript, le specifiche di estensione della classe di identificativo @sourceId, 
+*	contenuta in @parsedProgram.
 */
 CoderClass.codeParentJavascript = function(sourceId, parsedProgram) {
 	source = "";
@@ -80,8 +87,8 @@ CoderClass.codeParentJavascript = function(sourceId, parsedProgram) {
 				finded = true;
 				targetId = items[j].target.id;
 				// bisogna aggiungere un costruttore corretto; dipende dalla struttura dell'oggetto
-				source += CoderClass.getNameById(sourceId,parsedProgram) + ".prototype = new " + CoderClass.getNameById(targetId,parsedProgram) + "();\n ";
-				source += CoderClass.getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + CoderClass.getNameById(sourceId,parsedProgram) + "; \n";
+				source += getNameById(sourceId,parsedProgram) + ".prototype = new " + getNameById(targetId,parsedProgram) + "();\n ";
+				source += getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + getNameById(sourceId,parsedProgram) + "; \n";
 			}
 		}		
 	}
@@ -92,10 +99,12 @@ CoderClass.codeParentJavascript = function(sourceId, parsedProgram) {
 *	@function CoderClass.codeElementJava
 *	@static
 *	@public
-*	@param {!Object} classObj - Oggetto che contiene le informazioni necessarie a codificare una classe
+*	@param {!Object} classObj - Oggetto che contiene le informazioni necessarie a codificare una classe.
+*	@param {!Object} parsedProgram - Oggetto che contiene le informazioni necessarie a codificare un programma.
 *	@return {String} source - stringa del codice sorgente, in Java, dell'intestazione della classe classObj di input.
 *	@description funzione statica di CoderClass; riceve in input classObj, un oggetto che rappresenta una  
-*	classe; restituisce la stringa del codice sorgente, in Java, dell'intestazione della classe classObj di input.
+*	classe; restituisce la stringa del codice sorgente, in Java, dell'intestazione della classe classObj di input; 
+*	contenuta in parsedProgram.
 */
 CoderClass.codeElementJava = function(classObj, parsedProgram) {
 	var source = "";
@@ -145,11 +154,11 @@ CoderClass.codeElementJava = function(classObj, parsedProgram) {
 			if(items[j].type == 'classDiagram.items.Implementation' && items[j].source.id == classObj.id) {
 				targetId = items[j].target.id;
 				if(firstClass){
-					source += "implements "+ CoderClass.getNameById(targetId,parsedProgram) + " ";
+					source += "implements "+ getNameById(targetId,parsedProgram) + " ";
 					firstClass = false;
 				}
 				else {
-					source += "," + CoderClass.getNameById(targetId,parsedProgram) + " ";
+					source += "," + getNameById(targetId,parsedProgram) + " ";
 				}				
 			}
 		}
