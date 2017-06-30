@@ -39,7 +39,8 @@ define ([
                     'change .edit': 'confirmEdit',
                     'click .exec': 'execCommand',
                     'click .switch': 'switch',
-                    'click .unembed': 'unembedCell'
+                    'click .unembed': 'unembedCell',
+                    'click #saveCode': 'saveCode'
                 }));
                 /*if (ProjectView.getCurrentDiagramType() == "activity") {
                     var split = function (val) {
@@ -108,6 +109,12 @@ define ([
             }
         },*/
 
+        saveCode: function(e) {
+            //console.log($('#bubbleCode').val());
+            //console.log($('#bubbleCode').attr('name'));
+            projectView.paper.selectedCell.setToValue($('#bubbleCode').val(), $('#bubbleCode').attr('name'));
+        },
+
         /**
          * Execute a method of the model passing its
          * name as a string.
@@ -148,12 +155,12 @@ define ([
             if ((e.type === "keypress" && e.which === 13) || e.type === "change") {
                 if (e.target.type === "checkbox") {
                     projectView.paper.selectedCell.setToValue(e.target.checked ? "true" : "false", e.target.name);
-                    this.render();
+                    //this.render();
                 } else {
                     console.log(projectView.paper.selectedCell);
                     projectView.paper.selectedCell.setToValue(e.target.value, e.target.name);
                     console.log(projectView.paper.selectedCell);
-                    this.render();
+                    //this.render();
                 }
             }
         }
