@@ -2278,6 +2278,97 @@ define ([
         }
     });
 
+    /**
+     * @classdesc Rappresenta la prima istruzione di un metodo.
+     *
+     * @module Swedesigner.model.bubbleDiagram.items
+     * @name bubbleStart
+     * @class bubbleStart
+     * @extends {Swedesigner.model.bubbleDiagram.items.Base}
+     */
+    Swedesigner.model.bubbleDiagram.items.bubbleStart = Swedesigner.model.bubbleDiagram.items.Base.extend({
+        /**
+         *  @var {string} bubbleStart#markup Markup HTML per la rappresentazione grafica.
+         */
+        markup: [
+            '<g class="rotatable">',
+            '<g class="scalable">',
+            '<circle class="bubble" />',
+            '</g>',
+            '<text class="bubble-type-text" /><text class="bubble-name-text" />',
+            '</g>',
+        ].join(''),
+        /**
+         *  @var {Object} bubbleStart#defaults Attributi di default per l'oggetto bubbleStart (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         */
+        defaults: _.defaultsDeep({
+            type: 'bubbleDiagram.items.bubbleStart',
+            size: { width: 50, height: 50 },
+            attrs: {
+                '.bubble': {
+                    fill: '#ff8000',
+                    stroke: '#000000',
+                    r: 100,
+                    cx: 50,
+                    cy: 50
+                },
+                '.bubble-type-text': {
+                    'ref': '.bubble',
+                    'ref-y': .5,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 12,
+                    'font-family': 'Roboto',
+                    'font-weight': 'bold'
+                },
+                '.bubble-name-text': {
+                    'ref': '.bubble',
+                    'ref-y': .5,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 11,
+                    'font-family': 'Monospace'
+                }
+            },
+            values: {
+                _type: 'START',
+                value: ''
+            }
+        }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
+        /**
+         *  @function bubbleStart#initialize
+         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleStart.
+         */
+        initialize: function() {
+            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+            console.log("I'm the bubbleStart Initialize");
+        },
+        /**
+         *  @function bubbleReturn#updateRectangles
+         *  @summary Render del bubbleReturn.
+         */
+        updateRectangles: function() {
+            var attrs = this.get('attrs');
+            var rects = [
+                { type: 'name', text: this.getValues().comment },
+                { type: 'type', text: this.getValues()._type }
+            ];
+            var offsetY = 0;
+            _.each(rects, function(rect) {
+                var lines = _.isArray(rect.text) ? rect.text : [rect.text];
+                var rectHeight = lines.length * 20 + 20;
+                attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
+                attrs['.bubble'].height += rectHeight;
+                attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                offsetY += rectHeight;
+            });
+        },
+    });
+
 
     /**
      * @classdesc Rappresenta un loop con controllo di condizione lungo una sequenza di istruzioni.
