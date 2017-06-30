@@ -20,6 +20,7 @@ define ([
         reset: function() {
 		    this.render();
 		    $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details ").css("display","none");
+		    $("#interface-operations, .interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display","none");
         },
 		render: function() {
             if (projectView.paper.selectedCell) {

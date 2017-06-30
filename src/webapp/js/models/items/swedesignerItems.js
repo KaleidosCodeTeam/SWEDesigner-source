@@ -916,7 +916,7 @@ define ([
                         vis="#";
                         break;
                 }
-                return {'text': vis+e._name+":"+e._type, 'icon': 'assets/attributeicon.png'};
+                return {'text': vis+e._name+":"+e._type};
             });
             return attrDesc;
         },
@@ -945,7 +945,6 @@ define ([
                 }).join(",");
                 return {
                     'text': vis+" "+e._name+"("+params+")"+":"+e.returnType,
-                    'icon': 'assets/methodicon.png'
                 };
             });
             return opDesc;
@@ -959,7 +958,6 @@ define ([
         getItemDesc: function() {
             return {
                 'text': this.getValues()._name,
-                'icon': 'assets/classicon.png',
                 'children': this.getAttrsDesc().concat(this.getOpDesc())
             }
         },
@@ -1138,7 +1136,7 @@ define ([
          */
         addOperation: function() {
             this.getValues().operations.push({
-                _name: "",
+                _name: "nuovaOperazione",
                 _visibility: "private",
                 id: joint.util.uuid(),
                 returnType: "",
@@ -1211,7 +1209,6 @@ define ([
                 }).join(',');
                 return {
                     'text': vis+" "+e._name+"("+params+")"+":"+e.returnType,
-                    'icon': 'assets/methodicon.png'
                 };
             });
             return opDesc;
@@ -1225,8 +1222,6 @@ define ([
         getItemDesc: function() {
             return {
                 'text': this.getValues()._name,
-                'icon': 'assets/interfaceicon.png',
-                'children': this.getMethodDesc()
             }
         },
         /**
