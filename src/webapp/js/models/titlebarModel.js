@@ -86,8 +86,50 @@ define ([
         lowerLayer: function() { //MAYBE NOT
         },
         generateJava: function() {
+            projectModel.saveCurrentDiagram();
+            var myProject = {};
+            myProject.packages = project.packages;
+            myProject.classes = project.classes;
+            myProject.operations = project.operations;
+            $.ajax({
+                url: 'http://localhost:3000/SWEDesigner-source/src/server/requestHandler/main.js',
+                // dataType: "jsonp",
+                data: '{"project": myProject}',
+                type: 'POST',
+                jsonpCallback: 'callback', // questo non è più rilevante al POST
+                success: function (data) {
+                    var ret = jQuery.parseJSON(project);
+                    $('#lblResponse').html(ret.msg);
+                    console.log('Success: ')
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error: ' + error.message);
+                    $('#lblResponse').html('Error connecting to the server.');
+                },
+            });
         },
         generateJavascript: function() {
+            projectModel.saveCurrentDiagram();
+            var myProject = {};
+            myProject.packages = project.packages;
+            myProject.classes = project.classes;
+            myProject.operations = project.operations;
+            $.ajax({
+                url: 'http://localhost:3000/SWEDesigner-source/src/server/requestHandler/main.js',
+                // dataType: "jsonp",
+                data: '{"project": myProject}',
+                type: 'POST',
+                jsonpCallback: 'callback', // questo non è più rilevante al POST
+                success: function (data) {
+                    var ret = jQuery.parseJSON(project);
+                    $('#lblResponse').html(ret.msg);
+                    console.log('Success: ')
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error: ' + error.message);
+                    $('#lblResponse').html('Error connecting to the server.');
+                },
+            });
         },
         viewGeneratedCode: function() { //MAYBE NOT
         }
