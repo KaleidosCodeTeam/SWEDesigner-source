@@ -1651,7 +1651,7 @@ define ([
          */
         getValues: function() {
             return this.get("values");
-        }
+        },
     });
 
 	/**

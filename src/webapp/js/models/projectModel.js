@@ -118,11 +118,19 @@ define ([
             if (this.itemToBeAdded.type === 'nesting'){
                 var cell = this.itemToBeAdded.source;
                 var parent = this.itemToBeAdded.target;
-
+                areRelatives = function(cell, ancestorId, grph) {
+                    if (!cell.get('parent')) return false;
+                    if (cell.get('parent') === ancestorId) return true;
+                    return areRelatives(grph.getCell(cell.get('parent')), ancestorId, grph);
+                };
                 // Prevent recursive embedding.
-                if (parent.get('parent') !== cell.id) {
+                if (!areRelatives(parent,cell.id,this.graph)/*parent.get('parent') !== cell.id*/ && !cell.get('parent')) {
                     parent.embed(cell);
-                    cell.toFront();
+                    moveAhead = function(cll) {
+                        cll.toFront();
+                        _.each(cll.getEmbeddedCells(), moveAhead);
+                    };
+                    moveAhead(cell);
                     this.resizeParent(parent);
                 }
             } else {
