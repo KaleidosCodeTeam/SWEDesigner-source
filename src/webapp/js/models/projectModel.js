@@ -259,7 +259,7 @@ define ([
             } else {
                 var index = project.getOperationIndex(this.currentDiagram);
                 if (index != -1) {
-                    project.operations[index].cells = this.graph.getCells();
+                    project.operations[index].items = this.graph.getCells();
                 } else {
                     project.operations.push({
                         id: this.currentDiagram,
