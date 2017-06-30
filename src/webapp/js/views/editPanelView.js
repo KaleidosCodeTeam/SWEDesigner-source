@@ -38,7 +38,8 @@ define ([
                     'keypress .edit': 'confirmEdit',
                     'change .edit': 'confirmEdit',
                     'click .exec': 'execCommand',
-                    'click .switch': 'switch'
+                    'click .switch': 'switch',
+                    'click .unembed': 'unembedCell'
                 }));
                 /*if (ProjectView.getCurrentDiagramType() == "activity") {
                     var split = function (val) {
@@ -128,6 +129,10 @@ define ([
             } else if (tmp[0] === "addAttribute" || tmp[0] === "deleteAttribute") {
                 $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, .class-attribute-details").css("display", "none");
             };
+        },
+
+        unembedCell: function(e) {
+            projectView.unembedCell();
         },
 
         /**

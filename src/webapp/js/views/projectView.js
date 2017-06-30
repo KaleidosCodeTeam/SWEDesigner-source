@@ -120,6 +120,15 @@ define ([
             this.paper.selectedCell=null;
             this.paper.trigger("changed-selected-cell");
         },
+        unembedCell: function(e) {
+		    var parentId = this.paper.selectedCell.get('parent');
+		    if (parentId) {
+		        var parent = this.model.getCellFromId(parentId);
+		        parent.unembed(this.paper.selectedCell);
+		        this.model.resizeParent(parent);
+            }
+        },
+
         pointerDownFunction: function (prView, cellView, evt, x, y) {
             if (cellView) {
                 //console.log("cella selezionata: ",this.selectedCell);

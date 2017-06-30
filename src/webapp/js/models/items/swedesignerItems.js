@@ -3,8 +3,8 @@ define ([
 	'underscore',
 	'backbone',
 	'joint',
-    //'js/models/diagram'
-], function ($, _, Backbone, joint/*, diagram*/) {
+    'js/models/projectModel'
+], function ($, _, Backbone, joint, projectModel) {
 
     var Swedesigner = {};
     Swedesigner.model = {};
