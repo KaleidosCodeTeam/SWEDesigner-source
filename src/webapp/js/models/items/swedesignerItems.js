@@ -1722,7 +1722,9 @@ define ([
 		    	rect: {width: 200},
 		        '.bubble': {
 		            fill: '#ff5733',
-		            stroke: '#000000'
+		            stroke: '#000000',
+                    rx: 10,
+                    ry: 4
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
@@ -1828,7 +1830,9 @@ define ([
 		    	rect: {width: 200},
 		        '.bubble': {
 		            fill: '#33ff57',
-		            stroke: '#000000'
+		            stroke: '#000000',
+                    rx: 10,
+                    ry: 4
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
@@ -1934,7 +1938,9 @@ define ([
 		    	rect: {width: 200},
 		        '.bubble': {
 		            fill: '#33ff57',
-		            stroke: '#000000'
+		            stroke: '#000000',
+                    rx: 10,
+                    ry: 4
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
@@ -2040,7 +2046,9 @@ define ([
 		    	rect: {width: 200},
 		        '.bubble': {
 		            fill: '#ffbd33',
-		            stroke: '#000000'
+		            stroke: '#000000',
+                    rx: 10,
+                    ry: 4
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
@@ -2132,7 +2140,11 @@ define ([
             type: 'bubbleDiagram.items.bubbleVariable',
 
             attrs: {
-                rect: {'width': 200},
+                rect: {
+                    'width': 200,
+                    rx: 10,
+                    ry: 4
+                },
 
                 '.activity-element-name-rect': {
                     'stroke': 'black', 'stroke-width': 0, 'fill': '#edae1c'
@@ -2193,7 +2205,9 @@ define ([
 		    	rect: {width: 200},
 		        '.bubble': {
 		            fill: '#33ffbd',
-		            stroke: '#000000'
+		            stroke: '#000000',
+                    rx: 10,
+                    ry: 4
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
@@ -2296,10 +2310,12 @@ define ([
             position: {x: 200, y: 200},
 		    size: { width: 50, height: 50 },
 		    attrs: {
-		    	rect: {width: 50},
+		    	rect: {width: 40},
                 '.bubble': {
                     fill: '#ff8000',
-                    stroke: '#000000'
+                    stroke: '#000000',
+                    rx: 20,
+                    ry: 20
                 },
                 '.bubble-type-text': {
                     'ref': '.bubble',
@@ -2390,7 +2406,9 @@ define ([
 		    	rect: {width: 200},
 		        '.bubble': {
 		            fill: '#ffbd33',
-		            stroke: '#000000'
+		            stroke: '#000000',
+                    rx: 10,
+                    ry: 4
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
