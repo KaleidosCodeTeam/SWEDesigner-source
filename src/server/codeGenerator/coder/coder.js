@@ -28,6 +28,25 @@ var CodedProgram = require('./codedProgram.js');
 */
 var JavaCoder = function() { };
 
+function getPackageDependencies(packageId, packages) {
+	var dependencies = new Array();
+	count = 0;
+	for(var i=0; i< packages.dependenciesArray.length; i++) {
+		if(packages.dependenciesArray[i].source.id == packageId) {
+			finded = false;
+			for(var j=0; j<packages.packagesArray.length && !finded; j++) {
+				if(packages.packagesArray[j].id == packages.dependenciesArray[i].target.id) {
+					finded = true;
+					dependencies[count] = packages.packagesArray[j].values._package;
+					count++;
+				}
+			} 
+		}
+	}
+
+	return dependencies;
+}
+
 /**
 *	@function getPackNameById
 *	@param {!String} packageId - Stringa identificativa del package di cui si vuole ottenere il nome.
@@ -41,6 +60,16 @@ function getPackNameById(packageId, packages){
 			return packages.packagesArray[i].values._package;
 		}
 	}
+	return null
+}
+
+function getOperationById(operId, operations) {
+	for(var i=0; i<operations.length; i++) {
+		if(operations[i].id == operId) {
+			return operations[i];
+		}
+	}
+	return null;
 }
 
 
@@ -81,6 +110,7 @@ JavaCoder.coderAttributes = function(classObj) {
 	return source;
 }
 
+
 /**
 *	@function JavaCoder.coderOperations
 *	@static
@@ -91,7 +121,7 @@ JavaCoder.coderAttributes = function(classObj) {
 *	restituisce la stringa del codice sorgente, in Java, (definizione e implementazione) di tutti i metodi di classObj di input. 
 *	Tale funzione non viene esportata dal modulo.
 */
-JavaCoder.coderOperations = function(classObj) {
+JavaCoder.coderOperations = function(classObj,operations) {
 	source = "";
 	var opers = classObj.values.operations; // array dei metodi della classe
 	for(var y=0; y<opers.length; y++) {
@@ -104,7 +134,13 @@ JavaCoder.coderOperations = function(classObj) {
 		}
 		else {
 			source += " { \n";
-			//source += CoderActivity.codeElementJava(opers[y]); // gli passo tutta l'operazione o basta il suo oggetto activity?
+			var finded = false;
+			for(var i=0; i<operations.length && !finded; i++) {
+				if(opers[y].id == operations[i].id) {
+					finded = true;
+					source += CoderActivity.codeElementJava(operations[i]); 
+				}
+			}
 			source += " \n }; \n";
 		}		
 	}
@@ -137,9 +173,9 @@ JavaCoder.getCodedProgram = function(parsedProgram) {
 				if(items[j].values.isInterface == "false"){
 					source += JavaCoder.coderAttributes(items[j]);
 				}								
-				source += JavaCoder.coderOperations(items[j]);
+				source += JavaCoder.coderOperations(items[j],parsedProgram.operations);
 				source += "};"; // chiude l'implementazione della classe
-				codedP.add(new Class(items[j].values._name, source, packageName, items[j]._name, new Array()));
+				codedP.add(new Class(items[j].values._name, source, packageName, items[j]._name, getPackageDependencies(classes[i].id, parsedProgram.packages)));
 			}			
 		}
 		return codedP;
@@ -227,7 +263,7 @@ i.e.  " this.doStuff = function() { }
 *	restituisce la stringa del codice sorgente, in Javascript, di tutte le funzioni non statiche di classObj di input. Tale funzione 
 *	non viene esportata dal modulo.
 */
-JavascriptCoder.coderInstanceOperations = function(classObj) {
+JavascriptCoder.coderInstanceOperations = function(classObj, operations) {
 	source = "";
 	var opers = classObj.values.operations; // array dei metodi della classe
 	for(var y=0; y<opers.length; y++) {
@@ -235,8 +271,11 @@ JavascriptCoder.coderInstanceOperations = function(classObj) {
 			source += CoderOperation.codeElementJavascript(opers[y]);
 			source += "("; 											// apre la lista dei parametri		
 			source += JavascriptCoder.coderParameters(opers[y]);					
-			source += ") \n { \n"; 									// chiude la lista dei parametri e apre l'implementazione
-			//source += CoderActivity.codeElementJavascript(opers[y]); // gli passo tutta l'operazione o basta il suo oggetto activity?
+			source += ") \n { \n";
+			var operation = getOperationById(opers[y].id,operations); 									// chiude la lista dei parametri e apre l'implementazione
+			if(operation && operation.items.length>0) {
+				source += CoderActivity.codeElementJavascript(operation.items);
+			}
 			source += "} \n"; 										// chiude l'implementazione dell'operazione
 		}		
 	}
@@ -289,7 +328,7 @@ i.e.  " className1.functionName1 = function() { }
 *	restituisce la stringa del codice sorgente, in Javascript, di tutte le funzioni statiche di classObj di input. Tale funzione 
 *	non viene esportata dal modulo.
 */
-JavascriptCoder.coderStaticOperations = function(classObj) {
+JavascriptCoder.coderStaticOperations = function(classObj, operations) {
 	source = "";
 	var opers = classObj.values.operations; // array dei metodi della classe
 	for(var y=0; y<opers.length; y++) {
@@ -298,7 +337,10 @@ JavascriptCoder.coderStaticOperations = function(classObj) {
 			source += "("; // apre la lista dei parametri			
 			source += JavascriptCoder.coderParameters(opers[y]);					
 			source += ") \n { \n"; // chiude la lista dei parametri e apre l'implementazione
-			//source += CoderActivity.codeElementJavascript(opers[y]); // gli passo tutta l'operazione o basta il suo oggetto activity?
+			var operation = getOperationById(opers[y].id, operations);
+			if(operation && operation.items.length>0) {
+				source += CoderActivity.codeElementJavascript(operation.items);
+			}
 			source += "} \n"; // chiude l'implementazione dell'operazione
 		}		
 	}
@@ -331,7 +373,7 @@ JavascriptCoder.getCodedProgram = function(parsedProgram) {
 					source += JavascriptCoder.coderInstanceAttributes(items[j]);	
 				}		
 
-				source += JavascriptCoder.coderInstanceOperations(items[j]);
+				source += JavascriptCoder.coderInstanceOperations(items[j], parsedProgram.operations);
 
 				if(items[j].values.isFrozen == "true" || items[j].values.isReadOnly == "true") {
 					source += "\n var freeze = function() { \n Object.freeze(this); \n }(); \n";									
@@ -343,8 +385,9 @@ JavascriptCoder.getCodedProgram = function(parsedProgram) {
 					source += JavascriptCoder.coderStaticAttributes(items[j]);
 				}
 
-				source += JavascriptCoder.coderStaticOperations(items[j]);
+				source += JavascriptCoder.coderStaticOperations(items[j], parsedProgram.operations);
 				source += CoderClass.codeParentJavascript(items[j].id,parsedProgram);
+
 				codedP.add(new Class(items[j].values._name, source, packageName, packageName, items[j].dependencies));		
 			}
 		}
