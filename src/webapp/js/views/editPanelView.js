@@ -1,3 +1,7 @@
+/**
+ *  @file Contiene la classe EditPanelView e ne ritorna una istanza.
+ *  @author Pezzuto Francesco, Sovilla Matteo - KaleidosCode
+ */
 define ([
 	'jquery',
 	'underscore',
@@ -5,37 +9,67 @@ define ([
 	'joint',
 	'js/views/projectView',
 	'text!js/views/templates.html'
-	/* ecc. */
 ], function ($, _, Backbone, joint, projectView, templates) {
-	var editPanelView = Backbone.View.extend({
+    /**
+     *  @classdesc Pannello laterale renderizzato dinamicamente al cambiare dell'elemento selezionato nel diagramma corrente.
+     *  Visualizza tutte le proprietà dell'oggetto selezionato rendendole disponibili ad eventuali modifiche.
+     *  @module
+     *  @class EditPanelView
+     *  @extends {Backbone.View}
+     */
+	var EditPanelView = Backbone.View.extend({
+        /**
+         *  @var {string} EditPanelView#tagname - Il tag HTML popolato dal pannello.
+         */
 		tagname: 'div',
-		el: {},
+        /**
+         *  @var {jQuery Object} EditPanelView#el - L'elemento del DOM corrispondente a EditPanelView.
+         */
+		el: $('#editpanel'),
+        /**
+         *  @var {Object} EditPanelView#currentTemplate - Il template correntemente caricato e renderizzato.
+         */
 		currentTemplate: {},
+        /**
+         *  @var {Object} EditPanelView#events - Gli eventi verificabili nel pannello.
+         */
 		events: {},
+        /**
+         *  @function EditPanelView#initialize
+         *  @summary Inizializzazione della EditPanelView.
+         */
 		initialize: function() {
-			this.$el = $('#editpanel');
-            // this.listenTo(projectView.paper, "changed-cell", this.render);
+            //this.listenTo(projectView.paper, "changed-cell", this.render);
             this.listenTo(projectView.paper, "changed-selected-cell", this.reset);
 		},
+        /**
+         *  @function EditPanelView#reset
+         *  @summary Reset del pannello.
+         */
         reset: function() {
 		    this.render();
 		    $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details ").css("display","none");
 		    $("#interface-operations, .interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display","none");
         },
+        /**
+         *  @function EditPanelView#render
+         *  @summary Render del pannello in base all'elemento del paper cliccato.
+         */
 		render: function() {
             if (projectView.paper.selectedCell) {
-                console.log("(editPanelView) Hey! I saw your change!");
-                //console.log(templates);
+                //console.log("(EditPanelView) Hey! I saw your change!");
                 this.currentTemplate = _.template($(templates).filter('#' + projectView.paper.selectedCell.get("type").replace(/\./g, "\\.")).html());
                 var c = projectView.paper.selectedCell;
                 var output = "";
                 var v = c.getValues();
                 var p = projectView.paper.selectedCell.id;
-                v['id'] = p;
+                if (typeof v !== 'undefined') {
+                    v['id'] = p;
+                }
                 output = this.currentTemplate(v);
-                this.$el.html(output);
                 //console.log(output);
-                this.delegateEvents(_.extend(this.events, {	// Funzioni definite qui, che chiamano metodi di ProjectView
+                this.$el.html(output);
+                this.delegateEvents(_.extend(this.events, {
                     'keypress .edit': 'confirmEdit',
                     'change .edit': 'confirmEdit',
                     'click .exec': 'execCommand',
@@ -43,83 +77,34 @@ define ([
                     'click .unembed': 'unembedCell',
                     'click #saveCode': 'saveCode'
                 }));
-                /*if (ProjectView.getCurrentDiagramType() == "activity") {
-                    var split = function (val) {
-                        return val.split(/(,\s* | \s*)/);
-                    };
-                    var extractLast = function (term) {
-                        return split(term).pop();
-                    };
-
-                    $('input.edit').autocomplete({
-                        minLength: 0,
-                        source: function (request, response) {
-                            console.log(ProjectView.visibleElements);
-                            response($.ui.autocomplete.filter(
-                                ProjectView.visibleElements, extractLast(request.term)));
-                        },
-
-                        focus: function () {
-                            return false;
-                        },
-
-                        select: function (event, ui) {
-                            var terms = split(this.value);
-                            terms.pop();
-                            terms.push(ui.item.value);
-                            terms.push("");
-                            this.value = terms.join("");
-                            return false;
-                        }
-                    });
-
-                    _.each($('input.edit'),function (el) {
-                        $(el).data('ui-autocomplete')._renderItem = function (ul, item) {
-                            return $('<li class="ui-menu-item-with-icon"></li>')
-                                .data("item.autocomplete", item)
-                                .append('<a><span class="' + item.icon + '-item-icon"></span>' + item.label + '</a>')
-                                .appendTo(ul);
-                        }
-                    });
-                }*/
             } else {
                 this.$el.html("");
             }
 			return this;
 		},
-        toggle: function (e) {
-            e.preventDefault();
-            var elem = $(e.target).next();
-            elem.toggle('slow');
-        },
-
-        switch: function (e) {
+        /**
+         *  @function EditPanelView#switch
+         *  @param {Object} e - Elemento generante l'evento.
+         *  @summary Metodo chiamato da evento generato. Switch in profondità del tipo di diagramma.
+         */
+        switch: function(e) {
             //console.log(e.target.value);
             projectView.switchIn(e.target.value);
         },
-
         /**
-         * Re-paints the `#details` div after a 'Switchgraph' event
-         * has been fired by the `ProjectView` object.
-         * @name DetailsView#visib
-         * @function
+         *  @function EditPanelView#saveCode
+         *  @param {Object} e - Elemento generante l'evento.
+         *  @summary Metodo chiamato da evento generato. Salvataggio del codice interno ad una customBubble.
          */
-        /*visib: function () {
-            if (projectView.paper.selectedCell) {
-                this.$el.html(projectView.paper.selectedCell.getMethods());
-            }
-        },*/
-
         saveCode: function(e) {
             //console.log($('#bubbleCode').val());
             //console.log($('#bubbleCode').attr('name'));
             projectView.paper.selectedCell.setToValue($('#bubbleCode').val(), $('#bubbleCode').attr('name'));
         },
-
         /**
-         * Execute a method of the model passing its
-         * name as a string.
-         * @param e the method name
+         *  @function EditPanelView#execCommand
+         *  @param {Object} e - Elemento generante l'evento.
+         *  @summary Metodo chiamato da evento generato. Esegue il metodo definito dal nome dell'elemento generante l'evento sul contenuto selezionato nel pannello.
          */
         execCommand: function (e) {
             var tmp = e.target.name.split(".");
@@ -138,33 +123,32 @@ define ([
                 $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, .class-attribute-details").css("display", "none");
             };
         },
-
+        /**
+         *  @function EditPanelView#unembedCell
+         *  @param {Object} e - Elemento generante l'evento.
+         *  @summary Metodo chiamato da evento generato. Rimuove la bubble selezionata nel pannello dall'innesto.
+         */
         unembedCell: function(e) {
             projectView.unembedCell();
         },
-
         /**
-         * Confirms the edits performed in a given field
-         * inside the `#details` div and updates the
-         * corresponding cell of the diagram.
-         * @name DetailsView#confirmEdit
-         * @function
-         * @param {event} e the action event
-         * @private
+         *  @function EditPanelView#confirmEdit
+         *  @param {Object} e - Elemento generante l'evento.
+         *  @summary Metodo chiamato da evento generato. Salvataggio delle modifiche apportate ad una proprietà del contenuto selezionato nel pannello.
          */
-        confirmEdit: function (e) {
+        confirmEdit: function(e) {
             if ((e.type === "keypress" && e.which === 13) || e.type === "change") {
                 if (e.target.type === "checkbox") {
                     projectView.paper.selectedCell.setToValue(e.target.checked ? "true" : "false", e.target.name);
                     //this.render();
                 } else {
-                    console.log(projectView.paper.selectedCell);
+                    //console.log(projectView.paper.selectedCell);
                     projectView.paper.selectedCell.setToValue(e.target.value, e.target.name);
-                    console.log(projectView.paper.selectedCell);
+                    //console.log(projectView.paper.selectedCell);
                     //this.render();
                 }
             }
         }
 	});
-	return new editPanelView;
+	return new EditPanelView;
 });
