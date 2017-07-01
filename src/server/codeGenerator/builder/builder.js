@@ -59,9 +59,9 @@ var Builder = (function() {
 				mkdirp.sync(path);
 				console.log('Directory created');
 				/** SCRIVE il nome del package, le dipendenze ed il codice sorgente nel nuovo file. */
-				var str='package '+pkg+';\n';
+				var str='package '+progDir+"."+pkg+';\n';
 				for (var i=0; i<dependencies.length; ++i) {
-					str=str+'import '+dependencies[i]+';\n';
+					str=str+'import '+progDir+"."+dependencies[i]+'.*;\n';
 				}
 				str=str+source;
 				fs.writeFileSync(filePath, str);
