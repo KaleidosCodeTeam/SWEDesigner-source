@@ -63,10 +63,12 @@ define ([
 
                 var childBbox = child.getBBox();
 
-                if (childBbox.x < newX) { newX = childBbox.x; }
-                if (childBbox.y < newY) { newY = childBbox.y; }
-                if (childBbox.corner().x > newCornerX) { newCornerX = childBbox.corner().x; }
-                if (childBbox.corner().y > newCornerY) { newCornerY = childBbox.corner().y; }
+                var padding = 50;
+
+                if (childBbox.x - padding < newX) { newX = childBbox.x - padding; }
+                if (childBbox.y - padding < newY) { newY = childBbox.y - padding; }
+                if (childBbox.corner().x + padding > newCornerX) { newCornerX = childBbox.corner().x + padding; }
+                if (childBbox.corner().y + padding > newCornerY) { newCornerY = childBbox.corner().y + padding; }
             });
             // Note that we also pass a flag so that we know we shouldn't adjust the
             // `originalPosition` and `originalSize` in our handlers as a reaction
@@ -102,10 +104,12 @@ define ([
 
                 var childBbox = child.getBBox();
 
-                if (childBbox.x < newX) { newX = childBbox.x; }
-                if (childBbox.y < newY) { newY = childBbox.y; }
-                if (childBbox.corner().x > newCornerX) { newCornerX = childBbox.corner().x; }
-                if (childBbox.corner().y > newCornerY) { newCornerY = childBbox.corner().y; }
+                var padding = 50;
+
+                if (childBbox.x - padding < newX) { newX = childBbox.x - padding; }
+                if (childBbox.y - padding < newY) { newY = childBbox.y - padding; }
+                if (childBbox.corner().x + padding > newCornerX) { newCornerX = childBbox.corner().x + padding; }
+                if (childBbox.corner().y + padding > newCornerY) { newCornerY = childBbox.corner().y + padding; }
             });
 
             parent.set({
