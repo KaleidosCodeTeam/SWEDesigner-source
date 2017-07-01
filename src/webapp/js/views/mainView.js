@@ -1,3 +1,7 @@
+/**
+ *  @file Contiene la classe MainView e ne ritorna una istanza.
+ *  @author Bonolo Marco, Pezzuto Francesco, Sovilla Matteo - KaleidosCode
+ */
 define ([
 	'jquery',
 	'underscore',
@@ -8,11 +12,17 @@ define ([
 	'js/views/pathView',
 	'js/views/editPanelView',
 	'js/views/projectView'
-	/** ecc. */
 ], function ($, _, Backbone, joint, TitlebarView, ToolbarView, PathView, EditPanelView, ProjectView) {
-	var mainView = Backbone.View.extend({
-		el: 'body',
-		events: {},
+	/**
+     *  @classdesc View principale che imposta e memorizza un'istanza delle views delle sotto-componenti.
+     *  @module
+     *  @class MainView
+     *  @extends {Backbone.View}
+     */
+	var MainView = Backbone.View.extend({
+		/**
+         *  @var {Object} MainView#views - Oggetto contenente un'istanza di view di ogni sotto-componente.
+         */
 		views: {
 			projectView: {},
 			titleBarView: {},
@@ -20,6 +30,10 @@ define ([
 			pathView: {},
 			editPanelView: {}
 		},
+		/**
+         *  @function MainView#initialize
+         *  @summary Inizializzazione della MainView.
+         */
 		initialize: function() {
 			console.log("MainView initialized");
 			this.views.projectView = ProjectView;
@@ -28,8 +42,12 @@ define ([
 			this.views.pathView = PathView;
 			this.views.editPanelView = EditPanelView;
 		},
-		render: function() {
-		}
+		/**
+         *  @function MainView#render
+         *  @summary Render della MainView.
+         *	@ignore
+         */
+		render: function() {}
 	});
-	return new mainView;
+	return new MainView;
 });

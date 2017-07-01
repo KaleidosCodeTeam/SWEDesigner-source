@@ -1,3 +1,7 @@
+/**
+ *	@file Main utile per RequireJS
+ *	@author Pezzuto Francesco, Sovilla Matteo - KaleidosCode
+ */
 require.config({
 	baseUrl: './',
 	paths: {
@@ -25,4 +29,3 @@ require(['js/models/projectModel'], function(projectModel) {            // Mi as
         });
     });
 });
-
