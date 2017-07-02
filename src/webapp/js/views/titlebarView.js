@@ -34,8 +34,8 @@ define ([
 			//'click zoom-out': 'zoomOut',                   // @todo
 			//'click upper-layer': 'upperLayer',             // @todo
 			//'click lower-layer': 'lowerLayer',             // @todo
-			'click generate-java': 'generateJava',
-			'click generate-js': 'generateJavascript'
+			'click #generate-java': 'generateJava',
+			'click #generate-js': 'generateJavascript'
 			//'click view-generated-code': 'viewGeneratedCode'
 		},
         /**
