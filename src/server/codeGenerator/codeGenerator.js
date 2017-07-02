@@ -33,11 +33,11 @@ var codeGenerator = function() {}
 *	e costruisce un pacchetto compresso in formato .zip contenente
 *	il programma codificato e strutturato in file e directory come da specifica del json di input.
 */
-codeGenerator.generateJsProgram = function(jsonProgram) {
+codeGenerator.generateJsProgram = function(jsonProgram, nomeZip) {
 	var parsedProg = Parser.parse(jsonProgram);
 	var codedProg = Coder.getCodedProgramJs(parsedProg);
 	var buildedProg = Builder.javascriptBuild(codedProg);
-	var zippedProg = Zipper.zip(buildedProg.progDirectory, buildedProg.progPath, function(err) {
+	var zippedProg = Zipper.zip(/*buildedProg.progDirectory*/ nomeZip, buildedProg.progPath, function(err) {
 		if (err) throw err;
 		else console.log('PROGRAM CREATION: DONE');
 	});
@@ -52,11 +52,11 @@ codeGenerator.generateJsProgram = function(jsonProgram) {
 *	e costruisce un pacchetto compresso in formato .zip contenente
 *	il programma codificato e strutturato in file e directory come da specifica del json di input.
 */
-codeGenerator.generateJavaProgram = function(jsonProgram) {
+codeGenerator.generateJavaProgram = function(jsonProgram, nomeZip) {
 	var parsedProg = Parser.parse(jsonProgram);
 	var codedProg = Coder.getCodedProgramJava(parsedProg);
 	var buildedProg = Builder.javaBuild(codedProg);
-	var zippedProg = Zipper.zip(buildedProg.progDirectory, buildedProg.progPath, function(err) {
+	var zippedProg = Zipper.zip(/*buildedProg.progDirectory*/ nomeZip, buildedProg.progPath, function(err) {
 		if (err) throw err;
 		else console.log('PROGRAM CREATION: DONE');
 	});

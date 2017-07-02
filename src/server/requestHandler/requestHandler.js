@@ -12,11 +12,15 @@
  *  requires multer	        
  *
  */
+
+/*
 var JavaCoder       =  require('../coder/javaCoder.js');
 var JavascriptCoder =  require('../coder/javascriptCoder.js');
 var zipper          =  require('../zipper/zipper.js');
 var parser          =  require('../parser/parser.js');
 var builder         =  require('../builder/builder.js');
+*/
+var CodeGenerator = require('../codeGenerator/codeGenerator.js');
 var dao             =  require('../DAO/DAO.js');
 var multer	        =  require('multer');
 var path            =  require('path');
@@ -98,6 +102,7 @@ var requestHandler= {
             }
             var nome = req.file.filename;
             var nomezip="Programma-"+nome.split[1]+".zip";
+            /*
             var parsedProgram = parser.parse(req.file);
             var program = JavascriptCoder.getCodedProgram(parsedProgram);
             var cartella = builder.javascriptBuild(program);
@@ -105,6 +110,8 @@ var requestHandler= {
                 if(err)
                     console.log(err);}
                                    );
+            */
+            CodeGenerator.generateJsProgram(req.file,nomezip);
             res.end(nomezipe);
         });
     },
@@ -122,6 +129,7 @@ var requestHandler= {
             if(err) {
                 return res.end("Errore upload: "+err);
             }
+            /*
             var nome = req.file.filename;
             var nomezip="Programma-"+nome.split[1]+".zip";
             var parsedProgram = parser.parse(req.file);
@@ -131,6 +139,8 @@ var requestHandler= {
                 if(err)
                     console.log(err);}
                                    );
+            */
+            CodeGenerator.generateJavaProgram(req.file,nomezip);
             res.end(nomezipe);
         });
 
