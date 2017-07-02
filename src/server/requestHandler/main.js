@@ -13,7 +13,7 @@ var requestHandler  =  require('./requestHandler.js');
 /** @namespace */
 var app	    =	express();
 var path            =  require('path');
-app.use(express.static('../../webapp'));
+//app.use(express.static('../../webapp'));
 
 /**
 *	@public
@@ -30,8 +30,19 @@ app.get('/',function(req,res){
 *	@function come sopra
 *	@summary Permette di caricare il file json da convertire in codice javascript.
 */
-app.post('/caricaJs',function(req,res){
+app.get('/caricaJs',function(req,res){
     requestHandler.caricaJs(res,req);
+   /*console.log(req.query.project);
+   console.log('=========================================================================');
+   console.log('query (STRINGIFY): ' + JSON.stringify(req.query));
+   var query = JSON.stringify(req.query);
+   console.log(query);
+   console.log('params: ' + JSON.stringify(req.params));
+   console.log('body: ' + JSON.stringify(req.body));
+   console.log('query: ' + JSON.stringify(req.query));
+   res.header('Content-type','application/json');
+   res.header('Charset','utf8');
+   res.jsonp(JSON.stringify(query));*/
 });
 
 /**
@@ -40,8 +51,19 @@ app.post('/caricaJs',function(req,res){
 *	@function come sopra
 *	@summary Permette di caricare il file json da convertire in codice Java.
 */
-app.post('/caricaJa',function(req,res){
+app.get('/caricaJa',function(req,res){
    requestHandler.caricaJa(req,res);
+   /*console.log(req.query.project);
+   console.log('=========================================================================');
+   console.log('query (STRINGIFY): ' + JSON.stringify(req.query));
+   var query = JSON.stringify(req.query);
+   console.log(query);
+   console.log('params: ' + JSON.stringify(req.params));
+   console.log('body: ' + JSON.stringify(req.body));
+   console.log('query: ' + JSON.stringify(req.query));
+   res.header('Content-type','application/json');
+   res.header('Charset','utf8');
+   res.jsonp(JSON.stringify(query));*/
 });
 
 /**

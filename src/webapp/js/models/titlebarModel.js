@@ -88,22 +88,25 @@ define ([
         generateJava: function() {
             projectModel.saveCurrentDiagram();
             var myProject = {};
-            myProject.packages = project.packages;
-            myProject.classes = project.classes;
-            myProject.operations = project.operations;
+            myProject.filename = 'projectname';
+           	myProject.project = {};
+            myProject.project.packages = project.packages;
+            myProject.project.classes = project.classes;
+            myProject.project.operations = project.operations;
             $.ajax({
-                url: 'http://localhost:3000/SWEDesigner-source/src/server/requestHandler/main.js',
-                // dataType: "jsonp",
-                data: '{"project": myProject}',
-                type: 'POST',
-                jsonpCallback: 'callback', // questo non è più rilevante al POST
+            	url: 'http://localhost:3000/caricaJa?callback=?',
+                dataType: "jsonp",
+                data: JSON.stringify(myProject),
+                //type: 'POST',
+                jsonp: 'callback',
                 success: function (data) {
-                    var ret = jQuery.parseJSON(project);
-                    $('#lblResponse').html(ret.msg);
+                    console.log(data);
+                    var ret = $.parseJSON(data);
+                    $('#lblResponse').html(ret.nomezip);
                     console.log('Success: ')
                 },
                 error: function (xhr, status, error) {
-                    console.log('Error: ' + error.message);
+                    console.log('Error: ' + error);
                     $('#lblResponse').html('Error connecting to the server.');
                 },
             });
@@ -111,22 +114,25 @@ define ([
         generateJavascript: function() {
             projectModel.saveCurrentDiagram();
             var myProject = {};
-            myProject.packages = project.packages;
-            myProject.classes = project.classes;
-            myProject.operations = project.operations;
+            myProject.filename = 'projectname';
+           	myProject.project = {};
+            myProject.project.packages = project.packages;
+            myProject.project.classes = project.classes;
+            myProject.project.operations = project.operations;
             $.ajax({
-                url: 'http://localhost:3000/SWEDesigner-source/src/server/requestHandler/main.js',
-                // dataType: "jsonp",
-                data: '{"project": myProject}',
-                type: 'POST',
-                jsonpCallback: 'callback', // questo non è più rilevante al POST
+                url: 'http://localhost:3000/caricaJs?callback=?',
+                dataType: "jsonp",
+                data: JSON.stringify(myProject),
+                //type: 'POST',
+                jsonp: 'callback',
                 success: function (data) {
-                    var ret = jQuery.parseJSON(project);
-                    $('#lblResponse').html(ret.msg);
+                    console.log(data);
+                    var ret = $.parseJSON(data);
+                    $('#lblResponse').html(ret.nomezip);
                     console.log('Success: ')
                 },
                 error: function (xhr, status, error) {
-                    console.log('Error: ' + error.message);
+                    console.log('Error: ' + error);
                     $('#lblResponse').html('Error connecting to the server.');
                 },
             });

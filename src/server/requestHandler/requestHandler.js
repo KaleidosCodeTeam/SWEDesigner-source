@@ -24,6 +24,7 @@ var CodeGenerator = require('../codeGenerator/codeGenerator.js');
 var dao             =  require('../DAO/DAO.js');
 var multer	        =  require('multer');
 var path            =  require('path');
+var url				=  require('url');
 
 var root=__dirname+'/../webapp';
 var storage	=	multer.diskStorage({
@@ -95,13 +96,20 @@ var requestHandler= {
 	 *	@summary carica il file json nel server e ne genera il codice Javascript restituendo il nome della cartella compressa.
 	 */
 
-    caricaJs: function(res, req){
+    caricaJs: function(req, res){
         upload(req,res,function(err) {
             if(err) {
                 return res.end("Errore upload: "+err);
             }
-            var nome = req.file.filename;
-            var nomezip="Programma-"+nome.split[1]+".zip";
+            var query = decodeURIComponent(url.parse(req.url).query);
+            query = query.split('&')[1];
+            var obj = JSON.parse(query);
+            console.log('============================================================');
+            console.log(obj.filename);
+            console.log(JSON.stringify(obj.project));
+            console.log('============================================================');
+            var nome = obj.filename;
+            var nomezip="Programma-"+nome+".zip";
             /*
             var parsedProgram = parser.parse(req.file);
             var program = JavascriptCoder.getCodedProgram(parsedProgram);
@@ -110,9 +118,9 @@ var requestHandler= {
                 if(err)
                     console.log(err);}
                                    );
-            */
             CodeGenerator.generateJsProgram(req.file,nomezip);
-            res.end(nomezipe);
+            */
+            res.end(JSON.stringify({'nomezip': nomezip}));
         });
     },
 
@@ -124,14 +132,21 @@ var requestHandler= {
 	 *	@summary carica il file json nel server e ne genera il codice Java restituendo il nome della cartella compressa.
 	 */
 
-    caricaJa : function(res, req){
+    caricaJa : function(req, res){
         upload(req,res,function(err) {
             if(err) {
                 return res.end("Errore upload: "+err);
             }
+            var query = decodeURIComponent(url.parse(req.url).query);
+            query = query.split('&')[1];
+            var obj = JSON.parse(query);
+            console.log('============================================================');
+            console.log(obj.filename);
+            console.log(JSON.stringify(obj.project));
+            console.log('============================================================');
+            var nome = obj.filename;
+            var nomezip="Programma-"+nome+".zip";
             /*
-            var nome = req.file.filename;
-            var nomezip="Programma-"+nome.split[1]+".zip";
             var parsedProgram = parser.parse(req.file);
             var program = JavaCoder.getCodedProgram(parsedProgram);
             var cartella = builder.javaBuild(program);
@@ -139,9 +154,9 @@ var requestHandler= {
                 if(err)
                     console.log(err);}
                                    );
+            CodeGenerator.generateJavaProgram(obj.project,nomezip);
             */
-            CodeGenerator.generateJavaProgram(req.file,nomezip);
-            res.end(nomezipe);
+            res.jsonp(JSON.stringify({'nomezip': nomezip}));
         });
 
     },
