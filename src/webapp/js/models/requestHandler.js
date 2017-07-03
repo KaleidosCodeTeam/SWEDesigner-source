@@ -12,7 +12,7 @@ define ([
 ], function ($, _, Backbone, joint, projectModel, project) {
     /**
      *  @classdesc Si occupa della gestione delle comunicazioni tra client e server (lato client).
-     *  @module
+     *  @module client.models
      *  @class RequestHandler
      *  @extends {Backbone.Model}
      */

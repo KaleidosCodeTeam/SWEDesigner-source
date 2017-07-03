@@ -13,7 +13,7 @@ define ([
     /**
      *  @classdesc Pannello laterale renderizzato dinamicamente al cambiare dell'elemento selezionato nel diagramma corrente.
      *  Visualizza tutte le proprietà dell'oggetto selezionato rendendole disponibili ad eventuali modifiche.
-     *  @module
+     *  @module client.views
      *  @class EditPanelView
      *  @extends {Backbone.View}
      */
@@ -23,7 +23,7 @@ define ([
          */
 		tagname: 'div',
         /**
-         *  @var {jQuery Object} EditPanelView#el - L'elemento del DOM corrispondente a EditPanelView.
+         *  @var {jQueryObject} EditPanelView#el - L'elemento del DOM corrispondente a EditPanelView.
          */
 		el: $('#editpanel'),
         /**

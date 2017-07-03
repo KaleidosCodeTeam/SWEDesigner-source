@@ -12,7 +12,7 @@ define ([
 ], function ($, _, Backbone, joint, dataManager, requestHandler) {
     /**
      *  @classdesc View della barra del titolo. Si occupa di gestire gli eventi ad essa associati invocando le apposite funzioni del model.
-     *  @module
+     *  @module client.views
      *  @class TitlebarView
      *  @extends {Backbone.View}
      */

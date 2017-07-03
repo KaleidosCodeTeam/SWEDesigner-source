@@ -12,7 +12,7 @@ define ([
 ], function ($, _, Backbone, joint, projectModel, Swedesigner) {
     /**
      *  @classdesc View del progetto corrente. Si occupa di gestire il paper e tutti gli eventi ad esso associati.
-     *  @module
+     *  @module client.views
      *  @class ProjectView
      *  @extends {Backbone.View}
      */
@@ -23,7 +23,7 @@ define ([
 		paper: {},
 		/**
 		 *	@function ProjectView#initialize
-		 *	@summary Inizializzazione della projectView: inizializzazione del modello, del paper, degli eventi verificabili.
+		 *	@summary Inizializzazione della ProjectView: inizializzazione del modello, del paper, degli eventi verificabili.
 		 */
 		initialize: function() {
 			//console.log("ProjectView initialized");

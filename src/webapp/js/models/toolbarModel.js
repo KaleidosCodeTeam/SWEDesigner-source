@@ -12,7 +12,7 @@ define ([
 ], function ($, _, Backbone, joint, Swedesigner, projectModel) {
 	/**
 	 *  @classdesc Model della toolbar (associato a ToolbarView).
-     *  @module 
+     *  @module client.models
      *  @class ToolbarModel
      *  @extends {Backbone.Model}
      */

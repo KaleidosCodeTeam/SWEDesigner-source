@@ -12,7 +12,7 @@ define ([
 ], function ($, _, Backbone, joint, Swedesigner, project) {
     /**
      *  @classdesc Model del progetto corrente. Si occupa di gestire il graph e tutti gli eventi ad esso associati.
-     *  @module
+     *  @module client.models
      *  @class ProjectModel
      *  @extends {Backbone.Model}
      */

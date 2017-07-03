@@ -1,3 +1,7 @@
+/**
+ *  @file Contiene le celle jointJS personalizzate Swedesigner.
+ *  @author Bonolo Marco, Pezzuto Francesco, Sovilla Matteo - KaleidosCode
+ */
 define ([
 	'jquery',
 	'underscore',
@@ -12,16 +16,15 @@ define ([
     Swedesigner.model.bubbleDiagram = {};
 
     Swedesigner.model.packageDiagram.items = {};
-
     /**
+     *  @classdesc Elemento base generico per diagramma dei package UML.
      *  @module Swedesigner.model.packageDiagram.items
      *  @class Base
-     *  @classdesc Elemento base generico per diagramma dei package UML.
      *  @extends {joint.shapes.basic.Generic}
      */
     Swedesigner.model.packageDiagram.items.Base = joint.shapes.basic.Generic.extend({
     	/**
-         *  @var {string} Base#toolMarkup Markup HTML per la rappresentazione grafica.
+         *  @var {string} Base#toolMarkup - Markup HTML per la rappresentazione grafica.
          */
     	toolMarkup: [
     		'<g class="element-tools">',
@@ -31,7 +34,7 @@ define ([
             '</g>',
             '</g>'].join(''),
         /**
-         *  @var {Object} Base#defaults Attributi di default per l'oggetto.
+         *  @var {Object} Base#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'uml.packageDiagram.Base'
@@ -39,10 +42,9 @@ define ([
         parentId: null,
         /**
          *  @function Base#initialize
-         *  @summary Metodo di inizializzazione: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
+         *  @summary Inizializzazione di Base: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
          */
-        initialize: function (parentId) {
-            this.parentId = parentId;
+        initialize: function() {
             this.on('change:values', function () {
                 this.updateRectangles();
                 this.trigger('uml-update');
@@ -50,7 +52,6 @@ define ([
             this.updateRectangles();
             joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         },
-
         /**
          *  @function Base#updateRectangles
          *  @summary Render dell'item.
@@ -59,26 +60,25 @@ define ([
         updateRectangles: function() {},
         /**
          *  @function Base#getValues
+         *  @return {Object} I valori ("values") dell'item.
          *  @summary Ritorna i valori dell'item.
-         *  @return {Object} I valori dell'item.
          */
         getValues: function() {
             return this.get("values");
         }
     });
-
     /**
+     *  @classdesc View per item "Base".
      *  @module Swedesigner.model.packageDiagram.items
      *  @class BaseView
-     *  @classdesc View per oggetto "Base".
      *  @extends {joint.dia.ElementView}
      */
     Swedesigner.model.packageDiagram.items.BaseView = joint.dia.ElementView.extend({
     	/**
          *  @function BaseView#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e imposta un evento alla reazione del model chiamando sequenzialmente i metodi "update" e "resize".
+         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe "Base" e imposta un evento alla reazione del model chiamando sequenzialmente i metodi "update" e "resize".
          */
-        initialize: function () {
+        initialize: function() {
             joint.dia.ElementView.prototype.initialize.apply(this, arguments);
             this.listenTo(this.model, 'uml-update', function () {
                 this.update();
@@ -87,8 +87,8 @@ define ([
         },
         /**
          *  @function BaseView#render
-         *  @summary Renderizzazione dell'item.
          *  @return {Object} L'oggetto BaseView.
+         *  @summary Render dell'item.
          */
         render: function () {
             joint.dia.ElementView.prototype.render.apply(this, arguments);

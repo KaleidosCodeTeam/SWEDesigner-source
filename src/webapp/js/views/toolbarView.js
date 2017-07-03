@@ -13,13 +13,13 @@ define ([
 ], function($, _, Backbone, joint, Swedesigner, toolbarModel, projectModel) {
 	/**
      *  @classdesc Toolbar degli elementi realizzabili nel diagramma correntemente visualizzato.
-     *  @module
+     *  @module client.views
      *  @class ToolbarView
      *  @extends {Backbone.View}
      */
 	var ToolbarView = Backbone.View.extend({
 		/**
-         *  @var {jQuery Object} ToolbarView#el - L'elemento del DOM corrispondente a ToolbarView.
+         *  @var {jQueryObject} ToolbarView#el - L'elemento del DOM corrispondente a ToolbarView.
          */
 		el: $('.toolbar'),
 		/**

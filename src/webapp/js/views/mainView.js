@@ -15,7 +15,7 @@ define ([
 ], function ($, _, Backbone, joint, TitlebarView, ToolbarView, PathView, EditPanelView, ProjectView) {
 	/**
      *  @classdesc View principale che imposta e memorizza un'istanza delle views delle sotto-componenti.
-     *  @module
+     *  @module client.views
      *  @class MainView
      *  @extends {Backbone.View}
      */

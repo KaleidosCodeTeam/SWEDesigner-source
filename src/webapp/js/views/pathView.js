@@ -13,13 +13,13 @@ define ([
 	/**
      *  @classdesc Path rappresentante il percorso della profondità del diagramma attuale.
      *	Ogni tipo di diagramma antistante a quello corrente nel path è cliccabile per tornarci.
-     *  @module
+     *  @module client.views
      *  @class PathView
      *  @extends {Backbone.View}
      */
 	var PathView = Backbone.View.extend({
 		/**
-         *  @var {jQuery Object} PathView#el - L'elemento del DOM corrispondente a PathView.
+         *  @var {jQueryObject} PathView#el - L'elemento del DOM corrispondente a PathView.
          */
 		el: $('.breadcrumb'),
 		/**

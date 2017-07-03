@@ -10,7 +10,7 @@ define ([
 ], function ($, _, Backbone, joint) {
     /**
      *  @classdesc Contenitore di tutti gli elementi del progetto correntemente aperto nella Single Page Application.
-     *  @module
+     *  @module client.models
      *  @class Project
      *  @extends {Backbone.Model}
      */
