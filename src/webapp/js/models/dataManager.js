@@ -6,10 +6,8 @@ define ([
     'jquery',
     'underscore',
     'js/models/projectModel',
-    'js/models/project',
-    'js/views/projectView',
-    'js/views/editPanelView'
-], function ($, _, projectModel,project,projectView,editPanelView) {
+    'js/models/project'
+], function ($, _, projectModel,project) {
 
     var dataManager = {};
     /**

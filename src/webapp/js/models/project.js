@@ -7,8 +7,7 @@ define ([
     'underscore',
     'backbone',
     'joint',
-    'js/models/items/swedesignerItems'
-], function ($, _, Backbone, joint, Swedesigner) {
+], function ($, _, Backbone, joint) {
     /**
      *  @classdesc Contenitore di tutti gli elementi del progetto correntemente aperto nella Single Page Application.
      *  @module
