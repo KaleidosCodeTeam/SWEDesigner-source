@@ -30,7 +30,7 @@ define ([
 		},
 		/**
          *  @function ToolbarModel#currentDiagram
-         *	@return Stringa contenente il tipo del diagramma corrente ("packageDiagram", "classDiagram" o "bubbleDiagram").
+         *	@return {string} Il tipo del diagramma corrente ("packageDiagram", "classDiagram" o "bubbleDiagram").
          *  @summary Ritorna il tipo del diagramma corrente.
          */
 		getCurrentDiagram: function() {
