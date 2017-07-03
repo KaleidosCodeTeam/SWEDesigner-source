@@ -1,5 +1,5 @@
 /**
- *  @file Contiene la classe statica DAOclient.
+ *  @file Contiene la classe statica dataManager.
  *  @author Sovilla Matteo - KaleidosCode
  */
 define ([
@@ -11,13 +11,13 @@ define ([
     'js/views/editPanelView'
 ], function ($, _, projectModel,project,projectView,editPanelView) {
 
-    var DAOclient = {};
+    var dataManager = {};
     /**
-     *  @function DAOclient.save
+     *  @function dataManager.save
      *  @param {string} fileName - Nome del file generato da scaricare.
      *  @summary Salva i dati del progetto, li converte in formato JSON e avvia la procedura di download in locale del browser.
      */
-    DAOclient.save = function(fileName){
+    dataManager.save = function(fileName){
         projectModel.saveCurrentDiagram();
         var myProject = {};
         myProject.packages = project.packages;
@@ -36,19 +36,19 @@ define ([
     };
 
     /**
-     * @function DAOclient#saveAs
+     * @function dataManager#saveAs
      * @summary Estrae la stringa inserita dall'utente nella schermata per il salvataggio con nome e invoca la funzione del DAO per il salvataggio del progetto corrente in un file con il nome desiderato
      */
-    DAOclient.saveAs = function() {
+    dataManager.saveAs = function() {
         var fName = document.getElementById("fileNameInput").value + ".swed";
-        DAOclient.save(fName);
+        dataManager.save(fName);
     };
     /**
-     *  @function DAOclient.openProject
+     *  @function dataManager.openProject
      *  @summary Legge un file JSON e ne salva il contenuto in project e nel projectModel come progetto attualmente aperto.
      */
-    DAOclient.openProject = function() {
-        console.log('DAOClient openProj');
+    dataManager.openProject = function() {
+        console.log('dataManager openProj');
         var myFile = document.getElementById("selectedFile").files[0];
         var myFileRead = {};
         var reader = new FileReader();
@@ -71,10 +71,10 @@ define ([
     };
 
     /**
-     * @function DAOclient#newProject
+     * @function dataManager#newProject
      * @summary Dopo aver chiesto conferma all'utente, crea un nuovo progetto sovrascrivendo quello correntemente aperto.
      */
-    DAOclient.newProject = function() {
+    dataManager.newProject = function() {
         if (confirm("Il nuovo progetto sovrascriverà quello attualmente aperto. Sei sicuro?") === true) {
             project.packages.packagesArray = [];
             project.packages.dependenciesArray = [];
@@ -84,8 +84,6 @@ define ([
             projectModel.graph.resetCells([]);
             projectModel.currentDiagramType = 'packageDiagram';
             projectModel.currentDiagram = null;
-            projectView.paper.selectedCell = null;              // SBAGLIATE
-            editPanelView.render();                             // SBAGLIATE
             projectModel.graphSwitched();
             console.log('newProject created');
         } else {
@@ -93,5 +91,5 @@ define ([
         }
     };
 
-    return DAOclient;
+    return dataManager;
 });

@@ -82,6 +82,7 @@ define ([
 				}
 			});
 			this.listenTo(this.paper, 'blank:pointerdown', _.partial(this.addCell, this));
+			this.listenTo(this.model, 'switchgraph', _.partial(this.resetSelectedCells, this));
 			this.paper.on('blank:pointerdown', _.partial(this.blankPointerDown, this));
 			this.paper.on('blank:pointerup', _.partial(this.blankPointerUp, this));
 			$("#canvas").on('mousemove', {paper: this.paper}, this.mouseMoveFunction);
@@ -90,6 +91,10 @@ define ([
             
             this.paper.$el.on('wheel', _.partial(this.onMouseWheel, this));
             dragging = false;
+		},
+		resetSelectedCells: function() {
+            this.paper.selectedCell = null;
+            this.paper.trigger('changed-selected-cell');
 		},
 		/**
 		 *	@function ProjectView#mouseMoveFunction

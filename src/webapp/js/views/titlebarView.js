@@ -7,9 +7,9 @@ define ([
 	'underscore',
 	'backbone',
 	'joint',
-	'js/models/DAOclient',
-    'js/models/clientRequestHandler'
-], function ($, _, Backbone, joint, DAOclient,clientRequestHandler) {
+	'js/models/dataManager',
+    'js/models/requestHandler'
+], function ($, _, Backbone, joint, dataManager,requestHandler) {
     /**
      *  @classdesc View della barra del titolo. Si occupa di gestire gli eventi ad essa associati invocando le apposite funzioni del model.
      *  @module
@@ -51,7 +51,7 @@ define ([
          */
 		openProject: function(event) {
 			//console.log(event.currentTarget);
-			DAOclient.openProject();
+            dataManager.openProject();
 		},
         /**
          *  @function TitlebarView#newProject
@@ -60,7 +60,7 @@ define ([
          */
         newProject: function(event) {
             //console.log(event.currentTarget);
-            DAOclient.newProject();
+            dataManager.newProject();
         },
         /**
          *  @function TitlebarView#saveProject
@@ -69,7 +69,7 @@ define ([
          */
         saveProject: function(event) {
             //console.log(event.currentTarget);
-            DAOclient.save('newProject.swed');
+            dataManager.save('newProject.swed');
         },
         /**
          *  @function TitlebarView#saveProjectAs
@@ -78,25 +78,25 @@ define ([
          */
         saveProjectAs: function(event) {
             //console.log(event.currentTarget);
-            DAOclient.saveAs();
+            dataManager.saveAs();
         },
         /**
-         *  @function clientRequestHandler#generateJava
+         *  @function requestHandler#generateJava
          *  @param {Object} event - Elemento generante l'evento.
          *  @summary Richiede al server di generare il codice in linguaggio Java del progetto correntemente aperto invocando il rispettivo metodo di TitlebarModel.
          */
         generateJava: function(event) {
             //console.log(event.currentTarget);
-            clientRequestHandler.generateJava();
+            requestHandler.generateJava();
         },
         /**
-         *  @function clientRequestHandler#generateJavascript
+         *  @function requestHandler#generateJavascript
          *  @param {Object} event - Elemento generante l'evento.
          *  @summary Richiede al server di generare il codice in linguaggio Javascript del progetto correntemente aperto invocando il rispettivo metodo di TitlebarModel.
          */
         generateJavascript: function(event) {
             //console.log(event.currentTarget);
-            clientRequestHandler.generateJavascript();
+            requestHandler.generateJavascript();
         }
 	});
 	return new TitlebarView;
