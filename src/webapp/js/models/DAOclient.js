@@ -1,20 +1,19 @@
 /**
- * Created by socs on 17/06/2017.
+ *  @file Contiene la classe statica DAOclient.
+ *  @author Sovilla Matteo - KaleidosCode
  */
 define ([
     'jquery',
     'underscore',
     'js/models/projectModel',
     'js/models/project'
-], function ($, _, projectModel,project) {
-
+], function ($, _, projectModel, project) {
+    /** @namespace */
     var DAOclient = {};
-
     /**
-     * @function DAOclient.save
-     * @param {Object} data - Dati da salvare su file.
-     * @param {string} fileName - Nome del file da scaricare.
-     * @summary Converte i dati da salvare in formato JSON e li scarica tramite il browser.
+     *  @function DAOclient.save
+     *  @param {string} fileName - Nome del file generato da scaricare.
+     *  @summary Salva i dati del progetto, li converte in formato JSON e avvia la procedura di download in locale del browser.
      */
     DAOclient.save = function(fileName){
         projectModel.saveCurrentDiagram();
@@ -33,7 +32,13 @@ define ([
         };
         reader.readAsDataURL(myBlob);
     };
-
+    /**
+     *  @function DAOclient.keyPaired
+     *  @param {Object[]} array - Array di oggetti.
+     *  @return Copia dell'array passato come parametro in input.
+     *  @summary Esegue la copia dei dati di un array in uno nuovo che ritorna al termine.
+     *  @ignore
+     */
     DAOclient.keyPaired = function(array) {
         var newArray = [];
         var i = 0;
@@ -43,11 +48,9 @@ define ([
         }
         return newArray;
     };
-
     /**
-     * @function DAOclient.openProject
-     * @param {Object} mod - mainModel dell'applicazione.
-     * @summary Legge un file JSON e ne salva il contenuto in mainModel come progetto attualmente aperto.
+     *  @function DAOclient.openProject
+     *  @summary Legge un file JSON e ne salva il contenuto in project e nel projectModel come progetto attualmente aperto.
      */
     DAOclient.openProject = function() {
         console.log('DAOClient openProj');
@@ -71,6 +74,5 @@ define ([
         };
         reader.readAsText(myFile);
     };
-
     return DAOclient;
 });
