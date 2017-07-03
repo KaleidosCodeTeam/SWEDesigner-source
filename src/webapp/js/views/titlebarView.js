@@ -7,8 +7,9 @@ define ([
 	'underscore',
 	'backbone',
 	'joint',
-	'js/models/titlebarModel'
-], function ($, _, Backbone, joint, titlebarModel) {
+	'js/models/DAOclient',
+    'js/models/clientRequestHandler'
+], function ($, _, Backbone, joint, DAOclient,clientRequestHandler) {
     /**
      *  @classdesc View della barra del titolo. Si occupa di gestire gli eventi ad essa associati invocando le apposite funzioni del model.
      *  @module
@@ -37,13 +38,7 @@ define ([
 			'click #generate-java': 'generateJava',
 			'click #generate-js': 'generateJavascript'
 		},
-        /**
-         *  @function TitlebarView#initialize
-         *  @summary Inizializzazione della TitlebarView.
-         */
-		initialize: function() {
-			this.model = titlebarModel;
-		},
+
         /**
          *  @function TitlebarView#render
          *  @summary Render della titlebar.
@@ -56,7 +51,7 @@ define ([
          */
 		openProject: function(event) {
 			//console.log(event.currentTarget);
-			titlebarModel.openProject();
+			DAOclient.openProject();
 		},
         /**
          *  @function TitlebarView#newProject
@@ -65,7 +60,7 @@ define ([
          */
         newProject: function(event) {
             //console.log(event.currentTarget);
-            titlebarModel.newProject();
+            DAOclient.newProject();
         },
         /**
          *  @function TitlebarView#saveProject
@@ -74,7 +69,7 @@ define ([
          */
         saveProject: function(event) {
             //console.log(event.currentTarget);
-            titlebarModel.saveProject();
+            DAOclient.save('newProject.swed');
         },
         /**
          *  @function TitlebarView#saveProjectAs
@@ -83,25 +78,25 @@ define ([
          */
         saveProjectAs: function(event) {
             //console.log(event.currentTarget);
-            titlebarModel.saveProjectAs();
+            DAOclient.saveAs();
         },
         /**
-         *  @function TitlebarView#generateJava
+         *  @function clientRequestHandler#generateJava
          *  @param {Object} event - Elemento generante l'evento.
          *  @summary Richiede al server di generare il codice in linguaggio Java del progetto correntemente aperto invocando il rispettivo metodo di TitlebarModel.
          */
         generateJava: function(event) {
             //console.log(event.currentTarget);
-            titlebarModel.generateJava();
+            clientRequestHandler.generateJava();
         },
         /**
-         *  @function TitlebarView#generateJavascript
+         *  @function clientRequestHandler#generateJavascript
          *  @param {Object} event - Elemento generante l'evento.
          *  @summary Richiede al server di generare il codice in linguaggio Javascript del progetto correntemente aperto invocando il rispettivo metodo di TitlebarModel.
          */
         generateJavascript: function(event) {
             //console.log(event.currentTarget);
-            titlebarModel.generateJavascript();
+            clientRequestHandler.generateJavascript();
         }
 	});
 	return new TitlebarView;

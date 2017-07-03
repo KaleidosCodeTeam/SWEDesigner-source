@@ -6,9 +6,11 @@ define ([
     'jquery',
     'underscore',
     'js/models/projectModel',
-    'js/models/project'
-], function ($, _, projectModel, project) {
-    /** @namespace */
+    'js/models/project',
+    'js/views/projectView',
+    'js/views/editPanelView'
+], function ($, _, projectModel,project,projectView,editPanelView) {
+
     var DAOclient = {};
     /**
      *  @function DAOclient.save
@@ -32,21 +34,14 @@ define ([
         };
         reader.readAsDataURL(myBlob);
     };
+
     /**
-     *  @function DAOclient.keyPaired
-     *  @param {Object[]} array - Array di oggetti.
-     *  @return Copia dell'array passato come parametro in input.
-     *  @summary Esegue la copia dei dati di un array in uno nuovo che ritorna al termine.
-     *  @ignore
+     * @function DAOclient#saveAs
+     * @summary Estrae la stringa inserita dall'utente nella schermata per il salvataggio con nome e invoca la funzione del DAO per il salvataggio del progetto corrente in un file con il nome desiderato
      */
-    DAOclient.keyPaired = function(array) {
-        var newArray = [];
-        var i = 0;
-        for (var el in array) {
-            newArray[i] = el;
-            i++;
-        }
-        return newArray;
+    DAOclient.saveAs = function() {
+        var fName = document.getElementById("fileNameInput").value + ".swed";
+        DAOclient.save(fName);
     };
     /**
      *  @function DAOclient.openProject
@@ -74,5 +69,29 @@ define ([
         };
         reader.readAsText(myFile);
     };
+
+    /**
+     * @function DAOclient#newProject
+     * @summary Dopo aver chiesto conferma all'utente, crea un nuovo progetto sovrascrivendo quello correntemente aperto.
+     */
+    DAOclient.newProject = function() {
+        if (confirm("Il nuovo progetto sovrascriverà quello attualmente aperto. Sei sicuro?") === true) {
+            project.packages.packagesArray = [];
+            project.packages.dependenciesArray = [];
+            project.classes.classesArray= [];
+            project.classes.relationshipsArray= [];
+            project.operations= [];
+            projectModel.graph.resetCells([]);
+            projectModel.currentDiagramType = 'packageDiagram';
+            projectModel.currentDiagram = null;
+            projectView.paper.selectedCell = null;              // SBAGLIATE
+            editPanelView.render();                             // SBAGLIATE
+            projectModel.graphSwitched();
+            console.log('newProject created');
+        } else {
+            console.log('New project creation aborted');
+        }
+    };
+
     return DAOclient;
 });
