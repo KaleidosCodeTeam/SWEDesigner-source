@@ -1,3 +1,7 @@
+/**
+ *  @file Contiene la classe RequestHandler.
+ *  @author Bonolo Marco, Pezzuto Francesco, Sovilla Matteo - KaleidosCode
+ */
 define ([
     'jquery',
     'underscore',
@@ -7,11 +11,16 @@ define ([
     'js/models/project'
 ], function ($, _, Backbone, joint, projectModel, project) {
     /**
-     * @class clientRequestHandler
-     * @classdesc Si occupa della gestione delle comunicazioni tra client e server.
-     * @extends Backbone.Model
+     *  @classdesc Si occupa della gestione delle comunicazioni tra client e server (lato client).
+     *  @module
+     *  @class RequestHandler
+     *  @extends {Backbone.Model}
      */
-	var clientRequestHandler = Backbone.Model.extend({
+	var RequestHandler = Backbone.Model.extend({
+        /**
+         *  @function RequestHandler#generateJava
+         *  @summary Salva il progetto correntemente aperto e crea una richiesta di generazione del relativo codice Java che invia al server.
+         */
         generateJava: function() {
             projectModel.saveCurrentDiagram();
             var myProject = {};
@@ -38,6 +47,10 @@ define ([
                 },
             });
         },
+        /**
+         *  @function RequestHandler#generateJavascript
+         *  @summary Salva il progetto correntemente aperto e crea una richiesta di generazione del relativo codice Javascript che invia al server.
+         */
         generateJavascript: function() {
             projectModel.saveCurrentDiagram();
             var myProject = {};
@@ -63,9 +76,7 @@ define ([
                     $('#lblResponse').html('Error connecting to the server.');
                 },
             });
-        },
-        viewGeneratedCode: function() { //MAYBE NOT
         }
 	});
-	return new clientRequestHandler;
+	return new RequestHandler;
 });

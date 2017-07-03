@@ -1,5 +1,5 @@
 /**
- *  @file Contiene la classe ProjectModel e ne ritorna una istanza.
+ *  @file Contiene la classe ProjectModel.
  *  @author Bonolo Marco, Pezzuto Francesco, Sovilla Matteo - KaleidosCode
  */
 define ([
@@ -112,16 +112,19 @@ define ([
                 size: { width: newCornerX - newX, height: newCornerY - newY }
             }, { skipParentHandler: true });
         },
-
         /**
-         *  @function projectModel#addItem
-         *  @param {Object} item - elemento del diagramma definito in swedesignerItems.
+         *  @function ProjectModel#addItem
+         *  @param {Object} item - elemento del diagramma.
          *  @summary Aggiunge al grafo un elemento passato in input.
          */
         addItem: function(item) {
-            this.itemToBeAdded=item;
+            this.itemToBeAdded = item;
         },
-
+        /**
+         *  @function ProjectModel#resizeParent
+         *  @param {Object} parent - elemento del diagramma.
+         *  @summary Esegue il resize di un elemento del diagramma ingrandendolo.
+         */
         resizeParent: function(parent) {
             if (!parent.get('originalPosition')) parent.set('originalPosition', parent.get('position'));
             if (!parent.get('originalSize')) parent.set('originalSize', parent.get('size'));
@@ -151,7 +154,10 @@ define ([
                 size: { width: newCornerX - newX, height: newCornerY - newY }
             }, { skipParentHandler: true });
         },
-
+        /**
+         *  @function ProjectModel#addItemToGraph
+         *  @summary Aggiunge un elemento al grafo del diagramma corrente.
+         */
         addItemToGraph: function() {
             if (this.itemToBeAdded.type === 'nesting'){
                 var cell = this.itemToBeAdded.source;
@@ -179,10 +185,13 @@ define ([
                 this.graph.addCell(this.itemToBeAdded);
             }
             this.trigger('addCell', this.itemToBeAdded);
-            this.itemToBeAdded=null;
+            this.itemToBeAdded = null;
         },
-
-		deleteCell: function (cell) {
+        /**
+         *  @function ProjectModel#deleteCell
+         *  @summary Rimuove un elemento dal grafo eliminando anche gli eventuali diagrammi derivati (classi o bubble).
+         */
+		deleteCell: function(cell) {
             if (cell.get("type") === 'packageDiagram.items.Package') {
                 project.deleteClassesDiagramOfPkg(cell.get("id"));
             }
@@ -191,12 +200,6 @@ define ([
                     project.deleteOperationDiagram(cell.getValues().operations[op].id);
                 }
             }
-            /* ~~~~~~ Legacy code ~~~~~~
-            if (cell.getValues().hasOwnProperty("operations")) {
-                for (var op in cell.getValues().operations) {
-                    project.deleteBubbleDiagram(cell.getValues().operations[op].id);
-                }
-            }*/
             this.graph.removeCells([cell]);
             this.trigger('addcell');
             //console.log(project.packages.packagesArray);
@@ -204,11 +207,18 @@ define ([
             //console.log(project.classes.relationshipsArray);
             //console.log(project.operations);
 		},
-
+        /**
+         *  @function ProjectModel#deleteOperation
+         *  @summary Rimuove un'operazione ed eventualmente anche il diagramma delle bubble associato.
+         */
         deleteOperation: function(id) {
             project.deleteOperationDiagram(id);
         },
-		
+		/**
+         *  @function ProjectModel#switchInGraph
+         *  @summary Esegue lo switch in profondità al diagramma selezionato svuotando il graph dagli elementi correntemente presenti e caricando gli eventuali
+         *  nuovi elementi.
+         */
 		switchInGraph: function(id) {
             this.saveCurrentDiagram();
 			if (this.currentDiagramType === 'packageDiagram') {
@@ -237,7 +247,11 @@ define ([
 			};
             this.trigger("switchgraph");
 		},
-		
+		/**
+         *  @function ProjectModel#switchOutGraph
+         *  @summary Esegue lo switch all'antistante tipo di diagramma selezionato svuotando il graph dagli elementi correntemente presenti e caricando gli eventuali
+         *  nuovi elementi.
+         */
 		switchOutGraph: function(diagramType) {
             this.saveCurrentDiagram();
             if (diagramType == 'packageDiagram') {
@@ -272,7 +286,10 @@ define ([
             };
             this.trigger("switchgraph");
         },
-
+        /**
+         *  @function ProjectModel#saveCurrentDiagram
+         *  @summary Salva il diagramma correntemente aperto all'interno della struttura definita nella classe Project.
+         */
         saveCurrentDiagram: function() {
             if (this.currentDiagramType === 'packageDiagram') {
                 project.packages.packagesArray = (this.graph.getElements());
@@ -306,10 +323,18 @@ define ([
                 }
             }
         },
-
+        /**
+         *  @function ProjectModel#graphSwitched
+         *  @summary Genera l'evento "switchgraph".
+         */
         graphSwitched: function() {
             this.trigger("switchgraph");
         },
+        /**
+         *  @function ProjectModel#getCellFromId
+         *  @param {string} cellId - Identificativo dell'elemento nel graph.
+         *  @summary Ritorna l'elemento del graph avente l'id passato come parametro in input.
+         */
         getCellFromId: function(cellId) {
             return this.graph.getCell(cellId);
         },

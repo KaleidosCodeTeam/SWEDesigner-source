@@ -1,12 +1,12 @@
 /**
- *  @file Contiene la classe Project e ne ritorna una istanza.
+ *  @file Contiene la classe Project.
  *  @author Pezzuto Francesco, Sovilla Matteo - KaleidosCode
  */
 define ([
     'jquery',
     'underscore',
     'backbone',
-    'joint',
+    'joint'
 ], function ($, _, Backbone, joint) {
     /**
      *  @classdesc Contenitore di tutti gli elementi del progetto correntemente aperto nella Single Page Application.
@@ -38,11 +38,6 @@ define ([
          *  {id: idDell'operazione, items: [arrayBubbleDelDiagramma]}).
          */
         operations: [],
-        /**
-         *  @function Project#initialize
-         *  @summary Inizializzazione del Project.
-         */
-        initialize: function() {},
         /**
          *  @function Project#deleteClassesDiagramOfPkg
          *  @param {string} id - Identificativo del package.
