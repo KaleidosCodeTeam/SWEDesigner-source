@@ -76,7 +76,7 @@ define ([
         /**
          *  @function Project#getOperationIndex
          *  @param {string} id - Identificativo dell'operazione.
-         *  @return {int} Indice dell'array operations del diagramma delle bubble associato all'operazione (-1 se non trovato).
+         *  @return {Number} Indice dell'array operations del diagramma delle bubble associato all'operazione (-1 se non trovato).
          *  @summary Cerca ed eventualmente ritorna l'indice dell'array operations del diagramma delle bubble associato all'operazione.
          */
         getOperationIndex: function(id) {
@@ -85,7 +85,7 @@ define ([
         /**
          *  @function Project#getClassIndex
          *  @param {string} id - Identificativo del package.
-         *  @return {int} Indice dell'array classesArray del diagramma delle classi associato al package (-1 se non trovato).
+         *  @return {Number} Indice dell'array classesArray del diagramma delle classi associato al package (-1 se non trovato).
          *  @summary Cerca ed eventualmente ritorna l'indice dell'array classesArray del diagramma delle classi associato al package.
          */
         getClassIndex: function(id) {
