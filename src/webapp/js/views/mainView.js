@@ -1,5 +1,5 @@
 /**
- *  @file Contiene la classe MainView e ne ritorna una istanza.
+ *  @file Contiene la classe MainView.
  *  @author Bonolo Marco, Pezzuto Francesco, Sovilla Matteo - KaleidosCode
  */
 define ([
@@ -41,13 +41,7 @@ define ([
 			this.views.toolbarView = ToolbarView;
 			this.views.pathView = PathView;
 			this.views.editPanelView = EditPanelView;
-		},
-		/**
-         *  @function MainView#render
-         *  @summary Render della MainView.
-         *	@ignore
-         */
-		render: function() {}
+		}
 	});
 	return new MainView;
 });

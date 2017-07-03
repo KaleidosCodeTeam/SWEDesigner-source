@@ -1,5 +1,5 @@
 /**
- *  @file Contiene la classe ToolbarView e ne ritorna una istanza.
+ *  @file Contiene la classe ToolbarView.
  *  @author Bonolo Marco - KaleidosCode
  */
 define ([
@@ -34,7 +34,7 @@ define ([
          */
 		initialize: function() {
 			this.model = toolbarModel;
-			this.listenTo(projectModel, 'switchgraph',this.render);
+			this.listenTo(projectModel,'switchgraph',this.render);
 			this.render();
 		},
 		/**

@@ -1,5 +1,5 @@
 /**
- *  @file Contiene la classe EditPanelView e ne ritorna una istanza.
+ *  @file Contiene la classe EditPanelView.
  *  @author Pezzuto Francesco, Sovilla Matteo - KaleidosCode
  */
 define ([

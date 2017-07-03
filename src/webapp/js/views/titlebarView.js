@@ -1,5 +1,5 @@
 /**
- *  @file Contiene la classe TitlebarView e ne ritorna una istanza.
+ *  @file Contiene la classe TitlebarView.
  *  @author Sovilla Matteo - KaleidosCode
  */
 define ([
@@ -9,7 +9,7 @@ define ([
 	'joint',
 	'js/models/dataManager',
     'js/models/requestHandler'
-], function ($, _, Backbone, joint, dataManager,requestHandler) {
+], function ($, _, Backbone, joint, dataManager, requestHandler) {
     /**
      *  @classdesc View della barra del titolo. Si occupa di gestire gli eventi ad essa associati invocando le apposite funzioni del model.
      *  @module
@@ -38,16 +38,10 @@ define ([
 			'click #generate-java': 'generateJava',
 			'click #generate-js': 'generateJavascript'
 		},
-
-        /**
-         *  @function TitlebarView#render
-         *  @summary Render della titlebar.
-         */
-		render: function() {},
         /**
          *  @function TitlebarView#openProject
          *  @param {Object} event - Elemento generante l'evento.
-         *  @summary Apre un progetto invocando il rispettivo metodo di TitlebarModel.
+         *  @summary Apre un progetto invocando il rispettivo metodo di DataManager.
          */
 		openProject: function(event) {
 			//console.log(event.currentTarget);
@@ -56,7 +50,7 @@ define ([
         /**
          *  @function TitlebarView#newProject
          *  @param {Object} event - Elemento generante l'evento.
-         *  @summary Crea un nuovo progetto invocando il rispettivo metodo di TitlebarModel.
+         *  @summary Crea un nuovo progetto invocando il rispettivo metodo di DataManager.
          */
         newProject: function(event) {
             //console.log(event.currentTarget);
@@ -65,7 +59,7 @@ define ([
         /**
          *  @function TitlebarView#saveProject
          *  @param {Object} event - Elemento generante l'evento.
-         *  @summary Salva il progetto correntemente aperto invocando il rispettivo metodo di TitlebarModel.
+         *  @summary Salva il progetto correntemente aperto invocando il rispettivo metodo di DataManager.
          */
         saveProject: function(event) {
             //console.log(event.currentTarget);
@@ -74,25 +68,25 @@ define ([
         /**
          *  @function TitlebarView#saveProjectAs
          *  @param {Object} event - Elemento generante l'evento.
-         *  @summary Salva il progetto correntemente aperto con nome specificato dall'utente invocando il rispettivo metodo di TitlebarModel.
+         *  @summary Salva il progetto correntemente aperto con nome specificato dall'utente invocando il rispettivo metodo di DataManager.
          */
         saveProjectAs: function(event) {
             //console.log(event.currentTarget);
             dataManager.saveAs();
         },
         /**
-         *  @function requestHandler#generateJava
+         *  @function TitlebarView#generateJava
          *  @param {Object} event - Elemento generante l'evento.
-         *  @summary Richiede al server di generare il codice in linguaggio Java del progetto correntemente aperto invocando il rispettivo metodo di TitlebarModel.
+         *  @summary Richiede al server di generare il codice in linguaggio Java del progetto correntemente aperto invocando il rispettivo metodo di RequestHandler.
          */
         generateJava: function(event) {
             //console.log(event.currentTarget);
             requestHandler.generateJava();
         },
         /**
-         *  @function requestHandler#generateJavascript
+         *  @function TitlebarView#generateJavascript
          *  @param {Object} event - Elemento generante l'evento.
-         *  @summary Richiede al server di generare il codice in linguaggio Javascript del progetto correntemente aperto invocando il rispettivo metodo di TitlebarModel.
+         *  @summary Richiede al server di generare il codice in linguaggio Javascript del progetto correntemente aperto invocando il rispettivo metodo di RequestHandler.
          */
         generateJavascript: function(event) {
             //console.log(event.currentTarget);

@@ -1,5 +1,5 @@
 /**
- *  @file Contiene la classe ProjectView e ne ritorna una istanza.
+ *  @file Contiene la classe ProjectView.
  *  @author Bonolo Marco, Pezzuto Francesco, Sovilla Matteo - KaleidosCode
  */
 define ([
@@ -82,7 +82,7 @@ define ([
 				}
 			});
 			this.listenTo(this.paper, 'blank:pointerdown', _.partial(this.addCell, this));
-			this.listenTo(this.model, 'switchgraph', _.partial(this.resetSelectedCells, this));
+			this.listenTo(this.model, 'switchgraph', _.partial(this.resetSelectedCell, this));
 			this.paper.on('blank:pointerdown', _.partial(this.blankPointerDown, this));
 			this.paper.on('blank:pointerup', _.partial(this.blankPointerUp, this));
 			$("#canvas").on('mousemove', {paper: this.paper}, this.mouseMoveFunction);
@@ -92,7 +92,11 @@ define ([
             this.paper.$el.on('wheel', _.partial(this.onMouseWheel, this));
             dragging = false;
 		},
-		resetSelectedCells: function() {
+		/**
+		 *	@function ProjectView#resetSelectedCell
+		 *	@summary Pone this.paper.selectedCell a null e genera l'evento "changed-selected-cell".
+		 */
+		resetSelectedCell: function() {
             this.paper.selectedCell = null;
             this.paper.trigger('changed-selected-cell');
 		},

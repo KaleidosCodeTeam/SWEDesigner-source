@@ -1,5 +1,5 @@
 /**
- *  @file Contiene la classe PathView e ne ritorna una istanza.
+ *  @file Contiene la classe PathView.
  *  @author Bonolo Marco, Pezzuto Francesco - KaleidosCode
  */
 define ([
