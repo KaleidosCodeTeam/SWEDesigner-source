@@ -36,7 +36,6 @@ define ([
 			//'click lower-layer': 'lowerLayer',             // @todo
 			'click #generate-java': 'generateJava',
 			'click #generate-js': 'generateJavascript'
-			//'click view-generated-code': 'viewGeneratedCode'
 		},
         /**
          *  @function TitlebarView#initialize
