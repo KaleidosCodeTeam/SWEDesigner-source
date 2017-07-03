@@ -1,3 +1,7 @@
+/**
+ *  @file Contiene la classe ProjectModel e ne ritorna una istanza.
+ *  @author Bonolo Marco, Pezzuto Francesco, Sovilla Matteo - KaleidosCode
+ */
 define ([
     'jquery',
     'underscore',
@@ -6,13 +10,35 @@ define ([
     'js/models/items/swedesignerItems',
     'js/models/project'
 ], function ($, _, Backbone, joint, Swedesigner, project) {
-	var projectModel = Backbone.Model.extend({
+    /**
+     *  @classdesc Model del progetto corrente. Si occupa di gestire il graph e tutti gli eventi ad esso associati.
+     *  @module
+     *  @class ProjectModel
+     *  @extends {Backbone.Model}
+     */
+	var ProjectModel = Backbone.Model.extend({
+        /** 
+         *  @var {joint.dia.Graph} ProjectModel#graph - Il model dell'area di disegno associata al paper della ProjectView.
+         */
 		graph: {},
-		currentDiagram: null,	//	conterrà un Id del diagramma corrente
+        /** 
+         *  @var {string} ProjectModel#currentDiagram - L'id del diagramma correntemente caricato nel graph (null se è il diagramma dei package).
+         */
+		currentDiagram: null,
+        /** 
+         *  @var {string} ProjectModel#currentDiagramType - Il tipo del diagramma correntemente caricato nel graph ("packageDiagram", "classDiagram" o "bubbleDiagram").
+         */
 		currentDiagramType: '',
+        /** 
+         *  @var {string} ProjectModel#itemToBeAdded - Store temporaneo dell'elemento da aggiungere al graph corrente.
+         */
         itemToBeAdded: null,
+        /**
+         *  @function ProjectModel#initialize
+         *  @summary Inizializzazione del ProjectModel: inizializzazione del graph, del currentDiagramType, degli eventi verificabili.
+         */
 		initialize: function() {
-			console.log("MainModel initialized");
+			//console.log("MainModel initialized");
             this.graph = new joint.dia.Graph({},{cellNamespace: Swedesigner.model});
             this.currentDiagramType = 'packageDiagram';
             let myAdjustVertices = _.partial(this.adjustVertices, this.graph);
@@ -30,6 +56,14 @@ define ([
                 }
             });
 		},
+        /**
+         *  @function ProjectModel#changedPosition
+         *  @param {joint.dia.Graph} graph - Grafo.
+         *  @param {join.dia.Cell} cell - Elemento correntemente selezionato.
+         *  @param {Object} newPosition - Posizione attuale dell'oggetto nel grafo.
+         *  @param {Object} opt - Traslazione dell'oggetto dalla posizione iniziale alla posizione "newPosition".
+         *  @summary Gestisce la traslazione di un elemento selezionato nel grafo.
+         */
         changedPosition: function(graph, cell, newPosition, opt) {
 
             if (opt.skipParentHandler) return;
@@ -368,5 +402,5 @@ define ([
             }
         }
 	});
-	return new projectModel;
+	return new ProjectModel;
 });
