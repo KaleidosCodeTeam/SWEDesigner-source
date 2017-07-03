@@ -1,3 +1,7 @@
+/**
+ *  @file Contiene la classe ProjectView e ne ritorna una istanza.
+ *  @author Bonolo Marco, Pezzuto Francesco, Sovilla Matteo - KaleidosCode
+ */
 define ([
 	'jquery',
 	'underscore',
@@ -5,24 +9,36 @@ define ([
 	'joint',
 	'js/models/projectModel',
 	'js/models/items/swedesignerItems'
-	/* ecc. */
 ], function ($, _, Backbone, joint, projectModel, Swedesigner) {
-	var projectView = Backbone.View.extend({
+    /**
+     *  @classdesc View del progetto corrente. Si occupa di gestire il paper e tutti gli eventi ad esso associati.
+     *  @module
+     *  @class ProjectView
+     *  @extends {Backbone.View}
+     */
+	var ProjectView = Backbone.View.extend({
+		/** 
+		 *	@var {joint.dia.Paper} ProjectView#paper - L'area di disegno associata al tag HTML "#canvas" nella Single Page Application.
+		 */
 		paper: {},
+		/**
+		 *	@function ProjectView#initialize
+		 *	@summary Inizializzazione della projectView: inizializzazione del modello, del paper, degli eventi verificabili.
+		 */
 		initialize: function() {
-			console.log("ProjectView initialized");
+			//console.log("ProjectView initialized");
 			this.model = projectModel;
 			this.paper = new joint.dia.Paper({
 				el: $('#canvas'),
 				model: projectModel.graph,
 				width: $('#canvas').width(),
-				height:$('#canvas').height(),
+				height: $('#canvas').height(),
 				gridSize: 10,
 				drawGrid: true,
-				background:{
+				background: {
 				    color: "#606060"
 				},
-				elementView: function (element) {
+				elementView: function(element) {
                     if (element.get("type").startsWith("packageDiagram")) {
                         if (element.get("type") === "packageDiagram.PkgComment") {
                             return Swedesigner.model.packageDiagram.items.PkgCommentView;
@@ -49,7 +65,7 @@ define ([
                     }
                 },
                 linkView: joint.dia.LinkView.extend({
-                    pointerdblclick: function (evt, x, y) {
+                    pointerdblclick: function(evt, x, y) {
                         if (joint.V(evt.target).hasClass('connection') || joint.V(evt.target).hasClass('connection-wrap')) {
                             this.addVertex({x: x, y: y});
                         }
@@ -57,7 +73,7 @@ define ([
                 }),
                 selectedCell: null,
                 isHighlighted: false,
-                interactive: function (itemView) {
+                interactive: function(itemView) {
                     if (itemView.model instanceof joint.dia.Link) {
                         // Disable the default vertex add functionality on pointerdown.
                         return {vertexAdd: false};
@@ -74,52 +90,98 @@ define ([
             
             this.paper.$el.on('wheel', _.partial(this.onMouseWheel, this));
             dragging = false;
-
 		},
+		/**
+		 *	@function ProjectView#mouseMoveFunction
+		 *	@param {Object} e - Elemento generante l'evento.
+		 *	@summary Traslazione del paper nella direzione del trascinamento del mouse.
+		 */
 		mouseMoveFunction: function(event) {
-			if(dragging == true)
+			if (dragging == true)
 				event.data.paper.translate(event.offsetX - dragStartPosition.x, event.offsetY - dragStartPosition.y);
 		},
+		/**
+		 *	@function ProjectView#blankPointerDown
+		 *	@param {Object} elem - Elemento cellView.
+		 *	@param {Object} event - Evento.
+		 *	@param {double} x - Coordinata dell'asse delle ascisse.
+		 *	@param {double} y - Coordinata dell'asse delle ordinate.
+		 *	@summary Salva le correnti coordinate al click del mouse nello spazio vuoto del paper.
+		 */
 		blankPointerDown: function(elem, event, x, y) {
 				dragStartPosition = { 'x': x, 'y': y};
 				dragging = true;
 		},
+		/**
+		 *	@function ProjectView#blankPointerUp
+		 *	@param {Object} elem - Elemento cellView.
+		 *	@param {Object} event - Evento.
+		 *	@param {double} x - Coordinata dell'asse delle ascisse.
+		 *	@param {double} y - Coordinata dell'asse delle ordinate.
+		 *	@summary Elimina le coordinate iniziali al click del mouse nello spazio vuoto del paper.
+		 */
 		blankPointerUp: function(elem, event, x, y) {
 				delete dragStartPosition;
 				dragging = false;
 		},
+		/**
+		 *	@function ProjectView#onMouseWheel
+		 *	@param {Object} elem - Elemento cellView.
+		 *	@param {Object} event - Evento.
+		 *	@summary Trasla verticalmente il paper effettuando uno zoom in avanti o indietro a seconda della rotazione della ruota del mouse.
+		 */
 		onMouseWheel: function(el, event) {
 			event.preventDefault();
 			event = event.originalEvent;
 
 			var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail))) / 50;
-			var offsetX = (event.offsetX || event.clientX - $(this).offset().left); // offsetX is not defined in FF
-			var offsetY = (event.offsetY || event.clientY - $(this).offset().top); // offsetY is not defined in FF
+			var offsetX = (event.offsetX || event.clientX - $(this).offset().left); // offsetX non è definito in FF
+			var offsetY = (event.offsetY || event.clientY - $(this).offset().top); // offsetY non è definito in FF
 			var svgPoint = el.paper.svg.createSVGPoint();
 			svgPoint.x = offsetX;
 			svgPoint.y = offsetY;
 			var p = svgPoint.matrixTransform(el.paper.viewport.getCTM().inverse());
-			var newScale = joint.V(el.paper.viewport).scale().sx + delta; // the current paper scale changed by delta
+			var newScale = joint.V(el.paper.viewport).scale().sx + delta; // lo scale corrente del paper cambiato da delta
 
 			if (newScale > 0.5 && newScale < 1.8) {
-				el.paper.translate(0, 0); // reset the previous viewport translation
+				el.paper.translate(0, 0); // resetta la precedente traslazione del viewport
 				el.paper.scale(newScale, newScale, p.x, p.y);
 			}
 		},
-		render: function() {
-
-		},
+		/**
+         *  @function ProjectView#render
+         *  @summary Render della ProjectView.
+         */
+		render: function() {},
+		/**
+		 *	@function ProjectView#addCell
+		 *	@param {Object} elem - Elemento cellView.
+		 *	@param {Object} event - Evento.
+		 *	@param {double} x - Coordinata dell'asse delle ascisse.
+		 *	@param {double} y - Coordinata dell'asse delle ordinate.
+		 *	@summary Aggiunge un nuovo elemento al graph chiamando il relativo metodo di ProjectModel.
+		 */
 		addCell: function(event, type, x, y) {
-            if(projectModel.itemToBeAdded !== null && projectModel.itemToBeAdded.isElement()) {
+            if (projectModel.itemToBeAdded !== null && projectModel.itemToBeAdded.isElement()) {
                 projectModel.itemToBeAdded.position(x, y);
                 projectModel.addItemToGraph();
             }
         },
+		/**
+		 *	@function ProjectView#deleteCell
+		 *	@param {Object} event - Evento.
+		 *	@summary Elimina un elemento dal graph chiamando il relativo metodo di ProjectModel.
+		 */
 		deleteCell: function(e) {
             projectModel.deleteCell(this.paper.selectedCell);
-            this.paper.selectedCell=null;
-            this.paper.trigger("changed-selected-cell");
+            this.paper.selectedCell = null;
+            this.paper.trigger('changed-selected-cell');
         },
+        /**
+		 *	@function ProjectView#unembedCell
+		 *	@param {Object} event - Evento.
+		 *	@summary Rimuove l'innestamento della cella selezionata.
+		 */
         unembedCell: function(e) {
 		    var parentId = this.paper.selectedCell.get('parent');
 		    if (parentId) {
@@ -128,32 +190,38 @@ define ([
 		        this.model.resizeParent(parent);
             }
         },
-
-        pointerDownFunction: function (prView, cellView, evt, x, y) {
+        /**
+		 *	@function ProjectView#pointerDownFunction
+		 *	@param {Object} prView - Istanza della ProjectView.
+		 *	@param {Object} elem - Elemento cellView.
+		 *	@param {Object} event - Evento.
+		 *	@param {double} x - Coordinata dell'asse delle ascisse.
+		 *	@param {double} y - Coordinata dell'asse delle ordinate.
+		 *	@summary Gestice l'evento generato dal click (non rilasciato) del mouse nel paper. Se viene cliccato un elemento, genera a sua volta l'evento "changed-selected-cell" gestito da EditPanelView.
+		 */
+        pointerDownFunction: function(prView, cellView, evt, x, y) {
             if (cellView) {
                 //console.log("cella selezionata: ",this.selectedCell);
                 //console.log("cellview: ",cellView);
-                if (this.selectedCell!==cellView.model) {
-                    changed=true;
-                    this.selectedCell=cellView.model;
+                if (this.selectedCell !== cellView.model) {
+                    changed = true;
+                    this.selectedCell = cellView.model;
                     console.log('changed-selected-cell');
                     this.trigger("changed-selected-cell");
                 }
             }
-            /**
-             * @todo
-             */
-            /*if (projectModel.project.currentGraph.itemToBeAdded && this.model.project.currentGraph.itemToBeAdded.isLink()) {
-                if (projectModel.project.currentGraph.itemToBeAdded.get("source").id !== undefined) {
-                    projectModel.project.currentGraph.itemToBeAdded.set("target", {id: cellView.model.id});
-                    projectModel.project.currentGraph.item.addCellToGraph();
-                } else {
-                    projectModel.project.currentGraph.itemToBeAdded.set("source", {id: cellView.model.id});
-                }
-			}*/
         },
-        pointerUpFunction: function (prView,cellView, evt, x, y) {
-            var className=evt.target.parentNode.getAttribute('class');
+        /**
+		 *	@function ProjectView#pointerUpFunction
+		 *	@param {Object} prView - Istanza della ProjectView.
+		 *	@param {Object} elem - Elemento cellView.
+		 *	@param {Object} event - Evento.
+		 *	@param {double} x - Coordinata dell'asse delle ascisse.
+		 *	@param {double} y - Coordinata dell'asse delle ordinate.
+		 *	@summary Gestice l'evento generato dal click (al rilascio) del mouse nel paper (rimozione di un elemento, nesting di un elemento in un'altro, collegamento di una relazione tra elementi).
+		 */
+        pointerUpFunction: function(prView, cellView, evt, x, y) {
+            var className = evt.target.parentNode.getAttribute('class');
             switch (className) {
                 case 'element-tool-remove':
                     prView.deleteCell(cellView.model);
@@ -178,24 +246,38 @@ define ([
                     return;
             }
         },
-        switchIn: function (id) {
+		/**
+		 *	@function ProjectView#switchIn
+		 *	@param {string} id - Identificativo dell'elemento.
+		 *	@summary Gestisce lo switch in profondità (dall'elemento selezionato il cui id è parametro in input) invocando il relativo metodo di ProjectModel.
+		 */
+        switchIn: function(id) {
             projectModel.switchInGraph(id);
             this.paper.selectedCell = null;
-            this.paper.trigger("changed-selected-cell");
-            console.log(projectModel);
-            console.log(this.paper);
+            this.paper.trigger('changed-selected-cell');
+            //console.log(projectModel);
+            //console.log(this.paper);
         },
+        /**
+		 *	@function ProjectView#switchOut
+		 *	@param {string} diagramType - Tipo di diagramma di destinazione.
+		 *	@summary Gestisce lo switch verso un diagramma (il cui tipo è parametro in input) antistante da quello corrente invocando il relativo metodo di ProjectModel.
+		 */
         switchOut: function(diagramType) {
 		    projectModel.switchOutGraph(diagramType);
 		    this.paper.selectedCell = null;
 		    this.paper.trigger('changed-selected-cell');
-		    console.log(projectModel);
-		    console.log(this.paper);
+		    //console.log(projectModel);
+		    //console.log(this.paper);
         },
-
-        deleteOperationAt: function (ind) {
+        /**
+		 *	@function ProjectView#deleteOperationAt
+		 *	@param {int} ind - Indice dell'array di operazioni del diagramma delle bubble da eliminare.
+		 *	@summary Gestisce l'eliminazione di un diagramma delle bubble invocando il relativo metodo di ProjectModel.
+		 */
+        deleteOperationAt: function(ind) {
             projectModel.deleteOperation(this.paper.selectedCell.getValues().operations[ind].id);
         }
 	});
-	return new projectView;
+	return new ProjectView;
 });
