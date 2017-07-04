@@ -1,4 +1,4 @@
-/**
+/*
  *	@file Contiene test per Zipper
  *	@author Pezzuto Francesco - KaleidosCode
  *
@@ -7,10 +7,10 @@
  */
 
 var fs=require('fs');
-var Zipper=require('./zipper.js');	// !!!!!!!! DA CAMBIARE !!!!!!!!
+var Zipper=require('./zipper.js');
 
-/** ---------------- TEST DI UNITÀ ----------------- */
-/** Data il path di una directory esistente, chiama lo Zipper per comprimerla. */
+/* ---------------- TEST DI UNITÀ ----------------- */
+/* Data il path di una directory esistente, chiama lo Zipper per comprimerla. */
 
 var name='ZipperTest';
 var path=__dirname+'/ZipperTest';	// !!!!!!!! DA CAMBIARE !!!!!!!!
