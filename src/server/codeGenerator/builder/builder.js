@@ -1,5 +1,5 @@
 /**
- *	@file Contiene Builder
+ *	@file Contiene la classe statica Builder
  *	@author Pezzuto Francesco - KaleidosCode
  *
  *	@requires mkdirp
