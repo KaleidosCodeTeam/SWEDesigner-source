@@ -1,4 +1,4 @@
-/**
+/*
  *	@file Contiene test per Builder
  *	@author Pezzuto Francesco - KaleidosCode
  *
@@ -9,10 +9,10 @@
 var fs=require('fs');
 var Builder=require('./builder.js');	// !!!!!!!! DA CAMBIARE !!!!!!!!
 
-/** ---------------- TEST DI UNITÀ ----------------- */
-/** Crea un oggetto CodedProgram e chiama il Builder per la creazione dei file. */
+/* ---------------- TEST DI UNITÀ ----------------- */
+/* Crea un oggetto CodedProgram e chiama il Builder per la creazione dei file. */
 
-/** @class Contiene del codice da scrivere su file */
+/* @class Contiene del codice da scrivere su file */
 function Class(name, source, pkg, file, dependencies) {
 	this._name=name;
 	this._source=source;
@@ -20,33 +20,33 @@ function Class(name, source, pkg, file, dependencies) {
 	this._file=file;
 	this._dependencies=dependencies;
 }
-/** @class Contiene il programma da creare */
+/* @class Contiene il programma da creare */
 function CodedProgram() {
 	this._classes = new Array();
 	this.add = function(cl) {
 		this._classes[this._classes.length]=cl;
 	}
 }
-/** Creazione di oggetti Class */
+/* Creazione di oggetti Class */
 
-/** 'tree' e 'iterator' sono classi appartenenti allo stesso package */
-/** 'tree' e 'iterator' sono classi appartenenti allo stesso file 'Tree' */
+/* 'tree' e 'iterator' sono classi appartenenti allo stesso package */
+/* 'tree' e 'iterator' sono classi appartenenti allo stesso file 'Tree' */
 var tree=new Class('Tree', 'public class Tree {}', 'BuilderTest.Tree', 'Tree', []);
 var iterator=new Class('Iterator', 'public class Iterator {}', 'BuilderTest.Tree', 'Tree', []);
 
-/** Classe 'emptyTree' */
+/* Classe 'emptyTree' */
 var emptyTree=new Class('EmptyTree', 'public class EmptyTree {}', 'BuilderTest.EmptyTree', 'EmptyTree', ['BuilderTest.Tree.*', 'BuilderTest.TreeImpl.TreeImpl']);
 
-/** 'treeImpl', 'printTreeImpl' e 'utilityTreeImpl' sono classi appartenenti allo stesso package */
-/** 'treeImpl', 'printTreeImpl' sono classi appartenenti allo stesso file */
+/* 'treeImpl', 'printTreeImpl' e 'utilityTreeImpl' sono classi appartenenti allo stesso package */
+/* 'treeImpl', 'printTreeImpl' sono classi appartenenti allo stesso file */
 var treeImpl=new Class('TreeImpl', 'public class TreeImpl {}', 'BuilderTest.TreeImpl', 'TreeImpl', ['BuilderTest.Tree.*', 'BuilderTest.EmptyTree.EmptyTree']);
 var printTreeImpl=new Class('PrintTreeImpl', 'public class PrintTreeImpl {}', 'BuilderTest.TreeImpl', 'TreeImpl', ['BuilderTest.Tree.*', 'BuilderTest.EmptyTree.EmptyTree']);
 var utilityTreeImpl=new Class('UtilityTreeImpl', 'public class UtilityTreeImpl {}', 'BuilderTest.TreeImpl', 'UtilityTreeImpl', []);
 
-/** Classe 'main' */
+/* Classe 'main' */
 var main=new Class('main', 'public class Test {\n\tpublic static void main(String[] args) {}\n}', 'BuilderTest', 'main', ['BuilderTest.Tree.*', 'BuilderTest.TreeImpl.TreeImpl']);
 
-/** Costruzione programma da creare */
+/* Costruzione programma da creare */
 var prog=new CodedProgram();
 prog.add(tree);
 prog.add(iterator);
@@ -56,10 +56,10 @@ prog.add(printTreeImpl);
 prog.add(utilityTreeImpl);
 prog.add(main);
 
-/** Chiamata a Builder */
+/* Chiamata a Builder */
 Builder.javaBuild(prog);
 
-/** Eliminazione della directory del progetto creato */
+/* Eliminazione della directory del progetto creato */
 path=__dirname+'/BuilderTest_JavaCode';	// !!!!!!!! DA CAMBIARE !!!!!!!!
 function deleteFolderRecursive(path) {
 			if (fs.existsSync(path)) {
@@ -77,10 +77,10 @@ function deleteFolderRecursive(path) {
 }
 deleteFolderRecursive(path);
 
-/** Chiamata a Builder */
+/* Chiamata a Builder */
 Builder.javascriptBuild(prog);
 
-/** Eliminazione della directory del progetto creato */
+/* Eliminazione della directory del progetto creato */
 path=__dirname+'/BuilderTest_JavascriptCode';	// !!!!!!!! DA CAMBIARE !!!!!!!!
 function deleteFolderRecursive(path) {
 			if (fs.existsSync(path)) {
