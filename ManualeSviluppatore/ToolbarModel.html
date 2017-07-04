@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Zipper</title>
+    <title>JSDoc: Class: ToolbarModel</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Zipper</h1>
+    <h1 class="page-title">Class: ToolbarModel</h1>
 
     
 
@@ -28,7 +28,9 @@
 
 <header>
     
-        <h2>Zipper</h2>
+        <h2>ToolbarModel</h2>
+        
+            <div class="class-description">Model della toolbar (associato a ToolbarView).</div>
         
     
 </header>
@@ -38,7 +40,26 @@
     
         
 
-        
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="ToolbarModel"><span class="type-signature"></span>new ToolbarModel<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <dl class="details">
@@ -70,7 +91,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line13">line 13</a>
+        <a href="webapp_js_models_toolbarModel.js.html">webapp/js/models/toolbarModel.js</a>, <a href="webapp_js_models_toolbarModel.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -82,9 +103,33 @@
 </dl>
 
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>Backbone.Model</li>
+    </ul>
+
 
     
 
@@ -97,6 +142,82 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="items"><span class="type-signature"></span>items<span class="type-signature"> :Object</span></h4>
+
+
+
+
+<div class="description">
+    Contiene tutti gli elementi definibili nel diagramma corrente.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_toolbarModel.js.html">webapp/js/models/toolbarModel.js</a>, <a href="webapp_js_models_toolbarModel.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -106,10 +227,10 @@
 
     
 
-    <h4 class="name" id=".zip"><span class="type-signature">(static) </span>zip<span class="signature">(name<span class="signature-attributes">non-null</span>, path<span class="signature-attributes">non-null</span>, callback<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addElement"><span class="type-signature"></span>addElement<span class="signature">(id)</span><span class="type-signature"></span></h4>
 
     
-    <p class="summary">Comprime la directory passata in input in un file .zip.</p>
+    <p class="summary">Salva lo strumento selezionato interagendo con il ProjectModel.</p>
     
 
 
@@ -147,7 +268,7 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>id</code></td>
             
 
             <td class="type">
@@ -163,53 +284,7 @@
 
             
 
-            <td class="description last">Il nome dell'archivio da creare.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Il percorso alla directory del progetto da comprimere.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#zipCallback">zipCallback</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback di risposta.</td>
+            <td class="description last">Identificativo del tipo di strumento/elemento da inserire.</td>
         </tr>
 
     
@@ -250,7 +325,269 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line18">line 18</a>
+        <a href="webapp_js_models_toolbarModel.js.html">webapp/js/models/toolbarModel.js</a>, <a href="webapp_js_models_toolbarModel.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createItems"><span class="type-signature"></span>createItems<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+    <p class="summary">Assegna al campo dati "items" il set di strumenti utilizzabili nel diagramma corrente.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_toolbarModel.js.html">webapp/js/models/toolbarModel.js</a>, <a href="webapp_js_models_toolbarModel.js.html#line39">line 39</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="currentDiagram"><span class="type-signature"></span>currentDiagram<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+    <p class="summary">Ritorna il tipo del diagramma corrente.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_toolbarModel.js.html">webapp/js/models/toolbarModel.js</a>, <a href="webapp_js_models_toolbarModel.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Il tipo del diagramma corrente ("packageDiagram", "classDiagram" o "bubbleDiagram").
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+    <p class="summary">Inizializzazione del ToolbarModel: chiama il metodo ToolbarModel#createItems.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_toolbarModel.js.html">webapp/js/models/toolbarModel.js</a>, <a href="webapp_js_models_toolbarModel.js.html#line24">line 24</a>
     </li></ul></dd>
     
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Zipper</title>
+    <title>JSDoc: Source: webapp/js/models/toolbarModel.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,274 +17,92 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Zipper</h1>
+    <h1 class="page-title">Source: webapp/js/models/toolbarModel.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>Zipper</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line13">line 13</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".zip"><span class="type-signature">(static) </span>zip<span class="signature">(name<span class="signature-attributes">non-null</span>, path<span class="signature-attributes">non-null</span>, callback<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
-
-    
-    <p class="summary">Comprime la directory passata in input in un file .zip.</p>
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Il nome dell'archivio da creare.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Il percorso alla directory del progetto da comprimere.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#zipCallback">zipCallback</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback di risposta.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line18">line 18</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  @file Contiene la classe ToolbarModel.
+ *  @author Bonolo Marco - KaleidosCode
+ */
+define ([
+    'jquery',
+    'underscore',
+    'backbone',
+    'joint',
+    'js/models/items/swedesignerItems',
+    'js/models/projectModel'
+], function ($, _, Backbone, joint, Swedesigner, projectModel) {
+	/**
+	 *  @classdesc Model della toolbar (associato a ToolbarView).
+     *  @module client.models
+     *  @class ToolbarModel
+     *  @extends {Backbone.Model}
+     */
+	var ToolbarModel = Backbone.Model.extend({
+		/**
+         *  @var {Object} ToolbarModel#items - Contiene tutti gli elementi definibili nel diagramma corrente.
+         */
+		items: {},
+		/**
+         *  @function ToolbarModel#initialize
+         *  @summary Inizializzazione del ToolbarModel: chiama il metodo ToolbarModel#createItems.
+         */
+		initialize: function() {
+			this.createItems();
+		},
+		/**
+         *  @function ToolbarModel#currentDiagram
+         *	@return {string} Il tipo del diagramma corrente ("packageDiagram", "classDiagram" o "bubbleDiagram").
+         *  @summary Ritorna il tipo del diagramma corrente.
+         */
+		getCurrentDiagram: function() {
+			return projectModel.currentDiagramType;
+		},
+		/**
+         *  @function ToolbarModel#createItems
+         *  @summary Assegna al campo dati "items" il set di strumenti utilizzabili nel diagramma corrente.
+         */
+		createItems: function() {
+			for(obj in Swedesigner.model.packageDiagram.items)
+				this.items['packageDiagram-'+obj] = Swedesigner.model.packageDiagram.items[obj];
+			for(obj in Swedesigner.model.classDiagram.items)
+				this.items['classDiagram-'+obj] = Swedesigner.model.classDiagram.items[obj];
+			for(obj in Swedesigner.model.bubbleDiagram.items)
+				this.items['bubbleDiagram-'+obj] = Swedesigner.model.bubbleDiagram.items[obj];
+		},
+		/**
+         *  @function ToolbarModel#addElement
+         *	@param {string} id - Identificativo del tipo di strumento/elemento da inserire.
+         *  @summary Salva lo strumento selezionato interagendo con il ProjectModel.
+         */
+		addElement: function(id) {
+			//console.log(id);
+			var el = '';
+			if (id === "bubbleDiagram-nesting"){
+				el = {
+					type: 'nesting',
+					isLink: function() {return false;},
+					isElement: function() {return false;},
+					source: null,
+					target: null
+				}
+			} else {
+                el = new this.items[id]
+			}
+			projectModel.addItem(el);
+		}
+	});
+	return new ToolbarModel;
+});
+</code></pre>
+        </article>
+    </section>
 
 
 

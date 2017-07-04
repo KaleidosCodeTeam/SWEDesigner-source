@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
+    <title>JSDoc: Namespace: CoderClass</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Namespace: CoderClass</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2></h2>
+        <h2>CoderClass</h2>
         
     
 </header>
@@ -36,6 +36,13 @@
 <article>
     <div class="container-overview">
     
+        
+            <div class="description">Espone le funzionalità (statiche) che permettono di codificare
+	l'intestazione di una classe, rappresentata dall'oggetto classObj in input, in Java (CoderClass.codeElementJava)
+	o Javascript (CoderClass.codeElementJavascipt); entrambe le funzioni restituiscono la stringa del codice 
+	sorgente, relativa all'intestazione della classe, nel linguaggio scelto.
+	Inoltre espone due funzionalità di utilità che permettono di codificare, in Java (CoderClass.codeParentJava) o 
+	Javascript (CoderClass.codeParentJava) la parte della classe relativa alla specifica di estensione.</div>
         
 
         
@@ -67,6 +74,11 @@
 
     
 
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html">server/codeGenerator/coder/CoderElement/coderClass.js</a>, <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html#line15">line 15</a>
+    </li></ul></dd>
     
 
     
@@ -92,76 +104,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="requirejs"><span class="type-signature"></span>requirejs<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    vim: et:ts=4:sw=4:sts=4
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-license">License:</dt>
-    <dd class="tag-license"><ul class="dummy"><li>RequireJS 2.3.3 Copyright jQuery Foundation and other contributors.
-Released under MIT license, https://github.com/requirejs/requirejs/blob/master/LICENSE</li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="webapp_lib_js_require.js.html">webapp/lib/js/require.js</a>, <a href="webapp_lib_js_require.js.html#line5">line 5</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -171,14 +113,16 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
     
 
-    <h4 class="name" id="getNameById"><span class="type-signature"></span>getNameById<span class="signature">(classId<span class="signature-attributes">non-null</span>, parsedProgram<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id=".codeElementJava"><span class="type-signature">(static) </span>codeElementJava<span class="signature">(classObj<span class="signature-attributes">non-null</span>, parsedProgram<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
 
     
 
 
 
 <div class="description">
-    Ritorna il nome della classe corrispondente al classId di input.
+    Riceve in input classObj, un oggetto che rappresenta una  
+	classe; restituisce la stringa del codice sorgente, in Java, dell'intestazione della classe classObj di input 
+	contenuta in parsedProgram.
 </div>
 
 
@@ -214,13 +158,13 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         <tr>
             
-                <td class="name"><code>classId</code></td>
+                <td class="name"><code>classObj</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Object</span>
 
 
             
@@ -230,7 +174,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Stringa identificativa della classe di cui si vuole ottenere il nome.</td>
+            <td class="description last">Le informazioni necessarie a codificare una classe.</td>
         </tr>
 
     
@@ -253,7 +197,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Contiene l'array di tutti gli oggetti che rappresentano una classe.</td>
+            <td class="description last">Le informazioni necessarie a codificare un programma.</td>
         </tr>
 
     
@@ -294,7 +238,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html">server/codeGenerator/coder/CoderElement/coderClass.js</a>, <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html#line16">line 16</a>
+        <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html">server/codeGenerator/coder/CoderElement/coderClass.js</a>, <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html#line88">line 88</a>
     </li></ul></dd>
     
 
@@ -321,7 +265,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         
 <div class="param-desc">
-    Nome della classe corrispondente al classId di input.
+    Stringa del codice sorgente, in Java, dell'intestazione della classe classObj di input.
 </div>
 
 
@@ -347,14 +291,15 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
     
 
-    <h4 class="name" id="getOperationById"><span class="type-signature"></span>getOperationById<span class="signature">(operId<span class="signature-attributes">non-null</span>, operations<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id=".codeElementJavascript"><span class="type-signature">(static) </span>codeElementJavascript<span class="signature">(classObj<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
 
     
 
 
 
 <div class="description">
-    Ritorna il diagramma delle bubble corrispondente all'operId di input.
+    Riceve in input classObj, un oggetto che rappresenta una  
+	classe; restituisce la stringa del codice sorgente, in Javascript, relativa all'intestazione della classe classObj di input.
 </div>
 
 
@@ -390,206 +335,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         <tr>
             
-                <td class="name"><code>operId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Identificativo dell'operazione che si vuole ottenere.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>operations</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Object></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">L'array di tutti i diagrammi delle bubble.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line63">line 63</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    Diagramma delle bubble corrispondente all'operId di input.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getPackNameById"><span class="type-signature"></span>getPackNameById<span class="signature">(packageId<span class="signature-attributes">non-null</span>, packages<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Ritorna il nome del package corrispondente al packageId di input.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>packageId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Identificativo del package di cui si vuole ottenere il nome.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>packages</code></td>
+                <td class="name"><code>classObj</code></td>
             
 
             <td class="type">
@@ -605,7 +351,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Oggetto che contiene l'array di tutti gli oggetti package.</td>
+            <td class="description last">Le informazioni necessarie a codificare una classe.</td>
         </tr>
 
     
@@ -646,7 +392,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line48">line 48</a>
+        <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html">server/codeGenerator/coder/CoderElement/coderClass.js</a>, <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html#line159">line 159</a>
     </li></ul></dd>
     
 
@@ -673,7 +419,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         
 <div class="param-desc">
-    Nome del package corrispondente al packageId di input.
+    Stringa del codice sorgente, in Javascript, dell'intestazione della classe classObj di input.
 </div>
 
 
@@ -695,21 +441,20 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
 
         
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
+            
 
     
 
-    <h4 class="name" id="zipCallback"><span class="type-signature"></span>zipCallback<span class="signature">(err<span class="signature-attributes">nullable</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".codeParentJava"><span class="type-signature">(static) </span>codeParentJava<span class="signature">(sourceId<span class="signature-attributes">non-null</span>, parsedProgram<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
 
     
 
 
+
+<div class="description">
+    Codifica, in Java, le specifiche di estensione della classe di identificativo @sourceId, 
+	contenuta in @parsedProgram.
+</div>
 
 
 
@@ -732,8 +477,6 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -746,7 +489,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         <tr>
             
-                <td class="name"><code>err</code></td>
+                <td class="name"><code>sourceId</code></td>
             
 
             <td class="type">
@@ -759,20 +502,33 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
             </td>
 
             
-                <td class="attributes">
-                
 
-                
-                    &lt;nullable><br>
-                
+            
 
+            <td class="description last">Le informazioni necessarie a codificare una classe.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>parsedProgram</code></td>
+            
+
+            <td class="type">
+            
                 
-                </td>
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
             
 
             
 
-            <td class="description last">Contiene l'eventuale stringa di errore.</td>
+            <td class="description last">Le informazioni necessarie a codificare un programma.</td>
         </tr>
 
     
@@ -813,7 +569,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line14">line 14</a>
+        <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html">server/codeGenerator/coder/CoderElement/coderClass.js</a>, <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -836,10 +592,211 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
 
 
+<h5>Returns:</h5>
 
+        
+<div class="param-desc">
+    Stringa del codice sorgente, in Java, relativo alle specifiche di estensione della classe di input.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".codeParentJavascript"><span class="type-signature">(static) </span>codeParentJavascript<span class="signature">(sourceId<span class="signature-attributes">non-null</span>, parsedProgram<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Codifica, in Javascript, le specifiche di estensione della classe di identificativo @sourceId, 
+	contenuta in @parsedProgram.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sourceId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
 
 
             
+            </td>
+
+            
+
+            
+
+            <td class="description last">Le informazioni necessarie a codificare una classe.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>parsedProgram</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Le informazioni necessarie a codificare un programma.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html">server/codeGenerator/coder/CoderElement/coderClass.js</a>, <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html#line61">line 61</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Stringa del codice sorgente, in Javascript, relativo alle specifiche di estensione della classe di input.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
     
 
     

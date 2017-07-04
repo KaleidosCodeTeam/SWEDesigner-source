@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: webapp/js/models/dataManager.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: webapp/js/models/dataManager.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  @file Contiene la classe statica DataManager.
+ *  @author Sovilla Matteo - KaleidosCode
+ */
+define ([
+    'jquery',
+    'underscore',
+    'js/models/projectModel',
+    'js/models/project'
+], function ($, _, projectModel, project) {
+    /** @namespace */
+    var DataManager = {};
+    /**
+     *  @function DataManager.save
+     *  @param {string} fileName - Nome del file generato da scaricare.
+     *  @summary Salva i dati del progetto, li converte in formato JSON e avvia la procedura di download in locale del browser.
+     */
+    DataManager.save = function(fileName){
+        projectModel.saveCurrentDiagram();
+        var myProject = {};
+        myProject.packages = project.packages;
+        myProject.classes = project.classes;
+        myProject.operations = project.operations;
+        var file = JSON.stringify(myProject);
+        //console.log(file);
+        var myBlob = new Blob([file], {type: "application/octet-stream"});
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            document.getElementById("lnkDownload").href = event.target.result;
+            document.getElementById("lnkDownload").download = fileName;
+            document.getElementById("lnkDownload").click();
+        };
+        reader.readAsDataURL(myBlob);
+    };
+    /**
+     *  @function DataManager.saveAs
+     *  @summary Estrae la stringa inserita dall'utente nella schermata per il salvataggio con nome e invoca la il metodo per il salvataggio del progetto corrente in un file con il nome desiderato.
+     */
+    DataManager.saveAs = function() {
+        var fName = document.getElementById("fileNameInput").value + ".swed";
+        DataManager.save(fName);
+    };
+    /**
+     *  @function DataManager.openProject
+     *  @summary Legge un file JSON e ne salva il contenuto in project e nel projectModel come progetto attualmente aperto.
+     */
+    DataManager.openProject = function() {
+        //console.log('DataManager.openProject');
+        var myFile = document.getElementById("selectedFile").files[0];
+        var myFileRead = {};
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            myFileRead = event.target.result;
+            //console.log(myFileRead);
+            var myProject = JSON.parse(myFileRead);
+            //console.log(myProject);
+            //console.log(myProject.packages);
+            project.packages = myProject.packages;
+            project.classes = myProject.classes;
+            project.operations = myProject.operations;
+            projectModel.currentDiagramType = 'packageDiagram';
+            projectModel.currentDiagram = null;
+            projectModel.graph.resetCells(project.packages.packagesArray.concat(project.packages.dependenciesArray));
+            projectModel.graphSwitched();
+            console.log('Project successfully loaded');
+        };
+        reader.readAsText(myFile);
+    };
+    /**
+     *  @function DataManager.newProject
+     *  @summary Dopo aver chiesto conferma all'utente, crea un nuovo progetto sovrascrivendo quello correntemente aperto.
+     */
+    DataManager.newProject = function() {
+        if (confirm("Il nuovo progetto sovrascriverà quello attualmente aperto. Sei sicuro?") === true) {
+            project.packages.packagesArray = [];
+            project.packages.dependenciesArray = [];
+            project.classes.classesArray= [];
+            project.classes.relationshipsArray= [];
+            project.operations= [];
+            projectModel.graph.resetCells([]);
+            projectModel.currentDiagramType = 'packageDiagram';
+            projectModel.currentDiagram = null;
+            projectModel.graphSwitched();
+            console.log('New project created');
+        } else {
+            console.log('New project creation aborted');
+        }
+    };
+    return DataManager;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="Base.html">Base</a></li><li><a href="BaseView.html">BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="MainView.html">MainView</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="RequestHandler.html">RequestHandler</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="DAO.html">DAO</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jul 04 2017 15:46:59 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

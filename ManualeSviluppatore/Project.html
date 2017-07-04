@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
+    <title>JSDoc: Class: Project</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Class: Project</h1>
 
     
 
@@ -28,7 +28,9 @@
 
 <header>
     
-        <h2></h2>
+        <h2>Project</h2>
+        
+            <div class="class-description">Contenitore di tutti gli elementi del progetto correntemente aperto nella Single Page Application.</div>
         
     
 </header>
@@ -38,7 +40,26 @@
     
         
 
-        
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="Project"><span class="type-signature"></span>new Project<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <dl class="details">
@@ -68,6 +89,11 @@
     
 
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_project.js.html">webapp/js/models/project.js</a>, <a href="webapp_js_models_project.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
 
     
 
@@ -77,9 +103,33 @@
 </dl>
 
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>Backbone.Model</li>
+    </ul>
+
 
     
 
@@ -96,16 +146,29 @@
 
         
             
-<h4 class="name" id="requirejs"><span class="type-signature"></span>requirejs<span class="type-signature"></span></h4>
+<h4 class="name" id="classes"><span class="type-signature"></span>classes<span class="type-signature"> :Object</span></h4>
 
 
 
 
 <div class="description">
-    vim: et:ts=4:sw=4:sts=4
+    Contiene: classesArray (array contentente diagrammi delle classi;
+ in ogni indice è presente un oggetto {id: idPackagePadre, items: [arrayClassiDelDiagramma]}) e dependenciesArray
+ (array contenente i link del corrispondente diagramma delle classi; in ogni indice è presente un oggetto
+ {id: idPackagePadre, items: [arrayLinkDelDiagramma]}).
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -134,9 +197,78 @@
     
 
     
-    <dt class="tag-license">License:</dt>
-    <dd class="tag-license"><ul class="dummy"><li>RequireJS 2.3.3 Copyright jQuery Foundation and other contributors.
-Released under MIT license, https://github.com/requirejs/requirejs/blob/master/LICENSE</li></ul></dd>
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_project.js.html">webapp/js/models/project.js</a>, <a href="webapp_js_models_project.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="operations"><span class="type-signature"></span>operations<span class="type-signature"> :Array.&lt;Object></span></h4>
+
+
+
+
+<div class="description">
+    Contiene un array di oggetti; in ogni indice è presente un oggetto
+ {id: idDell'operazione, items: [arrayBubbleDelDiagramma]}).
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;Object></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -144,7 +276,80 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="webapp_lib_js_require.js.html">webapp/lib/js/require.js</a>, <a href="webapp_lib_js_require.js.html#line5">line 5</a>
+        <a href="webapp_js_models_project.js.html">webapp/js/models/project.js</a>, <a href="webapp_js_models_project.js.html#line36">line 36</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="packages"><span class="type-signature"></span>packages<span class="type-signature"> :Object</span></h4>
+
+
+
+
+<div class="description">
+    Contiene: packagesArray (array contentente i package item del diagramma dei package)
+ e dependenciesArray (array contenente i link del diagramma dei package).
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_project.js.html">webapp/js/models/project.js</a>, <a href="webapp_js_models_project.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -171,15 +376,13 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
     
 
-    <h4 class="name" id="getNameById"><span class="type-signature"></span>getNameById<span class="signature">(classId<span class="signature-attributes">non-null</span>, parsedProgram<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="deleteClassesDiagramOfPkg"><span class="type-signature"></span>deleteClassesDiagramOfPkg<span class="signature">(id)</span><span class="type-signature"></span></h4>
 
+    
+    <p class="summary">Elimina il diagramma delle classi associato al package e tutti i diagrammi delle bubble associati alle operazioni delle relative classi.</p>
     
 
 
-
-<div class="description">
-    Ritorna il nome della classe corrispondente al classId di input.
-</div>
 
 
 
@@ -214,7 +417,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         <tr>
             
-                <td class="name"><code>classId</code></td>
+                <td class="name"><code>id</code></td>
             
 
             <td class="type">
@@ -230,30 +433,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Stringa identificativa della classe di cui si vuole ottenere il nome.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>parsedProgram</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Contiene l'array di tutti gli oggetti che rappresentano una classe.</td>
+            <td class="description last">Identificativo del package.</td>
         </tr>
 
     
@@ -294,7 +474,265 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html">server/codeGenerator/coder/CoderElement/coderClass.js</a>, <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html#line16">line 16</a>
+        <a href="webapp_js_models_project.js.html">webapp/js/models/project.js</a>, <a href="webapp_js_models_project.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="deleteOperationDiagram"><span class="type-signature"></span>deleteOperationDiagram<span class="signature">(id)</span><span class="type-signature"></span></h4>
+
+    
+    <p class="summary">Elimina il diagramma delle bubble associato all'operazione.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Identificativo dell'operazione.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_project.js.html">webapp/js/models/project.js</a>, <a href="webapp_js_models_project.js.html#line68">line 68</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getClassIndex"><span class="type-signature"></span>getClassIndex<span class="signature">(id)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+    <p class="summary">Cerca ed eventualmente ritorna l'indice dell'array classesArray del diagramma delle classi associato al package.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Identificativo del package.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_project.js.html">webapp/js/models/project.js</a>, <a href="webapp_js_models_project.js.html#line85">line 85</a>
     </li></ul></dd>
     
 
@@ -321,7 +759,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         
 <div class="param-desc">
-    Nome della classe corrispondente al classId di input.
+    Indice dell'array classesArray del diagramma delle classi associato al package (-1 se non trovato).
 </div>
 
 
@@ -332,7 +770,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">Number</span>
 
 
     </dd>
@@ -347,15 +785,13 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
     
 
-    <h4 class="name" id="getOperationById"><span class="type-signature"></span>getOperationById<span class="signature">(operId<span class="signature-attributes">non-null</span>, operations<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="getOperationIndex"><span class="type-signature"></span>getOperationIndex<span class="signature">(id)</span><span class="type-signature"> &rarr; {Number}</span></h4>
 
+    
+    <p class="summary">Cerca ed eventualmente ritorna l'indice dell'array operations del diagramma delle bubble associato all'operazione.</p>
     
 
 
-
-<div class="description">
-    Ritorna il diagramma delle bubble corrispondente all'operId di input.
-</div>
 
 
 
@@ -390,7 +826,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         <tr>
             
-                <td class="name"><code>operId</code></td>
+                <td class="name"><code>id</code></td>
             
 
             <td class="type">
@@ -406,30 +842,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Identificativo dell'operazione che si vuole ottenere.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>operations</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Object></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">L'array di tutti i diagrammi delle bubble.</td>
+            <td class="description last">Identificativo dell'operazione.</td>
         </tr>
 
     
@@ -470,7 +883,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line63">line 63</a>
+        <a href="webapp_js_models_project.js.html">webapp/js/models/project.js</a>, <a href="webapp_js_models_project.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -497,7 +910,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         
 <div class="param-desc">
-    Diagramma delle bubble corrispondente all'operId di input.
+    Indice dell'array operations del diagramma delle bubble associato all'operazione (-1 se non trovato).
 </div>
 
 
@@ -508,183 +921,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getPackNameById"><span class="type-signature"></span>getPackNameById<span class="signature">(packageId<span class="signature-attributes">non-null</span>, packages<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Ritorna il nome del package corrispondente al packageId di input.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>packageId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Identificativo del package di cui si vuole ottenere il nome.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>packages</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Oggetto che contiene l'array di tutti gli oggetti package.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line48">line 48</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    Nome del package corrispondente al packageId di input.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
+<span class="param-type">Number</span>
 
 
     </dd>
@@ -697,149 +934,6 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
         
     
 
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
-
-    
-
-    <h4 class="name" id="zipCallback"><span class="type-signature"></span>zipCallback<span class="signature">(err<span class="signature-attributes">nullable</span>)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>err</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                    &lt;nullable><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Contiene l'eventuale stringa di errore.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line14">line 14</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
     
 
     

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: webapp/js/views/titlebarView.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: webapp/js/views/titlebarView.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  @file Contiene la classe TitlebarView.
+ *  @author Sovilla Matteo - KaleidosCode
+ */
+define ([
+	'jquery',
+	'underscore',
+	'backbone',
+	'joint',
+	'js/models/dataManager',
+    'js/models/requestHandler'
+], function ($, _, Backbone, joint, dataManager, requestHandler) {
+    /**
+     *  @classdesc View della barra del titolo. Si occupa di gestire gli eventi ad essa associati invocando le apposite funzioni del model.
+     *  @module client.views
+     *  @class TitlebarView
+     *  @extends {Backbone.View}
+     */
+	var TitlebarView = Backbone.View.extend({
+        /**
+         *  @var {string} TitlebarView#el - Il tag HTML popolato dalla titlebar.
+         */
+		el: 'body',
+        /**
+         *  @var {Object} TitlebarView#events - Gli eventi verificabili nella titlebar.
+         */
+		events: {
+			'click #openFile-button': 'openProject',
+			'click #newProject': 'newProject',
+			'click #saveProject': 'saveProject',
+			'click #saveProjectAs-button': 'saveProjectAs',
+			//'click undo': 'undo',                          // @todo
+			//'click redo': 'redo',                          // @todo
+			//'click zoom-in': 'zoomIn',                     // @todo
+			//'click zoom-out': 'zoomOut',                   // @todo
+			//'click upper-layer': 'upperLayer',             // @todo
+			//'click lower-layer': 'lowerLayer',             // @todo
+			'click #generate-java': 'generateJava',
+			'click #generate-js': 'generateJavascript'
+		},
+        /**
+         *  @function TitlebarView#openProject
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Apre un progetto invocando il rispettivo metodo di DataManager.
+         */
+		openProject: function(event) {
+			//console.log(event.currentTarget);
+            dataManager.openProject();
+		},
+        /**
+         *  @function TitlebarView#newProject
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Crea un nuovo progetto invocando il rispettivo metodo di DataManager.
+         */
+        newProject: function(event) {
+            //console.log(event.currentTarget);
+            dataManager.newProject();
+        },
+        /**
+         *  @function TitlebarView#saveProject
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Salva il progetto correntemente aperto invocando il rispettivo metodo di DataManager.
+         */
+        saveProject: function(event) {
+            //console.log(event.currentTarget);
+            dataManager.save('newProject.swed');
+        },
+        /**
+         *  @function TitlebarView#saveProjectAs
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Salva il progetto correntemente aperto con nome specificato dall'utente invocando il rispettivo metodo di DataManager.
+         */
+        saveProjectAs: function(event) {
+            //console.log(event.currentTarget);
+            dataManager.saveAs();
+        },
+        /**
+         *  @function TitlebarView#generateJava
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Richiede al server di generare il codice in linguaggio Java del progetto correntemente aperto invocando il rispettivo metodo di RequestHandler.
+         */
+        generateJava: function(event) {
+            //console.log(event.currentTarget);
+            requestHandler.generateJava();
+        },
+        /**
+         *  @function TitlebarView#generateJavascript
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Richiede al server di generare il codice in linguaggio Javascript del progetto correntemente aperto invocando il rispettivo metodo di RequestHandler.
+         */
+        generateJavascript: function(event) {
+            //console.log(event.currentTarget);
+            requestHandler.generateJavascript();
+        }
+	});
+	return new TitlebarView;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="Base.html">Base</a></li><li><a href="BaseView.html">BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="MainView.html">MainView</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="RequestHandler.html">RequestHandler</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="DAO.html">DAO</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jul 04 2017 15:46:59 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

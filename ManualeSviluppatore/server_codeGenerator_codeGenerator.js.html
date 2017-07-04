@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Zipper</title>
+    <title>JSDoc: Source: server/codeGenerator/codeGenerator.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,274 +17,80 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Zipper</h1>
+    <h1 class="page-title">Source: server/codeGenerator/codeGenerator.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>Zipper</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line13">line 13</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".zip"><span class="type-signature">(static) </span>zip<span class="signature">(name<span class="signature-attributes">non-null</span>, path<span class="signature-attributes">non-null</span>, callback<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
-
-    
-    <p class="summary">Comprime la directory passata in input in un file .zip.</p>
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Il nome dell'archivio da creare.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Il percorso alla directory del progetto da comprimere.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#zipCallback">zipCallback</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback di risposta.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line18">line 18</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *	@file Contiene la classe statica codeGenerator
+ *	@author Sanna Giovanni - KaleidosCode
+ *
+ *	@requires ./parser/parser.js
+ *	@requires ./coder/coder.js
+ *	@requires ./builder/builder.js
+ *	@requires ./zipper/zipper.js
+ */
+
+var Parser = require('./parser/parser.js');
+var Builder = require('./builder/builder.js');
+var Coder = require('./coder/coder.js');
+var Zipper = require('./zipper/zipper.js');
+
+/** 
+ *	@namespace
+ *	@description Espone le funzionalità (statiche) che permettono di codificare
+ *	un programma, rappresentato dal file json di input, in Java (codeGenerator.generateJavaProgram)
+ *	o Javascript (codeGenerator.generateJsProgram); entrambe le funzioni creano un pacchetto in formato .zip contenente
+ *	il programma codificato e strutturato in file e directory come da specifica del json di input.
+ */
+var codeGenerator = function() {};
+/**
+ *	@function codeGenerator.generateJsProgram
+ *	@static
+ *	@param {!json} jsonProgram - Le informazioni necessarie a codificare un programma.
+ *	@description Codifica, in Javascript, il programma rappresentanto dal json in input
+ *	e costruisce un pacchetto compresso in formato .zip contenente
+ *	il programma codificato e strutturato in file e directory come da specifica del json di input.
+ */
+codeGenerator.generateJsProgram = function(jsonProgram, nomeZip) {
+	var parsedProg = Parser.parse(jsonProgram);
+	var codedProg = Coder.getCodedProgramJs(parsedProg);
+	var buildedProg = Builder.javascriptBuild(codedProg);
+	var zippedProg = Zipper.zip(/*buildedProg.progDirectory*/ nomeZip, buildedProg.progPath, function(err) {
+		if (err) throw err;
+		else console.log('PROGRAM CREATION: DONE');
+	});
+};
+/**
+ *	@function codeGenerator.generateJavaProgram
+ *	@static
+ *	@param {!json} jsonProgram - Le informazioni necessarie a codificare un programma.
+ *	@description Codifica, in Java, il programma rappresentanto dal json in input
+ *	e costruisce un pacchetto compresso in formato .zip contenente
+ *	il programma codificato e strutturato in file e directory come da specifica del json di input.
+ */
+codeGenerator.generateJavaProgram = function(jsonProgram, nomeZip) {
+	var parsedProg = Parser.parse(jsonProgram);
+	var codedProg = Coder.getCodedProgramJava(parsedProg);
+	var buildedProg = Builder.javaBuild(codedProg);
+	var zippedProg = Zipper.zip(/*buildedProg.progDirectory*/ nomeZip, buildedProg.progPath, function(err) {
+		if (err) throw err;
+		else console.log('PROGRAM CREATION: DONE');
+	});
+};
+
+/** Esportazione del modulo */
+module.exports = {
+	generateJsProgram : codeGenerator.generateJsProgram,
+	generateJavaProgram : codeGenerator.generateJavaProgram
+};</code></pre>
+        </article>
+    </section>
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Zipper</title>
+    <title>JSDoc: Class: classDiagramLink</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Zipper</h1>
+    <h1 class="page-title">Class: classDiagramLink</h1>
 
     
 
@@ -28,7 +28,9 @@
 
 <header>
     
-        <h2>Zipper</h2>
+        <h2>classDiagramLink</h2>
+        
+            <div class="class-description">Collegamento tra due componenti di un diagramma delle classi UML.</div>
         
     
 </header>
@@ -38,7 +40,26 @@
     
         
 
-        
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="classDiagramLink"><span class="type-signature"></span>new classDiagramLink<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <dl class="details">
@@ -70,7 +91,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line13">line 13</a>
+        <a href="webapp_js_models_items_swedesignerItems.js.html">webapp/js/models/items/swedesignerItems.js</a>, <a href="webapp_js_models_items_swedesignerItems.js.html#line1317">line 1317</a>
     </li></ul></dd>
     
 
@@ -82,9 +103,33 @@
 </dl>
 
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>joint.dia.Link</li>
+    </ul>
+
 
     
 
@@ -97,6 +142,82 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="defaults"><span class="type-signature"></span>defaults<span class="type-signature"> :Object</span></h4>
+
+
+
+
+<div class="description">
+    Attributi di default per l'oggetto.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_items_swedesignerItems.js.html">webapp/js/models/items/swedesignerItems.js</a>, <a href="webapp_js_models_items_swedesignerItems.js.html#line1324">line 1324</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -106,10 +227,192 @@
 
     
 
-    <h4 class="name" id=".zip"><span class="type-signature">(static) </span>zip<span class="signature">(name<span class="signature-attributes">non-null</span>, path<span class="signature-attributes">non-null</span>, callback<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getValues"><span class="type-signature"></span>getValues<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
-    <p class="summary">Comprime la directory passata in input in un file .zip.</p>
+    <p class="summary">Ritorna i valori del collegamento.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_items_swedesignerItems.js.html">webapp/js/models/items/swedesignerItems.js</a>, <a href="webapp_js_models_items_swedesignerItems.js.html#line1339">line 1339</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    I valori del collegamento.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+    <p class="summary">Inizializzazione di ClassDiagramLink.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_items_swedesignerItems.js.html">webapp/js/models/items/swedesignerItems.js</a>, <a href="webapp_js_models_items_swedesignerItems.js.html#line1332">line 1332</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setToValue"><span class="type-signature"></span>setToValue<span class="signature">(value, path)</span><span class="type-signature"></span></h4>
+
+    
+    <p class="summary">Imposta "values.path" a "value".</p>
     
 
 
@@ -147,13 +450,13 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>value</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Object</span>
 
 
             
@@ -163,7 +466,7 @@
 
             
 
-            <td class="description last">Il nome dell'archivio da creare.</td>
+            <td class="description last">Valore da assegnare.</td>
         </tr>
 
     
@@ -186,30 +489,7 @@
 
             
 
-            <td class="description last">Il percorso alla directory del progetto da comprimere.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#zipCallback">zipCallback</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback di risposta.</td>
+            <td class="description last">Percorso al membro.</td>
         </tr>
 
     
@@ -250,7 +530,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line18">line 18</a>
+        <a href="webapp_js_models_items_swedesignerItems.js.html">webapp/js/models/items/swedesignerItems.js</a>, <a href="webapp_js_models_items_swedesignerItems.js.html#line1347">line 1347</a>
     </li></ul></dd>
     
 

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: webapp/js/views/editPanelView.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: webapp/js/views/editPanelView.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  @file Contiene la classe EditPanelView.
+ *  @author Pezzuto Francesco, Sovilla Matteo - KaleidosCode
+ */
+define ([
+	'jquery',
+	'underscore',
+	'backbone',
+	'joint',
+	'js/views/projectView',
+	'text!js/views/templates.html'
+], function ($, _, Backbone, joint, projectView, templates) {
+    /**
+     *  @classdesc Pannello laterale renderizzato dinamicamente al cambiare dell'elemento selezionato nel diagramma corrente.
+     *  Visualizza tutte le proprietà dell'oggetto selezionato rendendole disponibili ad eventuali modifiche.
+     *  @module client.views
+     *  @class EditPanelView
+     *  @extends {Backbone.View}
+     */
+	var EditPanelView = Backbone.View.extend({
+        /**
+         *  @var {string} EditPanelView#tagname - Il tag HTML popolato dal pannello.
+         */
+		tagname: 'div',
+        /**
+         *  @var {jQueryObject} EditPanelView#el - L'elemento del DOM corrispondente a EditPanelView.
+         */
+		el: $('#editpanel'),
+        /**
+         *  @var {Object} EditPanelView#currentTemplate - Il template correntemente caricato e renderizzato.
+         */
+		currentTemplate: {},
+        /**
+         *  @var {Object} EditPanelView#events - Gli eventi verificabili nel pannello.
+         */
+		events: {},
+        /**
+         *  @function EditPanelView#initialize
+         *  @summary Inizializzazione della EditPanelView.
+         */
+		initialize: function() {
+            //this.listenTo(projectView.paper, "changed-cell", this.render);
+            this.listenTo(projectView.paper, "changed-selected-cell", this.reset);
+		},
+        /**
+         *  @function EditPanelView#reset
+         *  @summary Reset del pannello.
+         */
+        reset: function() {
+		    this.render();
+		    $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details ").css("display","none");
+		    $("#interface-operations, .interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display","none");
+        },
+        /**
+         *  @function EditPanelView#render
+         *  @summary Render del pannello in base all'elemento del paper cliccato.
+         */
+		render: function() {
+            if (projectView.paper.selectedCell) {
+                //console.log("(EditPanelView) Hey! I saw your change!");
+                this.currentTemplate = _.template($(templates).filter('#' + projectView.paper.selectedCell.get("type").replace(/\./g, "\\.")).html());
+                var c = projectView.paper.selectedCell;
+                var output = "";
+                var v = c.getValues();
+                var p = projectView.paper.selectedCell.id;
+                if (typeof v !== 'undefined') {
+                    v['id'] = p;
+                }
+                output = this.currentTemplate(v);
+                //console.log(output);
+                this.$el.html(output);
+                this.delegateEvents(_.extend(this.events, {
+                    'keypress .edit': 'confirmEdit',
+                    'change .edit': 'confirmEdit',
+                    'click .exec': 'execCommand',
+                    'click .switch': 'switch',
+                    'click .unembed': 'unembedCell',
+                    'click #saveCode': 'saveCode'
+                }));
+            } else {
+                this.$el.html("");
+            }
+			return this;
+		},
+        /**
+         *  @function EditPanelView#switch
+         *  @param {Object} e - Elemento generante l'evento.
+         *  @summary Metodo chiamato da evento generato. Switch in profondità del tipo di diagramma.
+         */
+        switch: function(e) {
+            //console.log(e.target.value);
+            projectView.switchIn(e.target.value);
+        },
+        /**
+         *  @function EditPanelView#saveCode
+         *  @param {Object} e - Elemento generante l'evento.
+         *  @summary Metodo chiamato da evento generato. Salvataggio del codice interno ad una customBubble.
+         */
+        saveCode: function(e) {
+            //console.log($('#bubbleCode').val());
+            //console.log($('#bubbleCode').attr('name'));
+            projectView.paper.selectedCell.setToValue($('#bubbleCode').val(), $('#bubbleCode').attr('name'));
+        },
+        /**
+         *  @function EditPanelView#execCommand
+         *  @param {Object} e - Elemento generante l'evento.
+         *  @summary Metodo chiamato da evento generato. Esegue il metodo definito dal nome dell'elemento generante l'evento sul contenuto selezionato nel pannello.
+         */
+        execCommand: function (e) {
+            var tmp = e.target.name.split(".");
+            if (tmp[0] === "deleteOperation") {
+                projectView.deleteOperationAt(tmp[1]);
+            }
+            projectView.paper.selectedCell.executeMethod(tmp[0], Array.prototype.slice.call(tmp, 1));
+            this.render();
+            if (tmp[0] === "addOperation" || tmp[0] === "deleteOperation") {
+                $(".class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
+                $(".interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display", "none");
+            } else if (tmp[0] === "addParameter" || tmp[0] === "deleteParameter") {
+                $(".class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
+                $(".interface-operation-parameter-details").css("display", "none");
+            } else if (tmp[0] === "addAttribute" || tmp[0] === "deleteAttribute") {
+                $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, .class-attribute-details").css("display", "none");
+            };
+        },
+        /**
+         *  @function EditPanelView#unembedCell
+         *  @param {Object} e - Elemento generante l'evento.
+         *  @summary Metodo chiamato da evento generato. Rimuove la bubble selezionata nel pannello dall'innesto.
+         */
+        unembedCell: function(e) {
+            projectView.unembedCell();
+        },
+        /**
+         *  @function EditPanelView#confirmEdit
+         *  @param {Object} e - Elemento generante l'evento.
+         *  @summary Metodo chiamato da evento generato. Salvataggio delle modifiche apportate ad una proprietà del contenuto selezionato nel pannello.
+         */
+        confirmEdit: function(e) {
+            if ((e.type === "keypress" &amp;&amp; e.which === 13) || e.type === "change") {
+                if (e.target.type === "checkbox") {
+                    projectView.paper.selectedCell.setToValue(e.target.checked ? "true" : "false", e.target.name);
+                    //this.render();
+                } else {
+                    //console.log(projectView.paper.selectedCell);
+                    projectView.paper.selectedCell.setToValue(e.target.value, e.target.name);
+                    //console.log(projectView.paper.selectedCell);
+                    //this.render();
+                }
+            }
+        }
+	});
+	return new EditPanelView;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="Base.html">Base</a></li><li><a href="BaseView.html">BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="MainView.html">MainView</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="RequestHandler.html">RequestHandler</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="DAO.html">DAO</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jul 04 2017 15:46:59 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

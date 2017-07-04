@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Zipper</title>
+    <title>JSDoc: Source: server/requestHandler/main.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,274 +17,98 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Zipper</h1>
+    <h1 class="page-title">Source: server/requestHandler/main.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>Zipper</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line13">line 13</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".zip"><span class="type-signature">(static) </span>zip<span class="signature">(name<span class="signature-attributes">non-null</span>, path<span class="signature-attributes">non-null</span>, callback<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
-
-    
-    <p class="summary">Comprime la directory passata in input in un file .zip.</p>
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Il nome dell'archivio da creare.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Il percorso alla directory del progetto da comprimere.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#zipCallback">zipCallback</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback di risposta.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line18">line 18</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *	@file Contiene lo script di inizializzazione del lato server della Single Page Application
+ *	@author Bonato Enrico - KaleidosCode
+ *
+ *  @requires express
+ *  @requires fs
+ *  requires multer
+ *  @requires ./requestHandler.js
+ */
+
+var express	        = require("express");
+var fs              = require("fs");
+var requestHandler  = require('./requestHandler.js');
+
+var app	            =	express();
+var path            = require('path');
+//app.use(express.static('../../webapp'));
+
+app.get('/',function(req,res){
+    requestHandler.getIndex(req,res);
+});
+
+app.get('/caricaJs',function(req,res){
+    requestHandler.caricaJs(res,req);
+   /*console.log(req.query.project);
+   console.log('=========================================================================');
+   console.log('query (STRINGIFY): ' + JSON.stringify(req.query));
+   var query = JSON.stringify(req.query);
+   console.log(query);
+   console.log('params: ' + JSON.stringify(req.params));
+   console.log('body: ' + JSON.stringify(req.body));
+   console.log('query: ' + JSON.stringify(req.query));
+   res.header('Content-type','application/json');
+   res.header('Charset','utf8');
+   res.jsonp(JSON.stringify(query));*/
+});
+
+app.get('/caricaJa',function(req,res){
+   requestHandler.caricaJa(req,res);
+   /*console.log(req.query.project);
+   console.log('=========================================================================');
+   console.log('query (STRINGIFY): ' + JSON.stringify(req.query));
+   var query = JSON.stringify(req.query);
+   console.log(query);
+   console.log('params: ' + JSON.stringify(req.params));
+   console.log('body: ' + JSON.stringify(req.body));
+   console.log('query: ' + JSON.stringify(req.query));
+   res.header('Content-type','application/json');
+   res.header('Charset','utf8');
+   res.jsonp(JSON.stringify(query));*/
+});
+
+app.get('/scarica/:response',function(req,res){
+    requestHandler.scarica(res,req);
+});
+
+app.get('/getBubble/:linguaggio/:nome',function(req,res){
+    var linguaggio = req.params.linguaggio;
+    var nome = req.params.nome;	
+    if(linguaggio&amp;&amp;nome){
+        requestHandler.getBubble(linguaggio,nome,function(bubble){
+            if(bubble){
+                res.send(JSONfn.stringify(bubble));
+            }
+            else{
+                console.log("errore ottenimento bubble");       
+            }
+        });
+    }
+    else{
+        requestHandler.getAllBubbles(function(bubble){
+            res.send(JSONfn.stringify(bubble));         
+        }); 
+
+    }
+});
+
+app.listen(3000,function(){
+    console.log("requestHandler avviato correttamente sulla porta 3000");
+});
+</code></pre>
+        </article>
+    </section>
 
 
 

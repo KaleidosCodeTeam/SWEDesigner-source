@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Zipper</title>
+    <title>JSDoc: Namespace: Parser</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Zipper</h1>
+    <h1 class="page-title">Namespace: Parser</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>Zipper</h2>
+        <h2>Parser</h2>
         
     
 </header>
@@ -70,7 +70,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line13">line 13</a>
+        <a href="server_codeGenerator_parser_parser.js.html">server/codeGenerator/parser/parser.js</a>, <a href="server_codeGenerator_parser_parser.js.html#line11">line 11</a>
     </li></ul></dd>
     
 
@@ -106,10 +106,10 @@
 
     
 
-    <h4 class="name" id=".zip"><span class="type-signature">(static) </span>zip<span class="signature">(name<span class="signature-attributes">non-null</span>, path<span class="signature-attributes">non-null</span>, callback<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".parse"><span class="type-signature">(static) </span>parse<span class="signature">(err<span class="signature-attributes">nullable</span>, jsonFile<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
-    <p class="summary">Comprime la directory passata in input in un file .zip.</p>
+    <p class="summary">Trasforma il file json ricevuto in input in oggetti Javascript.</p>
     
 
 
@@ -135,6 +135,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -147,7 +149,7 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>err</code></td>
             
 
             <td class="type">
@@ -160,17 +162,27 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Il nome dell'archivio da creare.</td>
+            <td class="description last">L'eventuale stringa di errore.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>path</code></td>
+                <td class="name"><code>jsonFile</code></td>
             
 
             <td class="type">
@@ -183,33 +195,18 @@
             </td>
 
             
-
-            
-
-            <td class="description last">Il percorso alla directory del progetto da comprimere.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><a href="global.html#zipCallback">zipCallback</a></span>
 
+                
 
-            
-            </td>
-
-            
-
+                
+                </td>
             
 
-            <td class="description last">Callback di risposta.</td>
+            
+
+            <td class="description last">Json da convertire.</td>
         </tr>
 
     
@@ -250,7 +247,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line18">line 18</a>
+        <a href="server_codeGenerator_parser_parser.js.html">server/codeGenerator/parser/parser.js</a>, <a href="server_codeGenerator_parser_parser.js.html#line12">line 12</a>
     </li></ul></dd>
     
 
@@ -273,6 +270,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Oggetto Javascript.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 

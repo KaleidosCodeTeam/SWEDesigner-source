@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
+    <title>JSDoc: Namespace: RequestHandler</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Namespace: RequestHandler</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2></h2>
+        <h2>RequestHandler</h2>
         
     
 </header>
@@ -68,6 +68,11 @@
     
 
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="server_requestHandler_requestHandler.js.html">server/requestHandler/requestHandler.js</a>, <a href="server_requestHandler_requestHandler.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
 
     
 
@@ -92,76 +97,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="requirejs"><span class="type-signature"></span>requirejs<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    vim: et:ts=4:sw=4:sts=4
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-license">License:</dt>
-    <dd class="tag-license"><ul class="dummy"><li>RequireJS 2.3.3 Copyright jQuery Foundation and other contributors.
-Released under MIT license, https://github.com/requirejs/requirejs/blob/master/LICENSE</li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="webapp_lib_js_require.js.html">webapp/lib/js/require.js</a>, <a href="webapp_lib_js_require.js.html#line5">line 5</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -171,15 +106,13 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
     
 
-    <h4 class="name" id="getNameById"><span class="type-signature"></span>getNameById<span class="signature">(classId<span class="signature-attributes">non-null</span>, parsedProgram<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id=".caricaJa"><span class="type-signature">(static) </span>caricaJa<span class="signature">(req<span class="signature-attributes">non-null</span>, res<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
 
+    
+    <p class="summary">Carica il file json nel server e ne genera il codice Java restituendo il nome della cartella compressa.</p>
     
 
 
-
-<div class="description">
-    Ritorna il nome della classe corrispondente al classId di input.
-</div>
 
 
 
@@ -214,7 +147,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         <tr>
             
-                <td class="name"><code>classId</code></td>
+                <td class="name"><code>req</code></td>
             
 
             <td class="type">
@@ -230,20 +163,20 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Stringa identificativa della classe di cui si vuole ottenere il nome.</td>
+            <td class="description last">Contiene informazioni sulla richiesta HTTP.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>parsedProgram</code></td>
+                <td class="name"><code>res</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">string</span>
 
 
             
@@ -253,7 +186,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Contiene l'array di tutti gli oggetti che rappresentano una classe.</td>
+            <td class="description last">Risposta alla richiesta descritta in req.</td>
         </tr>
 
     
@@ -294,7 +227,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html">server/codeGenerator/coder/CoderElement/coderClass.js</a>, <a href="server_codeGenerator_coder_CoderElement_coderClass.js.html#line16">line 16</a>
+        <a href="server_requestHandler_requestHandler.js.html">server/requestHandler/requestHandler.js</a>, <a href="server_requestHandler_requestHandler.js.html#line110">line 110</a>
     </li></ul></dd>
     
 
@@ -317,28 +250,6 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    Nome della classe corrispondente al classId di input.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -347,15 +258,13 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
     
 
-    <h4 class="name" id="getOperationById"><span class="type-signature"></span>getOperationById<span class="signature">(operId<span class="signature-attributes">non-null</span>, operations<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id=".caricaJs"><span class="type-signature">(static) </span>caricaJs<span class="signature">(req<span class="signature-attributes">non-null</span>, res<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
 
+    
+    <p class="summary">Carica il file json nel server e ne genera il codice Javascript restituendo il nome della cartella compressa.</p>
     
 
 
-
-<div class="description">
-    Ritorna il diagramma delle bubble corrispondente all'operId di input.
-</div>
 
 
 
@@ -390,7 +299,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         <tr>
             
-                <td class="name"><code>operId</code></td>
+                <td class="name"><code>req</code></td>
             
 
             <td class="type">
@@ -406,20 +315,20 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Identificativo dell'operazione che si vuole ottenere.</td>
+            <td class="description last">Contiene informazioni sulla richiesta HTTP.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>operations</code></td>
+                <td class="name"><code>res</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;Object></span>
+<span class="param-type">string</span>
 
 
             
@@ -429,7 +338,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">L'array di tutti i diagrammi delle bubble.</td>
+            <td class="description last">Risposta alla richiesta descritta in req.</td>
         </tr>
 
     
@@ -470,7 +379,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line63">line 63</a>
+        <a href="server_requestHandler_requestHandler.js.html">server/requestHandler/requestHandler.js</a>, <a href="server_requestHandler_requestHandler.js.html#line77">line 77</a>
     </li></ul></dd>
     
 
@@ -493,28 +402,6 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    Diagramma delle bubble corrispondente all'operId di input.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -523,15 +410,13 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
     
 
-    <h4 class="name" id="getPackNameById"><span class="type-signature"></span>getPackNameById<span class="signature">(packageId<span class="signature-attributes">non-null</span>, packages<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id=".getIndex"><span class="type-signature">(static) </span>getIndex<span class="signature">(req<span class="signature-attributes">non-null</span>, res<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
 
+    
+    <p class="summary">Invia il file index della Single Page Application.</p>
     
 
 
-
-<div class="description">
-    Ritorna il nome del package corrispondente al packageId di input.
-</div>
 
 
 
@@ -566,7 +451,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         <tr>
             
-                <td class="name"><code>packageId</code></td>
+                <td class="name"><code>req</code></td>
             
 
             <td class="type">
@@ -582,20 +467,20 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Identificativo del package di cui si vuole ottenere il nome.</td>
+            <td class="description last">Contiene informazioni sulla richiesta HTTP.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>packages</code></td>
+                <td class="name"><code>res</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">string</span>
 
 
             
@@ -605,7 +490,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Oggetto che contiene l'array di tutti gli oggetti package.</td>
+            <td class="description last">Risposta alla richiesta descritta in req.</td>
         </tr>
 
     
@@ -646,7 +531,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line48">line 48</a>
+        <a href="server_requestHandler_requestHandler.js.html">server/requestHandler/requestHandler.js</a>, <a href="server_requestHandler_requestHandler.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
@@ -669,44 +554,18 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    Nome del package corrispondente al packageId di input.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
         
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
+            
 
     
 
-    <h4 class="name" id="zipCallback"><span class="type-signature"></span>zipCallback<span class="signature">(err<span class="signature-attributes">nullable</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".scarica"><span class="type-signature">(static) </span>scarica<span class="signature">(req<span class="signature-attributes">non-null</span>, res<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
 
+    
+    <p class="summary">Scarica il file zip indicato.</p>
     
 
 
@@ -732,8 +591,6 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -746,7 +603,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         <tr>
             
-                <td class="name"><code>err</code></td>
+                <td class="name"><code>req</code></td>
             
 
             <td class="type">
@@ -759,20 +616,33 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
             </td>
 
             
-                <td class="attributes">
-                
 
-                
-                    &lt;nullable><br>
-                
+            
 
+            <td class="description last">Contiene informazioni sulla richiesta HTTP.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
                 
-                </td>
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
             
 
             
 
-            <td class="description last">Contiene l'eventuale stringa di errore.</td>
+            <td class="description last">Risposta alla richiesta descritta in req.</td>
         </tr>
 
     
@@ -813,7 +683,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line14">line 14</a>
+        <a href="server_requestHandler_requestHandler.js.html">server/requestHandler/requestHandler.js</a>, <a href="server_requestHandler_requestHandler.js.html#line143">line 143</a>
     </li></ul></dd>
     
 
@@ -839,7 +709,169 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
 
 
+        
             
+
+    
+
+    <h4 class="name" id="generateJava"><span class="type-signature"></span>generateJava<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+    <p class="summary">Salva il progetto correntemente aperto e crea una richiesta di generazione del relativo codice Java che invia al server.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_requestHandler.js.html">webapp/js/models/requestHandler.js</a>, <a href="webapp_js_models_requestHandler.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="generateJavascript"><span class="type-signature"></span>generateJavascript<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+    <p class="summary">Salva il progetto correntemente aperto e crea una richiesta di generazione del relativo codice Javascript che invia al server.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="webapp_js_models_requestHandler.js.html">webapp/js/models/requestHandler.js</a>, <a href="webapp_js_models_requestHandler.js.html#line50">line 50</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
     
 
     

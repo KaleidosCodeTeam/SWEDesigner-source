@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Zipper</title>
+    <title>JSDoc: Namespace: CoderOperation</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Zipper</h1>
+    <h1 class="page-title">Namespace: CoderOperation</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>Zipper</h2>
+        <h2>CoderOperation</h2>
         
     
 </header>
@@ -36,6 +36,11 @@
 <article>
     <div class="container-overview">
     
+        
+            <div class="description">Espone le funzionalità (statiche) che permettono di codificare
+	un metodo/funzione, rappresentato dall'oggetto operationObj in input, in Java
+	o Javascript; entrambe le funzioni restituiscono la stringa del codice 
+	sorgente, relativa all'intestazione della classe, nel linguaggio scelto.</div>
         
 
         
@@ -70,7 +75,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line13">line 13</a>
+        <a href="server_codeGenerator_coder_CoderElement_coderOperation.js.html">server/codeGenerator/coder/CoderElement/coderOperation.js</a>, <a href="server_codeGenerator_coder_CoderElement_coderOperation.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -106,13 +111,16 @@
 
     
 
-    <h4 class="name" id=".zip"><span class="type-signature">(static) </span>zip<span class="signature">(name<span class="signature-attributes">non-null</span>, path<span class="signature-attributes">non-null</span>, callback<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".codeElementJava"><span class="type-signature">(static) </span>codeElementJava<span class="signature">(operationObj<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
 
     
-    <p class="summary">Comprime la directory passata in input in un file .zip.</p>
-    
 
 
+
+<div class="description">
+    Riceve in input operationObj, un oggetto che rappresenta un metodo/funzione; 
+	restituisce la stringa del codice sorgente, in Java, della definzione del metodo/funzione operationObj di input.
+</div>
 
 
 
@@ -147,13 +155,13 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>operationObj</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Object</span>
 
 
             
@@ -163,53 +171,7 @@
 
             
 
-            <td class="description last">Il nome dell'archivio da creare.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Il percorso alla directory del progetto da comprimere.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#zipCallback">zipCallback</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Callback di risposta.</td>
+            <td class="description last">Le informazioni necessarie a codificare un metodo/funzione.</td>
         </tr>
 
     
@@ -250,7 +212,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line18">line 18</a>
+        <a href="server_codeGenerator_coder_CoderElement_coderOperation.js.html">server/codeGenerator/coder/CoderElement/coderOperation.js</a>, <a href="server_codeGenerator_coder_CoderElement_coderOperation.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -273,6 +235,207 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Stringa del codice sorgente, in Java, della definizione del metodo/funzione operationObj di input
+	(i.e. 'public abstract static final T foo').
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".codeElementJavascript"><span class="type-signature">(static) </span>codeElementJavascript<span class="signature">(operationObj<span class="signature-attributes">non-null</span>, className)</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Riceve in input operationObj, un oggetto che rappresenta un metodo/funzione; 
+	restituisce la stringa del codice sorgente, in Javascript, della definzione del metodo/funzione operationObj di input.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>operationObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Le informazioni necessarie a codificare un metodo/funzione.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>className</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Nome della classe che detiene il metodo/funzione (necessario solo se il metodo/funzione di input è statico).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="server_codeGenerator_coder_CoderElement_coderOperation.js.html">server/codeGenerator/coder/CoderElement/coderOperation.js</a>, <a href="server_codeGenerator_coder_CoderElement_coderOperation.js.html#line44">line 44</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Stringa del codice sorgente, in Javascript, della definizione del metodo/funzione operationObj di input
+	(i.e. 'var doStuff = function').
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
