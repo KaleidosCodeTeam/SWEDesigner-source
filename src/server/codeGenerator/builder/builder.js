@@ -4,12 +4,12 @@
  *
  *	@requires mkdirp
  *	@requires fs
- *	@requires ./zipper.js
+ *	@requires ../zipper/zipper.js
  */
 
 var mkdirp=require('mkdirp');
 var fs=require('fs');
-var Zipper=require('../zipper/zipper.js');		// !!!!!!!! DA CAMBIARE !!!!!!!!
+var Zipper=require('../zipper/zipper.js');
 
 /** @namespace */
 var Builder = (function() {
