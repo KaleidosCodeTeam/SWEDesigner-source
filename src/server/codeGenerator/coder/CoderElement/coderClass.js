@@ -1,30 +1,25 @@
-
 /**
- *	@module Contiene CoderAttribute
+ *	@file Contiene la classe statica CoderClass
  *	@author Sanna Giovanni - KaleidosCode
- *	@summary Espone le funzionalità per codificare l'intestazione di una classe in Java o Javascript
  */
 
 /** 
-*	@namespace
-*	@description oggetto che espone le funzionalità (statiche) che permettono di codificare
-*	l'intestazione di una classe, rappresentata dall'oggetto classObj in input, in Java (CoderClass.codeElementJava)
-*	o Javascript (CoderClass.codeElementJavascipt); entrambe le funzioni restituiscono la stringa del codice 
-*	sorgente, relativa all'intestazione della classe, nel linguaggio scelto.
-*	Inoltre espone due funzionalità di utilità che permettono di codificare, in Java (CoderClass.codeParentJava) o 
-*	Javascript (CoderClass.codeParentJava) la parte della classe relativa alla specifica di estensione.
-*/
-var CoderClass = function() {
-	
-}
-
+ *	@namespace
+ *	@description Espone le funzionalità (statiche) che permettono di codificare
+ *	l'intestazione di una classe, rappresentata dall'oggetto classObj in input, in Java (CoderClass.codeElementJava)
+ *	o Javascript (CoderClass.codeElementJavascipt); entrambe le funzioni restituiscono la stringa del codice 
+ *	sorgente, relativa all'intestazione della classe, nel linguaggio scelto.
+ *	Inoltre espone due funzionalità di utilità che permettono di codificare, in Java (CoderClass.codeParentJava) o 
+ *	Javascript (CoderClass.codeParentJava) la parte della classe relativa alla specifica di estensione.
+ */
+var CoderClass = function() {};
 /**
-*	@function getNameById
-*	@param {!String} classId - Stringa identificativa della classe di cui si vuole ottenere il nome.
-*	@param {!Object} parsedProgram - Oggetto che contiene l'array di tutti gli oggetti che rappresentano una classe.
-*	@return {String} - Nome della classe corrispondente al classId di input. 
-*	@description funzione che ritorna il nome della classe corrispondente al classId di input.
-*/
+ *	@function getNameById
+ *	@param {!string} classId - Stringa identificativa della classe di cui si vuole ottenere il nome.
+ *	@param {!Object} parsedProgram - Contiene l'array di tutti gli oggetti che rappresentano una classe.
+ *	@return {string} Nome della classe corrispondente al classId di input. 
+ *	@description Ritorna il nome della classe corrispondente al classId di input.
+ */
 function getNameById(classId, parsedProgram) {
 	var classesArray = parsedProgram.classes.classesArray;
 	for(var i=0; i<classesArray.length; i++) {
@@ -36,18 +31,16 @@ function getNameById(classId, parsedProgram) {
 		}		
 	}
 	return undefined;
-}
-
+};
 /**
-*	@function CoderClass.codeParentJava
-*	@static
-*	@public
-*	@param {!String} sourceId - Oggetto che contiene le informazioni necessarie a codificare una classe
-*	@param {!Object} parsedProgram - Oggetto che contiene le informazioni necessarie a codificare un programma.
-*	@return {String} source - Stringa del codice sorgente, in Java, relativo alle specifiche di estensione della classe di input
-*	@description funzione statica di CoderClass; codifica, in Java, le specifiche di estensione della classe di identificativo @sourceId, 
-*	contenuta in @parsedProgram.
-*/
+ *	@function CoderClass.codeParentJava
+ *	@static
+ *	@param {!string} sourceId - Le informazioni necessarie a codificare una classe.
+ *	@param {!Object} parsedProgram - Le informazioni necessarie a codificare un programma.
+ *	@return {string} Stringa del codice sorgente, in Java, relativo alle specifiche di estensione della classe di input.
+ *	@description Codifica, in Java, le specifiche di estensione della classe di identificativo @sourceId, 
+ *	contenuta in @parsedProgram.
+ */
 CoderClass.codeParentJava = function(sourceId, parsedProgram) {
 	source = "";
 	finded = false;
@@ -64,18 +57,16 @@ CoderClass.codeParentJava = function(sourceId, parsedProgram) {
 		
 	}
 	return source;
-}
-
+};
 /**
-*	@function CoderClass.codeParentJavascript
-*	@static
-*	@public
-*	@param {!String} sourceId - Oggetto che contiene le informazioni necessarie a codificare una classe
-*	@param {!Object} parsedProgram - Oggetto che contiene le informazioni necessarie a codificare un programma.
-*	@return {String} source - Stringa del codice sorgente, in Javascript, relativo alle specifiche di estensione della classe di input
-*	@description funzione statica di CoderClass; codifica, in Javascript, le specifiche di estensione della classe di identificativo @sourceId, 
-*	contenuta in @parsedProgram.
-*/
+ *	@function CoderClass.codeParentJavascript
+ *	@static
+ *	@param {!string} sourceId - Le informazioni necessarie a codificare una classe.
+ *	@param {!Object} parsedProgram - Le informazioni necessarie a codificare un programma.
+ *	@return {string} Stringa del codice sorgente, in Javascript, relativo alle specifiche di estensione della classe di input.
+ *	@description Codifica, in Javascript, le specifiche di estensione della classe di identificativo @sourceId, 
+ *	contenuta in @parsedProgram.
+ */
 CoderClass.codeParentJavascript = function(sourceId, parsedProgram) {
 	source = "";
 	finded = false;
@@ -93,19 +84,17 @@ CoderClass.codeParentJavascript = function(sourceId, parsedProgram) {
 		}		
 	}
 	return source;
-}
-
+};
 /**
-*	@function CoderClass.codeElementJava
-*	@static
-*	@public
-*	@param {!Object} classObj - Oggetto che contiene le informazioni necessarie a codificare una classe.
-*	@param {!Object} parsedProgram - Oggetto che contiene le informazioni necessarie a codificare un programma.
-*	@return {String} source - stringa del codice sorgente, in Java, dell'intestazione della classe classObj di input.
-*	@description funzione statica di CoderClass; riceve in input classObj, un oggetto che rappresenta una  
-*	classe; restituisce la stringa del codice sorgente, in Java, dell'intestazione della classe classObj di input; 
-*	contenuta in parsedProgram.
-*/
+ *	@function CoderClass.codeElementJava
+ *	@static
+ *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
+ *	@param {!Object} parsedProgram - Le informazioni necessarie a codificare un programma.
+ *	@return {string} Stringa del codice sorgente, in Java, dell'intestazione della classe classObj di input.
+ *	@description Riceve in input classObj, un oggetto che rappresenta una  
+ *	classe; restituisce la stringa del codice sorgente, in Java, dell'intestazione della classe classObj di input 
+ *	contenuta in parsedProgram.
+ */
 CoderClass.codeElementJava = function(classObj, parsedProgram) {
 	var source = "";
 
@@ -167,17 +156,14 @@ CoderClass.codeElementJava = function(classObj, parsedProgram) {
 	// ritorno la stringa del codice Java: i.e. public class X extends Y implements Z ,W
 	return source;
 }; // fine funzione CodeElementJava(classObj)
-
-
 /**
-*	@function CoderClass.codeElementJavascript
-*	@static
-*	@public
-*	@param {!Object} classObj - Oggetto che contiene le informazioni necessarie a codificare una classe
-*	@return {String} source - stringa del codice sorgente, in Javascript, dell'intestazione della classe classObj di input.
-*	@description funzione statica di CoderClass; riceve in input classObj, un oggetto che rappresenta una  
-*	classe; restituisce la stringa del codice sorgente, in Javascript, relativa all'intestazione della classe classObj di input.
-*/
+ *	@function CoderClass.codeElementJavascript
+ *	@static
+ *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
+ *	@return {string} Stringa del codice sorgente, in Javascript, dell'intestazione della classe classObj di input.
+ *	@description Riceve in input classObj, un oggetto che rappresenta una  
+ *	classe; restituisce la stringa del codice sorgente, in Javascript, relativa all'intestazione della classe classObj di input.
+ */
 CoderClass.codeElementJavascript = function(classObj) {
 	var source = "function " + classObj.values._name + "(";
 
@@ -196,4 +182,4 @@ CoderClass.codeElementJavascript = function(classObj) {
 };
 
 /** Esportazione del modulo */
-module.exports= CoderClass;
+module.exports = CoderClass;

@@ -1,28 +1,24 @@
 /**
- *	@module Contiene CoderAttribute
+ *	@file Contiene la classe statica CoderAttribute
  *	@author Sanna Giovanni - KaleidosCode
- *	@summary Espone le funzionalità per codificare un attributo di un oggetto in Java o Javascript
  */
 
-
 /** 
-*	@namespace
-*	@description oggetto che espone le funzionalità (statiche) che permettono di codificare
-*	un attributo, rappresentato dall'oggetto attributeObj in input, in Java (CoderAttribute.codeElementJava)
-*	o Javascript (CoderAttribute.codeElementJavascript); entrambe le funzioni restituiscono 
-*	la stringa del codice sorgente nel linguaggio scelto.
-*/
+ *	@namespace
+ *	@description Espone le funzionalità (statiche) che permettono di codificare
+ *	un attributo, rappresentato dall'oggetto attributeObj in input, in Java (CoderAttribute.codeElementJava)
+ *	o Javascript (CoderAttribute.codeElementJavascript); entrambe le funzioni restituiscono 
+ *	la stringa del codice sorgente nel linguaggio scelto.
+ */
 var CoderAttribute = function() {};
-
 /**
-*	@function CoderAttribute.codeElementJava
-*	@static
-*	@public
-*	@param {!Object} attributeObj - Oggetto che contiene le informazioni necessarie a codificare un attributo di classe
-*	@return {String}
-*	@description funzione statica di CoderAttribute; riceve in input attributeObj, un oggetto che rappresenta un attributo 
-*	di classe; restituisce la stringa del codice sorgente, in Java, dell'attributo di input.
-*/
+ *	@function CoderAttribute.codeElementJava
+ *	@static
+ *	@param {!Object} attributeObj - Le informazioni necessarie a codificare un attributo di classe.
+ *	@return {string} Stringa del codice sorgente, in Java, dell'attributo di input.
+ *	@description Riceve in input attributeObj, un oggetto che rappresenta un attributo 
+ *	di classe; restituisce la stringa del codice sorgente, in Java, dell'attributo di input.
+ */
 CoderAttribute.codeElementJava = function(attributeObj) {
 	source = "";
 	if(attributeObj._visibility != 'package') {
@@ -48,19 +44,16 @@ CoderAttribute.codeElementJava = function(attributeObj) {
 	}
 	source += ";";
 	return source;
-}
-
-
+};
 /**
-*	@function CoderAttribute.codeElementJavascript
-*	@static
-*	@public
-*	@param {!Object} attributeObj - Oggetto che contiene le informazioni necessarie a codificare un attributo di classe
-*	@param {String} className - Nome della classe che detiene l'attributo (necessaria solo se l'attributo di input è statico)
-*	@return {String}
-*	@description funzione statica di CoderAttribute; riceve in input attributeObj, un oggetto che rappresenta un attributo 
-*	di classe; restituisce la stringa del codice sorgente, in Javascript, dell'attributo di input.
-*/
+ *	@function CoderAttribute.codeElementJavascript
+ *	@static
+ *	@param {!Object} attributeObj - Le informazioni necessarie a codificare un attributo di classe.
+ *	@param {string} className - Nome della classe che detiene l'attributo (necessaria solo se l'attributo di input è statico).
+ *	@return {string} Stringa del codice sorgente, in Javascript, dell'attributo di input.
+ *	@description Riceve in input attributeObj, un oggetto che rappresenta un attributo 
+ *	di classe; restituisce la stringa del codice sorgente, in Javascript, dell'attributo di input.
+ */
 CoderAttribute.codeElementJavascript = function(attributeObj, className) {
 		source = "";
 		if(attributeObj.isStatic == "false"){
@@ -90,7 +83,7 @@ CoderAttribute.codeElementJavascript = function(attributeObj, className) {
 			source += "undefined;";
 		}
 		return source;	
-}
+};
 
 /** Esportazione del modulo */
 module.exports = CoderAttribute;
