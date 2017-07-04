@@ -1,5 +1,5 @@
 /**
- *	@file Contiene Parser
+ *	@file Contiene la classe statica Parser
  *	@author Bonato Enrico - KaleidosCode
  *
  *  @requires json-fn
@@ -8,7 +8,7 @@
 var JSONfn = require('json-fn');
 
 /** @namespace */
-var Parser={
+var Parser = {
     /**
      *  @function Parser.parse
      *	@param {?string} err - L'eventuale stringa di errore.
