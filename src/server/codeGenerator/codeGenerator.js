@@ -1,7 +1,6 @@
 /**
- *	@module Contiene CodeGenerator
+ *	@module Contiene la classe statica codeGenerator
  *	@author Sanna Giovanni - KaleidosCode
- *	@summary Espone le funzionalità per codificare in Java un programma in formato json
  *
  *	@requires ./parser/parser.js
  *	@requires ./coder/coder.js
@@ -15,24 +14,21 @@ var Coder = require('./coder/coder.js');
 var Zipper = require('./zipper/zipper.js');
 
 /** 
-*	@namespace
-*	@description oggetto che espone le funzionalità (statiche) che permettono di codificare
-*	un programma, rappresentato dal file json di input, in Java (codeGenerator.generateJavaProgram)
-*	o Javascript (codeGenerator.generateJsProgram); entrambe le funzioni creano un pacchetto in formato .zip contenente
-*	il programma codificato e strutturato in file e directory come da specifica del json di input.
-*/
-var codeGenerator = function() {}
-
-
+ *	@namespace
+ *	@description Espone le funzionalità (statiche) che permettono di codificare
+ *	un programma, rappresentato dal file json di input, in Java (codeGenerator.generateJavaProgram)
+ *	o Javascript (codeGenerator.generateJsProgram); entrambe le funzioni creano un pacchetto in formato .zip contenente
+ *	il programma codificato e strutturato in file e directory come da specifica del json di input.
+ */
+var codeGenerator = function() {};
 /**
-*	@function codeGenerator.generateJsProgram
-*	@static
-*	@public
-*	@param {!json} jsonProgram - json contenente le informazioni necessarie a codificare un programma
-*	@description funzione statica di codeGenerator; codifica, in Javascript, il programma rappresentanto dal json in input
-*	e costruisce un pacchetto compresso in formato .zip contenente
-*	il programma codificato e strutturato in file e directory come da specifica del json di input.
-*/
+ *	@function codeGenerator.generateJsProgram
+ *	@static
+ *	@param {!json} jsonProgram - Le informazioni necessarie a codificare un programma.
+ *	@description Codifica, in Javascript, il programma rappresentanto dal json in input
+ *	e costruisce un pacchetto compresso in formato .zip contenente
+ *	il programma codificato e strutturato in file e directory come da specifica del json di input.
+ */
 codeGenerator.generateJsProgram = function(jsonProgram, nomeZip) {
 	var parsedProg = Parser.parse(jsonProgram);
 	var codedProg = Coder.getCodedProgramJs(parsedProg);
@@ -41,17 +37,15 @@ codeGenerator.generateJsProgram = function(jsonProgram, nomeZip) {
 		if (err) throw err;
 		else console.log('PROGRAM CREATION: DONE');
 	});
-}
-
+};
 /**
-*	@function codeGenerator.generateJavaProgram
-*	@static
-*	@public
-*	@param {!json} jsonProgram - json contenente le informazioni necessarie a codificare un programma
-*	@description funzione statica di codeGenerator; codifica, in Java, il programma rappresentanto dal json in input
-*	e costruisce un pacchetto compresso in formato .zip contenente
-*	il programma codificato e strutturato in file e directory come da specifica del json di input.
-*/
+ *	@function codeGenerator.generateJavaProgram
+ *	@static
+ *	@param {!json} jsonProgram - Le informazioni necessarie a codificare un programma.
+ *	@description Codifica, in Java, il programma rappresentanto dal json in input
+ *	e costruisce un pacchetto compresso in formato .zip contenente
+ *	il programma codificato e strutturato in file e directory come da specifica del json di input.
+ */
 codeGenerator.generateJavaProgram = function(jsonProgram, nomeZip) {
 	var parsedProg = Parser.parse(jsonProgram);
 	var codedProg = Coder.getCodedProgramJava(parsedProg);
@@ -60,8 +54,9 @@ codeGenerator.generateJavaProgram = function(jsonProgram, nomeZip) {
 		if (err) throw err;
 		else console.log('PROGRAM CREATION: DONE');
 	});
-}
+};
 
+/** Esportazione del modulo */
 module.exports = {
 	generateJsProgram : codeGenerator.generateJsProgram,
 	generateJavaProgram : codeGenerator.generateJavaProgram
