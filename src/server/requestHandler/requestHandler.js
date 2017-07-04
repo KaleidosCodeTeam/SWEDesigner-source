@@ -93,17 +93,10 @@ var RequestHandler = {
             console.log(JSON.stringify(obj.project));
             console.log('============================================================');
             var nome = obj.filename;
-            var nomezip="Programma-"+nome+".zip";
-            /*
-            var parsedProgram = parser.parse(req.file);
-            var program = JavascriptCoder.getCodedProgram(parsedProgram);
-            var cartella = builder.javascriptBuild(program);
-            var zippato =Zipper.zip(nomezip,cartella,function(err){
-                if(err)
-                    console.log(err);}
-                                   );
-            CodeGenerator.generateJsProgram(req.file,nomezip);
-            */
+            var nomezip="Programma-"+nome;
+
+            CodeGenerator.generateJsProgram(obj.project,nomezip);
+            
             res.end(JSON.stringify({'nomezip': nomezip}));
         });
     },
@@ -126,17 +119,10 @@ var RequestHandler = {
             console.log(JSON.stringify(obj.project));
             console.log('============================================================');
             var nome = obj.filename;
-            var nomezip="Programma-"+nome+".zip";
-            /*
-            var parsedProgram = parser.parse(req.file);
-            var program = JavaCoder.getCodedProgram(parsedProgram);
-            var cartella = builder.javaBuild(program);
-            var zippato =Zipper.zip(nomezip,cartella,function(err){
-                if(err)
-                    console.log(err);}
-                                   );
+            var nomezip="Programma-"+nome;
+
             CodeGenerator.generateJavaProgram(obj.project,nomezip);
-            */
+          
             res.jsonp(JSON.stringify({'nomezip': nomezip}));
         });
     },

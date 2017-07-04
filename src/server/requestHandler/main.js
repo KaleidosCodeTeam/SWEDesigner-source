@@ -21,7 +21,7 @@ app.get('/',function(req,res){
 });
 
 app.get('/caricaJs',function(req,res){
-    requestHandler.caricaJs(res,req);
+    requestHandler.caricaJs(req,res);
    /*console.log(req.query.project);
    console.log('=========================================================================');
    console.log('query (STRINGIFY): ' + JSON.stringify(req.query));
