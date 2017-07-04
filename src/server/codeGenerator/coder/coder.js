@@ -392,7 +392,7 @@ JavascriptCoder.getCodedProgram = function(parsedProgram) {
 		return codedP;	
 };
 
-/** Esportazione dei moduli */
+/** Esportazione del modulo */
 module.exports = {
 	getCodedProgramJs : JavascriptCoder.getCodedProgram,
 	getCodedProgramJava : JavaCoder.getCodedProgram
