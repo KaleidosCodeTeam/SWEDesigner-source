@@ -1,30 +1,29 @@
 /**
- *	@file Contiene requestHandler
+ *	@file Contiene la classe statica RequestHandler
  *	@author Bonato Enrico - KaleidosCode
  *
-
- *  requires JavaCoder      
- *  requires JavascriptCoder 
- *  requires zipper         
- *  requires parser
- *  requires builder         
- *  requires dao             
- *  requires multer	        
- *
+ *  requires JavaCoder
+ *  requires JavascriptCoder
+ *  @requires ../coder/coder.js
+ *  @requires ../zipper/zipper.js
+ *  @requires ../parser/parser.js
+ *  @requires ../builder/builder.js
+ *  @requires ../DAO/DAO.js
+ *  @requires multer
  */
 
 /*
-var JavaCoder       =  require('../coder/javaCoder.js');
-var JavascriptCoder =  require('../coder/javascriptCoder.js');
-var zipper          =  require('../zipper/zipper.js');
-var parser          =  require('../parser/parser.js');
-var builder         =  require('../builder/builder.js');
+var JavaCoder       = require('../coder/javaCoder.js');
+var JavascriptCoder = require('../coder/javascriptCoder.js');
+var zipper          = require('../zipper/zipper.js');
+var parser          = require('../parser/parser.js');
+var builder         = require('../builder/builder.js');
 */
-var CodeGenerator = require('../codeGenerator/codeGenerator.js');
-var dao             =  require('../DAO/DAO.js');
-var multer	        =  require('multer');
-var path            =  require('path');
-var url				=  require('url');
+var CodeGenerator   = require('../codeGenerator/codeGenerator.js');
+var dao             = require('../DAO/DAO.js');
+var multer	        = require('multer');
+var path            = require('path');
+var url				= require('url');
 
 var root=__dirname+'/../webapp';
 var storage	=	multer.diskStorage({
@@ -38,33 +37,24 @@ var storage	=	multer.diskStorage({
 
 var upload = multer({ storage : storage}).single('JsonUp');
 
-//** @namespace */
-var requestHandler= {
-
-    /**
+/** @namespace */
+var RequestHandler = {
 	/**
-	 *	@public
-	 *	@function requestHandler.getIndex
-	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
-	 *	@param {!string} res - risposta alla richiesta descritta in req.
-	 *	@summary Invia il file index.
+	 *	@function RequestHandler.getIndex
+	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - Risposta alla richiesta descritta in req.
+	 *	@summary Invia il file index della Single Page Application.
 	 */
-
-     getIndex: function(req,res){
-         var percorso=root + '/../../webapp/SWEDesigner.html';
-            res.sendFile(path.resolve(percorso));
+    getIndex: function(req, res) {
+        var percorso=root + '/../../webapp/SWEDesigner.html';
+        res.sendFile(path.resolve(percorso));
     },
 
-
-    /**
-	 *	@public
-	 *	@function requestHandler.getIndex
-	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
-	 *	@param {!string} res - risposta alla richiesta descritta in req.
-	 *	@summary Invia il file index.
+    /*
+	 *	@function RequestHandler.getBubble
+	 *	@summary Invia la bubble richiesta.
 	 */
-
-    getBubble: function(linguaggio, nome, callback){
+    /*getBubble: function(linguaggio, nome, callback) {
         dao.isPresentBubble(name,lenguage,function(presente){
             if(presente){
                 dao.getBubble(name,language,function(bubble){
@@ -72,31 +62,25 @@ var requestHandler= {
                 });
             }
         });
-    },
+    },*/
 
-    /**
-	 *	@public
-	 *	@function requestHandler.getIndex
-	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
-	 *	@param {!string} res - risposta alla richiesta descritta in req.
-	 *	@summary Invia il file index.
+    /*
+	 *	@function RequestHandler.getAllBubble
+	 *	@summary Invia tutte le bubble presenti nel database.
 	 */
-
-    getAllBubble: function(callback){
+    /*getAllBubble: function(callback) {
         dao.getAllBubbles(function(risultato){
             callback(risultato);    
         });
-    },
+    },*/
 
     /**
-	 *	@public
-	 *	@function requestHandler.caricaJs
-	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
-	 *	@param {!string} res - risposta alla richiesta descritta in req.
-	 *	@summary carica il file json nel server e ne genera il codice Javascript restituendo il nome della cartella compressa.
+	 *	@function RequestHandler.caricaJs
+	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - Risposta alla richiesta descritta in req.
+	 *	@summary Carica il file json nel server e ne genera il codice Javascript restituendo il nome della cartella compressa.
 	 */
-
-    caricaJs: function(req, res){
+    caricaJs: function(req, res) {
         upload(req,res,function(err) {
             if(err) {
                 return res.end("Errore upload: "+err);
@@ -123,16 +107,13 @@ var requestHandler= {
             res.end(JSON.stringify({'nomezip': nomezip}));
         });
     },
-
     /**
-	 *	@public
-	 *	@function requestHandler.caricaJa
-	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
-	 *	@param {!string} res - risposta alla richiesta descritta in req.
-	 *	@summary carica il file json nel server e ne genera il codice Java restituendo il nome della cartella compressa.
+	 *	@function RequestHandler.caricaJa
+	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - Risposta alla richiesta descritta in req.
+	 *	@summary Carica il file json nel server e ne genera il codice Java restituendo il nome della cartella compressa.
 	 */
-
-    caricaJa : function(req, res){
+    caricaJa : function(req, res) {
         upload(req,res,function(err) {
             if(err) {
                 return res.end("Errore upload: "+err);
@@ -158,26 +139,21 @@ var requestHandler= {
             */
             res.jsonp(JSON.stringify({'nomezip': nomezip}));
         });
-
     },
-
-
     /**
-	 *	@public
-	 *	@function requestHandler.scarica
-	 *	@param {!string} req - contiene informazioni sulla richiesta HTTP.
-	 *	@param {!string} res - risposta alla richiesta descritta in req.
+	 *	@function RequestHandler.scarica
+	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - Risposta alla richiesta descritta in req.
 	 *	@summary Scarica il file zip indicato.
 	 */
-
-    scarica : function(req,res){
+    scarica : function(req, res){
         var i=req.params.response;
         console.log(i);
         res.setHeader('Content-disposition', 'attachment; filename=Codice.zip'); 
         res.setHeader('Content-type', 'application/zip'); 
         res.download(__dirname+'/i'); 
     }
-
 };
+
 /** Esportazione del modulo */
-module.exports=requestHandler;
+module.exports = RequestHandler;

@@ -1,35 +1,25 @@
 /**
- *	@file Contiene main
+ *	@file Contiene lo script di inizializzazione del lato server della Single Page Application
  *	@author Bonato Enrico - KaleidosCode
  *
- *  requires express
- *  requires fs
+ *  @requires express
+ *  @requires fs
  *  requires multer
- *
+ *  @requires ./requestHandler.js
  */
-var express	        =  require("express");
-var fs              =  require("fs");
-var requestHandler  =  require('./requestHandler.js');
-/** @namespace */
-var app	    =	express();
-var path            =  require('path');
+
+var express	        = require("express");
+var fs              = require("fs");
+var requestHandler  = require('./requestHandler.js');
+
+var app	            =	express();
+var path            = require('path');
 //app.use(express.static('../../webapp'));
 
-/**
-*	@public
-*	@function come lo chiamo ???? app.get('/')
-*	@summary Ritorna il file index.html della webapp.
-*/
 app.get('/',function(req,res){
     requestHandler.getIndex(req,res);
 });
 
-/**
-*	@param {?string} err - Contiene l'eventuale stringa di errore.
-*	@public
-*	@function come sopra
-*	@summary Permette di caricare il file json da convertire in codice javascript.
-*/
 app.get('/caricaJs',function(req,res){
     requestHandler.caricaJs(res,req);
    /*console.log(req.query.project);
@@ -45,12 +35,6 @@ app.get('/caricaJs',function(req,res){
    res.jsonp(JSON.stringify(query));*/
 });
 
-/**
-*	@param {?string} err - Contiene l'eventuale stringa di errore.
-*	@public
-*	@function come sopra
-*	@summary Permette di caricare il file json da convertire in codice Java.
-*/
 app.get('/caricaJa',function(req,res){
    requestHandler.caricaJa(req,res);
    /*console.log(req.query.project);
@@ -66,22 +50,9 @@ app.get('/caricaJa',function(req,res){
    res.jsonp(JSON.stringify(query));*/
 });
 
-/**
-*	@public
-*	@function problema??
-*	@summary Scarica lo zip precedentemente creato contenente il codice.
-*/
-
 app.get('/scarica/:response',function(req,res){
     requestHandler.scarica(res,req);
 });
-
-/**
-*	@public
-*	@function Parser.parse
-*	@param {?string} id - Contiene la categoria di bubble desiderate.
-*	@summary . Ritorna la categoria di bubble desiderate.
-*/
 
 app.get('/getBubble/:linguaggio/:nome',function(req,res){
     var linguaggio = req.params.linguaggio;
