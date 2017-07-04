@@ -15,11 +15,12 @@ define ([
     Swedesigner.model.classDiagram = {};
     Swedesigner.model.bubbleDiagram = {};
 
+//------------------------------------------------------------------ PACKAGE DIAGRAM ----------------------------------------------------------------
     Swedesigner.model.packageDiagram.items = {};
     /**
-     *  @classdesc Elemento base generico per diagramma dei package UML.
      *  @module Swedesigner.model.packageDiagram.items
      *  @class Base
+     *  @classdesc Elemento base generico per diagramma dei package UML.
      *  @extends {joint.shapes.basic.Generic}
      */
     Swedesigner.model.packageDiagram.items.Base = joint.shapes.basic.Generic.extend({
@@ -39,7 +40,6 @@ define ([
         defaults: _.defaultsDeep({
             type: 'uml.packageDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
-        parentId: null,
         /**
          *  @function Base#initialize
          *  @summary Inizializzazione di Base: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
@@ -68,15 +68,16 @@ define ([
         }
     });
     /**
-     *  @classdesc View per item "Base".
      *  @module Swedesigner.model.packageDiagram.items
      *  @class BaseView
+     *  @classdesc View per item "Base".
      *  @extends {joint.dia.ElementView}
      */
     Swedesigner.model.packageDiagram.items.BaseView = joint.dia.ElementView.extend({
     	/**
          *  @function BaseView#initialize
-         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe "Base" e imposta un evento alla reazione del model chiamando sequenzialmente i metodi "update" e "resize".
+         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe "Base" e imposta un evento alla reazione del model
+         *  chiamando sequenzialmente i metodi "update" e "resize".
          */
         initialize: function() {
             joint.dia.ElementView.prototype.initialize.apply(this, arguments);
@@ -110,7 +111,6 @@ define ([
             return this;
         }
     });
-
     /**
      *  @module Swedesigner.model.packageDiagram.items
      *  @class Package
@@ -119,7 +119,7 @@ define ([
      */
     Swedesigner.model.packageDiagram.items.Package = Swedesigner.model.packageDiagram.items.Base.extend({
         /**
-         *  @var {string} Package#markup Markup HTML per la rappresentazione grafica.
+         *  @var {string} Package#markup - Markup HTML per la rappresentazione grafica.
          */
         markup: [
             '<g class="scalable">',
@@ -128,7 +128,8 @@ define ([
             '<text class="uml-package-name-text"/>',
         ].join(''),
         /**
-         *  @var {Object} Package#defaults Attributi di default per l'oggetto Package (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         *  @var {Object} Package#defaults - Attributi di default per l'oggetto Package (tipo, posizione, dimensione, attributi CSS, stato e
+         *  contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
             type: 'packageDiagram.items.Package',
@@ -160,16 +161,16 @@ define ([
         }, Swedesigner.model.packageDiagram.items.Base.prototype.defaults),
         /**
          *  @function Package#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza di Diagram associata al diagramma delle classi relativo al package.
+         *  @summary Inizializzazione di Package: chiama il metodo "initialize" della classe base e crea l'istanza di Diagram associata al
+         *  diagramma delle classi relativo al package.
          */
         initialize: function() {
         	Swedesigner.model.packageDiagram.items.Base.prototype.initialize.apply(this, arguments);
-        	console.log("I'm the Package Initialize");
         },
         /**
          *  @function Package#getPackageName
-         *  @returns {Object[]} name.
-         *  @summary Ritorna l'array contenente i nomi del package.
+         *  @returns {string} Nome del package.
+         *  @summary Ritorna il nome del package.
          */
         getPackageName: function() {
             return this.get('_package');
@@ -184,8 +185,8 @@ define ([
                 { type: 'name', text: this.getValues()._package }
             ];
             var rectWidth = this.getValues()._package.length * 5 + 300;
-            console.log('package#updateRectangles');
-            console.log(rectWidth);
+            //console.log('package#updateRectangles');
+            //console.log(rectWidth);
             var offsetY = 0;
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
@@ -199,9 +200,9 @@ define ([
         },
         /**
          *  @function Base#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
         setToValue: function(value, path) {
             obj=this.getValues();
@@ -214,7 +215,6 @@ define ([
             this.trigger("uml-update");
         }
     });
-
     /**
      *  @module Swedesigner.model.packageDiagram.items
      *  @class PkgComment
@@ -223,7 +223,7 @@ define ([
      */
     Swedesigner.model.packageDiagram.items.PkgComment = joint.shapes.basic.TextBlock.extend({
         /**
-         *  @var {string} PkgComment#toolMarkup Markup HTML per la rappresentazione grafica.
+         *  @var {string} PkgComment#toolMarkup - Markup HTML per la rappresentazione grafica.
          */
         toolMarkup: [
             '<g class="element-tools">',
@@ -234,7 +234,7 @@ define ([
             '</g>'
         ].join(''),
         /**
-         *  @var {Object} PkgComment#defaults Attributi di default per l'oggetto PkgComment.
+         *  @var {Object} PkgComment#defaults - Attributi di default per l'oggetto PkgComment.
          */
         defaults: _.defaultsDeep({
             type: "packageDiagram.items.PkgComment",
@@ -246,26 +246,26 @@ define ([
         }, joint.shapes.basic.TextBlock.prototype.defaults),
         /**
          *  @function PkgComment#initialize
-         *  @summary Metodo di inizializzazione.
+         *  @summary Inizializzazione di PkgComment.
          */
-        initialize: function () {
+        initialize: function() {
             joint.shapes.basic.TextBlock.prototype.initialize.apply(this, arguments);
         },
         /**
          *  @function PkgComment#getValues
-         *  @summary Ritorna i valori dell'item PkgComment.
          *  @returns {Object} Valori dell'item PkgComment (values.comment per accedere al testo del commento).
+         *  @summary Ritorna i valori dell'item PkgComment.
          */
-        getValues: function () {
+        getValues: function() {
             return this.get("values");
         },
         /**
          *  @function PkgComment#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
-        setToValue: function (value, path) {
+        setToValue: function(value, path) {
             obj = this.getValues();
             path = path.split('.');
             for (i = 0; i < path.length - 1; i++) {
@@ -279,9 +279,9 @@ define ([
         },
         /**
          *  @function PkgComment#updateContent
-         *  @summary Aggiorna l'item PkgComment.
+         *  @summary Aggiorna il contenuto dell'item PkgComment.
          */
-        updateContent: function () {
+        updateContent: function() {
             if (joint.env.test('svgforeignobject')) {
                 // Content element is a <div> element.
                 this.attr({
@@ -300,7 +300,6 @@ define ([
             }
         }
     });
-
     /**
      *  @module Swedesigner.model.packageDiagram.items
      *  @class PkgCommentView
@@ -310,15 +309,15 @@ define ([
     Swedesigner.model.packageDiagram.items.PkgCommentView = joint.shapes.basic.TextBlockView.extend({
         /**
          *  @function PkgCommentView#initialize
-         *  @summary Metodo di inizializzazione.
+         *  @summary Inizializzazione di PkgCommentView.
          */
         initialize: function () {
             joint.shapes.basic.TextBlockView.prototype.initialize.apply(this, arguments);
         },
         /**
          *  @function PkgCommentView#render
-         *  @summary Renderizzazione dell'item.
          *  @return {Object} L'oggetto PkgCommentView.
+         *  @summary Render dell'item PkgCommentView.
          */
         render: function () {
             joint.shapes.basic.TextBlockView.prototype.render.apply(this, arguments);
@@ -328,8 +327,8 @@ define ([
         },
         /**
          *  @function PkgCommentView#renderTools
-         *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          *  @return {Object} L'oggetto PkgCommentView.
+         *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          */
         renderTools: function () {
             var toolMarkup = this.model.toolMarkup || this.model.get('toolMarkup');
@@ -342,16 +341,15 @@ define ([
             return this;
         }
     });
-    
     /**
      *  @module Swedesigner.model.packageDiagram.items
      *  @class packageDiagramLink
      *  @classdesc Collegamento tra due componenti di un diagramma dei package UML.
      *  @extends {joint.dia.Link}
      */
-    Swedesigner.model.packageDiagram.items.packageDiagramLink=joint.dia.Link.extend({
+    Swedesigner.model.packageDiagram.items.packageDiagramLink = joint.dia.Link.extend({
         /**
-         *  @var {Object} packageDiagramLink#defaults Attributi di default per l'oggetto.
+         *  @var {Object} packageDiagramLink#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'packageDiagram.items.packageDiagramLink',
@@ -360,24 +358,24 @@ define ([
         }, joint.dia.Link.prototype.defaults),
         /**
          *  @function packageDiagramLink#initialize
-         *  @summary Metodo di inizializzazione.
+         *  @summary Inizializzazione di PackageDiagramLink.
          */
         initialize: function() {
             joint.dia.Link.prototype.initialize.apply(this, arguments);
         },
         /**
          *  @function packageDiagramLink#getValues
-         *  @summary Ritorna i valori del collegamento.
          *  @return {Object} I valori del collegamento.
+         *  @summary Ritorna i valori del collegamento.
          */
         getValues: function() {
             return this.get("values");
         },
         /**
          *  @function packageDiagramLink#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
         setToValue: function(value, path) {
             obj=this.getValues();
@@ -390,16 +388,15 @@ define ([
             this.trigger("uml-update");
         }
     });
-    
     /**
      *  @module Swedesigner.model.packageDiagram.items
      *  @class PkgCommentLink
      *  @classdesc Link tra un commento e un componente UML del diagramma dei package.
      *  @extends {Swedesigner.model.packageDiagram.items.packageDiagramLink}
      */
-    Swedesigner.model.packageDiagram.items.PkgCommentLink=Swedesigner.model.packageDiagram.items.packageDiagramLink.extend({
+    Swedesigner.model.packageDiagram.items.PkgCommentLink = Swedesigner.model.packageDiagram.items.packageDiagramLink.extend({
         /**
-         *  @var {Object} PkgCommentLink#defaults Attributi di default per l'oggetto.
+         *  @var {Object} PkgCommentLink#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'packageDiagram.items.PkgCommentLink',
@@ -408,16 +405,15 @@ define ([
 			}
         }, Swedesigner.model.packageDiagram.items.packageDiagramLink.prototype.defaults)
     });
-    
     /**
      *  @module Swedesigner.model.packageDiagram.items
      *  @class PkgDependency
      *  @classdesc Dipendenza tra due package UML del diagramma dei package.
      *  @extends {Swedesigner.model.packageDiagram.items.packageDiagramLink}
      */
-    Swedesigner.model.packageDiagram.items.PkgDependency=Swedesigner.model.packageDiagram.items.packageDiagramLink.extend({
+    Swedesigner.model.packageDiagram.items.PkgDependency = Swedesigner.model.packageDiagram.items.packageDiagramLink.extend({
         /**
-         *  @var {Object} PkgDependency#defaults Attributi di default per l'oggetto.
+         *  @var {Object} PkgDependency#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'packageDiagram.items.PkgDependency',
@@ -427,17 +423,17 @@ define ([
         }, Swedesigner.model.packageDiagram.items.packageDiagramLink.prototype.defaults)
     });
 
-    Swedesigner.model.classDiagram.items={};
-
+//--------------------------------------------------------------------- CLASS DIAGRAM ----------------------------------------------------------------
+    Swedesigner.model.classDiagram.items = {};
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class Base
      *  @classdesc Elemento base generico per diagramma delle classi UML.
      *  @extends {joint.shapes.basic.Generic}
      */
-    Swedesigner.model.classDiagram.items.Base=joint.shapes.basic.Generic.extend({
+    Swedesigner.model.classDiagram.items.Base = joint.shapes.basic.Generic.extend({
         /**
-         *  @var {string} Base#markup Markup HTML per la rappresentazione grafica.
+         *  @var {string} Base#markup - Markup HTML per la rappresentazione grafica.
          */
         toolMarkup: [
             '<g class="element-tools">',
@@ -448,18 +444,16 @@ define ([
             '</g>'
         ].join(''),
         /**
-         *  @var {Object} Base#defaults Attributi di default per l'oggetto.
+         *  @var {Object} Base#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'uml.classDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
-        parentId: null,
         /**
          *  @function Base#initialize
-         *  @summary Metodo di inizializzazione: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
+         *  @summary Inizializzazione di Base: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
          */
-        initialize: function(parentId) {
-            this.parentId = parentId;
+        initialize: function() {
             this.on('change:values', function() {
                 this.updateRectangles();
                 this.trigger('uml-update');
@@ -467,11 +461,10 @@ define ([
             this.updateRectangles();
             joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         },
-
         /**
          *  @function Base#getValues
-         *  @summary Ritorna i valori dell'item (nome, attributi, metodi, ...).
          *  @return {Object} I valori dell'item.
+         *  @summary Ritorna i valori dell'item ("values").
          */
         getValues: function() {
             return this.get('values');
@@ -484,9 +477,9 @@ define ([
         updateRectangles: function() {},
         /**
          *  @function Base#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
         setToValue: function(value, path) {
             obj=this.getValues();
@@ -500,44 +493,36 @@ define ([
         },
         /**
          *  @function Base#executeMethod
+         *  @param {function} met - Metodo da essere eseguito.
          *  @summary Esegue il metodo avente il nome passato in input.
-         *  @param {function} met - metodo da essere eseguito.
          */
         executeMethod: function(met) {
             return this[met] && this[met].apply(this, [].slice.call(arguments, 1));
         }
     });
-
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class BaseView
      *  @classdesc View per oggetto "Base".
      *  @extends {joint.dia.ElementView}
      */
-    Swedesigner.model.classDiagram.items.BaseView=joint.dia.ElementView.extend({
+    Swedesigner.model.classDiagram.items.BaseView = joint.dia.ElementView.extend({
         /**
          *  @function BaseView#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e imposta un evento alla reazione del model chiamando sequenzialmente i metodi "update" e "resize".
+         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe base e imposta un evento alla reazione del model
+         *  chiamando sequenzialmente i metodi "update" e "resize".
          */
-        initialize: function () {
+        initialize: function() {
             joint.dia.ElementView.prototype.initialize.apply(this, arguments);
             this.listenTo(this.model, 'uml-update', function() {
                 this.update();
                 this.resize();
             });
         },
-        // FORSE DA ELIMINARE events
-        /*
-         *  @var {Object} BaseView#events Gli eventi della view collegati ai rispettivi callback.
-         */
-        /*events: {
-            'mousedown .togglemethods': 'toggleMethods',
-            'mousedown .toggleattributes': 'toggleAttributes'
-        },*/
         /**
          *  @function BaseView#render
-         *  @summary Renderizzazione dell'item.
          *  @return {Object} L'oggetto BaseView.
+         *  @summary Render dell'item.
          */
         render: function() {
             joint.dia.ElementView.prototype.render.apply(this, arguments);
@@ -547,68 +532,36 @@ define ([
         },
         /**
          *  @function BaseView#renderTools
-         *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          *  @return {Object} L'oggetto BaseView.
+         *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          */
         renderTools: function() {
             var toolMarkup = this.model.toolMarkup || this.model.get('toolMarkup');
-            //console.log("markup:", toolMarkup);
+            //console.log("markup: ", toolMarkup);
             if (toolMarkup) {
                 var nodes = joint.V(toolMarkup);
-                //console.log("el:", joint.V(this.el));
+                //console.log("el: ", joint.V(this.el));
                 joint.V(this.el).append(nodes);
             }
             return this;
         }
-        // INIZIO ---- FORSE DA ELIMINARE 
-        /*pointerclick: function (evt, x, y) {
-            this._dx = x;
-            this._dy = y;
-            this._action = '';
-            var className = evt.target.parentNode.getAttribute('class');
-            switch (className) {
-                case 'element-tool-remove':
-                this.model.remove();
-                return;
-                break;
-                default:
-            }
-            joint.dia.CellView.prototype.pointerclick.apply(this, arguments);
-        },*/
-        /*
-         * Toggles the display of the class attributes.
-         * @name diagramElementView#toggleattributes
-         * @function
-         */
-        /*toggleAttributes: function () {
-        },*/ // tolta perché buggata
-        /*
-         * Toggles the display of the class methods.
-         * @name diagramElementView#togglemethods
-         * @function
-         */
-        /*toggleMethods: function () {
-        }*/ // tolta perché buggata
-        // FINE ---- FORSE DA ELIMINARE
     });
-
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class Class
      *  @classdesc Elemento classe per diagramma delle classi UML.
      *  @extends {Swedesigner.model.classDiagram.items.Base}
      */
-    Swedesigner.model.classDiagram.items.Class=Swedesigner.model.classDiagram.items.Base.extend({
+    Swedesigner.model.classDiagram.items.Class = Swedesigner.model.classDiagram.items.Base.extend({
         /**
          *  @function Class#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base.
+         *  @summary Inizializzazione di Class: chiama il metodo "initialize" della classe base.
          */
         initialize: function() {
             Swedesigner.model.classDiagram.items.Base.prototype.initialize.apply(this, arguments);
         },
-
         /**
-         *  @var {string} Class#markup Markup HTML per la rappresentazione grafica.
+         *  @var {string} Class#markup - Markup HTML per la rappresentazione grafica.
          */
         markup: [
             '<g class="rotatable">',
@@ -619,7 +572,7 @@ define ([
             '</g>'
         ].join(''),
         /**
-         *  @var {Object} Class#defaults Attributi di default per l'oggetto Class (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         *  @var {Object} Class#defaults - Attributi di default per l'oggetto Class (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
             type: 'classDiagram.items.Class',
@@ -687,33 +640,34 @@ define ([
                 constructorList : [],
                 attributes: [
                 	/*{
-    					_name : "",
-    					_type : "",
-    					_default : "",
-    					_visibility : "",
-    					isStatic : "",
-    					isFinal : ""
+    					_name: "",
+    					_type: "",
+    					_default: "",
+    					_visibility: "",
+    					isStatic: "",
+    					isFinal: ""
     				}*/
                 ],
                 operations : [
     				/*{
-    					_name : "",
-    					_visibility : "",
-    					returnType : "",
-    					isStatic : "",
-    					isAbstract : "",
-    					isFinal : "",
-    					parameters : [
+    					_name: "",
+    					_visibility: "",
+                        id: joint.util.uuid(),
+    					returnType: "",
+    					isStatic: "",
+    					isAbstract: "",
+    					isFinal: "",
+    					parameters: [
     						{
-    							_type : "",
-    							_name : "",
-    							_default : "",
+                                _name: "",
+    							_type: "",
+    							_default: "",
                                 _direction: ""
     						}
     					]
     				}*/
     			],
-                //Attributi utili lato client
+                // Attributi utili lato client
                 isStatic: "false",
                 isFinal: "false",
                 isFrozen: "false",
@@ -853,7 +807,7 @@ define ([
         },
         /**
          *  @function Class#addParameter
-         *  @param {Number} ind - indice dell'operazione.
+         *  @param {Number} ind - Indice dell'operazione.
          *  @summary Aggiunge un parametro all'operazione passata in input.
          */
         addParameter: function(ind) {
@@ -868,7 +822,7 @@ define ([
         },
         /**
          *  @function Class#deleteParameter
-         *  @param {Number} ind - indice dell'operazione.
+         *  @param {Number} ind - Indice dell'operazione.
          *  @summary Rimuove un parametro dall'operazione passata in input.
          */
         deleteParameter: function(met) {
@@ -878,7 +832,7 @@ define ([
         },
         /**
          *  @function Class#deleteAttribute
-         *  @param {Number} ind - indice dell'attributo.
+         *  @param {Number} ind - Indice dell'attributo.
          *  @summary Rimuove un attributo dalla classe.
          */
         deleteAttribute: function(ind) {
@@ -888,7 +842,7 @@ define ([
         },
         /**
          *  @function Class#deleteOperation
-         *  @param {Number} ind - indice dell'operazione.
+         *  @param {Number} ind - Indice dell'operazione.
          *  @summary Rimuove un'operazione dalla classe.
          */
         deleteOperation: function(ind) {
@@ -896,7 +850,6 @@ define ([
             this.updateRectangles();
             this.trigger("uml-update");
         },
-        // FORSE DA CAMBIARE /** @todo */
         /**
          *  @function Class#getAttrsDesc
          *  @returns {Object[]} Attributi della classe.
@@ -920,7 +873,6 @@ define ([
             });
             return attrDesc;
         },
-        // FORSE DA CAMBIARE /** @todo */
         /**
          *  @function Class#getOpDesc
          *  @returns {Object[]} Operazioni della classe.
@@ -949,10 +901,9 @@ define ([
             });
             return opDesc;
         },
-        // FORSE DA CAMBIARE /** @todo */
         /**
          *  @function Class#getItemDesc
-         *  @returns {Object} Classe.
+         *  @returns {Object} Informazioni della classe.
          *  @summary Ritorna le informazioni della classe.
          */
         getItemDesc: function() {
@@ -984,16 +935,15 @@ define ([
             return longest*5+180;
         }
     });
-
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class Interface
      *  @classdesc Interfaccia UML.
      *  @extends {Swedesigner.model.classDiagram.items.Class}
      */
-    Swedesigner.model.classDiagram.items.Interface=Swedesigner.model.classDiagram.items.Base.extend({
+    Swedesigner.model.classDiagram.items.Interface = Swedesigner.model.classDiagram.items.Base.extend({
         /**
-         *  @var {string} Interface#markup Markup HTML per la rappresentazione grafica.
+         *  @var {string} Interface#markup - Markup HTML per la rappresentazione grafica.
          */
         markup: [
             '<g class="rotatable">',
@@ -1004,7 +954,7 @@ define ([
             '</g>'
         ].join(''),
         /**
-         *  @var {Object} Interface#defaults Attributi di default per l'oggetto (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         *  @var {Object} Interface#defaults - Attributi di default per l'oggetto (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
             type: 'classDiagram.items.Interface',
@@ -1052,14 +1002,15 @@ define ([
                 	/*{
     					_name : "",
     					_visibility : "",
+                        id: joint.util.uuid(),
     					returnType : "",
     					isStatic : "",
     					isAbstract : "",
     					isFinal : "",
     					parameters : [
     						{
+                                _name : "",
     							_type : "",
-    							_name : "",
     							_default : "",
                                 _direction: ""
     						}
@@ -1070,15 +1021,14 @@ define ([
         }, Swedesigner.model.classDiagram.items.Base.prototype.defaults),
         /**
          *  @function Interface#initialize
-         *  @summary Metodo di inizializzazione.
+         *  @summary Inizializzazione di Interface.
          */
         initialize: function() {
             Swedesigner.model.classDiagram.items.Base.prototype.initialize.apply(this, arguments);
         },
-
         /**
          *  @function Interface#updateRectangles
-         *  @summary Aggiorna la rappresentazione grafica dell'oggetto.
+         *  @summary Render dell'interfaccia.
          */
         updateRectangles: function() {
             var attrs=this.get('attrs');
@@ -1132,7 +1082,7 @@ define ([
         },
         /**
          *  @function Interface#addOperation
-         *  @summary Aggiunge un'operazione all'oggetto.
+         *  @summary Aggiunge un'operazione all'interfaccia.
          */
         addOperation: function() {
             this.getValues().operations.push({
@@ -1150,8 +1100,8 @@ define ([
         },
         /**
          *  @function Interface#addParameter
-         *  @param {Number} ind - indice dell'operazione.
-         *  @summary Aggiunge un parametro all'operazione dell'oggetto indicato.
+         *  @param {Number} ind - Indice dell'operazione.
+         *  @summary Aggiunge un parametro all'operazione passata in input.
          */
         addParameter: function(ind) {
             this.getValues().operations[ind].parameters.push({
@@ -1163,11 +1113,10 @@ define ([
             this.updateRectangles();
             this.trigger("uml-update");
         },
-        // FORSE DA CAMBIARE /** @todo */
         /**
          *  @function Interface#deleteParameter
-         *  @param {Number} met - indice dell'operazione.
-         *  @summary Rimuove il primo parametro dall'operazione dell'interfaccia.
+         *  @param {Number} met - Indice dell'operazione.
+         *  @summary Rimuove uno parametro dall'operazione passata in input.
          */
         deleteParameter: function(met) {
             this.getValues().operations[met[0]].parameters.splice(met[1], 1);
@@ -1176,7 +1125,7 @@ define ([
         },
         /**
          *  @function Interface#deleteOperation
-         *  @param {Number} met - indice dell'operazione.
+         *  @param {Number} met - Indice dell'operazione.
          *  @summary Rimuove un'operazione dall'interfaccia.
          */
         deleteOperation: function(ind) {
@@ -1184,7 +1133,6 @@ define ([
             this.updateRectangles();
             this.trigger("uml-update");
         },
-        // FORSE DA CAMBIARE /** @todo */
         /**
          *  @function Interface#getOpDesc
          *  @returns {Object[]} Operazioni della classe.
@@ -1213,7 +1161,6 @@ define ([
             });
             return opDesc;
         },
-        // FORSE DA CAMBIARE /** @todo */
         /**
          *  @function Interface#getItemDesc
          *  @returns {Object} Interfaccia.
@@ -1241,7 +1188,6 @@ define ([
             return longest*5+180;
         }
     });
-
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class ClComment
@@ -1250,7 +1196,7 @@ define ([
      */
     Swedesigner.model.classDiagram.items.ClComment = joint.shapes.basic.TextBlock.extend({
         /**
-         *  @var {string} ClComment#toolMarkup Markup HTML per la rappresentazione grafica.
+         *  @var {string} ClComment#toolMarkup - Markup HTML per la rappresentazione grafica.
          */
         toolMarkup: [
             '<g class="element-tools">',
@@ -1261,7 +1207,7 @@ define ([
             '</g>'
         ].join(''),
         /**
-         *  @var {Object} ClComment#defaults Attributi di default per l'oggetto ClComment.
+         *  @var {Object} ClComment#defaults - Attributi di default per l'oggetto ClComment.
          */
         defaults: _.defaultsDeep({
             type: "classDiagram.items.ClComment",
@@ -1273,26 +1219,26 @@ define ([
         }, joint.shapes.basic.TextBlock.prototype.defaults),
         /**
          *  @function ClComment#initialize
-         *  @summary Metodo di inizializzazione.
+         *  @summary Inizializzazione di ClComment.
          */
-        initialize: function () {
+        initialize: function() {
             joint.shapes.basic.TextBlock.prototype.initialize.apply(this, arguments);
         },
         /**
          *  @function ClComment#getValues
-         *  @summary Ritorna i valori dell'item ClComment.
          *  @returns {Object} Valori dell'item ClComment (values.comment per accedere al testo del commento).
+         *  @summary Ritorna i valori dell'item ClComment.
          */
-        getValues: function () {
+        getValues: function() {
             return this.get("values");
         },
         /**
          *  @function ClComment#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
-        setToValue: function (value, path) {
+        setToValue: function(value, path) {
             obj = this.getValues();
             path = path.split('.');
             for (i = 0; i < path.length - 1; i++) {
@@ -1306,9 +1252,9 @@ define ([
         },
         /**
          *  @function ClComment#updateContent
-         *  @summary Aggiorna l'item ClComment.
+         *  @summary Aggiorna il contenuto dell'item ClComment.
          */
-        updateContent: function () {
+        updateContent: function() {
             if (joint.env.test('svgforeignobject')) {
                 // Content element is a <div> element.
                 this.attr({
@@ -1327,7 +1273,6 @@ define ([
             }
         }
     });
-
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class ClCommentView
@@ -1337,17 +1282,17 @@ define ([
     Swedesigner.model.classDiagram.items.ClCommentView = joint.shapes.basic.TextBlockView.extend({
         /**
          *  @function ClCommentView#initialize
-         *  @summary Metodo di inizializzazione.
+         *  @summary Inizializzazione di ClCommentView.
          */
-        initialize: function () {
+        initialize: function() {
             joint.shapes.basic.TextBlockView.prototype.initialize.apply(this, arguments);
         },
         /**
          *  @function ClCommentView#render
-         *  @summary Renderizzazione dell'item.
          *  @return {Object} L'oggetto ClCommentView.
+         *  @summary Render di ClCommentView.
          */
-        render: function () {
+        render: function() {
             joint.shapes.basic.TextBlockView.prototype.render.apply(this, arguments);
             this.renderTools();
             this.update();
@@ -1355,10 +1300,10 @@ define ([
         },
         /**
          *  @function ClCommentView#renderTools
-         *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          *  @return {Object} L'oggetto ClCommentView.
+         *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          */
-        renderTools: function () {
+        renderTools: function() {
             var toolMarkup = this.model.toolMarkup || this.model.get('toolMarkup');
             //console.log("markup:", toolMarkup);
             if (toolMarkup) {
@@ -1369,16 +1314,15 @@ define ([
             return this;
         }
     });
-
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class classDiagramLink
      *  @classdesc Collegamento tra due componenti di un diagramma delle classi UML.
      *  @extends {joint.dia.Link}
      */
-    Swedesigner.model.classDiagram.items.classDiagramLink=joint.dia.Link.extend({
+    Swedesigner.model.classDiagram.items.classDiagramLink = joint.dia.Link.extend({
         /**
-         *  @var {Object} classDiagramLink#defaults Attributi di default per l'oggetto.
+         *  @var {Object} classDiagramLink#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'classDiagram.items.classDiagramLink',
@@ -1387,24 +1331,24 @@ define ([
         }, joint.dia.Link.prototype.defaults),
         /**
          *  @function classDiagramLink#initialize
-         *  @summary Metodo di inizializzazione.
+         *  @summary Inizializzazione di ClassDiagramLink.
          */
         initialize: function() {
             joint.dia.Link.prototype.initialize.apply(this, arguments);
         },
         /**
          *  @function classDiagramLink#getValues
-         *  @summary Ritorna i valori del collegamento.
          *  @return {Object} I valori del collegamento.
+         *  @summary Ritorna i valori del collegamento.
          */
         getValues: function() {
             return this.get("values");
         },
         /**
          *  @function classDiagramLink#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
         setToValue: function(value, path) {
             obj=this.getValues();
@@ -1417,16 +1361,15 @@ define ([
             this.trigger("uml-update");
         }
     });
-    
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class ClCommentLink
      *  @classdesc Link tra un commento e un componente UML del diagramma delle classi.
      *  @extends {Swedesigner.model.classDiagram.items.classDiagramLink}
      */
-    Swedesigner.model.classDiagram.items.ClCommentLink=Swedesigner.model.classDiagram.items.classDiagramLink.extend({
+    Swedesigner.model.classDiagram.items.ClCommentLink = Swedesigner.model.classDiagram.items.classDiagramLink.extend({
         /**
-         *  @var {Object} ClCommentLink#defaults Attributi di default per l'oggetto.
+         *  @var {Object} ClCommentLink#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'classDiagram.items.ClCommentLink',
@@ -1435,32 +1378,30 @@ define ([
 			}
         }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
     });
-
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class Generalization
      *  @classdesc Generalizzazione tra due componenti UML.
      *  @extends {Swedesigner.model.classDiagram.items.classDiagramLink}
      */
-    Swedesigner.model.classDiagram.items.Generalization=Swedesigner.model.classDiagram.items.classDiagramLink.extend({
+    Swedesigner.model.classDiagram.items.Generalization = Swedesigner.model.classDiagram.items.classDiagramLink.extend({
         /**
-         *  @var {Object} Generalization#defaults Attributi di default per l'oggetto.
+         *  @var {Object} Generalization#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'classDiagram.items.Generalization',
             attrs: {'.marker-target': {d: 'M 20 0 L 0 10 L 20 20 z', fill: 'white'}}
         }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
     });
-
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class Implementation
      *  @classdesc Implementazione tra due componenti UML.
      *  @extends {Swedesigner.model.classDiagram.items.classDiagramink}
      */
-    Swedesigner.model.classDiagram.items.Implementation=Swedesigner.model.classDiagram.items.classDiagramLink.extend({
+    Swedesigner.model.classDiagram.items.Implementation = Swedesigner.model.classDiagram.items.classDiagramLink.extend({
         /**
-         *  @var {Object} Implementation#defaults Attributi di default per l'oggetto.
+         *  @var {Object} Implementation#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'classDiagram.items.Implementation',
@@ -1470,48 +1411,45 @@ define ([
             }
         }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
     });
-
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class Aggregation
      *  @classdesc Aggregazione tra due componenti UML.
      *  @extends {Swedesigner.model.classDiagram.items.classDiagramLink}
      */
-    Swedesigner.model.classDiagram.items.Aggregation=Swedesigner.model.classDiagram.items.classDiagramLink.extend({
+    Swedesigner.model.classDiagram.items.Aggregation = Swedesigner.model.classDiagram.items.classDiagramLink.extend({
         /**
-         *  @var {Object} Aggregation#defaults Attributi di default per l'oggetto.
+         *  @var {Object} Aggregation#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'classDiagram.items.Aggregation',
             attrs: {'.marker-target': {d: 'M 40 10 L 20 20 L 0 10 L 20 0 z', fill: 'white'}}
         }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
     });
-
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class Composition
      *  @classdesc Composizione tra due componenti UML.
      *  @extends {Swedesigner.model.classDiagram.items.classDiagramLink}
      */
-    Swedesigner.model.classDiagram.items.Composition=Swedesigner.model.classDiagram.items.classDiagramLink.extend({
+    Swedesigner.model.classDiagram.items.Composition = Swedesigner.model.classDiagram.items.classDiagramLink.extend({
         /**
-         *  @var {Object} Composition#defaults Attributi di default per l'oggetto.
+         *  @var {Object} Composition#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'classDiagram.items.Composition',
             attrs: {'.marker-target': {d: 'M 40 10 L 20 20 L 0 10 L 20 0 z', fill: 'black'}}
         }, Swedesigner.model.classDiagram.items.classDiagramLink.prototype.defaults)
     });
-
     /**
      *  @module Swedesigner.model.classDiagram.items
      *  @class Association
      *  @classdesc Associazione tra due componenti UML.
      *  @extends {Swedesigner.model.classDiagram.items.classDiagramLink}
      */
-    Swedesigner.model.classDiagram.items.Association=Swedesigner.model.classDiagram.items.classDiagramLink.extend({
+    Swedesigner.model.classDiagram.items.Association = Swedesigner.model.classDiagram.items.classDiagramLink.extend({
         /**
-         *  @var {Object} Association#defaults Attributi di default per l'oggetto.
+         *  @var {Object} Association#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'classDiagram.items.Association',
@@ -1571,7 +1509,7 @@ define ([
         },
         /**
          *  @function Association#initialize
-         *  @summary Metodo di inizializzazione.
+         *  @summary Inizializzazione della Association.
          */
         initialize: function() {
             this.updatelabel();
@@ -1579,9 +1517,9 @@ define ([
         },
         /**
          *  @function Association#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
         setToValue: function(value, path) {
             obj=this.getValues();
@@ -1594,17 +1532,17 @@ define ([
         }
     });
 
+//--------------------------------------------------------------------- BUBBLE DIAGRAM ----------------------------------------------------------------
     Swedesigner.model.bubbleDiagram.items = {};
-
     /**
      *  @module Swedesigner.model.bubbleDiagram.items
      *  @class Base
-     *  @classdesc Elemento base generico per il diagramma a bolle.
+     *  @classdesc Elemento base generico per il diagramma delle bubble.
      *  @extends {joint.shapes.basic.Generic}
      */
     Swedesigner.model.bubbleDiagram.items.Base = joint.shapes.basic.Generic.extend({
         /**
-         *  @var {string} Base#toolMarkup Markup HTML per la rappresentazione grafica.
+         *  @var {string} Base#toolMarkup - Markup HTML per la rappresentazione grafica.
          */
         toolMarkup: [
             '<g class="element-tools">',
@@ -1614,18 +1552,16 @@ define ([
             '</g>',
             '</g>'].join(''),
         /**
-         *  @var {Object} Base#defaults Attributi di default per l'oggetto.
+         *  @var {Object} Base#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'uml.bubbleDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
-        parentId: null,
         /**
          *  @function Base#initialize
-         *  @summary Metodo di inizializzazione: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
+         *  @summary Inizializzazione di Base: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
          */
-        initialize: function (parentId) {
-            this.parentId = parentId;
+        initialize: function() {
             this.on('change:values', function () {
                 this.updateRectangles();
                 this.trigger('uml-update');
@@ -1641,26 +1577,26 @@ define ([
         updateRectangles: function() {},
         /**
          *  @function Base#getValues
+         *  @return {Object} I valori dell'item ("values").
          *  @summary Ritorna i valori dell'item.
-         *  @return {Object} I valori dell'item.
          */
         getValues: function() {
             return this.get("values");
         },
     });
-
 	/**
      *  @module Swedesigner.model.bubbleDiagram.items
      *  @class BaseView
-     *  @classdesc Elemento view base generico per il diagramma a bolle.
+     *  @classdesc Elemento view base generico per il diagramma delle bubble.
      *  @extends {joint.dia.ElementView}
      */
     Swedesigner.model.bubbleDiagram.items.BaseView = joint.dia.ElementView.extend({
         /**
          *  @function BaseView#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e imposta un evento alla reazione del model chiamando sequenzialmente i metodi "update" e "resize".
+         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe base e imposta un evento alla reazione del
+         *  model chiamando sequenzialmente i metodi "update" e "resize".
          */
-        initialize: function () {
+        initialize: function() {
             joint.dia.ElementView.prototype.initialize.apply(this, arguments);
             this.listenTo(this.model, 'uml-update', function () {
                 this.update();
@@ -1669,10 +1605,10 @@ define ([
         },
         /**
          *  @function BaseView#render
-         *  @summary Renderizzazione dell'item.
          *  @return {Object} L'oggetto BaseView.
+         *  @summary Renderizzazione dell'item.
          */
-        render: function () {
+        render: function() {
             joint.dia.ElementView.prototype.render.apply(this, arguments);
             this.renderTools();
             this.update();
@@ -1680,10 +1616,10 @@ define ([
         },
         /**
          *  @function BaseView#renderTools
-         *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          *  @return {Object} L'oggetto BaseView.
+         *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          */
-        renderTools: function () {
+        renderTools: function() {
             var toolMarkup = this.model.toolMarkup || this.model.get('toolMarkup');
             if (toolMarkup) {
                 var nodes = joint.V(toolMarkup);
@@ -1692,16 +1628,15 @@ define ([
             return this;
         }
     });
-    
     /**
      *  @module Swedesigner.model.bubbleDiagram.items
      *  @class customBubble
-     *  @classdesc Elemento custom bubble per il bubble diagram.
+     *  @classdesc Elemento custom bubble per il diagramma delle bubble.
      *  @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
     Swedesigner.model.bubbleDiagram.items.customBubble = Swedesigner.model.bubbleDiagram.items.Base.extend({
         /**
-         *  @var {string} customBubble#markup Markup HTML per la rappresentazione grafica.
+         *  @var {string} customBubble#markup - Markup HTML per la rappresentazione grafica.
          */
         markup: [
             '<g class="rotatable">',
@@ -1712,7 +1647,8 @@ define ([
             '</g>',
         ].join(''),
         /**
-         *  @var {Object} customBubble#defaults Attributi di default per l'oggetto customBubble (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         *  @var {Object} customBubble#defaults - Attributi di default per l'oggetto customBubble (tipo, posizione, dimensione,
+         *  attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.customBubble',
@@ -1755,15 +1691,14 @@ define ([
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
          *  @function customBubble#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto customBubble.
+         *  @summary Inizializzazione di customBubble: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto customBubble.
          */
         initialize: function() {
         	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
-        	console.log("I'm the customBubble Initialize");
         },
         /**
          *  @function customBubble#updateRectangles
-         *  @summary Render del customBubble.
+         *  @summary Render della custom bubble.
          */
         updateRectangles: function() {
             var attrs = this.get('attrs');
@@ -1783,9 +1718,9 @@ define ([
         },
         /**
          *  @function customBubble#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
         setToValue: function(value, path) {
             obj=this.getValues();
@@ -1798,18 +1733,15 @@ define ([
             this.trigger("uml-update");
         }
     });
-    
     /**
-     * @classdesc Rappresenta un'istruzione condizionale.
-     *
-     * @module Swedesigner.model.bubbleDiagram.items
-     * @name bubbleIf
-     * @class bubbleIf
-     * @extends {Swedesigner.model.bubbleDiagram.items.Base}
+     *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class bubbleIf
+     *  @classdesc Rappresenta un'istruzione condizionale.
+     *  @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
     Swedesigner.model.bubbleDiagram.items.bubbleIf = Swedesigner.model.bubbleDiagram.items.Base.extend({
         /**
-         *  @var {string} bubbleIf#markup Markup HTML per la rappresentazione grafica.
+         *  @var {string} bubbleIf#markup - Markup HTML per la rappresentazione grafica.
          */
         markup: [
             '<g class="rotatable">',
@@ -1820,7 +1752,8 @@ define ([
             '</g>',
         ].join(''),
         /**
-         *  @var {Object} bubbleIf#defaults Attributi di default per l'oggetto bubbleIf (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         *  @var {Object} bubbleIf#defaults - Attributi di default per l'oggetto bubbleIf (tipo, posizione, dimensione,
+         *  attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleIf',
@@ -1863,15 +1796,14 @@ define ([
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
          *  @function bubbleIf#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleIf.
+         *  @summary Inizializzazione di bubbleIf: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleIf.
          */
         initialize: function() {
         	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
-        	console.log("I'm the bubbleIf Initialize");
         },
         /**
          *  @function bubbleIf#updateRectangles
-         *  @summary Render del bubbleIf.
+         *  @summary Render della bubbleIf.
          */
         updateRectangles: function() {
             var attrs = this.get('attrs');
@@ -1891,9 +1823,9 @@ define ([
         },
         /**
          *  @function bubbleIf#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
         setToValue: function(value, path) {
             obj=this.getValues();
@@ -1906,18 +1838,15 @@ define ([
             this.trigger("uml-update");
         }
     });
-
     /**
-     * @classdesc Rappresenta il ramo 'else' di un'istruzione condizionale.
-     *
-     * @module Swedesigner.model.bubbleDiagram.items
-     * @name bubbleElse
-     * @class bubbleElse
-     * @extends {Swedesigner.model.bubbleDiagram.items.Base}
+     *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class bubbleElse
+     *  @classdesc Rappresenta il ramo 'else' di un'istruzione condizionale.
+     *  @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
     Swedesigner.model.bubbleDiagram.items.bubbleElse = Swedesigner.model.bubbleDiagram.items.Base.extend({
         /**
-         *  @var {string} bubbleElse#markup Markup HTML per la rappresentazione grafica.
+         *  @var {string} bubbleElse#markup - Markup HTML per la rappresentazione grafica.
          */
         markup: [
             '<g class="rotatable">',
@@ -1928,7 +1857,8 @@ define ([
             '</g>',
         ].join(''),
         /**
-         *  @var {Object} bubbleElse#defaults Attributi di default per l'oggetto bubbleElse (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         *  @var {Object} bubbleElse#defaults - Attributi di default per l'oggetto bubbleElse (tipo, posizione, dimensione,
+         *  attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleElse',
@@ -1970,15 +1900,14 @@ define ([
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
          *  @function bubbleElse#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleElse.
+         *  @summary Inizializzazione di bubbleElse: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleElse.
          */
         initialize: function() {
         	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
-        	console.log("I'm the bubbleElse Initialize");
         },
         /**
          *  @function bubbleElse#updateRectangles
-         *  @summary Render del bubbleElse.
+         *  @summary Render della bubbleElse.
          */
         updateRectangles: function() {
             var attrs = this.get('attrs');
@@ -1998,9 +1927,9 @@ define ([
         },
         /**
          *  @function bubbleElse#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
         setToValue: function(value, path) {
             obj=this.getValues();
@@ -2013,19 +1942,15 @@ define ([
             this.trigger("uml-update");
         }
     });
-
-
     /**
-     * @classdesc Rappresenta un'iterazione lungo una sequenza di istruzioni.
-     *
-     * @module Swedesigner.model.bubbleDiagram.items
-     * @name bubbleFor
-     * @class bubbleFor
-     * @extends {Swedesigner.model.bubbleDiagram.items.Base}
+     *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class bubbleFor
+     *  @classdesc Rappresenta un'iterazione lungo una sequenza di istruzioni.
+     *  @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
     Swedesigner.model.bubbleDiagram.items.bubbleFor = Swedesigner.model.bubbleDiagram.items.Base.extend({
         /**
-         *  @var {string} bubbleFor#markup Markup HTML per la rappresentazione grafica.
+         *  @var {string} bubbleFor#markup - Markup HTML per la rappresentazione grafica.
          */
         markup: [
             '<g class="rotatable">',
@@ -2036,7 +1961,8 @@ define ([
             '</g>',
         ].join(''),
         /**
-         *  @var {Object} bubbleFor#defaults Attributi di default per l'oggetto bubbleFor (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         *  @var {Object} bubbleFor#defaults - Attributi di default per l'oggetto bubbleFor (tipo, posizione, dimensione,
+         *  attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleFor',
@@ -2081,15 +2007,14 @@ define ([
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
          *  @function bubbleFor#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleFor.
+         *  @summary Inizializzazione di bubbleFor: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleFor.
          */
         initialize: function() {
         	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
-        	console.log("I'm the bubbleFor Initialize");
         },
         /**
          *  @function bubbleFor#updateRectangles
-         *  @summary Render del bubbleFor.
+         *  @summary Render della bubbleFor.
          */
         updateRectangles: function() {
             var attrs = this.get('attrs');
@@ -2109,9 +2034,9 @@ define ([
         },
         /**
          *  @function bubbleFor#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
         setToValue: function(value, path) {
             obj=this.getValues();
@@ -2124,67 +2049,15 @@ define ([
             this.trigger("uml-update");
         }
     });
-
-
     /**
-     * @classdesc Rappresenta una dichiarazione, un'inizializzazione o un'operazione su una variabile.
-     *
-     * @module Swedesigner.model.bubbleDiagram.items
-     * @name bubbleVariable
-     * @class bubbleVariable
-     * @extends {Swedesigner.model.bubbleDiagram.items}
-     */
-    Swedesigner.model.bubbleDiagram.items.bubbleVariable = Swedesigner.model.bubbleDiagram.items.Base.extend({
-        defaults: _.defaultsDeep({
-
-            type: 'bubbleDiagram.items.bubbleVariable',
-
-            attrs: {
-                rect: {
-                    'width': 200,
-                    rx: 10,
-                    ry: 4
-                },
-
-                '.activity-element-name-rect': {
-                    'stroke': 'black', 'stroke-width': 0, 'fill': '#edae1c'
-                },
-                '.activity-element-type-rect': {'stroke': '#edae1c', 'stroke-width': 1, 'fill': '#edae1c'},
-            },
-
-            values: {
-                xType: 'Variabile',
-                name: "",
-                type: "",
-                operation: "",
-                value: ""
-            },
-
-            canHaveChildren: false,
-
-        }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
-
-        initialize: function () {
-            Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
-        },
-
-        getDescription: function () {
-            return this.getValues().type + " " + this.getValues().name + this.getValues().operation + this.getValues().value;
-        }
-    });
-
-
-    /**
-     * @classdesc Rappresenta un'istruzione per uscire da un metodo e ritornare degli argomenti al chiamante.
-     *
-     * @module Swedesigner.model.bubbleDiagram.items
-     * @name bubbleReturn
-     * @class bubbleReturn
-     * @extends {Swedesigner.model.bubbleDiagram.items.Base}
+     *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class bubbleReturn
+     *  @classdesc Rappresenta un'istruzione per uscire da un metodo e ritornare degli argomenti al chiamante.
+     *  @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
     Swedesigner.model.bubbleDiagram.items.bubbleReturn = Swedesigner.model.bubbleDiagram.items.Base.extend({
         /**
-         *  @var {string} bubbleReturn#markup Markup HTML per la rappresentazione grafica.
+         *  @var {string} bubbleReturn#markup - Markup HTML per la rappresentazione grafica.
          */
         markup: [
             '<g class="rotatable">',
@@ -2195,7 +2068,8 @@ define ([
             '</g>',
         ].join(''),
         /**
-         *  @var {Object} bubbleReturn#defaults Attributi di default per l'oggetto bubbleReturn (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         *  @var {Object} bubbleReturn#defaults - Attributi di default per l'oggetto bubbleReturn (tipo, posizione, dimensione,
+         *  attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleReturn',
@@ -2238,15 +2112,14 @@ define ([
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
          *  @function bubbleReturn#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleReturn.
+         *  @summary Inizializzazione di bubbleReturn: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleReturn.
          */
         initialize: function() {
         	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
-        	console.log("I'm the bubbleReturn Initialize");
         },
         /**
          *  @function bubbleReturn#updateRectangles
-         *  @summary Render del bubbleReturn.
+         *  @summary Render della bubbleReturn.
          */
         updateRectangles: function() {
             var attrs = this.get('attrs');
@@ -2266,9 +2139,9 @@ define ([
         },
         /**
          *  @function bubbleReturn#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
         setToValue: function(value, path) {
             obj=this.getValues();
@@ -2281,18 +2154,15 @@ define ([
             this.trigger("uml-update");
         }
     });
-
     /**
-     * @classdesc Rappresenta la prima istruzione di un metodo.
-     *
-     * @module Swedesigner.model.bubbleDiagram.items
-     * @name bubbleStart
-     * @class bubbleStart
-     * @extends {Swedesigner.model.bubbleDiagram.items.Base}
+     *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class bubbleStart
+     *  @classdesc Rappresenta la prima istruzione di un metodo.
+     *  @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
     Swedesigner.model.bubbleDiagram.items.bubbleStart = Swedesigner.model.bubbleDiagram.items.Base.extend({
         /**
-         *  @var {string} bubbleStart#markup Markup HTML per la rappresentazione grafica.
+         *  @var {string} bubbleStart#markup - Markup HTML per la rappresentazione grafica.
          */
         markup: [
             '<g class="rotatable">',
@@ -2303,7 +2173,8 @@ define ([
             '</g>',
         ].join(''),
         /**
-         *  @var {Object} bubbleStart#defaults Attributi di default per l'oggetto bubbleStart (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         *  @var {Object} bubbleStart#defaults - Attributi di default per l'oggetto bubbleStart (tipo, posizione, dimensione,
+         *  attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleStart',
@@ -2346,15 +2217,14 @@ define ([
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
          *  @function bubbleStart#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleStart.
+         *  @summary Inizializzazione di bubbleStart: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleStart.
          */
         initialize: function() {
             Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
-            console.log("I'm the bubbleStart Initialize");
         },
         /**
-         *  @function bubbleReturn#updateRectangles
-         *  @summary Render del bubbleReturn.
+         *  @function bubbleStart#updateRectangles
+         *  @summary Render della bubbleStart.
          */
         updateRectangles: function() {
             var attrs = this.get('attrs');
@@ -2373,19 +2243,15 @@ define ([
             });
         },
     });
-
-
     /**
-     * @classdesc Rappresenta un loop con controllo di condizione lungo una sequenza di istruzioni.
-     *
-     * @module Swedesigner.model.bubbleDiagram.items
-     * @name bubbleWhile
-     * @class bubbleWhile
-     * @extends {Swedesigner.model.bubbleDiagram.items.Base}
+     *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class bubbleWhile
+     *  @classdesc Rappresenta un loop con controllo di condizione lungo una sequenza di istruzioni.
+     *  @extends {Swedesigner.model.bubbleDiagram.items.Base}
      */
     Swedesigner.model.bubbleDiagram.items.bubbleWhile = Swedesigner.model.bubbleDiagram.items.Base.extend({
         /**
-         *  @var {string} bubbleWhile#markup Markup HTML per la rappresentazione grafica.
+         *  @var {string} bubbleWhile#markup - Markup HTML per la rappresentazione grafica.
          */
         markup: [
             '<g class="rotatable">',
@@ -2396,7 +2262,8 @@ define ([
             '</g>',
         ].join(''),
         /**
-         *  @var {Object} bubbleWhile#defaults Attributi di default per l'oggetto bubbleWhile (tipo, posizione, dimensione, attributi CSS, stato e contenuto dell'oggetto).
+         *  @var {Object} bubbleWhile#defaults - Attributi di default per l'oggetto bubbleWhile (tipo, posizione, dimensione,
+         *  attributi CSS, stato e contenuto dell'oggetto).
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleWhile',
@@ -2439,7 +2306,7 @@ define ([
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
          *  @function bubbleWhile#initialize
-         *  @summary Metodo di inizializzazione: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleWhile.
+         *  @summary Inizializzazione di bubbleWhile: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleWhile.
          */
         initialize: function() {
         	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
@@ -2447,7 +2314,7 @@ define ([
         },
         /**
          *  @function bubbleWhile#updateRectangles
-         *  @summary Render del bubbleWhile.
+         *  @summary Render della bubbleWhile.
          */
         updateRectangles: function() {
             var attrs = this.get('attrs');
@@ -2467,9 +2334,9 @@ define ([
         },
         /**
          *  @function bubbleWhile#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
         setToValue: function(value, path) {
             obj=this.getValues();
@@ -2482,16 +2349,15 @@ define ([
             this.trigger("uml-update");
         }
     });
-    
     /**
      *  @module Swedesigner.model.bubbleDiagram.items
      *  @class bubbleDiagramLink
      *  @classdesc Collegamento tra due componenti di un diagramma delle bubble.
      *  @extends {joint.dia.Link}
      */
-    Swedesigner.model.bubbleDiagram.items.bubbleDiagramLink=joint.dia.Link.extend({
+    Swedesigner.model.bubbleDiagram.items.bubbleDiagramLink = joint.dia.Link.extend({
         /**
-         *  @var {Object} bubbleDiagramLink#defaults Attributi di default per l'oggetto.
+         *  @var {Object} bubbleDiagramLink#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleDiagramLink',
@@ -2500,24 +2366,24 @@ define ([
         }, joint.dia.Link.prototype.defaults),
         /**
          *  @function bubbleDiagramLink#initialize
-         *  @summary Metodo di inizializzazione.
+         *  @summary Inizializzazione di bubbleDiagramLink.
          */
         initialize: function() {
             joint.dia.Link.prototype.initialize.apply(this, arguments);
         },
         /**
          *  @function bubbleDiagramLink#getValues
-         *  @summary Ritorna i valori del collegamento.
          *  @return {Object} I valori del collegamento.
+         *  @summary Ritorna i valori del collegamento.
          */
         getValues: function() {
             return this.get("values");
         },
         /**
          *  @function bubbleDiagramLink#setToValue
-         *  @summary Imposta "values.<path>" a "<value>".
-         *  @param {Object} value - valore da assegnare.
-         *  @param {string} path - percorso al membro.
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
          */
         setToValue: function(value, path) {
             obj=this.getValues();
@@ -2530,16 +2396,15 @@ define ([
             this.trigger("uml-update");
         }
     });
-    
     /**
      *  @module Swedesigner.model.bubbleDiagram.items
      *  @class bubbleLink
      *  @classdesc Link tra due elementi del diagramma delle bubble.
      *  @extends {Swedesigner.model.bubbleDiagram.items.bubbleDiagramLink}
      */
-    Swedesigner.model.bubbleDiagram.items.bubbleLink=Swedesigner.model.bubbleDiagram.items.bubbleDiagramLink.extend({
+    Swedesigner.model.bubbleDiagram.items.bubbleLink = Swedesigner.model.bubbleDiagram.items.bubbleDiagramLink.extend({
         /**
-         *  @var {Object} bubbleLink#defaults Attributi di default per l'oggetto.
+         *  @var {Object} bubbleLink#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'bubbleDiagram.items.bubbleLink',
@@ -2549,6 +2414,5 @@ define ([
 			}
         }, Swedesigner.model.bubbleDiagram.items.bubbleDiagramLink.prototype.defaults)
     });
-
 	return Swedesigner;
 });
