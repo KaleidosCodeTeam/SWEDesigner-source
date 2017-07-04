@@ -1,4 +1,4 @@
-/**
+/*
  *	@file Contiene test per Parser
  *	@author  Bonato Enrico - KaleidosCode
  *
@@ -9,8 +9,8 @@
 var JSONfn = require('json-fn');
 var fs = require('fs');
 var Parser = require('./../parser.js');	
-/** ---------------- TEST DI UNITÀ ----------------- */
-/** Esegue il test su tutti i file json contenuti sella cartella JsonTest, chiama il parser per ottenere gli oggetti */
+/* ---------------- TEST DI UNITÀ ----------------- */
+/* Esegue il test su tutti i file json contenuti sella cartella JsonTest, chiama il parser per ottenere gli oggetti */
 
 const testFolder = './JsonTest/';       
 console.log("\n *STARTING* \n");
