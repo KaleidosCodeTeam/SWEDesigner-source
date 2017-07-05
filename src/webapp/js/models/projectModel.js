@@ -179,9 +179,9 @@ define ([
                     this.resizeParent(parent);
                 }
             } else {
-                _.each(this.graph.get('cells').models, function(el) {   // Non sono sicuro se funzionerà
-                    el.set("z", 1);
-                });
+                //_.each(this.graph.get('cells').models, function(el) {   // Non sono sicuro se funzionerà
+                //    el.set("z", 1);
+                //});
                 this.graph.addCell(this.itemToBeAdded);
             }
             this.trigger('addCell', this.itemToBeAdded);
