@@ -4,7 +4,6 @@
  *
  *	@requires mkdirp
  *	@requires fs
- *	@requires ../zipper/zipper.js
  */
 
 var mkdirp=require('mkdirp');
@@ -102,7 +101,6 @@ var Builder = (function() {
 		 *	@param {!CodedProgram} program - L'oggetto generato da CodedProgram, contente le informazioni necessarie alla creazione di file e directory.
 		 *	@summary Crea directory e file del progetto passato in input dal package CodedProgram ed invoca il metodo zip della classe Zipper.
 		 *	@throws fs exceptions.
-		 *	@throws Zipper exceptions.
 		 *	@throws {NO_FILES_TO_BUILD} Se non ci sono file da creare.
 		 */
 		javaBuild : function(program) {
@@ -138,14 +136,7 @@ var Builder = (function() {
 				}
 				return {
 					progDirectory : programDirectory,
-					progPath : programPath
-				};
-				/* // COMMENTARE CHIAMATA A 'zip' PER EFFETTUARE TEST DI UNITÀ
-				Zipper.zip(programDirectory, programPath, function(err) {
-					if (err) throw err;
-					else console.log('PROGRAM CREATION: DONE');
-				});*/
-				
+					progPath : programPath				
 			}
 		},
 		/**
@@ -153,7 +144,6 @@ var Builder = (function() {
 		 *	@param {!CodedProgram} program - L'oggetto generato da CodedProgram, contente le informazioni necessarie alla creazione di file e directory.
 		 *	@summary Crea directory e file del progetto passato in input dal package CodedProgram ed invoca il metodo zip della classe Zipper.
 		 *	@throws fs exceptions.
-		 *	@throws Zipper exceptions.
 		 *	@throws {NO_FILES_TO_BUILD} Se non ci sono file da creare.
 		 */
 		javascriptBuild : function(program) {
@@ -189,13 +179,7 @@ var Builder = (function() {
 				return {
 					progDirectory : programDirectory,
 					progPath : programPath
-				};
-				/* // COMMENTARE CHIAMATA A 'zip' PER EFFETTUARE TEST DI UNITÀ
-				Zipper.zip(programDirectory, programPath, function(err) {
-					if (err) throw err;
-					else console.log('PROGRAM CREATION: DONE');
-				});*/
-				
+				};				
 			}
 		}
 	};

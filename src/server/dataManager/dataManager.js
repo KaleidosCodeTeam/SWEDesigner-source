@@ -91,12 +91,11 @@ var DataManager = (function() {
          *  @descripton Inserisce una nuova bubble nel database.
          *  @throw mysql exception
          */
-      	insertBubble : function(name, source, language, descr, result) {
+      	insertBubble : function(name, source, language, descr) {
             _startConnection();
         		_private.connection.query('insert into Bubbles  values("' + name + '","' + descr + '","' + source + '","' + language +'");', function(err, rows, fields) {
-          			if (!err) {
-                    if (result) { result.setR('Insertion of ' + name + " in " + language + " DONE."); }
-                } else {
+          			if (err) {
+                        _private.connection.end();
             			  throw err;
                 }
         		});
@@ -109,12 +108,11 @@ var DataManager = (function() {
          *  @descripton Elimina una bubble dal database.
          *  @throw mysql exception
          */
-        deleteBubble : function(name, language, result) {
+        deleteBubble : function(name, language) {
             _startConnection();
             _private.connection.query('delete from Bubbles where Name="' + name + '" and Language="' + language + '";', function(err, rows, fields) {
-                if (!err) {
-                    if(result) { result.setR('Delete of ' + name + " in " + language + " DONE."); }
-                } else {
+                if (err) {
+                    _private.connection.end();
                     throw err;
                 }
             });
@@ -127,17 +125,15 @@ var DataManager = (function() {
          *  @descripton Restituisce le informazioni della bubble cercata, se questa esiste.
          *  @throw mysql exception
          */
-      	getBubble : function(name, language, result) {
+      	getBubble : function(name, language) {
         		_startConnection();
         		_private.connection.query('select * from Bubbles where Name="' + name + '" and Language="' + language + '";', function(err, rows, fields) {
           			if (!err) {
                     if (rows.length > 0) {
                         console.log(rows);
-                        if (result) { result.setR(rows); }
-                    } else {
-                        console.log(null);
-                    }
+                        
                 } else {
+                    _private.connection.end();
             			  throw err;
                 }
         		});
@@ -148,13 +144,11 @@ var DataManager = (function() {
          *  @descripton Restituisce le informazioni di tutte le bubble presenti nel database.
          *  @throw mysql exception
          */
-        getAllBubbles : function(result) {
+        getAllBubbles : function() {
             _startConnection();
             _private.connection.query('select * from Bubbles;', function(err, rows, fields) {
-                if (!err) {
-                    console.log(rows);
-                    if (result) { result.setR(rows); }
-                } else {
+                if (err) {  
+                _private.connection.end();        
                     throw err;
                 }
             });
@@ -167,18 +161,11 @@ var DataManager = (function() {
          *  @descripton Controlla se una specifica bubble è presente nel database.
          *  @throw mysql exception
          */
-        isPresentBubble : function(name, language, result) {
+        isPresentBubble : function(name, language) {
             _startConnection();
             _private.connection.query('select * from Bubbles where Name="' + name + '" and Language="' + language + '";', function(err, rows, fields,r) {
-                if (!err) {
-                    if (rows.length > 0) { 
-                        console.log(true); 
-                        if (result) { result.setR(true); }
-                    } else {
-                        console.log(false); 
-                        if(result) { result.setR(false); }
-                    }
-                } else {
+                if (err) {     
+                    _private.connection.end(); 
                     throw err;
                 }
             });
@@ -191,15 +178,3 @@ var DataManager = (function() {
 module.exports = DataManager;
 
 
-//var d = new DataManager();
-
-//d.insertBubble("pedone","...codice...","Javascript","");
-//d.getBubble("Mossa","Javascript");
-//d.getBubble("Mossa","Javascript");
-
-//console.log(d.isPresultentBubble("",""));
-//console.log(d.isPresultentBubble("Mossa","Javascript"));
-
-// create table Bubbles ( Name INT NOT NULL PRIMARY KEY, Description VARCHAR(100), Source VARCHAR(1000), Language VARCHAR(20)
-// insert into Bubbles  values("Scacchiera","codice per disegnare scacchiera","...codice...","Java");
-// insert into Bubbles  values("Mossa","codice per eseguire una mossa","...codice...","Java");

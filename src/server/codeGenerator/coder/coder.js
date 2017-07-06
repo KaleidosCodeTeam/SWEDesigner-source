@@ -120,6 +120,7 @@ JavaCoder.coderAttributes = function(classObj) {
  *	@function JavaCoder.coderOperations
  *	@static
  *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
+ *	@param {!Object} operations - Contiene le informazioni necessarie a codificare l'implementazione di tutte le operazioni di classObj.
  *	@return {string} Stringa del codice sorgente (definizione e implementazione), in Java, relativo a tutti i 
  *	metodi dell'oggetto di input.	 
  *	@description Riceve in input classObj, un oggetto che rappresenta una classe; 
@@ -261,6 +262,7 @@ i.e.  " this.doStuff = function() { }
  *	@function JavascriptCoder.coderInstanceOperations
  *	@static
  *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
+  *	@param {!Object} operations - Contiene le informazioni necessarie a codificare l'implementazione di tutte le operazioni di classObj.
  *	@return {string} Stringa del codice sorgente (definizione e implementazione), in Javascript, relativo a tutte le 
  *	funzioni non statiche dell'oggetto di input.
  *	@description Riceve in input classObj, un oggetto che rappresenta una classe; 
@@ -326,6 +328,7 @@ i.e.  " className1.functionName1 = function() { }
  *	@function JavascriptCoder.coderStaticOperations
  *	@static
  *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
+  *	@param {!Object} operations - Contiene le informazioni necessarie a codificare l'implementazione di tutte le operazioni di classObj.
  *	@return {string} Stringa del codice sorgente (definizione e implementazione), in Javascript, relativo a tutte le 
  *	funzioni statiche dell'oggetto di input.
  *	@description Riceve in input classObj, un oggetto che rappresenta una classe; 

@@ -2,23 +2,14 @@
  *	@file Contiene la classe statica RequestHandler
  *	@author Bonato Enrico - KaleidosCode
  *
- *  requires JavaCoder
- *  requires JavascriptCoder
- *  @requires ../coder/coder.js
- *  @requires ../zipper/zipper.js
- *  @requires ../parser/parser.js
- *  @requires ../builder/builder.js
+ *  @requires ../codeGenerator/codeGenerator.js
  *  @requires ../dataManager/dataManager.js
  *  @requires multer
+ *  @requires path
+ *  @requires url
  */
 
-/*
-var JavaCoder       = require('../coder/javaCoder.js');
-var JavascriptCoder = require('../coder/javascriptCoder.js');
-var zipper          = require('../zipper/zipper.js');
-var parser          = require('../parser/parser.js');
-var builder         = require('../builder/builder.js');
-*/
+
 var CodeGenerator   = require('../codeGenerator/codeGenerator.js');
 var dm              = require('../dataManager/dataManager.js');
 var multer	        = require('multer');

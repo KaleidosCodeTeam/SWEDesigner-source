@@ -17,7 +17,7 @@ var CoderActivity = function() {
 /**
  *	@function CoderActivity.getBubbleLinks
  *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
- *	operazione.
+ *	operazione.ubble
  *	@return {Object[]} Le informazioni relative ai collegamenti fra tutti gli elementi 'bubble' presenti
  *	nell'oggetto activityObj di input. 
  *	@description Estrae, per ogni bubble in activityObj, le informazioni relative al collegamento con un'atra bubble e
@@ -43,7 +43,7 @@ CoderActivity.getBubbleLinks = function(activityObj) {
  *	tale bubble non fosse presente in activityObj, viene restituito il valore null.
  *	@description Ritorna la bubble contenuta in activityObj, corrispondente al bubbleId di input.
  */
-CoderActivity.getBubbleById = function(bubbleId, activityObj) {//bas
+CoderActivity.getBubbleById = function(bubbleId, activityObj) {
 	for(var i=0; i<activityObj.length; i++) {
 		if(activityObj[i].id == bubbleId) {
 			return activityObj[i];
@@ -53,17 +53,17 @@ CoderActivity.getBubbleById = function(bubbleId, activityObj) {//bas
 }
 /**
  *	@function CoderActivity.getNextBubble
- *	@param {!Object} bubble - Le informazioni necessarie a codificare una bubble.
+ *	@param {!Object} bubbleObj - Le informazioni necessarie a codificare una bubble.
  *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
  *	@return {Object} Le informazioni per codificare una bubble, quella che in activityObj 
- 	è successiva alla bubble di input; se non esiste, viene restituito il valore null. 
- *	@description Ritorna la bubble contenuta in activityObj, successiva alla bubble di input.
+ 	è successiva alla bubbleObj di input; se non esiste, viene restituito il valore null. 
+ *	@description Ritorna la bubble contenuta in activityObj, successiva alla bubbleObj di input.
  */
-CoderActivity.getNextBubble = function(bubble,activityObj) {
+CoderActivity.getNextBubble = function(bubbleObj,activityObj) {
 	var bubbleLinks = CoderActivity.getBubbleLinks(activityObj);
 	for(var i=0; i<bubbleLinks.length; i++) {
-		if(bubbleLinks[i].source.id == bubble.id) {
+		if(bubbleLinks[i].source.id == bubbleObj.id) {
 			var nextBubbleId = bubbleLinks[i].target.id;
 			var nextBubble = CoderActivity.getBubbleById(nextBubbleId,activityObj);
 			return nextBubble;
@@ -92,27 +92,27 @@ CoderActivity.getStartBubble = function(bubbleArray, parent) {
 }
 /**
  *	@function CoderActivity.codeEmbeddedBubbles
-  *	@param {!Object} bubble - Le informazioni necessarie a codificare una bubble.
+  *	@param {!Object} bubbleObj - Le informazioni necessarie a codificare una bubble.
  *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
- *	@return {string} Il codice sorgente della bubble di input, comprese le bubble innestate in essa. 
- *	@description Codifica la bubble di input e tutte le bubble innestate in essa; tale bubble dev'essere
+ *	@return {string} Il codice sorgente corrispondente alla bubbleObj di input, comprese le bubble innestate in essa. 
+ *	@description Codifica la bubbleObj di input e tutte le bubble innestate in essa; tale bubbleObj dev'essere
  *	contenuta in activityObj.
  */
-CoderActivity.codeEmbeddedBubbles = function(bubble, activityObj) {
+CoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
 	source = "";
 	var EmbeddedBubbles = new Array();
 	var count = 0;
-	if(bubble.embeds != undefined) {
-		for(var i=0; i<bubble.embeds.length; i++) {
-			EmbeddedBubbles[count] = CoderActivity.getBubbleById(bubble.embeds[i], activityObj);
+	if(bubbleObj.embeds != undefined) {
+		for(var i=0; i<bubbleObj.embeds.length; i++) {
+			EmbeddedBubbles[count] = CoderActivity.getBubbleById(bubbleObj.embeds[i], activityObj);
 			count++;
 		}
-		var startBubble = CoderActivity.getStartBubble(EmbeddedBubbles, bubble.id); // oggetto bubble
+		var startBubble = CoderActivity.getStartBubble(EmbeddedBubbles, bubbleObj.id); 
 		if(startBubble) {
 			var nextBubble = CoderActivity.getNextBubble(startBubble, activityObj);
 			while(nextBubble) {
-				source += CoderActivity.codeBubble(nextBubble, activityObj, bubble.id);
+				source += CoderActivity.codeBubble(nextBubble, activityObj, bubbleObj.id);
 				nextBubble = CoderActivity.getNextBubble(nextBubble, activityObj);
 			}
 		}
@@ -122,41 +122,41 @@ CoderActivity.codeEmbeddedBubbles = function(bubble, activityObj) {
 }
 /**
  *	@function CoderActivity.codeBubble
-  *	@param {!Object} bubble - Le informazioni necessarie a codificare una bubble.
+  *	@param {!Object} bubbleObj - Le informazioni necessarie a codificare una bubble.
  *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
- *	@param {!string} parent - L'identificativo della bubble padre della bubble di input (innestata).
- *	@return {string} Il codice sorgente della bubble di input. 
- *	@description Codifica la bubble di input; tale bubble dev'essere contenuta in activityObj.
+ *	@param {!string} parent - L'identificativo della bubble padre della bubbleObj di input (innestata).
+ *	@return {string} Il codice sorgente della bubbleObj di input. 
+ *	@description Codifica la bubbleObj di input; tale bubbleObj dev'essere contenuta in activityObj.
  */
-CoderActivity.codeBubble = function(bubble, activityObj, parent) {
+CoderActivity.codeBubble = function(bubbleObj, activityObj, parent) {
 	var source = "";
-	if(bubble.type == "bubbleDiagram.items.bubbleIf") {
-		source += "if(" + bubble.values.condition + "){ \n";
-		source += CoderActivity.codeEmbeddedBubbles(bubble, activityObj);
+	if(bubbleObj.type == "bubbleDiagram.items.bubbleIf") {
+		source += "if(" + bubbleObj.values.condition + "){ \n";
+		source += CoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
 		source += "}\n";
 	}
-	else if(bubble.type == "bubbleDiagram.items.bubbleElse") {
+	else if(bubbleObj.type == "bubbleDiagram.items.bubbleElse") {
 		source += "else { \n";
-		source += CoderActivity.codeEmbeddedBubbles(bubble, activityObj);
+		source += CoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
 		source += "} \n";
 	}
-	else if(bubble.type == "bubbleDiagram.items.bubbleFor") {
-		source += "for(" + bubble.values.initialization + ";" + bubble.values.termination + ";" + bubble.values.increment + ") { \n";
-		source += CoderActivity.codeEmbeddedBubbles(bubble, activityObj);
+	else if(bubbleObj.type == "bubbleDiagram.items.bubbleFor") {
+		source += "for(" + bubbleObj.values.initialization + ";" + bubbleObj.values.termination + ";" + bubbleObj.values.increment + ") { \n";
+		source += CoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
 		source += "} \n";
 	}
-	else if(bubble.type == "bubbleDiagram.items.bubbleWhile") {
-		source += "while(" + bubble.values.condition + "){ \n";
-		source += CoderActivity.codeEmbeddedBubbles(bubble, activityObj);
+	else if(bubbleObj.type == "bubbleDiagram.items.bubbleWhile") {
+		source += "while(" + bubbleObj.values.condition + "){ \n";
+		source += CoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
 		source += "}\n";
 	}
-	else if(bubble.type == "bubbleDiagram.items.customBubble") {
-		source += bubble.values.bubbleCode + "\n";
-		source += CoderActivity.codeEmbeddedBubbles(bubble, activityObj);
+	else if(bubbleObj.type == "bubbleDiagram.items.customBubble") {
+		source += bubbleObj.values.bubbleCode + "\n";
+		source += CoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
 	}
-	else if(bubble.type == "bubbleDiagram.items.bubbleReturn") {
-		source += "return " + bubble.values.value + "; \n";
+	else if(bubbleObj.type == "bubbleDiagram.items.bubbleReturn") {
+		source += "return " + bubbleObj.values.value + "; \n";
 	}
 
 	return source;
