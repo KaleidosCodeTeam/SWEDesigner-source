@@ -47,13 +47,13 @@ define ([
     Swedesigner.model.packageDiagram.items = {};
     /**
      *  @module Swedesigner.model.packageDiagram.items
-     *  @class Base
+     *  @class packageDiagram::Base
      *  @classdesc Elemento base generico per diagramma dei package UML.
      *  @extends {joint.shapes.basic.Generic}
      */
     Swedesigner.model.packageDiagram.items.Base = joint.shapes.basic.Generic.extend({
     	/**
-         *  @var {string} Base#toolMarkup - Markup HTML per la rappresentazione grafica.
+         *  @var {string} packageDiagram::Base#toolMarkup - Markup HTML per la rappresentazione grafica.
          */
     	toolMarkup: [
     		'&lt;g class="element-tools">',
@@ -63,13 +63,13 @@ define ([
             '&lt;/g>',
             '&lt;/g>'].join(''),
         /**
-         *  @var {Object} Base#defaults - Attributi di default per l'oggetto.
+         *  @var {Object} packageDiagram::Base#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'uml.packageDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
         /**
-         *  @function Base#initialize
+         *  @function packageDiagram::Base#initialize
          *  @summary Inizializzazione di Base: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
          */
         initialize: function() {
@@ -81,13 +81,13 @@ define ([
             joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         },
         /**
-         *  @function Base#updateRectangles
+         *  @function packageDiagram::Base#updateRectangles
          *  @summary Render dell'item.
          *  @abstract
          */
         updateRectangles: function() {},
         /**
-         *  @function Base#getValues
+         *  @function packageDiagram::Base#getValues
          *  @return {Object} I valori ("values") dell'item.
          *  @summary Ritorna i valori dell'item.
          */
@@ -97,14 +97,14 @@ define ([
     });
     /**
      *  @module Swedesigner.model.packageDiagram.items
-     *  @class BaseView
-     *  @classdesc View per item "Base".
+     *  @class packageDiagram::BaseView
+     *  @classdesc View per item "packageDiagram::Base".
      *  @extends {joint.dia.ElementView}
      */
     Swedesigner.model.packageDiagram.items.BaseView = joint.dia.ElementView.extend({
     	/**
-         *  @function BaseView#initialize
-         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe "Base" e imposta un evento alla reazione del model
+         *  @function packageDiagram::BaseView#initialize
+         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe "packageDiagram::Base" e imposta un evento alla reazione del model
          *  chiamando sequenzialmente i metodi "update" e "resize".
          */
         initialize: function() {
@@ -115,7 +115,7 @@ define ([
             });
         },
         /**
-         *  @function BaseView#render
+         *  @function packageDiagram::BaseView#render
          *  @return {Object} L'oggetto BaseView.
          *  @summary Render dell'item.
          */
@@ -126,7 +126,7 @@ define ([
             return this;
         },
         /**
-         *  @function BaseView#renderTools
+         *  @function packageDiagram::BaseView#renderTools
          *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          *  @return {Object} L'oggetto BaseView.
          */
@@ -455,13 +455,13 @@ define ([
     Swedesigner.model.classDiagram.items = {};
     /**
      *  @module Swedesigner.model.classDiagram.items
-     *  @class Base
+     *  @class classDiagram::Base
      *  @classdesc Elemento base generico per diagramma delle classi UML.
      *  @extends {joint.shapes.basic.Generic}
      */
     Swedesigner.model.classDiagram.items.Base = joint.shapes.basic.Generic.extend({
         /**
-         *  @var {string} Base#markup - Markup HTML per la rappresentazione grafica.
+         *  @var {string} classDiagram::Base#markup - Markup HTML per la rappresentazione grafica.
          */
         toolMarkup: [
             '&lt;g class="element-tools">',
@@ -472,13 +472,13 @@ define ([
             '&lt;/g>'
         ].join(''),
         /**
-         *  @var {Object} Base#defaults - Attributi di default per l'oggetto.
+         *  @var {Object} classDiagram::Base#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'uml.classDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
         /**
-         *  @function Base#initialize
+         *  @function classDiagram::Base#initialize
          *  @summary Inizializzazione di Base: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
          */
         initialize: function() {
@@ -490,7 +490,7 @@ define ([
             joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         },
         /**
-         *  @function Base#getValues
+         *  @function classDiagram::Base#getValues
          *  @return {Object} I valori dell'item.
          *  @summary Ritorna i valori dell'item ("values").
          */
@@ -498,13 +498,13 @@ define ([
             return this.get('values');
         },
         /**
-         *  @function Base#updateRectangles
+         *  @function classDiagram::Base#updateRectangles
          *  @summary Render dell'item.
          *  @abstract
          */
         updateRectangles: function() {},
         /**
-         *  @function Base#setToValue
+         *  @function classDiagram::Base#setToValue
          *  @param {Object} value - Valore da assegnare.
          *  @param {string} path - Percorso al membro.
          *  @summary Imposta "values.path" a "value".
@@ -520,7 +520,7 @@ define ([
             this.trigger("uml-update");
         },
         /**
-         *  @function Base#executeMethod
+         *  @function classDiagram::Base#executeMethod
          *  @param {function} met - Metodo da essere eseguito.
          *  @summary Esegue il metodo avente il nome passato in input.
          */
@@ -530,14 +530,14 @@ define ([
     });
     /**
      *  @module Swedesigner.model.classDiagram.items
-     *  @class BaseView
+     *  @class classDiagram::BaseView
      *  @classdesc View per oggetto "Base".
      *  @extends {joint.dia.ElementView}
      */
     Swedesigner.model.classDiagram.items.BaseView = joint.dia.ElementView.extend({
         /**
-         *  @function BaseView#initialize
-         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe base e imposta un evento alla reazione del model
+         *  @function classDiagram::BaseView#initialize
+         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe classDiagram::Base e imposta un evento alla reazione del model
          *  chiamando sequenzialmente i metodi "update" e "resize".
          */
         initialize: function() {
@@ -548,7 +548,7 @@ define ([
             });
         },
         /**
-         *  @function BaseView#render
+         *  @function classDiagram::BaseView#render
          *  @return {Object} L'oggetto BaseView.
          *  @summary Render dell'item.
          */
@@ -559,7 +559,7 @@ define ([
             return this;
         },
         /**
-         *  @function BaseView#renderTools
+         *  @function classDiagram::BaseView#renderTools
          *  @return {Object} L'oggetto BaseView.
          *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          */
@@ -1564,13 +1564,13 @@ define ([
     Swedesigner.model.bubbleDiagram.items = {};
     /**
      *  @module Swedesigner.model.bubbleDiagram.items
-     *  @class Base
+     *  @class bubbleDiagram::Base
      *  @classdesc Elemento base generico per il diagramma delle bubble.
      *  @extends {joint.shapes.basic.Generic}
      */
     Swedesigner.model.bubbleDiagram.items.Base = joint.shapes.basic.Generic.extend({
         /**
-         *  @var {string} Base#toolMarkup - Markup HTML per la rappresentazione grafica.
+         *  @var {string} bubbleDiagram::Base#toolMarkup - Markup HTML per la rappresentazione grafica.
          */
         toolMarkup: [
             '&lt;g class="element-tools">',
@@ -1580,13 +1580,13 @@ define ([
             '&lt;/g>',
             '&lt;/g>'].join(''),
         /**
-         *  @var {Object} Base#defaults - Attributi di default per l'oggetto.
+         *  @var {Object} bubbleDiagram::Base#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'uml.bubbleDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
         /**
-         *  @function Base#initialize
+         *  @function bubbleDiagram::Base#initialize
          *  @summary Inizializzazione di Base: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
          */
         initialize: function() {
@@ -1598,13 +1598,13 @@ define ([
             joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         },
         /**
-         *  @function Base#updateRectangles
+         *  @function bubbleDiagram::Base#updateRectangles
          *  @summary Render dell'item.
          *  @abstract
          */
         updateRectangles: function() {},
         /**
-         *  @function Base#getValues
+         *  @function bubbleDiagram::Base#getValues
          *  @return {Object} I valori dell'item ("values").
          *  @summary Ritorna i valori dell'item.
          */
@@ -1614,14 +1614,14 @@ define ([
     });
 	/**
      *  @module Swedesigner.model.bubbleDiagram.items
-     *  @class BaseView
+     *  @class bubbleDiagram::BaseView
      *  @classdesc Elemento view base generico per il diagramma delle bubble.
      *  @extends {joint.dia.ElementView}
      */
     Swedesigner.model.bubbleDiagram.items.BaseView = joint.dia.ElementView.extend({
         /**
-         *  @function BaseView#initialize
-         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe base e imposta un evento alla reazione del
+         *  @function bubbleDiagram::BaseView#initialize
+         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe bubbleDiagram::Base e imposta un evento alla reazione del
          *  model chiamando sequenzialmente i metodi "update" e "resize".
          */
         initialize: function() {
@@ -1632,7 +1632,7 @@ define ([
             });
         },
         /**
-         *  @function BaseView#render
+         *  @function bubbleDiagram::BaseView#render
          *  @return {Object} L'oggetto BaseView.
          *  @summary Renderizzazione dell'item.
          */
@@ -1643,7 +1643,7 @@ define ([
             return this;
         },
         /**
-         *  @function BaseView#renderTools
+         *  @function bubbleDiagram::BaseView#renderTools
          *  @return {Object} L'oggetto BaseView.
          *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          */
@@ -2454,13 +2454,13 @@ define ([
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="Base.html">Base</a></li><li><a href="BaseView.html">BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="MainView.html">MainView</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="RequestHandler.html">RequestHandler</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="DAO.html">DAO</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jul 04 2017 15:46:59 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jul 06 2017 14:28:45 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

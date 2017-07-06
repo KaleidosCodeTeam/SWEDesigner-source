@@ -30,25 +30,16 @@
  *	@file Contiene la classe statica RequestHandler
  *	@author Bonato Enrico - KaleidosCode
  *
- *  requires JavaCoder
- *  requires JavascriptCoder
- *  @requires ../coder/coder.js
- *  @requires ../zipper/zipper.js
- *  @requires ../parser/parser.js
- *  @requires ../builder/builder.js
- *  @requires ../DAO/DAO.js
+ *  @requires ../codeGenerator/codeGenerator.js
+ *  @requires ../dataManager/dataManager.js
  *  @requires multer
+ *  @requires path
+ *  @requires url
  */
 
-/*
-var JavaCoder       = require('../coder/javaCoder.js');
-var JavascriptCoder = require('../coder/javascriptCoder.js');
-var zipper          = require('../zipper/zipper.js');
-var parser          = require('../parser/parser.js');
-var builder         = require('../builder/builder.js');
-*/
+
 var CodeGenerator   = require('../codeGenerator/codeGenerator.js');
-var dao             = require('../DAO/DAO.js');
+var dm              = require('../dataManager/dataManager.js');
 var multer	        = require('multer');
 var path            = require('path');
 var url				= require('url');
@@ -65,10 +56,10 @@ var storage	=	multer.diskStorage({
 
 var upload = multer({ storage : storage}).single('JsonUp');
 
-/** @namespace */
+/** @namespace server::RequestHandler */
 var RequestHandler = {
 	/**
-	 *	@function RequestHandler.getIndex
+	 *	@function server::RequestHandler.getIndex
 	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
 	 *	@param {!string} res - Risposta alla richiesta descritta in req.
 	 *	@summary Invia il file index della Single Page Application.
@@ -79,13 +70,13 @@ var RequestHandler = {
     },
 
     /*
-	 *	@function RequestHandler.getBubble
+	 *	@function server::RequestHandler.getBubble
 	 *	@summary Invia la bubble richiesta.
 	 */
     /*getBubble: function(linguaggio, nome, callback) {
-        dao.isPresentBubble(name,lenguage,function(presente){
+        dm.isPresentBubble(name,lenguage,function(presente){
             if(presente){
-                dao.getBubble(name,language,function(bubble){
+                dm.getBubble(name,language,function(bubble){
                     callback(bubble);
                 });
             }
@@ -93,17 +84,17 @@ var RequestHandler = {
     },*/
 
     /*
-	 *	@function RequestHandler.getAllBubble
+	 *	@function server::RequestHandler.getAllBubble
 	 *	@summary Invia tutte le bubble presenti nel database.
 	 */
     /*getAllBubble: function(callback) {
-        dao.getAllBubbles(function(risultato){
+        dm.getAllBubbles(function(risultato){
             callback(risultato);    
         });
     },*/
 
     /**
-	 *	@function RequestHandler.caricaJs
+	 *	@function server::RequestHandler.caricaJs
 	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
 	 *	@param {!string} res - Risposta alla richiesta descritta in req.
 	 *	@summary Carica il file json nel server e ne genera il codice Javascript restituendo il nome della cartella compressa.
@@ -121,22 +112,15 @@ var RequestHandler = {
             console.log(JSON.stringify(obj.project));
             console.log('============================================================');
             var nome = obj.filename;
-            var nomezip="Programma-"+nome+".zip";
-            /*
-            var parsedProgram = parser.parse(req.file);
-            var program = JavascriptCoder.getCodedProgram(parsedProgram);
-            var cartella = builder.javascriptBuild(program);
-            var zippato =Zipper.zip(nomezip,cartella,function(err){
-                if(err)
-                    console.log(err);}
-                                   );
-            CodeGenerator.generateJsProgram(req.file,nomezip);
-            */
+            var nomezip="Programma-"+nome;
+
+            CodeGenerator.generateJsProgram(obj.project,nomezip);
+            
             res.end(JSON.stringify({'nomezip': nomezip}));
         });
     },
     /**
-	 *	@function RequestHandler.caricaJa
+	 *	@function server::RequestHandler.caricaJa
 	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
 	 *	@param {!string} res - Risposta alla richiesta descritta in req.
 	 *	@summary Carica il file json nel server e ne genera il codice Java restituendo il nome della cartella compressa.
@@ -154,22 +138,15 @@ var RequestHandler = {
             console.log(JSON.stringify(obj.project));
             console.log('============================================================');
             var nome = obj.filename;
-            var nomezip="Programma-"+nome+".zip";
-            /*
-            var parsedProgram = parser.parse(req.file);
-            var program = JavaCoder.getCodedProgram(parsedProgram);
-            var cartella = builder.javaBuild(program);
-            var zippato =Zipper.zip(nomezip,cartella,function(err){
-                if(err)
-                    console.log(err);}
-                                   );
+            var nomezip="Programma-"+nome;
+
             CodeGenerator.generateJavaProgram(obj.project,nomezip);
-            */
+          
             res.jsonp(JSON.stringify({'nomezip': nomezip}));
         });
     },
     /**
-	 *	@function RequestHandler.scarica
+	 *	@function server::RequestHandler.scarica
 	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
 	 *	@param {!string} res - Risposta alla richiesta descritta in req.
 	 *	@summary Scarica il file zip indicato.
@@ -195,13 +172,13 @@ module.exports = RequestHandler;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="Base.html">Base</a></li><li><a href="BaseView.html">BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="MainView.html">MainView</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="RequestHandler.html">RequestHandler</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="DAO.html">DAO</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jul 04 2017 15:46:59 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jul 06 2017 14:28:45 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>
