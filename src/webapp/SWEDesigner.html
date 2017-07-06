@@ -6,8 +6,9 @@
     <title>SWEDesigner</title>
     <!-- Fogli di stile -->
     <link rel="stylesheet" href="lib/css/joint.min.css" type="text/css">
-    <link rel="stylesheet" href="lib/css/bootstrap.min.css">
-    <link rel="stylesheet" href="lib/css/bootstrap-theme.min.css">
+    <!--link rel="stylesheet" href="lib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/css/bootstrap-theme.min.css"-->
+    <link rel="stylesheet" href="https://bootswatch.com/slate/bootstrap.min.css">
     <link rel="stylesheet" href="css/SWEDesigner.css" type="text/css">
 </head>
 
@@ -37,7 +38,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="saveProjectAs-Modal">Apri progetto</h4>
+                <h4 class="modal-title" id="saveProjectAs-Modal">Salva con nome</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -47,7 +48,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveProjectAs-button">Apri</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveProjectAs-button">Salva</button>
             </div>
         </div>
     </div>
@@ -72,7 +73,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">SWEDesigner</a>
+                        <span class="navbar-brand">SWEDesigner</span>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -90,14 +91,14 @@
                                     <li><a href="#">Chiudi</a></li-->
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <!--<li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modifica <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Annulla</a></li>
                                     <li><a href="#">Ripeti</a></li>
                                 </ul>
-                            </li>
-                            <li class="dropdown">
+                            </li>-->
+                            <!--<li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Visualizza <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Layer Superiore</a></li>
@@ -105,26 +106,26 @@
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#">Zoom In</a></li>
                                     <li><a href="#">Zoom Out</a></li>
-                                    <li><a href="#">Reset Zoom</a></li>
+                                    <li><a href="#" id="resetZoom">Reset Zoom</a></li>
                                 </ul>
-                            </li>
+                            </li>-->
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Codice <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Genera Codice Java</a></li>
-                                    <li><a href="#">Genera Codice Js</a></li>
-                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#" id="generate-java" >Genera Codice Java</a></li>
+                                    <li><a href="#" id="generate-js">Genera Codice Js</a></li>
+                                    <!--<li role="separator" class="divider"></li>
                                     <li><a href="#">Visualizza Codice Prodotto</a></li>
-                                    <li><a href="#">Esporta Codice Prodotto</a></li>
+                                    <li><a href="#">Esporta Codice Prodotto</a></li>-->
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <!--<li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extras <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Hex</a></li>
                                 </ul>
-                            </li>
-                            <li class="dropdown">
+                            </li>-->
+                            <!--<li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aiuto <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Manuale Utente</a></li>
@@ -132,24 +133,7 @@
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#">About us</a></li>
                                 </ul>
-                            </li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">TEST-Panel <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a id="showpanel-zero" class="testbutton-panel" href="#">Panel-zero</a></li>
-                                    <li><a id="showpanel-link" class="testbutton-panel" href="#">Panel-link</a></li>
-                                    <li><a id="showpanel-comment" class="testbutton-panel" href="#">Panel-comment</a></li>
-                                    <li><a id="showpanel-package" class="testbutton-panel" href="#">Panel-package</a></li>
-                                    <li><a id="showpanel-activity" class="testbutton-panel" href="#">Panel-activity</a></li>
-                                    <li><a id="showpanel-pin" class="testbutton-panel" href="#">Panel-pin</a></li>
-                                    <li><a id="showpanel-if" class="testbutton-panel" href="#">Panel-if</a></li>
-                                    <li><a id="showpanel-time_event" class="testbutton-panel" href="#">Panel-time_event</a></li>
-                                    <li><a id="showpanel-class" class="testbutton-panel" href="#">Panel-class</a></li>
-                                    <li><a id="showpanel-interface" class="testbutton-panel" href="#">Panel-interface</a></li>
-                                </ul>
-                            </li>
+                            </li>-->
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
@@ -160,26 +144,77 @@
         <!------------ Toolbar laterale ------------>
         <div class="col-lg-1 toolbar">
         	<div class="packageDiagram">
-            	<button id="packageDiagram-Package" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Package</button>
-            	<button id="packageDiagram-PkgComment" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Commento</button>
+            	<button id="packageDiagram-Package" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Package
+                </button>
+            	<button id="packageDiagram-PkgDependency" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Dipendenza
+                </button>
+            	<button id="packageDiagram-PkgComment" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Commento
+                </button>
+            	<button id="packageDiagram-PkgCommentLink" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Link commento
+                </button>
             </div>
             <div class="classDiagram">
-            	<button id="classDiagram-Class" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Classe</button>
-            	<button id="classDiagram-Interface" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Interfaccia</button>
-            	<button id="classDiagram-Generalization" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Generalizzazione</button>
-            	<button id="classDiagram-Implementation" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Implementazione</button>
-            	<button id="classDiagram-Aggregation" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Aggregazione</button>
-            	<button id="classDiagram-Composition" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Composizione</button>
-            	<button id="classDiagram-Association" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Associazione</button>
-            	<button id="classDiagram-ClComment" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Commento</button>
+            	<button id="classDiagram-Class" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Classe
+                </button>
+            	<button id="classDiagram-Interface" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Interfaccia
+                </button>
+            	<button id="classDiagram-Generalization" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Generalizzazione
+                </button>
+            	<button id="classDiagram-Implementation" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Implementazione
+                </button>
+            	<button id="classDiagram-Aggregation" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Aggregazione
+                </button>
+            	<button id="classDiagram-Composition" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Composizione
+                </button>
+            	<button id="classDiagram-Association" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Associazione
+                </button>
+            	<button id="classDiagram-ClComment" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Commento
+                </button>
+            	<button id="classDiagram-ClCommentLink" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Link commento
+                </button>
             </div>
-            <div class="activityDiagram">
-		        <button id="activityDiagram-Activity" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Attività</button>
-		        <button id="activityDiagram-Decision" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Decisione</button>
-		        <button id="activityDiagram-Expansion" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Espansione</button>
-		        <button id="activityDiagram-Trasformation" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Trasformazione</button>
-		        <button id="Wait" type="button" class="btn btn-default btn-large btn-block toolbarbutton">Attesa</button>
-   			</div>
+            <div class="bubbleDiagram">
+                <button id="bubbleDiagram-bubbleStart" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Start
+                </button>
+		        <button id="bubbleDiagram-customBubble" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Custom
+                </button>
+		        <button id="bubbleDiagram-bubbleIf" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> If
+                </button>
+		        <button id="bubbleDiagram-bubbleElse" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Else
+                </button>
+		        <button id="bubbleDiagram-bubbleFor" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> For
+                </button>
+		        <button id="bubbleDiagram-bubbleReturn" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Return
+                </button>
+		        <button id="bubbleDiagram-bubbleWhile" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> While
+                </button>
+		        <button id="bubbleDiagram-bubbleLink" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Link
+                </button>
+		        <button id="bubbleDiagram-nesting" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-record" aria-hidden="true"></span> Innesta
+                </button>
+			</div>
         </div>
         <div class="centralWidget col-lg-9">
             <!------------ Canvas gestita da joint.js ------------>
@@ -191,539 +226,7 @@
                 <li class="active">NomeActivity</li> -->
             </ol>
         </div>
-        <div id="editpanel"></div>
-        <!------------ INIZIO SEZIONE: Pannelli laterali ------------>
-        <!-- Pannello Zero -->
- <!--       <div id="panel-zero" class="col-lg-2 panel-swedesigner" style="display: block">
-            <h4>Colore di sfondo:</h4>
-            <div class="btn-group">
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffaacc"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffbbcc"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffcccc"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffddcc"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffeecc"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffffcc"></button>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffaadd"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffbbdd"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffccdd"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffdddd"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffeedd"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffffdd"></button>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffaaee"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffbbee"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffccee"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffddee"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffeeee"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffffee"></button>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffaaff"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffbbff"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffccff"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffddff"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ffeeff"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #EDF6F6"></button>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccaaff"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccbbff"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccccff"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccddff"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #cceeff"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccffff"></button>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccaaee"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccbbee"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccccee"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccddee"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #cceeee"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccffee"></button>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccaadd"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccbbdd"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccccdd"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccdddd"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #cceedd"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccffdd"></button>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccaacc"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccbbcc"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #cccccc"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccddcc"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #cceecc"></button>
-                <button type="button" class="btn btn-color-sq" style="background-color: #ccffcc"></button>
-            </div>
-            <button type="button" class="btn btn-color-none"> None </button>
-        </div>
-        <div id="panel-link" class="col-lg-2 panel-swedesigner">
-            <h4>Tipo di relazione:</h4>
-            <div class="radio">
-                <label><input type="radio" name="optradio">Dipendenza</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="optradio">Associazione</label>
-            </div>
-            <div class="radio disabled">
-                <label><input type="radio" name="optradio">Ereditarietà</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="optradio">Aggregazione</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="optradio">Composizione</label>
-            </div>
-            <div class="radio disabled">
-                <label><input type="radio" name="optradio" disabled>Raffinamento</label>
-            </div>
-            <div class="radio disabled">
-                <label><input type="radio" name="optradio" disabled>Realizzazione</label>
-            </div>
-            <button type="button" class="btn btn-danger btn-block">Elimina relazione</button>
-        </div>
-        <div id="panel-comment" class="col-lg-2 panel-swedesigner">
-            <h4>Commento</h4>
-            <div class="form-group">
-                <label for="comment-title">Titolo:</label>
-                <input type="text" class="form-control" id="comment-title">
-            </div>
-            <div class="form-group">
-                <label for="comment">Commento:</label>
-                <textarea class="form-control" rows="5" id="comment"></textarea>
-            </div>
-            <button type="button" class="btn btn-danger btn-block">Elimina commento</button>
-        </div>
-        <div id="panel-package" class="col-lg-2 panel-swedesigner">
-            <h4>Package</h4>
-            <div class="form-group">
-                <label for="package-name">Nome:</label>
-                <input type="text" class="form-control" id="package-name">
-            </div>
-            <div class="form-group">
-                <label for="package-rank">Importanza:</label>
-                <select class="form-control" id="package-rank">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                </select>
-            </div>
-            <button type="button" class="btn btn-danger btn-block">Elimina commento</button>
-        </div>
-        <div id="panel-activity" class="col-lg-2 panel-swedesigner">
-            <h4>Activity</h4>
-            <div class="form-group">
-                <label for="activity-name">Nome:</label>
-                <input type="text" class="form-control" id="activity-name">
-            </div>
-            <button type="button" class="btn btn-primary btn-block">Aggiungi pin</button>
-            <button type="button" class="btn btn-danger btn-block">Elimina attività</button>
-        </div>
-        <div id="panel-pin" class="col-lg-2 panel-swedesigner">
-            <h4>Pin</h4>
-            <div class="form-group">
-                <label for="pin-direction">Direzione:</label>
-                <select class="form-control" id="pin-direction">
-                    <option>In</option>
-                    <option>Out</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="pin-name">Nome:</label>
-                <input type="text" class="form-control" id="pin-name">
-            </div>
-            <div class="form-group">
-                <label for="pin-type">Tipo:</label>
-                <select class="form-control" id="pin-type">
-                    <option>Byte</option>
-                    <option>Short</option>
-                    <option>Int</option>
-                    <option>Long</option>
-                    <option>Float</option>
-                    <option>Double</option>
-                    <option>Boolean</option>
-                    <option>Char</option>
-                    <option>UserDefined</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="pin-default">Valore di default:</label>
-                <input type="text" class="form-control" id="pin-default">
-            </div>
-            <button type="button" class="btn btn-danger btn-block">Elimina pin</button>
-        </div>
-        <div id="panel-if" class="col-lg-2 panel-swedesigner">
-            <h4>Controllo condizionale</h4>
-            <div class="form-group">
-                <label for="condition">Condizione:</label>
-                <input type="text" class="form-control" id="condition">
-            </div>
-            <button type="button" class="btn btn-primary btn-block">Reset then</button>
-            <button type="button" class="btn btn-default btn-block">Reset else</button>
-            <button type="button" class="btn btn-danger btn-block">Elimina if</button>
-        </div>
-        <div id="panel-time_event" class="col-lg-2 panel-swedesigner">
-            <h4>Evento temporale</h4>
-            <div class="form-group">
-                <label for="mstime">Durata:</label>
-                <input type="number" class="form-control" id="mstime">
-            </div>
-            <button type="button" class="btn btn-danger btn-block">Elimina evento</button>
-        </div>
-        <div id="panel-class" class="col-lg-2 panel-swedesigner">
-            <h4>Classe</h4>
-            <div class="form-group">
-                <label for="class-name">Nome:</label>
-                <input type="text" class="form-control" id="class-name">
-            </div>
-            <div class="form-group">
-                <label for="class-rank">Importanza:</label>
-                <select class="form-control" id="class-rank">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="class-visibility">Visibilità:</label>
-                <select class="form-control" id="class-visibility">
-                    <option>public</option>
-                    <option>private</option>
-                    <option>protected</option>
-                    <option>default</option>
-                </select>
-            </div>
-            <div id="class-properties">
-                <h5>Proprietà aggiuntive</h5>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">static</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">abstract</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">final</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">frozen</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">readonly</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">enum</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">generic</label>
-                </div>
-            </div>
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title" data-toggle="collapse" href="#class-attributes">
-                            Attributi
-                            <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-                        </h4>
-                    </div>
-                    <div id="class-attributes" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label for="class-attribute-selected">Attributo:</label>
-                                <select class="form-control" id="class-attribute-selected">
-                                    <option></option>
-                                    <option>Attributi</option>
-                                    <option>Aggiunti</option>
-                                    <option>In</option>
-                                    <option>Precedenza</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="class-attribute-visibility">Visibilità:</label>
-                                <select class="form-control" id="class-attribute-visibility">
-                                    <option>public</option>
-                                    <option>private</option>
-                                    <option>protected</option>
-                                    <option>default</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="class-attribute-name">Nome:</label>
-                                <input type="text" class="form-control" id="class-attribute-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="class-attribute-type">Tipo:</label>
-                                <select class="form-control" id="class-attribute-type">
-                                    <option>Byte</option>
-                                    <option>Short</option>
-                                    <option>Int</option>
-                                    <option>Long</option>
-                                    <option>Float</option>
-                                    <option>Double</option>
-                                    <option>Boolean</option>
-                                    <option>Char</option>
-                                    <option>UserDefined</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="class-attribute-default">Valore di default:</label>
-                                <input type="text" class="form-control" id="class-attribute-default">
-                            </div>
-                            <button type="button" class="btn btn-primary btn-block">Aggiungi attributo</button>
-                            <button type="button" class="btn btn-danger btn-block">Elimina attributo</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title" data-toggle="collapse" href="#class-operations">
-                            Operazioni
-                            <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-                        </h4>
-                    </div>
-                    <div id="class-operations" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label for="class-operation-selected">Operazioni:</label>
-                                <select class="form-control" id="class-operation-selected">
-                                    <option></option>
-                                    <option>Operazioni</option>
-                                    <option>Aggiunte</option>
-                                    <option>In</option>
-                                    <option>Precedenza</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="class-operation-visibility">Visibilità:</label>
-                                <select class="form-control" id="class-operation-visibility">
-                                    <option>public</option>
-                                    <option>private</option>
-                                    <option>protected</option>
-                                    <option>default</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="class-operation-name">Nome:</label>
-                                <input type="text" class="form-control" id="class-operation-name">
-                            </div>
-                            <div class="panel-group">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title" data-toggle="collapse" href="#class-operation-parameters">
-                                            Parametri
-                                            <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-                                        </h4>
-                                    </div>
-                                    <div id="class-operation-parameters" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <div class="form-group">
-                                                <label for="class-operation-parameter-selected">Parametro:</label>
-                                                <select class="form-control" id="class-operation-parameter-selected">
-                                                    <option></option>
-                                                    <option>Parametri</option>
-                                                    <option>Aggiunti</option>
-                                                    <option>In</option>
-                                                    <option>Precedenza</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="class-operation-parameter-direction">Direzione:</label>
-                                                <select class="form-control" id="class-operation-parameter-direction">
-                                                    <option>In</option>
-                                                    <option>Out</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="class-operation-parameter-name">Nome:</label>
-                                                <input type="text" class="form-control" id="class-operation-parameter-name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="class-operation-parameter-type">Direzione:</label>
-                                                <select class="form-control" id="class-operation-parameter-type">
-                                                    <option>Byte</option>
-                                                    <option>Short</option>
-                                                    <option>Int</option>
-                                                    <option>Long</option>
-                                                    <option>Float</option>
-                                                    <option>Double</option>
-                                                    <option>Boolean</option>
-                                                    <option>Char</option>
-                                                    <option>UserDefined</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="class-operation-parameter-default">Valore di default:</label>
-                                                <input type="text" class="form-control" id="class-operation-parameter-default">
-                                            </div>
-                                            RADIOBTN PROPRIETÀ AGGIUNTIVE
-                                            <button type="button" class="btn btn-primary btn-block">Aggiungi parametro</button>
-                                            <button type="button" class="btn btn-danger btn-block">Elimina parametro</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-primary btn-block">Aggiungi operazione</button>
-                            <button type="button" class="btn btn-danger btn-block">Elimina operazione</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button type="button" class="btn btn-danger btn-block">Elimina classe</button>
-        </div>
-        <div id="panel-interface" class="col-lg-2 panel-swedesigner">
-            <h4>Interfaccia</h4>
-            <div class="form-group">
-                <label for="interface-name">Nome:</label>
-                <input type="text" class="form-control" id="interface-name">
-            </div>
-            <div class="form-group">
-                <label for="interface-rank">Importanza:</label>
-                <select class="form-control" id="interface-rank">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="interface-visibility">Visibilità:</label>
-                <select class="form-control" id="interface-visibility">
-                    <option>public</option>
-                    <option>private</option>
-                    <option>protected</option>
-                    <option>default</option>
-                </select>
-            </div>
-            <div id="interface-properties">
-                <h5>Proprietà aggiuntive</h5>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">static</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">abstract</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">final</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">frozen</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">readonly</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">enum</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value="">generic</label>
-                </div>
-            </div>
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title" data-toggle="collapse" href="#interface-operations">
-                            Operazioni
-                            <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-                        </h4>
-                    </div>
-                    <div id="interface-operations" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label for="interface-operation-selected">Operazioni:</label>
-                                <select class="form-control" id="interface-operation-selected">
-                                    <option></option>
-                                    <option>Operazioni</option>
-                                    <option>Aggiunte</option>
-                                    <option>In</option>
-                                    <option>Precedenza</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="interface-operation-visibility">Visibilità:</label>
-                                <select class="form-control" id="interface-operation-visibility">
-                                    <option>public</option>
-                                    <option>private</option>
-                                    <option>protected</option>
-                                    <option>default</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="interface-operation-name">Nome:</label>
-                                <input type="text" class="form-control" id="interface-operation-name">
-                            </div>
-                            <div class="panel-group">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title" data-toggle="collapse" href="#interface-operation-parameters">
-                                            Parametri
-                                            <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-                                        </h4>
-                                    </div>
-                                    <div id="interface-operation-parameters" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <div class="form-group">
-                                                <label for="interface-operation-parameter-selected">Parametro:</label>
-                                                <select class="form-control" id="interface-operation-parameter-selected">
-                                                    <option></option>
-                                                    <option>Parametri</option>
-                                                    <option>Aggiunti</option>
-                                                    <option>In</option>
-                                                    <option>Precedenza</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="interface-operation-parameter-direction">Direzione:</label>
-                                                <select class="form-control" id="interface-operation-parameter-direction">
-                                                    <option>In</option>
-                                                    <option>Out</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="interface-operation-parameter-name">Nome:</label>
-                                                <input type="text" class="form-control" id="interface-operation-parameter-name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="interface-operation-parameter-type">Direzione:</label>
-                                                <select class="form-control" id="interface-operation-parameter-type">
-                                                    <option>Byte</option>
-                                                    <option>Short</option>
-                                                    <option>Int</option>
-                                                    <option>Long</option>
-                                                    <option>Float</option>
-                                                    <option>Double</option>
-                                                    <option>Boolean</option>
-                                                    <option>Char</option>
-                                                    <option>UserDefined</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="interface-operation-parameter-default">Valore di default:</label>
-                                                <input type="text" class="form-control" id="interface-operation-parameter-default">
-                                            </div>
-                                            RADIOBTN PROPRIETÀ AGGIUNTIVE
-                                            <button type="button" class="btn btn-primary btn-block">Aggiungi parametro</button>
-                                            <button type="button" class="btn btn-danger btn-block">Elimina parametro</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-primary btn-block">Aggiungi operazione</button>
-                            <button type="button" class="btn btn-danger btn-block">Elimina operazione</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button type="button" class="btn btn-danger btn-block">Elimina interfaccia</button>
-        </div>-->
+        <div id="editpanel" class="col-lg-2 panel-swedesigner"></div>
     </div>
 </div>
 <div class="visible-xs visible-sm visible-md">
@@ -737,10 +240,10 @@
 <script src="lib/js/bootstrap.min.js"></script>
 <script data-main="js/main" src="lib/js/require.js"></script> <!-- PER UTILIZZARE REQUIREJS  -->
 
-<!-- <script src="js/views/provajoint.js"></script> -->
+<!-- <script src="js/views/provajoint.js"></script>
 <script src="js/views/panel-connect.js"></script>
 <script src="js/views/panel-zero.js"></script>
-<script src="js/views/panel-link.js"></script>
+<script src="js/views/panel-link.js"></script>-->
 
 </body>
 </html>

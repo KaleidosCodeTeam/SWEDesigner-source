@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: server/requestHandler/requestHandler.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: server/requestHandler/requestHandler.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *	@file Contiene la classe statica RequestHandler
+ *	@author Bonato Enrico - KaleidosCode
+ *
+ *  @requires ../codeGenerator/codeGenerator.js
+ *  @requires ../dataManager/dataManager.js
+ *  @requires multer
+ *  @requires path
+ *  @requires url
+ */
+
+
+var CodeGenerator   = require('../codeGenerator/codeGenerator.js');
+var dm              = require('../dataManager/dataManager.js');
+var multer	        = require('multer');
+var path            = require('path');
+var url				= require('url');
+
+var root=__dirname+'/../webapp';
+var storage	=	multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, './uploads/JsonUpload');
+    },
+    filename: function (req, file, callback) {
+        callback(null, file.fieldname + '-' + Date.now());
+    }
+});
+
+var upload = multer({ storage : storage}).single('JsonUp');
+
+/** @namespace server::RequestHandler */
+var RequestHandler = {
+	/**
+	 *	@function server::RequestHandler.getIndex
+	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - Risposta alla richiesta descritta in req.
+	 *	@summary Invia il file index della Single Page Application.
+	 */
+    getIndex: function(req, res) {
+        var percorso=root + '/../../webapp/SWEDesigner.html';
+        res.sendFile(path.resolve(percorso));
+    },
+
+    /*
+	 *	@function server::RequestHandler.getBubble
+	 *	@summary Invia la bubble richiesta.
+	 */
+    /*getBubble: function(linguaggio, nome, callback) {
+        dm.isPresentBubble(name,lenguage,function(presente){
+            if(presente){
+                dm.getBubble(name,language,function(bubble){
+                    callback(bubble);
+                });
+            }
+        });
+    },*/
+
+    /*
+	 *	@function server::RequestHandler.getAllBubble
+	 *	@summary Invia tutte le bubble presenti nel database.
+	 */
+    /*getAllBubble: function(callback) {
+        dm.getAllBubbles(function(risultato){
+            callback(risultato);    
+        });
+    },*/
+
+    /**
+	 *	@function server::RequestHandler.caricaJs
+	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - Risposta alla richiesta descritta in req.
+	 *	@summary Carica il file json nel server e ne genera il codice Javascript restituendo il nome della cartella compressa.
+	 */
+    caricaJs: function(req, res) {
+        upload(req,res,function(err) {
+            if(err) {
+                return res.end("Errore upload: "+err);
+            }
+            var query = decodeURIComponent(url.parse(req.url).query);
+            query = query.split('&amp;')[1];
+            var obj = JSON.parse(query);
+            console.log('============================================================');
+            console.log(obj.filename);
+            console.log(JSON.stringify(obj.project));
+            console.log('============================================================');
+            var nome = obj.filename;
+            var nomezip="Programma-"+nome;
+
+            CodeGenerator.generateJsProgram(obj.project,nomezip);
+            
+            res.end(JSON.stringify({'nomezip': nomezip}));
+        });
+    },
+    /**
+	 *	@function server::RequestHandler.caricaJa
+	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - Risposta alla richiesta descritta in req.
+	 *	@summary Carica il file json nel server e ne genera il codice Java restituendo il nome della cartella compressa.
+	 */
+    caricaJa : function(req, res) {
+        upload(req,res,function(err) {
+            if(err) {
+                return res.end("Errore upload: "+err);
+            }
+            var query = decodeURIComponent(url.parse(req.url).query);
+            query = query.split('&amp;')[1];
+            var obj = JSON.parse(query);
+            console.log('============================================================');
+            console.log(obj.filename);
+            console.log(JSON.stringify(obj.project));
+            console.log('============================================================');
+            var nome = obj.filename;
+            var nomezip="Programma-"+nome;
+
+            CodeGenerator.generateJavaProgram(obj.project,nomezip);
+          
+            res.jsonp(JSON.stringify({'nomezip': nomezip}));
+        });
+    },
+    /**
+	 *	@function server::RequestHandler.scarica
+	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
+	 *	@param {!string} res - Risposta alla richiesta descritta in req.
+	 *	@summary Scarica il file zip indicato.
+	 */
+    scarica : function(req, res){
+        var i=req.params.response;
+        console.log(i);
+        res.setHeader('Content-disposition', 'attachment; filename=Codice.zip'); 
+        res.setHeader('Content-type', 'application/zip'); 
+        res.download(__dirname+'/i'); 
+    }
+};
+
+/** Esportazione del modulo */
+module.exports = RequestHandler;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jul 06 2017 14:28:45 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

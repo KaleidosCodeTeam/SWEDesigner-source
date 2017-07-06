@@ -1,62 +1,49 @@
+/**
+ *  @file Contiene la classe ToolbarView.
+ *  @author Bonolo Marco - KaleidosCode
+ */
 define ([
 	'jquery',
 	'underscore',
 	'backbone',
 	'joint',
 	'js/models/items/swedesignerItems',
-	'js/views/editPanelView',
-    'js/views/pathView',
-    'js/views/projectView',
-    'js/models/toolbarModel'
-], function($, _, Backbone, joint, Swedesigner, editPanelView, pathView, projectView, toolbarModel) {
-
+    'js/models/toolbarModel',
+    'js/models/projectModel'
+], function($, _, Backbone, joint, Swedesigner, toolbarModel, projectModel) {
 	/**
-     *  @module 
+     *  @classdesc Toolbar degli elementi realizzabili nel diagramma correntemente visualizzato.
+     *  @module client.views
      *  @class ToolbarView
-     *  @classdesc Elemento che rappresenta la view dei dati della Toolbar.
-     *  @extends {Backbone.View.extend}
+     *  @extends {Backbone.View}
      */
-	var toolbarView = Backbone.View.extend({
+	var ToolbarView = Backbone.View.extend({
 		/**
-         *  @var {Object} ToolbarView#el Elemento HTML del DOM utilizzato per renderizzare l'interfaccia grafica.
+         *  @var {jQueryObject} ToolbarView#el - L'elemento del DOM corrispondente a ToolbarView.
          */
 		el: $('.toolbar'),
 		/**
-         *  @var {Object} ToolbarView#events Set degli eventi gestiti dalla ToolbarView.
+         *  @var {Object} ToolbarView#events - Gli eventi verificabili nella toolbar.
          */
 		events: {
 			'click .toolbarbutton': 'addElement'
 		},
 		/**
-         *  @var {Object} ToolbarView#parent Riferimento alla MainView.
-         */
-		parent: {},
-		/**
          *  @function ToolbarView#initialize
-         *  @summary Metodo di inizializzazione: istanzia il ToolbarModel, salva i riferimenti passati come parametro e definisce gli eventi su cui mettersi in ascolto.
+         *  @summary Inizializzazione della ToolbarView.
          */
 		initialize: function() {
 			this.model = toolbarModel;
-			this.listenTo(editPanelView, 'switchgraph', this.render);
-			this.listenTo(pathView, 'switchgraph',this.render);
-			this.listenTo(projectView, 'switchgraph',this.render);
+			this.listenTo(projectModel,'switchgraph',this.render);
 			this.render();
 		},
 		/**
          *  @function ToolbarView#render
-         *  @summary Metodo utilizzato per fare il rendering dell'interfaccia grafica.
+         *  @summary Render della toolbar in base al diagramma correntemente visualizzato.
          */
 		render: function() {
-			this.renderTools();
-		},
-		/**
-         *  @function ToolbarView#renderTools
-         *  @summary Metodo utilizzato per fare il rendering grafico degli strumenti utilizzabili nel diagramma corrente.
-         */
-		renderTools: function () {
-			console.log("render tools here i am :)");
-			var currentDiagram = toolbarModel.currentDiagram();
-			console.log(currentDiagram);
+			var currentDiagram = toolbarModel.getCurrentDiagram();
+			//console.log(currentDiagram);
 			_.each(this.$el.children(), function(diagram) {
 				if($(diagram).attr('class') === currentDiagram)
 					$(diagram).show();
@@ -66,12 +53,13 @@ define ([
 		},
 		/**
          *  @function ToolbarView#addElement
-         *  @summary Metodo che viene invocato quando viene selezionato uno strumento e che invoca il rispettivo metodo del ToolbarModel.
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Aggiunge un elemento al diagramma alla selezione di uno strumento invocando il rispettivo metodo di ToolbarModel.
          */
 		addElement: function(event) {
-			console.log(event.currentTarget);
+			//console.log(event.currentTarget);
 			toolbarModel.addElement(event.currentTarget.id);
 		}
 	});
-	return new toolbarView;
+	return new ToolbarView;
 });

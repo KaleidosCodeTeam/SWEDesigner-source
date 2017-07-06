@@ -70,7 +70,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="builder.js.html">builder.js</a>, <a href="builder.js.html#line15">line 15</a>
+        <a href="server_codeGenerator_builder_builder.js.html">server/codeGenerator/builder/builder.js</a>, <a href="server_codeGenerator_builder_builder.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -155,7 +155,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="builder.js.html">builder.js</a>, <a href="builder.js.html#line17">line 17</a>
+        <a href="server_codeGenerator_builder_builder.js.html">server/codeGenerator/builder/builder.js</a>, <a href="server_codeGenerator_builder_builder.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -176,184 +176,6 @@
 
     
         <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".build"><span class="type-signature">(static) </span>build<span class="signature">(program<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
-
-    
-    <p class="summary">Crea directory e file del progetto passato in input dal package CodedProgram ed invoca il metodo zip della classe Zipper.</p>
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>program</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">CodedProgram</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">L'oggetto generato da CodedProgram, contente le informazioni necessarie alla creazione di file e directory.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="builder.js.html">builder.js</a>, <a href="builder.js.html#line74">line 74</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-<ul>
-        <li>
-
-    <div class="param-desc">
-    
-        fs exceptions.
-    
-    </div>
-
-</li>
-    
-        <li>
-
-    <div class="param-desc">
-    
-        Zipper exceptions.
-    
-    </div>
-
-</li>
-    
-        <li>
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        Se non ci sono file da creare.
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">NO_FILES_TO_BUILD</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-</li>
-    </ul>
-
-
-
-
 
         
             
@@ -458,7 +280,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="builder.js.html">builder.js</a>, <a href="builder.js.html#line22">line 22</a>
+        <a href="server_codeGenerator_builder_builder.js.html">server/codeGenerator/builder/builder.js</a>, <a href="server_codeGenerator_builder_builder.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -501,7 +323,343 @@
 
     
 
-    <h4 class="name" id=".mkFile"><span class="type-signature">(private, static) </span>mkFile<span class="signature">(name<span class="signature-attributes">non-null</span>, pkg<span class="signature-attributes">non-null</span>, dependencies<span class="signature-attributes">non-null</span>, source<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".javaBuild"><span class="type-signature">(static) </span>javaBuild<span class="signature">(program<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+
+    
+    <p class="summary">Crea directory e file del progetto passato in input dal package CodedProgram ed invoca il metodo zip della classe Zipper.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>program</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="CodedProgram.html">CodedProgram</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">L'oggetto generato da CodedProgram, contente le informazioni necessarie alla creazione di file e directory.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="server_codeGenerator_builder_builder.js.html">server/codeGenerator/builder/builder.js</a>, <a href="server_codeGenerator_builder_builder.js.html#line99">line 99</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+<ul>
+        <li>
+
+    <div class="param-desc">
+    
+        fs exceptions.
+    
+    </div>
+
+</li>
+    
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        Se non ci sono file da creare.
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">NO_FILES_TO_BUILD</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    </ul>
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".javascriptBuild"><span class="type-signature">(static) </span>javascriptBuild<span class="signature">(program<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+
+    
+    <p class="summary">Crea directory e file del progetto passato in input dal package CodedProgram ed invoca il metodo zip della classe Zipper.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>program</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="CodedProgram.html">CodedProgram</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">L'oggetto generato da CodedProgram, contente le informazioni necessarie alla creazione di file e directory.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="server_codeGenerator_builder_builder.js.html">server/codeGenerator/builder/builder.js</a>, <a href="server_codeGenerator_builder_builder.js.html#line143">line 143</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+<ul>
+        <li>
+
+    <div class="param-desc">
+    
+        fs exceptions.
+    
+    </div>
+
+</li>
+    
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        Se non ci sono file da creare.
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">NO_FILES_TO_BUILD</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    </ul>
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".mkJavaFile"><span class="type-signature">(private, static) </span>mkJavaFile<span class="signature">(progDir<span class="signature-attributes">non-null</span>, name<span class="signature-attributes">non-null</span>, pkg<span class="signature-attributes">non-null</span>, dependencies<span class="signature-attributes">non-null</span>, source<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
 
     
     <p class="summary">Crea un file sorgente e/o scrive ulteriore codice in append se già esistente.</p>
@@ -538,6 +696,29 @@
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>progDir</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">La directory indicante dove creare i file sorgenti del programma.</td>
+        </tr>
+
     
 
         <tr>
@@ -668,7 +849,217 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="builder.js.html">builder.js</a>, <a href="builder.js.html#line42">line 42</a>
+        <a href="server_codeGenerator_builder_builder.js.html">server/codeGenerator/builder/builder.js</a>, <a href="server_codeGenerator_builder_builder.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+    <div class="param-desc">
+    
+        fs exceptions.
+    
+    </div>
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".mkJavascriptFile"><span class="type-signature">(private, static) </span>mkJavascriptFile<span class="signature">(progDir<span class="signature-attributes">non-null</span>, name<span class="signature-attributes">non-null</span>, pkg<span class="signature-attributes">non-null</span>, source<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+
+    
+    <p class="summary">Crea un file sorgente e/o scrive ulteriore codice in append se già esistente.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>progDir</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">La directory indicante dove creare i file sorgenti del programma.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Il nome del file.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pkg</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Il package del file (identifica solamente la posizione del file all'interno delle directory del programma).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>source</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Il codice sorgente da scrivere nel file.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="server_codeGenerator_builder_builder.js.html">server/codeGenerator/builder/builder.js</a>, <a href="server_codeGenerator_builder_builder.js.html#line72">line 72</a>
     </li></ul></dd>
     
 
@@ -722,13 +1113,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Jun 05 2017 17:22:40 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jul 06 2017 14:28:45 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

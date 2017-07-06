@@ -1,83 +1,97 @@
+/**
+ *  @file Contiene la classe TitlebarView.
+ *  @author Sovilla Matteo - KaleidosCode
+ */
 define ([
 	'jquery',
 	'underscore',
 	'backbone',
 	'joint',
-	'js/models/titlebarModel'
-	/** ecc. */
-], function ($, _, Backbone, joint, titlebarModel) {
+	'js/models/dataManager',
+    'js/models/requestHandler'
+], function ($, _, Backbone, joint, dataManager, requestHandler) {
     /**
-     * @class TitlebarView
-     * @classdesc View della barra del titolo, si occupa di gestire gli eventi ad essa associati invocando le apposite funzioni del model.
-     * @extends Backbone.View
+     *  @classdesc View della barra del titolo. Si occupa di gestire gli eventi ad essa associati invocando le apposite funzioni del model.
+     *  @module client.views
+     *  @class TitlebarView
+     *  @extends {Backbone.View}
      */
-	var titlebarView = Backbone.View.extend({
+	var TitlebarView = Backbone.View.extend({
+        /**
+         *  @var {string} TitlebarView#el - Il tag HTML popolato dalla titlebar.
+         */
 		el: 'body',
+        /**
+         *  @var {Object} TitlebarView#events - Gli eventi verificabili nella titlebar.
+         */
 		events: {
 			'click #openFile-button': 'openProject',
 			'click #newProject': 'newProject',
 			'click #saveProject': 'saveProject',
 			'click #saveProjectAs-button': 'saveProjectAs',
-			'click close-project': 'this.model.closeProject', //MAYBE NOT
-			'click undo': 'this.model.undo',
-			'click redo': 'this.model.redo',
-			'click zoom-in': 'this.model.zoomIn',
-			'click zoom-out': 'this.model.zoomOut',
-			'click upper-layer': 'this.model.upperLayer', //MAYBE NOT
-			'click lower-layer': 'this.model.lowerLayer', //MAYBE NOT
-			'click generate-java': 'this.model.generateJava',
-			'click generate-js': 'this.model.generateJavascript',
-			'click view-generated-code': 'this.model.viewGeneratedCode'
+			//'click undo': 'undo',                          // @todo
+			//'click redo': 'redo',                          // @todo
+			//'click zoom-in': 'zoomIn',                     // @todo
+			//'click zoom-out': 'zoomOut',                   // @todo
+			//'click upper-layer': 'upperLayer',             // @todo
+			//'click lower-layer': 'lowerLayer',             // @todo
+			'click #generate-java': 'generateJava',
+			'click #generate-js': 'generateJavascript'
 		},
         /**
-         * @function TitlebarView#initialize
-         * @summary Metodo di inizializzazione.
+         *  @function TitlebarView#openProject
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Apre un progetto invocando il rispettivo metodo di DataManager.
          */
-		initialize: function() {
-			this.model = titlebarModel;
+		openProject: function(event) {
+			//console.log(event.currentTarget);
+            dataManager.openProject();
 		},
-		render: function() {
-		},
-
         /**
-         * @function TitlebarView#openProject
-         * @param event
-         * @summary Fornisce informazioni utili al debug mediante console.log e invoca la funzione corrispondente nel model.
+         *  @function TitlebarView#newProject
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Crea un nuovo progetto invocando il rispettivo metodo di DataManager.
          */
-		openProject: function (event) {
-			console.log(event.currentTarget);
-			titlebarModel.openProject();
-		},
-
-        /**
-         * @function TitlebarView#newProject
-         * @param event
-         * @summary Fornisce informazioni utili al debug mediante console.log e invoca la funzione corrispondente nel model.
-         */
-        newProject: function (event) {
-            console.log(event.currentTarget);
-            titlebarModel.newProject();
+        newProject: function(event) {
+            //console.log(event.currentTarget);
+            dataManager.newProject();
         },
-
         /**
-         * @function TitlebarView#saveProject
-         * @param event
-         * @summary Fornisce informazioni utili al debug mediante console.log e invoca la funzione corrispondente nel model.
+         *  @function TitlebarView#saveProject
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Salva il progetto correntemente aperto invocando il rispettivo metodo di DataManager.
          */
-        saveProject: function (event) {
-            console.log(event.currentTarget);
-            titlebarModel.saveProject();
+        saveProject: function(event) {
+            //console.log(event.currentTarget);
+            dataManager.save('newProject.swed');
         },
-
         /**
-         * @function TitlebarView#saveProjectAs
-         * @param event
-         * @summary Fornisce informazioni utili al debug mediante console.log e invoca la funzione corrispondente nel model.
+         *  @function TitlebarView#saveProjectAs
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Salva il progetto correntemente aperto con nome specificato dall'utente invocando il rispettivo metodo di DataManager.
          */
-        saveProjectAs: function (event) {
-		    console.log(event.currentTarget);
-            titlebarModel.saveProjectAs();
+        saveProjectAs: function(event) {
+            //console.log(event.currentTarget);
+            dataManager.saveAs();
+        },
+        /**
+         *  @function TitlebarView#generateJava
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Richiede al server di generare il codice in linguaggio Java del progetto correntemente aperto invocando il rispettivo metodo di RequestHandler.
+         */
+        generateJava: function(event) {
+            //console.log(event.currentTarget);
+            requestHandler.generateJava();
+        },
+        /**
+         *  @function TitlebarView#generateJavascript
+         *  @param {Object} event - Elemento generante l'evento.
+         *  @summary Richiede al server di generare il codice in linguaggio Javascript del progetto correntemente aperto invocando il rispettivo metodo di RequestHandler.
+         */
+        generateJavascript: function(event) {
+            //console.log(event.currentTarget);
+            requestHandler.generateJavascript();
         }
 	});
-	return new titlebarView;
+	return new TitlebarView;
 });
