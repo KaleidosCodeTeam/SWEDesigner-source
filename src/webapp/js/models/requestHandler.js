@@ -13,12 +13,12 @@ define ([
     /**
      *  @classdesc Si occupa della gestione delle comunicazioni tra client e server (lato client).
      *  @module client.models
-     *  @class RequestHandler
+     *  @class client::RequestHandler
      *  @extends {Backbone.Model}
      */
 	var RequestHandler = Backbone.Model.extend({
         /**
-         *  @function RequestHandler#generateJava
+         *  @function client::RequestHandler#generateJava
          *  @summary Salva il progetto correntemente aperto e crea una richiesta di generazione del relativo codice Java che invia al server.
          */
         generateJava: function() {
@@ -48,7 +48,7 @@ define ([
             });
         },
         /**
-         *  @function RequestHandler#generateJavascript
+         *  @function client::RequestHandler#generateJavascript
          *  @summary Salva il progetto correntemente aperto e crea una richiesta di generazione del relativo codice Javascript che invia al server.
          */
         generateJavascript: function() {

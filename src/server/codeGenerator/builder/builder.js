@@ -137,6 +137,7 @@ var Builder = (function() {
 				return {
 					progDirectory : programDirectory,
 					progPath : programPath				
+				};
 			}
 		},
 		/**

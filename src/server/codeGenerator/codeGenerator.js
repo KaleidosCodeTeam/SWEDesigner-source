@@ -43,7 +43,7 @@ codeGenerator.generateJsProgram = function(jsonProgram, nomeZip) {
  *	@function codeGenerator.generateJavaProgram
  *	@static
  *	@param {!json} jsonProgram - Le informazioni necessarie a codificare un programma.
-  *	@param {!nomeZip} string - Specifica il nome con cui verrà nominato l'archivio zip prodotto.
+ *	@param {!nomeZip} string - Specifica il nome con cui verrà nominato l'archivio zip prodotto.
  *	@description Codifica, in Java, il programma rappresentanto dal json in input
  *	e costruisce un pacchetto compresso in formato .zip contenente
  *	il programma codificato e strutturato in file e directory come da specifica del json di input.

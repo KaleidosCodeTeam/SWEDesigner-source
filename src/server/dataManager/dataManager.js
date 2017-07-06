@@ -9,8 +9,8 @@ var mysql = require('mysql');
 
 /*
 var ris = function() {
-  this.r = "x";
-  this.setR = function(nr) { this.r = nr; }
+    this.r = "x";
+    this.setR = function(nr) { this.r = nr; }
 }
 */
 
@@ -77,10 +77,10 @@ var DataManager = (function() {
          *  @descripton Setta le proprietà di DataManager._private necessarie a creare una connessione.
          */
       	setConnection : function(host, user, psw, db) {
-      		  _private.host_ = host;
-      		  _private.user = user;
-      		  _private.password = psw;
-      		  _private.database = db;
+      		_private.host_ = host;
+      		_private.user = user;
+      		_private.password = psw;
+      		_private.database = db;
       	},
         /**
          *  @function server::DataManager.insertBubble
@@ -96,8 +96,8 @@ var DataManager = (function() {
         		_private.connection.query('insert into Bubbles  values("' + name + '","' + descr + '","' + source + '","' + language +'");', function(err, rows, fields) {
           			if (err) {
                         _private.connection.end();
-            			  throw err;
-                }
+            			throw err;
+                    }
         		});
             _private.connection.end();
       	},
@@ -129,13 +129,13 @@ var DataManager = (function() {
         		_startConnection();
         		_private.connection.query('select * from Bubbles where Name="' + name + '" and Language="' + language + '";', function(err, rows, fields) {
           			if (!err) {
-                    if (rows.length > 0) {
-                        console.log(rows);
-                        
-                } else {
-                    _private.connection.end();
-            			  throw err;
-                }
+                        if (rows.length > 0) {
+                            console.log(rows);
+                        }
+                    } else {
+                        _private.connection.end();
+            		    throw err;
+                    }
         		});
         		_private.connection.end();
       	},
@@ -148,7 +148,7 @@ var DataManager = (function() {
             _startConnection();
             _private.connection.query('select * from Bubbles;', function(err, rows, fields) {
                 if (err) {  
-                _private.connection.end();        
+                    _private.connection.end();        
                     throw err;
                 }
             });
@@ -176,5 +176,3 @@ var DataManager = (function() {
 
 /**  Esportazione del modulo */
 module.exports = DataManager;
-
-

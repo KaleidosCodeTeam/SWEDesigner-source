@@ -28,10 +28,10 @@ var storage	=	multer.diskStorage({
 
 var upload = multer({ storage : storage}).single('JsonUp');
 
-/** @namespace */
+/** @namespace server::RequestHandler */
 var RequestHandler = {
 	/**
-	 *	@function RequestHandler.getIndex
+	 *	@function server::RequestHandler.getIndex
 	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
 	 *	@param {!string} res - Risposta alla richiesta descritta in req.
 	 *	@summary Invia il file index della Single Page Application.
@@ -42,7 +42,7 @@ var RequestHandler = {
     },
 
     /*
-	 *	@function RequestHandler.getBubble
+	 *	@function server::RequestHandler.getBubble
 	 *	@summary Invia la bubble richiesta.
 	 */
     /*getBubble: function(linguaggio, nome, callback) {
@@ -56,7 +56,7 @@ var RequestHandler = {
     },*/
 
     /*
-	 *	@function RequestHandler.getAllBubble
+	 *	@function server::RequestHandler.getAllBubble
 	 *	@summary Invia tutte le bubble presenti nel database.
 	 */
     /*getAllBubble: function(callback) {
@@ -66,7 +66,7 @@ var RequestHandler = {
     },*/
 
     /**
-	 *	@function RequestHandler.caricaJs
+	 *	@function server::RequestHandler.caricaJs
 	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
 	 *	@param {!string} res - Risposta alla richiesta descritta in req.
 	 *	@summary Carica il file json nel server e ne genera il codice Javascript restituendo il nome della cartella compressa.
@@ -92,7 +92,7 @@ var RequestHandler = {
         });
     },
     /**
-	 *	@function RequestHandler.caricaJa
+	 *	@function server::RequestHandler.caricaJa
 	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
 	 *	@param {!string} res - Risposta alla richiesta descritta in req.
 	 *	@summary Carica il file json nel server e ne genera il codice Java restituendo il nome della cartella compressa.
@@ -118,7 +118,7 @@ var RequestHandler = {
         });
     },
     /**
-	 *	@function RequestHandler.scarica
+	 *	@function server::RequestHandler.scarica
 	 *	@param {!string} req - Contiene informazioni sulla richiesta HTTP.
 	 *	@param {!string} res - Risposta alla richiesta descritta in req.
 	 *	@summary Scarica il file zip indicato.

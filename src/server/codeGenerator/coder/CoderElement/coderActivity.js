@@ -17,7 +17,7 @@ var CoderActivity = function() {
 /**
  *	@function CoderActivity.getBubbleLinks
  *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
- *	operazione.ubble
+ *	operazione.
  *	@return {Object[]} Le informazioni relative ai collegamenti fra tutti gli elementi 'bubble' presenti
  *	nell'oggetto activityObj di input. 
  *	@description Estrae, per ogni bubble in activityObj, le informazioni relative al collegamento con un'atra bubble e
@@ -57,10 +57,10 @@ CoderActivity.getBubbleById = function(bubbleId, activityObj) {
  *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
  *	@return {Object} Le informazioni per codificare una bubble, quella che in activityObj 
- 	è successiva alla bubbleObj di input; se non esiste, viene restituito il valore null. 
+ *	è successiva alla bubbleObj di input; se non esiste, viene restituito il valore null. 
  *	@description Ritorna la bubble contenuta in activityObj, successiva alla bubbleObj di input.
  */
-CoderActivity.getNextBubble = function(bubbleObj,activityObj) {
+CoderActivity.getNextBubble = function(bubbleObj, activityObj) {
 	var bubbleLinks = CoderActivity.getBubbleLinks(activityObj);
 	for(var i=0; i<bubbleLinks.length; i++) {
 		if(bubbleLinks[i].source.id == bubbleObj.id) {
@@ -92,7 +92,7 @@ CoderActivity.getStartBubble = function(bubbleArray, parent) {
 }
 /**
  *	@function CoderActivity.codeEmbeddedBubbles
-  *	@param {!Object} bubbleObj - Le informazioni necessarie a codificare una bubble.
+ *	@param {!Object} bubbleObj - Le informazioni necessarie a codificare una bubble.
  *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
  *	@return {string} Il codice sorgente corrispondente alla bubbleObj di input, comprese le bubble innestate in essa. 
