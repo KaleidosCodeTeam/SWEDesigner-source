@@ -1,8 +1,8 @@
 
-var DAO = require('./DAO.js');
+var DataManager = require('./dataManager.js');
 var express = require('express');
 
-var dao = new DAO();
+var dm = new DataManager();
 var app = express();
 
 var result = function() {
@@ -15,17 +15,17 @@ var r = new result();
 
 app.get('/', function (req, res) {
 	var ris = "";
-   dao.setConnection('sql11.freemysqlhosting.net', 'sql11180510', 'dvxPEVmife', 'sql11180510');
-	dao.isPresentBubble("Pedone","Java",r);
+   dm.setConnection('sql11.freemysqlhosting.net', 'sql11180510', 'dvxPEVmife', 'sql11180510');
+	dm.isPresentBubble("Pedone","Java",r);
 	ris += r.getR() + "\n";
-	//dao.insertBubble("Pedone","...codice...","Java", "codice per disegnare un pedone",res);
-	dao.isPresentBubble("Pedone","Java",r);
+	//dm.insertBubble("Pedone","...codice...","Java", "codice per disegnare un pedone",res);
+	dm.isPresentBubble("Pedone","Java",r);
 	ris += r.getR() + "\n";
-	dao.getAllBubbles(r);
+	dm.getAllBubbles(r);
 	ris += r.getR() + "\n";
-	dao.deleteBubble("Pedone","Java",r);
+	dm.deleteBubble("Pedone","Java",r);
 	ris += r.getR() + "\n";
-	dao.getAllBubbles(r);
+	dm.getAllBubbles(r);
 	ris += r.getR() + "\n";
 	res.send(ris);
 });

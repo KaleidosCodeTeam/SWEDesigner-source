@@ -8,7 +8,7 @@
  *  @requires ../zipper/zipper.js
  *  @requires ../parser/parser.js
  *  @requires ../builder/builder.js
- *  @requires ../DAO/DAO.js
+ *  @requires ../dataManager/dataManager.js
  *  @requires multer
  */
 
@@ -20,7 +20,7 @@ var parser          = require('../parser/parser.js');
 var builder         = require('../builder/builder.js');
 */
 var CodeGenerator   = require('../codeGenerator/codeGenerator.js');
-var dao             = require('../DAO/DAO.js');
+var dm              = require('../dataManager/dataManager.js');
 var multer	        = require('multer');
 var path            = require('path');
 var url				= require('url');
@@ -55,9 +55,9 @@ var RequestHandler = {
 	 *	@summary Invia la bubble richiesta.
 	 */
     /*getBubble: function(linguaggio, nome, callback) {
-        dao.isPresentBubble(name,lenguage,function(presente){
+        dm.isPresentBubble(name,lenguage,function(presente){
             if(presente){
-                dao.getBubble(name,language,function(bubble){
+                dm.getBubble(name,language,function(bubble){
                     callback(bubble);
                 });
             }
@@ -69,7 +69,7 @@ var RequestHandler = {
 	 *	@summary Invia tutte le bubble presenti nel database.
 	 */
     /*getAllBubble: function(callback) {
-        dao.getAllBubbles(function(risultato){
+        dm.getAllBubbles(function(risultato){
             callback(risultato);    
         });
     },*/

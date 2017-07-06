@@ -16,9 +16,9 @@ var CoderActivity = function() {
 };
 /**
  *	@function CoderActivity.getBubbleLinks
- *	@param {!Object} activityObj - Contiene le informazioni necessarie a codificare l'implementazione di un'
+ *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
- *	@return {Array} Array contenente le informazioni relative ai collegamenti fra tutti gli elementi 'bubble' presenti
+ *	@return {Object[]} Le informazioni relative ai collegamenti fra tutti gli elementi 'bubble' presenti
  *	nell'oggetto activityObj di input. 
  *	@description Estrae, per ogni bubble in activityObj, le informazioni relative al collegamento con un'atra bubble e
  *  le inserisce in un array.
@@ -37,13 +37,13 @@ CoderActivity.getBubbleLinks = function(activityObj) {
 /**
  *	@function CoderActivity.getBubbleById
  *	@param {!string} bubbleId - Stringa identificativa della bubble che si vuole ottenere.
- *	@param {!Object} activityObj - Contiene le informazioni necessarie a codificare l'implementazione di un'
+ *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
- *	@return {Object} Contiene le informazioni per codificare una bubble, il cui identificativo è bubbleId. Se
+ *	@return {Object} Le informazioni per codificare una bubble, il cui identificativo è bubbleId. Se
  *	tale bubble non fosse presente in activityObj, viene restituito il valore null.
  *	@description Ritorna la bubble contenuta in activityObj, corrispondente al bubbleId di input.
  */
-CoderActivity.getBubbleById = function(bubbleId, activityObj) {bas
+CoderActivity.getBubbleById = function(bubbleId, activityObj) {//bas
 	for(var i=0; i<activityObj.length; i++) {
 		if(activityObj[i].id == bubbleId) {
 			return activityObj[i];
@@ -53,10 +53,10 @@ CoderActivity.getBubbleById = function(bubbleId, activityObj) {bas
 }
 /**
  *	@function CoderActivity.getNextBubble
- *	@param {!Object} bubble - Contiene le informazioni necessarie a codificare una bubble.
- *	@param {!Object} activityObj - Contiene le informazioni necessarie a codificare l'implementazione di un'
+ *	@param {!Object} bubble - Le informazioni necessarie a codificare una bubble.
+ *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
- *	@return {Object} Contiene le informazioni per codificare una bubble, quella che in activityObj 
+ *	@return {Object} Le informazioni per codificare una bubble, quella che in activityObj 
  	è successiva alla bubble di input; se non esiste, viene restituito il valore null. 
  *	@description Ritorna la bubble contenuta in activityObj, successiva alla bubble di input.
  */
@@ -73,11 +73,11 @@ CoderActivity.getNextBubble = function(bubble,activityObj) {
 }
 /**
  *	@function CoderActivity.getStartBubble
- *	@param {!string} parent - Contiene l'identificativo della bubble le cui bubble innestate sono quelle
+ *	@param {!string} parent - L'identificativo della bubble le cui bubble innestate sono quelle
  *	presenti in bubbleArray.
- *	@param {!Object} bubbleArray - Contiene le informazioni necessarie a codificare una parte 
+ *	@param {!Object} bubbleArray - Le informazioni necessarie a codificare una parte 
  *	dell'implementazione di un' operazione.
- *	@return {Object} Contiene le informazioni per codificare la bubble iniziale di bubbleArray;
+ *	@return {Object} Le informazioni per codificare la bubble iniziale di bubbleArray;
  *	se non esiste, viene restituito il valore null. 
  *	@description Ritorna la bubble contenuta in bubbleArray che rappresenta quella iniziale, da cui
  *	comincia la sottoattività.
@@ -92,8 +92,8 @@ CoderActivity.getStartBubble = function(bubbleArray, parent) {
 }
 /**
  *	@function CoderActivity.codeEmbeddedBubbles
-  *	@param {!Object} bubble - Contiene le informazioni necessarie a codificare una bubble.
- *	@param {!Object} activityObj - Contiene le informazioni necessarie a codificare l'implementazione di un'
+  *	@param {!Object} bubble - Le informazioni necessarie a codificare una bubble.
+ *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
  *	@return {string} Il codice sorgente della bubble di input, comprese le bubble innestate in essa. 
  *	@description Codifica la bubble di input e tutte le bubble innestate in essa; tale bubble dev'essere
@@ -122,10 +122,10 @@ CoderActivity.codeEmbeddedBubbles = function(bubble, activityObj) {
 }
 /**
  *	@function CoderActivity.codeBubble
-  *	@param {!Object} bubble - Contiene le informazioni necessarie a codificare una bubble.
- *	@param {!Object} activityObj - Contiene le informazioni necessarie a codificare l'implementazione di un'
+  *	@param {!Object} bubble - Le informazioni necessarie a codificare una bubble.
+ *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
- *	@param {!string} parent - Contiene l'identificativo della bubble padre della bubble di input (innestata).
+ *	@param {!string} parent - L'identificativo della bubble padre della bubble di input (innestata).
  *	@return {string} Il codice sorgente della bubble di input. 
  *	@description Codifica la bubble di input; tale bubble dev'essere contenuta in activityObj.
  */
@@ -164,7 +164,7 @@ CoderActivity.codeBubble = function(bubble, activityObj, parent) {
 /**
  *	@function CoderClass.CoderActivity.codeElementJava
  *	@static
- *	@param {!Object} activityObj - Contiene le informazioni necessarie a codificare l'implementazione di un'
+ *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
  *	@return {string} Stringa del codice sorgente, in Java, dell'implementazione della operazione activityObj di input.
  *	@description Riceve in input activityObj, un oggetto che rappresenta l'implementazione di una operazione;  
@@ -188,7 +188,7 @@ CoderActivity.codeElementJava = function(activityObj) {
 /**
  *	@function CoderClass.CoderActivity.codeElementJavascript
  *	@static
- *	@param {!Object} activityObj - Contiene le informazioni necessarie a codificare l'implementazione di un'
+ *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
  *	@return {string} Stringa del codice sorgente, in Javascript, dell'implementazione della operazione activityObj di input.
  *	@description Riceve in input activityObj, un oggetto che rappresenta l'implementazione di una operazione;  

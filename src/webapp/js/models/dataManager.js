@@ -8,10 +8,10 @@ define ([
     'js/models/projectModel',
     'js/models/project'
 ], function ($, _, projectModel, project) {
-    /** @namespace */
+    /** @namespace client::DataManager */
     var DataManager = {};
     /**
-     *  @function DataManager.save
+     *  @function client::DataManager.save
      *  @param {string} fileName - Nome del file generato da scaricare.
      *  @summary Salva i dati del progetto, li converte in formato JSON e avvia la procedura di download in locale del browser.
      */
@@ -33,7 +33,7 @@ define ([
         reader.readAsDataURL(myBlob);
     };
     /**
-     *  @function DataManager.saveAs
+     *  @function client::DataManager.saveAs
      *  @summary Estrae la stringa inserita dall'utente nella schermata per il salvataggio con nome e invoca la il metodo per il salvataggio del progetto corrente in un file con il nome desiderato.
      */
     DataManager.saveAs = function() {
@@ -41,7 +41,7 @@ define ([
         DataManager.save(fName);
     };
     /**
-     *  @function DataManager.openProject
+     *  @function client::DataManager.openProject
      *  @summary Legge un file JSON e ne salva il contenuto in project e nel projectModel come progetto attualmente aperto.
      */
     DataManager.openProject = function() {
@@ -67,7 +67,7 @@ define ([
         reader.readAsText(myFile);
     };
     /**
-     *  @function DataManager.newProject
+     *  @function client::DataManager.newProject
      *  @summary Dopo aver chiesto conferma all'utente, crea un nuovo progetto sovrascrivendo quello correntemente aperto.
      */
     DataManager.newProject = function() {

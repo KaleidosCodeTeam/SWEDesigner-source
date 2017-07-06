@@ -1,5 +1,5 @@
 /**
- *  @file Contiene la classe statica DAO
+ *  @file Contiene la classe statica DataManager
  *  @author Sanna Giovanni - KaleidosCode
  *
  *  @requires mysql
@@ -15,35 +15,35 @@ var ris = function() {
 */
 
 /** 
- * @namespace
+ * @namespace server::DataManager
  * @description Espone le funzionalità che permettono di interagire con il database delle bubbles,
  * in particolare inserire/eliminare una bubble, controllare se è presultente una specifica bubble, ottenere le
  * informazioni di una particolare bubble o ottenere le informazioni di tutte le bubble memorizzate.
  */
-var DAO = (function() {
+var DataManager = (function() {
     var _private = {
         /** 
-         *  @var {string} DAO.host_ - L'hostname del database mysql a cui connettersi.
+         *  @var {string} server::DataManager.host_ - L'hostname del database mysql a cui connettersi.
          *  @private
          */
-    		host_      : 'sql11.freemysqlhosting.net',
+    	host_      : 'sql11.freemysqlhosting.net',
         /** 
-         *  @var {string} DAO.user - Lo username per il login al database.
+         *  @var {string} server::DataManager.user - Lo username per il login al database.
          *  @private
          */
       	user       : 'sql11180510',
         /** 
-         *  @var {string} DAO.password - La password per il login al database.
+         *  @var {string} server::DataManager.password - La password per il login al database.
          *  @private
          */
       	password   : 'dvxPEVmife',
         /** 
-         *  @var {string} DAO.database - Il nome del database a cui connettersi.
+         *  @var {string} server::DataManager.database - Il nome del database a cui connettersi.
          *  @private
          */
       	database   : 'sql11180510',
         /** 
-         *  @var {Object} DAO.connection - La connessione al database.
+         *  @var {Object} server::DataManager.connection - La connessione al database.
          *  @private
          */
       	connection :  mysql.createConnection({
@@ -54,8 +54,8 @@ var DAO = (function() {
         }),
     };
     /**
-     *  @function DAO._startConnection
-     *  @descripton Inizializza l'oggetto DAO._private.connection e esegue la connessione al database.
+     *  @function server::DataManager._startConnection
+     *  @descripton Inizializza l'oggetto DataManager._private.connection e esegue la connessione al database.
      *  @private
      */
     _startConnection = function() {
@@ -69,12 +69,12 @@ var DAO = (function() {
     };
     return {
         /**
-         *  @function DAO.setConnection
+         *  @function server::DataManager.setConnection
          *  @param {!string} host - L'hostname del database mysql a cui connettersi.
          *  @param {!string} user - L'username per il login al database.
          *  @param {!string} psw - La password per il login al database.
          *  @param {!string} db - Il nome del database a cui connettersi.
-         *  @descripton Setta le proprietà di DAO._private necessarie a creare una connessione.
+         *  @descripton Setta le proprietà di DataManager._private necessarie a creare una connessione.
          */
       	setConnection : function(host, user, psw, db) {
       		  _private.host_ = host;
@@ -83,7 +83,7 @@ var DAO = (function() {
       		  _private.database = db;
       	},
         /**
-         *  @function DAO.insertBubble
+         *  @function server::DataManager.insertBubble
          *  @param {!string} name - Attributo 'Name' della bubble da inserire.
          *  @param {!string} source - Attributo 'Source' della bubble da inserire.
          *  @param {!string} language - Attributo 'Language' della bubble da inserire.
@@ -103,7 +103,7 @@ var DAO = (function() {
             _private.connection.end();
       	},
         /**
-         *  @function DAO.deleteBubble
+         *  @function server::DataManager.deleteBubble
          *  @param {!string} name - Attributo 'Name' della bubble da eliminare.
          *  @param {!string} language - Attributo 'Language' della bubble da eliminare.
          *  @descripton Elimina una bubble dal database.
@@ -121,7 +121,7 @@ var DAO = (function() {
             _private.connection.end();
         },
         /**
-         *  @function DAO.getBubble
+         *  @function server::DataManager.getBubble
          *  @param {!string} name - Attributo 'Name' della bubble cercata.
          *  @param {!string} language - Attributo 'Language' della bubble cercata.
          *  @descripton Restituisce le informazioni della bubble cercata, se questa esiste.
@@ -144,7 +144,7 @@ var DAO = (function() {
         		_private.connection.end();
       	},
         /**
-         *  @function DAO.getAllBubble
+         *  @function server::DataManager.getAllBubble
          *  @descripton Restituisce le informazioni di tutte le bubble presenti nel database.
          *  @throw mysql exception
          */
@@ -161,7 +161,7 @@ var DAO = (function() {
             _private.connection.end();
         },
         /**
-         *  @function DAO.isPresentBubble
+         *  @function server::DataManager.isPresentBubble
          *  @param {!string} name - Attributo 'Name' della bubble cercata.
          *  @param {!string} language - Attributo 'Language' della bubble cercata.
          *  @descripton Controlla se una specifica bubble è presente nel database.
@@ -188,10 +188,10 @@ var DAO = (function() {
 }());
 
 /**  Esportazione del modulo */
-module.exports = DAO;
+module.exports = DataManager;
 
 
-//var d = new DAO();
+//var d = new DataManager();
 
 //d.insertBubble("pedone","...codice...","Javascript","");
 //d.getBubble("Mossa","Javascript");

@@ -19,13 +19,13 @@ define ([
     Swedesigner.model.packageDiagram.items = {};
     /**
      *  @module Swedesigner.model.packageDiagram.items
-     *  @class Base
+     *  @class packageDiagram::Base
      *  @classdesc Elemento base generico per diagramma dei package UML.
      *  @extends {joint.shapes.basic.Generic}
      */
     Swedesigner.model.packageDiagram.items.Base = joint.shapes.basic.Generic.extend({
     	/**
-         *  @var {string} Base#toolMarkup - Markup HTML per la rappresentazione grafica.
+         *  @var {string} packageDiagram::Base#toolMarkup - Markup HTML per la rappresentazione grafica.
          */
     	toolMarkup: [
     		'<g class="element-tools">',
@@ -35,13 +35,13 @@ define ([
             '</g>',
             '</g>'].join(''),
         /**
-         *  @var {Object} Base#defaults - Attributi di default per l'oggetto.
+         *  @var {Object} packageDiagram::Base#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'uml.packageDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
         /**
-         *  @function Base#initialize
+         *  @function packageDiagram::Base#initialize
          *  @summary Inizializzazione di Base: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
          */
         initialize: function() {
@@ -53,13 +53,13 @@ define ([
             joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         },
         /**
-         *  @function Base#updateRectangles
+         *  @function packageDiagram::Base#updateRectangles
          *  @summary Render dell'item.
          *  @abstract
          */
         updateRectangles: function() {},
         /**
-         *  @function Base#getValues
+         *  @function packageDiagram::Base#getValues
          *  @return {Object} I valori ("values") dell'item.
          *  @summary Ritorna i valori dell'item.
          */
@@ -69,14 +69,14 @@ define ([
     });
     /**
      *  @module Swedesigner.model.packageDiagram.items
-     *  @class BaseView
-     *  @classdesc View per item "Base".
+     *  @class packageDiagram::BaseView
+     *  @classdesc View per item "packageDiagram::Base".
      *  @extends {joint.dia.ElementView}
      */
     Swedesigner.model.packageDiagram.items.BaseView = joint.dia.ElementView.extend({
     	/**
-         *  @function BaseView#initialize
-         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe "Base" e imposta un evento alla reazione del model
+         *  @function packageDiagram::BaseView#initialize
+         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe "packageDiagram::Base" e imposta un evento alla reazione del model
          *  chiamando sequenzialmente i metodi "update" e "resize".
          */
         initialize: function() {
@@ -87,7 +87,7 @@ define ([
             });
         },
         /**
-         *  @function BaseView#render
+         *  @function packageDiagram::BaseView#render
          *  @return {Object} L'oggetto BaseView.
          *  @summary Render dell'item.
          */
@@ -98,7 +98,7 @@ define ([
             return this;
         },
         /**
-         *  @function BaseView#renderTools
+         *  @function packageDiagram::BaseView#renderTools
          *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          *  @return {Object} L'oggetto BaseView.
          */
@@ -427,13 +427,13 @@ define ([
     Swedesigner.model.classDiagram.items = {};
     /**
      *  @module Swedesigner.model.classDiagram.items
-     *  @class Base
+     *  @class classDiagram::Base
      *  @classdesc Elemento base generico per diagramma delle classi UML.
      *  @extends {joint.shapes.basic.Generic}
      */
     Swedesigner.model.classDiagram.items.Base = joint.shapes.basic.Generic.extend({
         /**
-         *  @var {string} Base#markup - Markup HTML per la rappresentazione grafica.
+         *  @var {string} classDiagram::Base#markup - Markup HTML per la rappresentazione grafica.
          */
         toolMarkup: [
             '<g class="element-tools">',
@@ -444,13 +444,13 @@ define ([
             '</g>'
         ].join(''),
         /**
-         *  @var {Object} Base#defaults - Attributi di default per l'oggetto.
+         *  @var {Object} classDiagram::Base#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'uml.classDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
         /**
-         *  @function Base#initialize
+         *  @function classDiagram::Base#initialize
          *  @summary Inizializzazione di Base: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
          */
         initialize: function() {
@@ -462,7 +462,7 @@ define ([
             joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         },
         /**
-         *  @function Base#getValues
+         *  @function classDiagram::Base#getValues
          *  @return {Object} I valori dell'item.
          *  @summary Ritorna i valori dell'item ("values").
          */
@@ -470,13 +470,13 @@ define ([
             return this.get('values');
         },
         /**
-         *  @function Base#updateRectangles
+         *  @function classDiagram::Base#updateRectangles
          *  @summary Render dell'item.
          *  @abstract
          */
         updateRectangles: function() {},
         /**
-         *  @function Base#setToValue
+         *  @function classDiagram::Base#setToValue
          *  @param {Object} value - Valore da assegnare.
          *  @param {string} path - Percorso al membro.
          *  @summary Imposta "values.path" a "value".
@@ -492,7 +492,7 @@ define ([
             this.trigger("uml-update");
         },
         /**
-         *  @function Base#executeMethod
+         *  @function classDiagram::Base#executeMethod
          *  @param {function} met - Metodo da essere eseguito.
          *  @summary Esegue il metodo avente il nome passato in input.
          */
@@ -502,14 +502,14 @@ define ([
     });
     /**
      *  @module Swedesigner.model.classDiagram.items
-     *  @class BaseView
+     *  @class classDiagram::BaseView
      *  @classdesc View per oggetto "Base".
      *  @extends {joint.dia.ElementView}
      */
     Swedesigner.model.classDiagram.items.BaseView = joint.dia.ElementView.extend({
         /**
-         *  @function BaseView#initialize
-         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe base e imposta un evento alla reazione del model
+         *  @function classDiagram::BaseView#initialize
+         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe classDiagram::Base e imposta un evento alla reazione del model
          *  chiamando sequenzialmente i metodi "update" e "resize".
          */
         initialize: function() {
@@ -520,7 +520,7 @@ define ([
             });
         },
         /**
-         *  @function BaseView#render
+         *  @function classDiagram::BaseView#render
          *  @return {Object} L'oggetto BaseView.
          *  @summary Render dell'item.
          */
@@ -531,7 +531,7 @@ define ([
             return this;
         },
         /**
-         *  @function BaseView#renderTools
+         *  @function classDiagram::BaseView#renderTools
          *  @return {Object} L'oggetto BaseView.
          *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          */
@@ -1536,13 +1536,13 @@ define ([
     Swedesigner.model.bubbleDiagram.items = {};
     /**
      *  @module Swedesigner.model.bubbleDiagram.items
-     *  @class Base
+     *  @class bubbleDiagram::Base
      *  @classdesc Elemento base generico per il diagramma delle bubble.
      *  @extends {joint.shapes.basic.Generic}
      */
     Swedesigner.model.bubbleDiagram.items.Base = joint.shapes.basic.Generic.extend({
         /**
-         *  @var {string} Base#toolMarkup - Markup HTML per la rappresentazione grafica.
+         *  @var {string} bubbleDiagram::Base#toolMarkup - Markup HTML per la rappresentazione grafica.
          */
         toolMarkup: [
             '<g class="element-tools">',
@@ -1552,13 +1552,13 @@ define ([
             '</g>',
             '</g>'].join(''),
         /**
-         *  @var {Object} Base#defaults - Attributi di default per l'oggetto.
+         *  @var {Object} bubbleDiagram::Base#defaults - Attributi di default per l'oggetto.
          */
         defaults: _.defaultsDeep({
             type: 'uml.bubbleDiagram.Base'
         }, joint.shapes.basic.Generic.prototype.defaults),
         /**
-         *  @function Base#initialize
+         *  @function bubbleDiagram::Base#initialize
          *  @summary Inizializzazione di Base: imposta evento al verificarsi del cambio dei valori e chiama il metodo per la renderizzazione dell'item.
          */
         initialize: function() {
@@ -1570,13 +1570,13 @@ define ([
             joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         },
         /**
-         *  @function Base#updateRectangles
+         *  @function bubbleDiagram::Base#updateRectangles
          *  @summary Render dell'item.
          *  @abstract
          */
         updateRectangles: function() {},
         /**
-         *  @function Base#getValues
+         *  @function bubbleDiagram::Base#getValues
          *  @return {Object} I valori dell'item ("values").
          *  @summary Ritorna i valori dell'item.
          */
@@ -1586,14 +1586,14 @@ define ([
     });
 	/**
      *  @module Swedesigner.model.bubbleDiagram.items
-     *  @class BaseView
+     *  @class bubbleDiagram::BaseView
      *  @classdesc Elemento view base generico per il diagramma delle bubble.
      *  @extends {joint.dia.ElementView}
      */
     Swedesigner.model.bubbleDiagram.items.BaseView = joint.dia.ElementView.extend({
         /**
-         *  @function BaseView#initialize
-         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe base e imposta un evento alla reazione del
+         *  @function bubbleDiagram::BaseView#initialize
+         *  @summary Inizializzazione di BaseView: chiama il metodo "initialize" della classe bubbleDiagram::Base e imposta un evento alla reazione del
          *  model chiamando sequenzialmente i metodi "update" e "resize".
          */
         initialize: function() {
@@ -1604,7 +1604,7 @@ define ([
             });
         },
         /**
-         *  @function BaseView#render
+         *  @function bubbleDiagram::BaseView#render
          *  @return {Object} L'oggetto BaseView.
          *  @summary Renderizzazione dell'item.
          */
@@ -1615,7 +1615,7 @@ define ([
             return this;
         },
         /**
-         *  @function BaseView#renderTools
+         *  @function bubbleDiagram::BaseView#renderTools
          *  @return {Object} L'oggetto BaseView.
          *  @summary Assistenza al metodo "render" per la renderizzazione dell'item.
          */

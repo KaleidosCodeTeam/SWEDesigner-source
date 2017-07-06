@@ -30,8 +30,8 @@ var JavaCoder = function() {};
  *	@function getPackageDependencies
  *	@param {!string} packageId - Identificativo del package di cui si vuole ottenere le dipendenze OUT.
  *	@param {!Object} packages - Oggetto che contiene l'array di tutti gli oggetti package.
- *	@return {Array} Contiene le informazioni sulle dipendenze OUT del package di identificativo packageId. 
- *	@description Ritorna il ledipendenze OUT package corrispondente al packageId di input.
+ *	@return {Object[]} Le informazioni sulle dipendenze OUT del package di identificativo packageId. 
+ *	@description Ritorna il le dipendenze OUT del package corrispondente al packageId di input.
  */
 function getPackageDependencies(packageId, packages) {
 	var dependencies = new Array();

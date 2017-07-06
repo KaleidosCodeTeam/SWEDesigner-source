@@ -130,7 +130,7 @@ define ([
 		 *	@summary Elimina le coordinate iniziali al click del mouse nello spazio vuoto del paper.
 		 */
 		blankPointerUp: function(elem, event, x, y) {
-				delete dragStartPosition;
+				//delete dragStartPosition;
 				dragging = false;
 		},
 		/**
