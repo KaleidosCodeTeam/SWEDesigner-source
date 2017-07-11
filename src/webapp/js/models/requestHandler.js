@@ -38,6 +38,13 @@ define ([
                 success: function (data) {
                     console.log(data);
                     var ret = $.parseJSON(data);
+                    var a = document.createElement("a");
+					document.body.appendChild(a);
+					a.style = "display: none";
+					a.href = "localhost/SWEDesigner-source/src/server/requestHandler/"+ret.nomezip+".zip";
+					a.download = ret.nomezip+".zip";
+					a.click();
+					document.body.removeChild(a);
                     $('#lblResponse').html(ret.nomezip);
                     console.log('Success: ')
                 },
@@ -68,6 +75,13 @@ define ([
                 success: function (data) {
                     console.log(data);
                     var ret = $.parseJSON(data);
+                    var a = document.createElement("a");
+					document.body.appendChild(a);
+					a.style = "display: none";
+					a.href = "localhost/SWEDesigner-source/src/server/requestHandler/"+ret.nomezip+".zip";
+					a.download = ret.nomezip+".zip";
+					a.click();
+					document.body.removeChild(a);
                     $('#lblResponse').html(ret.nomezip);
                     console.log('Success: ')
                 },
