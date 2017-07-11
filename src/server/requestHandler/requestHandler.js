@@ -88,7 +88,7 @@ var RequestHandler = {
 
             CodeGenerator.generateJsProgram(obj.project,nomezip);
             
-            res.end(JSON.stringify({'nomezip': nomezip}));
+            res.jsonp(JSON.stringify({'nomezip': nomezip}));
         });
     },
     /**
