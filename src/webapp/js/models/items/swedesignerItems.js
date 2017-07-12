@@ -173,7 +173,7 @@ define ([
          *  @summary Ritorna il nome del package.
          */
         getPackageName: function() {
-            return this.get('_package');
+            return this.get('values')._package;
         },
         /**
          *  @function Package#updateRectangles
