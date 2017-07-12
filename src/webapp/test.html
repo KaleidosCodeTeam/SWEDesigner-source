@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWEDesigner - TEST View</title>
+    <link rel="stylesheet" href="lib/css/joint.min.css" type="text/css">
+    <link rel="stylesheet" href="https://bootswatch.com/slate/bootstrap.min.css">
+    <style>
+    	.pass:before { 
+            content: 'PASS: '; 
+            color:  green; 
+        } 
+  
+        .fail:before { 
+            content: 'FAIL: '; 
+            color: red;
+        }
+        h1 {
+        	color: white;
+        	text-align: center;
+        	font-size: 1.5em;
+        }
+        h2 {
+        	padding-left: 1em;
+        	color: white;
+        	text-align: left;
+        	font-weight: bold;
+        	font-size: 1.2em;
+        }
+        ul {
+        	font-weight: normal;
+        	font-size: 1em;
+        }
+    </style>
+</head>
+
+<body>
+	<h1>Test - Lato Client</h1>
+	
+	<h2>EditPanelView</h2>
+	<ul id="EditPanelViewTest"></ul>
+	
+	<h2>PathView</h2>
+	<ul id="PathViewTest"></ul>
+	
+	<h2>ProjectView</h2>
+	<ul id="ProjectViewTest"></ul>
+	
+	<h2>TitlebarView</h2>
+	<ul id="TitlebarViewTest"></ul>
+	
+	<h2>ToolbarView</h2>
+	<ul id="ToolbarViewTest"></ul>
+	
+	<h2>DataManager</h2>
+	<ul id="DataManagerTest"></ul>
+	
+	<h2>Project</h2>
+	<ul id="ProjectTest"></ul>
+	
+	<h2>ProjectModel</h2>
+	<ul id="ProjectModelTest"></ul>
+	
+	<h2>RequestHandler</h2>
+	<ul id="RequestHandlerTest"></ul>
+	
+	<h2>ToolbarModel</h2>
+	<ul id="ToolbarModelTest"></ul>
+	
+	<h2>Swedesigner.model.packageDiagram.items.Package</h2>
+	<ul id="PackageTest"></ul>
+	
+	<h2>Swedesigner.model.packageDiagram.items.PkgComment</h2>
+	<ul id="PkgCommentTest"></ul>
+	
+	<h2>Swedesigner.model.packageDiagram.items.packageDiagramLink</h2>
+	<ul id="packageDiagramLinkTest"></ul>
+	
+	<h2>Swedesigner.model.packageDiagram.items.PkgCommentLink</h2>
+	<ul id="PkgCommentLinkTest"></ul>
+	
+	<h2>Swedesigner.model.packageDiagram.items.PkgDependency</h2>
+	<ul id="PkgDependencyTest"></ul>
+	
+	<h2>Swedesigner.model.classDiagram.items.Class</h2>
+	<ul id="ClassTest"></ul>
+	
+	<h2>Swedesigner.model.classDiagram.items.Interface</h2>
+	<ul id="InterfaceTest"></ul>
+	
+	<h2>Swedesigner.model.classDiagram.items.ClComment</h2>
+	<ul id="ClCommentTest"></ul>
+	
+	<h2>Swedesigner.model.classDiagram.items.classDiagramLink</h2>
+	<ul id="classDiagramLinkTest"></ul>
+	
+	<h2>Swedesigner.model.classDiagram.items.ClCommentLink</h2>
+	<ul id="ClCommentLinkTest"></ul>
+	
+	<h2>Swedesigner.model.classDiagram.items.Generalization</h2>
+	<ul id="GeneralizationTest"></ul>
+	
+	<h2>Swedesigner.model.classDiagram.items.Implementation</h2>
+	<ul id="ImplementationTest"></ul>
+	
+	<h2>Swedesigner.model.classDiagram.items.Aggregation</h2>
+	<ul id="AggregationTest"></ul>
+	
+	<h2>Swedesigner.model.classDiagram.items.Composition</h2>
+	<ul id="CompositionTest"></ul>
+	
+	<h2>Swedesigner.model.classDiagram.items.Association</h2>
+	<ul id="AssociationTest"></ul>
+	
+	<h2>Swedesigner.model.bubbleDiagram.items.customBubble</h2>
+	<ul id="customBubbleTest"></ul>
+	
+	<h2>Swedesigner.model.bubbleDiagram.items.bubbleIf</h2>
+	<ul id="bubbleIfTest"></ul>
+	
+	<h2>Swedesigner.model.bubbleDiagram.items.bubbleElse</h2>
+	<ul id="bubbleElseTest"></ul>
+	
+	<h2>Swedesigner.model.bubbleDiagram.items.bubbleFor</h2>
+	<ul id="bubbleForTest"></ul>
+	
+	<h2>Swedesigner.model.bubbleDiagram.items.bubbleReturn</h2>
+	<ul id="bubbleReturnTest"></ul>
+	
+	<h2>Swedesigner.model.bubbleDiagram.items.bubbleStart</h2>
+	<ul id="bubbleStartTest"></ul>
+	
+	<h2>Swedesigner.model.bubbleDiagram.items.bubbleWhile</h2>
+	<ul id="bubbleWhileTest"></ul>
+	
+	<h2>Swedesigner.model.bubbleDiagram.items.bubbleDiagramLink</h2>
+	<ul id="bubbleDiagramLinkTest"></ul>
+	
+	<h2>Swedesigner.model.bubbleDiagram.items.bubbleLink</h2>
+	<ul id="bubbleLinkTest"></ul>
+	
+<!-- Finestra di apertura file -->
+<div class="modal fade" id="openFile" tabindex="-1" role="dialog" aria-labelledby="openFileModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="openFileModal">Apri progetto</h4>
+            </div>
+            <div class="modal-body">
+                <input type="file" id="selectedFile">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="openFile-button">Apri</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Finestra salva con nome -->
+<div class="modal fade" id="saveProjectAs" tabindex="-1" role="dialog" aria-labelledby="openFileModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="saveProjectAs-Modal">Salva con nome</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="fileNameInput">Nome file:</label>
+                    <input type="text" class="form-control" id="fileNameInput">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveProjectAs-button">Salva</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Link di download per il progetto -->
+<a href="" id="lnkDownload" download="" style="display: none">Download Link</a>
+
+<!-- Codice dell'applicazione -->
+<div class="hidden-xs hidden-sm hidden-md">
+    <div class="row" style="display: none;">
+        <!------------ Navbar e menu dell'applicazione ------------>
+        <div class="col-lg-12">
+            <nav id="titlebar" class="navbar navbar-default">
+               <!-- <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <span class="navbar-brand">SWEDesigner</span>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" id="newProject">Nuovo Progetto</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#openFile">Apri</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#" id="saveProject">Salva</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#saveProjectAs">Salva con Nome</a></li>
+								</ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modifica <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Annulla</a></li>
+                                    <li><a href="#">Ripeti</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Visualizza <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Layer Superiore</a></li>
+                                    <li><a href="#">Layer Inferiore</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Zoom In</a></li>
+                                    <li><a href="#">Zoom Out</a></li>
+                                    <li><a href="#" id="resetZoom">Reset Zoom</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Codice <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" id="generate-java" >Genera Codice Java</a></li>
+                                    <li><a href="#" id="generate-js">Genera Codice Js</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Visualizza Codice Prodotto</a></li>
+                                    <li><a href="#">Esporta Codice Prodotto</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extras <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Hex</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aiuto <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Manuale Utente</a></li>
+                                    <li><a href="#">Manuale Sviluppatore</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">About us</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>-->
+            </nav>
+        </div>
+    </div>
+    <div class="row" style="display: none;">
+        <!------------ Toolbar laterale ------------>
+        <div class="col-lg-1 toolbar">
+        	<!-- <div class="packageDiagram">
+            	<button id="packageDiagram-Package" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Package
+                </button>
+            	<button id="packageDiagram-PkgDependency" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Dipendenza
+                </button>
+            	<button id="packageDiagram-PkgComment" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Commento
+                </button>
+            	<button id="packageDiagram-PkgCommentLink" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Link commento
+                </button>
+            </div>
+            <div class="classDiagram">
+            	<button id="classDiagram-Class" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Classe
+                </button>
+            	<button id="classDiagram-Interface" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Interfaccia
+                </button>
+            	<button id="classDiagram-Generalization" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Generalizzazione
+                </button>
+            	<button id="classDiagram-Implementation" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Implementazione
+                </button>
+            	<button id="classDiagram-Aggregation" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Aggregazione
+                </button>
+            	<button id="classDiagram-Composition" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Composizione
+                </button>
+            	<button id="classDiagram-Association" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Associazione
+                </button>
+            	<button id="classDiagram-ClComment" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Commento
+                </button>
+            	<button id="classDiagram-ClCommentLink" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Link commento
+                </button>
+            </div>
+            <div class="bubbleDiagram">
+                <button id="bubbleDiagram-bubbleStart" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Start
+                </button>
+		        <button id="bubbleDiagram-customBubble" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Custom
+                </button>
+		        <button id="bubbleDiagram-bubbleIf" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> If
+                </button>
+		        <button id="bubbleDiagram-bubbleElse" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Else
+                </button>
+		        <button id="bubbleDiagram-bubbleFor" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> For
+                </button>
+		        <button id="bubbleDiagram-bubbleReturn" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Return
+                </button>
+		        <button id="bubbleDiagram-bubbleWhile" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> While
+                </button>
+		        <button id="bubbleDiagram-bubbleLink" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Link
+                </button>
+		        <button id="bubbleDiagram-nesting" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
+                    <span class="glyphicon glyphicon-record" aria-hidden="true"></span> Innesta
+                </button>
+			</div> -->
+        </div>
+        <div class="centralWidget col-lg-9">
+            <div id="canvas" class="canvas"></div>
+            <ol class="breadcrumb">
+            </ol>
+        </div>
+        <div id="editpanel" class="col-lg-2 panel-swedesigner"></div>
+    </div>
+</div>
+<div class="visible-xs visible-sm visible-md">
+    SWEDesigner non è progettato per essere utilizzato su schermi così piccoli, prova ad accedere da un dispositivo come un pc o un tablet.
+</div>
+<script src="lib/js/jquery.min.js"></script>
+<script src="lib/js/bootstrap.min.js"></script>
+<script data-main="js/test" src="lib/js/require.js"></script>
+</body>
+</html>
