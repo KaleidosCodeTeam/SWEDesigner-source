@@ -75,7 +75,7 @@ define ([
                     'click .exec': 'execCommand',
                     'click .switch': 'switch',
                     'click .unembed': 'unembedCell',
-                    'click #saveCode': 'saveCode'
+                    'click #save': 'save'
                 }));
             } else {
                 this.$el.html("");
@@ -92,14 +92,20 @@ define ([
             projectView.switchIn(e.target.value);
         },
         /**
-         *  @function EditPanelView#saveCode
+         *  @function EditPanelView#save
          *  @param {Object} e - Elemento generante l'evento.
-         *  @summary Metodo chiamato da evento generato. Salvataggio del codice interno ad una customBubble.
+         *  @summary Metodo chiamato da evento generato. Salvataggio di testo.
          */
-        saveCode: function(e) {
-            //console.log($('#bubbleCode').val());
-            //console.log($('#bubbleCode').attr('name'));
-            projectView.paper.selectedCell.setToValue($('#bubbleCode').val(), $('#bubbleCode').attr('name'));
+        save: function(e) {
+            //console.log(e.target.id);
+            if (e.target.id === 'saveJava') {
+                projectView.paper.selectedCell.setToValue($('#bubbleJavaCode').val(), $('#bubbleJavaCode').attr('name'));
+            } else if (e.target.id === 'saveJavascript') {
+                projectView.paper.selectedCell.setToValue($('#bubbleJSCode').val(), $('#bubbleJSCode').attr('name'));
+            } else if (e.target.id === 'saveComment') {
+                projectView.paper.selectedCell.setToValue($('#comment').val(), $('#comment').attr('name'));
+            }
+            console.log(projectView.paper.selectedCell);
         },
         /**
          *  @function EditPanelView#execCommand
@@ -107,21 +113,23 @@ define ([
          *  @summary Metodo chiamato da evento generato. Esegue il metodo definito dal nome dell'elemento generante l'evento sul contenuto selezionato nel pannello.
          */
         execCommand: function (e) {
-            var tmp = e.target.name.split(".");
-            if (tmp[0] === "deleteOperation") {
-                projectView.deleteOperationAt(tmp[1]);
+            if (typeof e.target.name != 'undefined') {
+                var tmp = e.target.name.split(".");
+                if (tmp[0] === "deleteOperation") {
+                    projectView.deleteOperationAt(tmp[1]);
+                }
+                projectView.paper.selectedCell.executeMethod(tmp[0], Array.prototype.slice.call(tmp, 1));
+                this.render();
+                if (tmp[0] === "addOperation" || tmp[0] === "deleteOperation") {
+                    $(".class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
+                    $(".interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display", "none");
+                } else if (tmp[0] === "addParameter" || tmp[0] === "deleteParameter") {
+                    $(".class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
+                    $(".interface-operation-parameter-details").css("display", "none");
+                } else if (tmp[0] === "addAttribute" || tmp[0] === "deleteAttribute") {
+                    $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, .class-attribute-details").css("display", "none");
+                };
             }
-            projectView.paper.selectedCell.executeMethod(tmp[0], Array.prototype.slice.call(tmp, 1));
-            this.render();
-            if (tmp[0] === "addOperation" || tmp[0] === "deleteOperation") {
-                $(".class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
-                $(".interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display", "none");
-            } else if (tmp[0] === "addParameter" || tmp[0] === "deleteParameter") {
-                $(".class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
-                $(".interface-operation-parameter-details").css("display", "none");
-            } else if (tmp[0] === "addAttribute" || tmp[0] === "deleteAttribute") {
-                $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, .class-attribute-details").css("display", "none");
-            };
         },
         /**
          *  @function EditPanelView#unembedCell

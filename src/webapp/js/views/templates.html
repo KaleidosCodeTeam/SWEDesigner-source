@@ -33,7 +33,8 @@
         <h4>Commento</h4>
         <div class="form-group">
             <label for="comment">Testo:</label>
-            <input type="text" class="form-control edit" value="<%=comment%>" name="comment" id="comment" />
+            <textarea class="form-control edit" rows="5" value="<%=comment%>" name="comment" id="comment"><%=comment%></textarea>
+            <button class="form-control" value="save" id="save">Salva</button>
         </div>
     </div>
 </script>
@@ -67,9 +68,10 @@
                             <div class="form-group">
                                 <label for="class-operation-visibility">Visibilità:</label>
                                 <select class="form-control edit" name="operations.<%=op%>._visibility" id="class-operation-visibility">
-                                    <option value ="public" <% if(operations[op]._visibility=="public") { %> selected <% } %>>public</option>
-                                    <option value ="private" <% if(operations[op]._visibility=="private") { %> selected <% } %>>private</option>
-                                    <option value ="protected" <% if(operations[op]._visibility=="protected") { %> selected <% } %>>protected</option>
+                                    <option value="public" <% if(operations[op]._visibility=="public") { %> selected <% } %>>public</option>
+                                    <option value="private" <% if(operations[op]._visibility=="private") { %> selected <% } %>>private</option>
+                                    <option value="protected" <% if(operations[op]._visibility=="protected") { %> selected <% } %>>protected</option>
+                                    <option value="package" <% if(operations[op]._visibility=="package") { %> selected <% } %>>package</option>
                                 </select>
                             </div>
                             <div id="class-properties"> <!-- PRIMA NON C'ERA! AGGIUNTA CREANDO IL TEMPLATE. CONTROLLARE CLASS E ID SUI MARKUP! -->
@@ -171,6 +173,7 @@
                                     <option value="public" <% if(attributes[attr]._visibility=="public") { %> selected <% } %>>public</option>
                                     <option value="private" <% if(attributes[attr]._visibility=="private") { %> selected <% } %>>private</option>
                                     <option value="protected" <% if(attributes[attr]._visibility=="protected") { %> selected <% } %>>protected</option>
+                                    <option value="package" <% if(attributes[attr]._visibility=="package") { %> selected <% } %>>package</option>
                                 </select>
                             </div>
                             <div id="class-properties"> <!-- PRIMA NON C'ERA! AGGIUNTA CREANDO IL TEMPLATE. CONTROLLARE CLASS E ID SUI MARKUP! -->
@@ -219,6 +222,8 @@
                 <% if(_visibility=="private") { %> selected <% } %>>private</option>
                 <option value="protected"
                 <% if(_visibility=="protected") { %> selected <% } %>>protected</option>
+                <option value="package"
+                <% if(_visibility=="package") { %> selected <% } %>>package</option>
             </select>
         </div>
         <div id="class-properties">
@@ -277,9 +282,10 @@
                             <div class="form-group">
                                 <label for="interface-operation-visibility">Visibilità:</label>
                                 <select class="form-control edit" name="operations.<%=op%>._visibility" id="interface-operation-visibility">
-                                    <option value ="public" <% if(operations[op]._visibility=="public") { %> selected <% } %>>public</option>
-                                    <option value ="private" <% if(operations[op]._visibility=="private") { %> selected <% } %>>private</option>
-                                    <option value ="protected" <% if(operations[op]._visibility=="protected") { %> selected <% } %>>protected</option>
+                                    <option value="public" <% if(operations[op]._visibility=="public") { %> selected <% } %>>public</option>
+                                    <option value="private" <% if(operations[op]._visibility=="private") { %> selected <% } %>>private</option>
+                                    <option value="protected" <% if(operations[op]._visibility=="protected") { %> selected <% } %>>protected</option>
+                                    <option value="package" <% if(operations[op]._visibility=="package") { %> selected <% } %>>package</option>
                                 </select>
                             </div>
                             <div id="interface-properties"> <!-- PRIMA NON C'ERA! AGGIUNTA CREANDO IL TEMPLATE. CONTROLLARE CLASS E ID SUI MARKUP! -->
@@ -338,9 +344,9 @@
                                 </div>
                             </div>
                             <!-- INSERITO PULSANTE PER ANDARE AL DIAGRAMMA DELL'ATTIVITÀ -->
-                            <button class="switch btn btn-success btn-block" name="switch" value="<%= operations[op].id %>">
+                            <!--<button class="switch btn btn-success btn-block" name="switch" value="<%= operations[op].id %>">
                                 <span class="pull-left glyphicon glyphicon-share-alt" aria-hidden="true"></span> BubbleDiagram
-                            </button>
+                            </button>-->
                             <button class="btn btn-danger btn-block exec" name="deleteOperation.<%=op%>">
                                 <span class="pull-left glyphicon glyphicon-remove" aria-hidden="true"></span> Elimina
                             </button>
@@ -374,6 +380,8 @@
                 <% if(_visibility=="private") { %> selected <% } %>>private</option>
                 <option value="public"
                 <% if(_visibility=="protected") { %> selected <% } %>>protected</option>
+                <option value="package"
+                <% if(_visibility=="package") { %> selected <% } %>>package</option>
             </select>
         </div>
     </div>
@@ -385,7 +393,8 @@
         <h4>Commento</h4>
         <div class="form-group">
             <label for="comment">Testo:</label>
-            <input type="text" class="form-control edit" value="<%=comment%>" name="comment" id="comment" />
+            <textarea class="form-control edit" rows="5" value="<%=comment%>" name="comment" id="comment"><%=comment%></textarea>
+            <button class="form-control" value="save" id="save">Salva</button>
         </div>
     </div>
 </script>
@@ -410,9 +419,14 @@
     <div id="panel-customBubble" class="panel-swedesigner">
         <h4>Bolla personalizzata</h4>
         <div class="form-group">
-            <label for="bubbleCode">Testo:</label>
-            <textarea class="form-control edit" rows="5" value="<%=bubbleCode%>" name="bubbleCode" id="bubbleCode"><%=bubbleCode%></textarea>
-            <button class="form-control" value="saveCode" id="saveCode">Salva codice</button>
+            <label for="bubbleJavaCode">Codice Java:</label>
+            <textarea class="form-control edit" rows="5" value="<%=bubbleJavaCode%>" name="bubbleJavaCode" id="bubbleJavaCode"><%=bubbleJavaCode%></textarea>
+            <button class="form-control" value="save" id="save">Salva</button>
+        </div>
+        <div class="form-group">
+            <label for="bubbleJSCode">Codice Javascript:</label>
+            <textarea class="form-control edit" rows="5" value="<%=bubbleJSCode%>" name="bubbleJSCode" id="bubbleJSCode"><%=bubbleJSCode%></textarea>
+            <button class="form-control" value="save" id="save">Salva</button>
         </div>
         <div class="from-group">
             <label for="comment">Commento:</label>
@@ -507,6 +521,54 @@
         <div class="from-group">
             <label for="condition">Condizione:</label>
             <input type="text" class="form-control edit" value="<%=condition%>" name="condition" id="condition" />
+        </div>
+        <div class="from-group">
+            <label for="comment">Commento:</label>
+            <input type="text" class="form-control edit" value="<%=comment%>" name="comment" id="comment" />
+        </div>
+        <button class="btn btn-warning btn-block unembed" name="unembed">
+            <span class="pull-left glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Disinnesta
+        </button>
+    </div>
+</script>
+
+<!-- BUBBLEDEFINITION TEMPLATE -->
+<script type="text/template" id="bubbleDiagram.items.bubbleDefinition">
+    <div id="panel-bubbleDefinition" class="panel-swedesigner">
+        <h4>Bolla definizione di variabile</h4>
+        <div class="form-group">
+            <label for="_type">Tipo:</label>
+            <input type="text" class="form-control edit" value="<%=_type%>" name="_type" id="_type" />
+        </div>
+        <div class="form-group">
+            <label for="_name">Nome:</label>
+            <input type="text" class="form-control edit" value="<%=_name%>" name="_name" id="_name" />
+        </div>
+        <div class="form-group">
+            <label for="_value">Valore iniz.:</label>
+            <input type="text" class="form-control edit" value="<%=_value%>" name="_value" id="_value" />
+        </div>
+        <div class="from-group">
+            <label for="comment">Commento:</label>
+            <input type="text" class="form-control edit" value="<%=comment%>" name="comment" id="comment" />
+        </div>
+        <button class="btn btn-warning btn-block unembed" name="unembed">
+            <span class="pull-left glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Disinnesta
+        </button>
+    </div>
+</script>
+
+<!-- BUBBLEASSIGNMENT TEMPLATE -->
+<script type="text/template" id="bubbleDiagram.items.bubbleAssignment">
+    <div id="panel-bubbleAssignment" class="panel-swedesigner">
+        <h4>Bolla assegnazione</h4>
+        <div class="form-group">
+            <label for="_name">Nome:</label>
+            <input type="text" class="form-control edit" value="<%=_name%>" name="_name" id="_name" />
+        </div>
+        <div class="form-group">
+            <label for="_value">Valore:</label>
+            <input type="text" class="form-control edit" value="<%=_value%>" name="_value" id="_value" />
         </div>
         <div class="from-group">
             <label for="comment">Commento:</label>

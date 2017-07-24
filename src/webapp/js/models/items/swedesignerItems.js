@@ -138,7 +138,7 @@ define ([
             attrs: {
                 rect: {'width': 200},
                 '.uml-package-name-rect': {
-                    'fill': '#55dd77',
+                    'fill': '#f9c956',
                     'stroke': '#000',
                     'stroke-width': 2
                 },
@@ -156,7 +156,7 @@ define ([
             },
             values: {
                 _package: "PackageName",
-                _importance: "alta"
+                _importance: "media"
             }
         }, Swedesigner.model.packageDiagram.items.Base.prototype.defaults),
         /**
@@ -184,6 +184,19 @@ define ([
             var rects = [
                 { type: 'name', text: this.getValues()._package }
             ];
+            var colour = '';
+            switch (this.getValues()._importance) {
+                case "alta":
+                    colour = '#ec2d1f';
+                    break;
+                case "media":
+                    colour = '#f9c956';
+                    break;
+                case "bassa":
+                    colour = 'white';
+                    break;
+            }
+            attrs['.uml-package-name-rect'].fill = colour;
             var rectWidth = this.getValues()._package.length * 5 + 300;
             //console.log('package#updateRectangles');
             //console.log(rectWidth);
@@ -581,20 +594,20 @@ define ([
             attrs: {
                 rect: {'width': 200},
                 '.uml-class-name-rect': {
-                    'stroke': '#b38f21',
+                    'stroke': '#000',
                     'stroke-width': 1,
-                    'fill': '#ffdf7e'
+                    'fill': '#f9c956'
                 },
                 '.uml-class-attrs-rect': {
-                    'stroke': '#b38f21',
+                    'stroke': '#000',
                     'stroke-width': 1,
-                    'fill': '#ffdf7e',
+                    'fill': '#f9c956',
                     'expanded': 'true'
                 },
                 '.uml-class-methods-rect': {
-                    'stroke': '#b38f21',
+                    'stroke': '#000',
                     'stroke-width': 1,
-                    'fill': '#ffdf7e',
+                    'fill': '#f9c956',
                     'expanded': 'true'
                 },
                 '.uml-class-divider-rect': {
@@ -634,7 +647,7 @@ define ([
             values: {
                 _name: "NomeClasse",
             	_visibility: "public",
-                _importance: "alta",
+                _importance: "media",
                 isAbstract: "false",
                 isInterface : "false",
                 constructorList : [],
@@ -697,6 +710,21 @@ define ([
                     text: this.get('methodsExpanded') ? this.getValues().operations : "Metodi (premi per espandere)"
                 }
             ];
+            var colour = '';
+            switch (this.getValues()._importance) {
+                case "alta":
+                    colour = '#ec2d1f';
+                    break;
+                case "media":
+                    colour = '#f9c956';
+                    break;
+                case "bassa":
+                    colour = 'white';
+                    break;
+            }
+            attrs['.uml-class-name-rect'].fill = colour;
+            attrs['.uml-class-attrs-rect'].fill = colour;
+            attrs['.uml-class-methods-rect'].fill = colour;
             var rectWidth=this.getWidth();
             var rectHeight=1*15+1;
             attrs['.uml-class-name-text'].text=rects[0].text;
@@ -731,6 +759,9 @@ define ([
                     case "protected":
                         vis="#";
                         break;
+                    case "package":
+                        vis="~";
+                        break;
                 }
                 return vis+" "+e._name+":"+e._type;
             }).join('\n') : rects[1].text;
@@ -759,6 +790,9 @@ define ([
                         break;
                     case "protected":
                         vis="#";
+                        break;
+                    case "package":
+                        vis="~";
                         break;
                 }
                 let params=e.parameters.map(function(f) {
@@ -868,6 +902,9 @@ define ([
                     case "protected":
                         vis="#";
                         break;
+                    case "package":
+                        vis="~";
+                        break;
                 }
                 return {'text': vis+e._name+":"+e._type};
             });
@@ -890,6 +927,9 @@ define ([
                         break;
                     case "protected":
                         vis="#";
+                        break;
+                    case "package":
+                        vis="~";
                         break;
                 }
                 let params = e.parameters.map(function(f) {
@@ -963,14 +1003,14 @@ define ([
             attrs: {
                 rect: {'width': 200},
                 '.uml-class-name-rect': {
-                    'stroke': '#b38f21',
+                    'stroke': '#000',
                     'stroke-width': 1,
-                    'fill': '#ffdf7e'
+                    'fill': '#f9c956'
                 },
                 '.uml-class-methods-rect': {
-                    'stroke': '#b38f21',
+                    'stroke': '#000',
                     'stroke-width': 1,
-                    'fill': '#ffdf7e',
+                    'fill': '#f9c956',
                     'expanded': 'true'
                 },
                 '.uml-class-name-text': {
@@ -996,7 +1036,7 @@ define ([
             values: {
                 _name: "NomeInterfaccia",
                 _visibility: "public",
-                _importance: "alta",
+                _importance: "media",
                 isInterface : "true",
                 operations: [
                 	/*{
@@ -1040,6 +1080,20 @@ define ([
                     text: this.get('methodsExpanded') ? this.getValues().operations : "Metodi (premi per espandere)"
                 }
             ];
+            var colour = '';
+            switch (this.getValues()._importance) {
+                case "alta":
+                    colour = '#ec2d1f';
+                    break;
+                case "media":
+                    colour = '#f9c956';
+                    break;
+                case "bassa":
+                    colour = 'white';
+                    break;
+            }
+            attrs['.uml-class-name-rect'].fill = colour;
+            attrs['.uml-class-methods-rect'].fill = colour;
             var rectWidth=this.getWidth();
             var rectHeight=2*15+1;
             attrs['.uml-class-name-text'].text=["<<interfaccia>>", rects[0].text].join('\n');
@@ -1068,6 +1122,9 @@ define ([
                         break;
                     case "protected":
                         vis="#";
+                        break;
+                    case "package":
+                        vis="~";
                         break;
                 }
                 var params=e.parameters.map(function(f) {
@@ -1150,6 +1207,9 @@ define ([
                         break;
                     case "protected":
                         vis="#";
+                        break;
+                    case "package":
+                        vis="~";
                         break;
                 }
                 let params=e.parameters.map(function(f) {
@@ -1685,8 +1745,9 @@ define ([
 		    },
             values: {
             	_type: 'CUSTOM',
-            	bubbleCode: '',
-            	comment : 'customBubbleName'
+            	bubbleJavaCode: '',
+                bubbleJSCode: '',
+            	comment : 'customBubble'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
@@ -1791,7 +1852,7 @@ define ([
             values: {
             	_type: 'IF',
             	condition: '',
-            	comment : 'bubbleIfName'
+            	comment : 'bubbleIf'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
@@ -1895,7 +1956,7 @@ define ([
 		    },
             values: {
             	_type: 'ELSE',
-            	comment : 'bubbleElseName'
+            	comment : 'bubbleElse'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
@@ -2002,7 +2063,7 @@ define ([
             	initialization: '',
             	termination: '',
             	increment: '',
-            	comment : 'bubbleForName'
+            	comment : 'bubbleFor'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
@@ -2107,7 +2168,7 @@ define ([
             values: {
             	_type: 'RETURN',
             	value: '',
-            	comment : 'bubbleReturnName'
+            	comment : 'bubbleReturn'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
@@ -2301,7 +2362,7 @@ define ([
             values: {
             	_type: 'WHILE',
             	condition: '',
-            	comment : 'bubbleWhileName'
+            	comment : 'bubbleWhile'
             }
         }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
         /**
