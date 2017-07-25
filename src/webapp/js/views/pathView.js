@@ -28,37 +28,48 @@ define ([
 		events: {
 			'click .switchDiagram': 'switchDiagram'
 		},
-		/**
+        /**
+         *  @function PathView#render
+         *  @summary Render del path in base al diagramma correntemente visualizzato.
+         */
+        render: function() {
+            var currentDiagram = projectModel.currentDiagramType;
+            //var diagrams = {'packageDiagram': 1, 'classDiagram': 2, 'bubbleDiagram': 3};
+            var diagrams = ['packageDiagram','classDiagram','bubbleDiagram'];
+            this.$el.empty();
+            /*if(diagrams[currentDiagram] > diagrams['packageDiagram'])
+             this.$el.append('<li id="packageDiagram" class="switchDiagram"><a href="#">Package</a></li>');
+             else
+             if(diagrams[currentDiagram] == diagrams['packageDiagram'])
+             this.$el.append('<li id="packageDiagram" class="active">Package</li>');
+             if(diagrams[currentDiagram] > diagrams['classDiagram'])
+             this.$el.append('<li id="classDiagram" class="switchDiagram"><a href="#">Class</a></li>');
+             else
+             if(diagrams[currentDiagram] == diagrams['classDiagram'])
+             this.$el.append('<li id="classDiagram" class="active">Class</li>');
+             if(diagrams[currentDiagram] > diagrams['bubbleDiagram'])
+             this.$el.append('<li id="bubbleDiagram" class="switchDiagram"><a href="#">Bubble</a></li>');
+             else
+             if(diagrams[currentDiagram] == diagrams['bubbleDiagram'])
+             this.$el.append('<li id="bubbleDiagram" class="active">Bubble</li>');*/
+            var i = 0;
+            while (i < projectModel.currentPath.length) {
+                this.$el.append('<li id="' + diagrams[i] + '" class="switchDiagram"><a href="#">' + projectModel.currentPath[i] + '</a></li>')
+                i++;
+            }
+            if (!i) {
+                this.$el.append('<li id="packageDiagram" class="switchDiagram"><a href="#">Package Diagram</a></li>');
+            } else if (i<3) {
+                this.$el.append('<li id="' + diagrams[i] + '" class="active">' + diagrams[i] + '</li>');
+            }
+        },
+        /**
          *  @function PathView#initialize
          *  @summary Inizializzazione della PathView.
          */
 		initialize: function() {
 			this.listenTo(projectModel,'switchgraph',this.render);
 			this.render();
-		},
-		/**
-         *  @function PathView#render
-         *  @summary Render del path in base al diagramma correntemente visualizzato.
-         */
-		render: function() {
-			var currentDiagram = projectModel.currentDiagramType;
-			var diagrams = {'packageDiagram': 1, 'classDiagram': 2, 'bubbleDiagram': 3};
-			this.$el.empty();
-			if(diagrams[currentDiagram] > diagrams['packageDiagram'])
-				this.$el.append('<li id="packageDiagram" class="switchDiagram"><a href="#">Package</a></li>');
-			else
-				if(diagrams[currentDiagram] == diagrams['packageDiagram'])
-					this.$el.append('<li id="packageDiagram" class="active">Package</li>');
-			if(diagrams[currentDiagram] > diagrams['classDiagram'])
-				this.$el.append('<li id="classDiagram" class="switchDiagram"><a href="#">Class</a></li>');
-			else
-				if(diagrams[currentDiagram] == diagrams['classDiagram'])
-					this.$el.append('<li id="classDiagram" class="active">Class</li>');
-			if(diagrams[currentDiagram] > diagrams['bubbleDiagram'])
-				this.$el.append('<li id="bubbleDiagram" class="switchDiagram"><a href="#">Bubble</a></li>');
-			else
-				if(diagrams[currentDiagram] == diagrams['bubbleDiagram'])
-					this.$el.append('<li id="bubbleDiagram" class="active">Bubble</li>');
 		},
 		/**
          *  @function EditPanelView#switchDiagram

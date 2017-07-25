@@ -261,7 +261,17 @@ define ([
 		 *	@summary Gestisce lo switch in profondità (dall'elemento selezionato il cui id è parametro in input) invocando il relativo metodo di ProjectModel.
 		 */
         switchIn: function(id) {
-            projectModel.switchInGraph(id);
+            // Creo il nome del grafico in cui mi trovo per aggiungerlo poi al path
+            var name;
+            if (projectModel.currentDiagramType === "packageDiagram") name = this.paper.selectedCell.getValues()._package;
+            else if (projectModel.currentDiagramType === "classDiagram") {
+                var operationName;
+                for (var op in this.paper.selectedCell.getValues().operations) {
+                    if (this.paper.selectedCell.getValues().operations[op].id === id) operationName = this.paper.selectedCell.getValues().operations[op]._name;
+                }
+                name = this.paper.selectedCell.getValues()._name + '.' + operationName;
+            }
+            projectModel.switchInGraph(id, name);
             this.paper.selectedCell = null;
             this.paper.trigger('changed-selected-cell');
             //console.log(projectModel);
