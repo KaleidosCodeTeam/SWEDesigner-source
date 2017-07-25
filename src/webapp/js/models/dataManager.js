@@ -18,6 +18,10 @@ define ([
     DataManager.save = function(fileName){
         projectModel.saveCurrentDiagram();
         var myProject = {};
+        if (!fileName) {
+            if (document.getElementById("fileNameInput").value) fileName = document.getElementById("fileNameInput").value + ".swed";
+            else fileName = "newProject.swed";
+        }
         myProject.packages = project.packages;
         myProject.classes = project.classes;
         myProject.operations = project.operations;
@@ -32,14 +36,7 @@ define ([
         };
         reader.readAsDataURL(myBlob);
     };
-    /**
-     *  @function client::DataManager.saveAs
-     *  @summary Estrae la stringa inserita dall'utente nella schermata per il salvataggio con nome e invoca la il metodo per il salvataggio del progetto corrente in un file con il nome desiderato.
-     */
-    DataManager.saveAs = function() {
-        var fName = document.getElementById("fileNameInput").value + ".swed";
-        DataManager.save(fName);
-    };
+
     /**
      *  @function client::DataManager.openProject
      *  @summary Legge un file JSON e ne salva il contenuto in project e nel projectModel come progetto attualmente aperto.
@@ -71,7 +68,19 @@ define ([
      *  @summary Dopo aver chiesto conferma all'utente, crea un nuovo progetto sovrascrivendo quello correntemente aperto.
      */
     DataManager.newProject = function() {
-        if (confirm("Il nuovo progetto sovrascriverà quello attualmente aperto. Sei sicuro?") === true) {
+        if (confirm("Il nuovo progetto sovrascriverà quello attualmente aperto. Vuoi salvare prima di creare un nuovo progetto?") === true) {
+            DataManager.save();
+            project.packages.packagesArray = [];
+            project.packages.dependenciesArray = [];
+            project.classes.classesArray= [];
+            project.classes.relationshipsArray= [];
+            project.operations= [];
+            projectModel.graph.resetCells([]);
+            projectModel.currentDiagramType = 'packageDiagram';
+            projectModel.currentDiagram = null;
+            projectModel.graphSwitched();
+            console.log('New project created');
+        } else if (confirm("Vuoi creare un nuovo progetto senza salvare?") === true) {
             project.packages.packagesArray = [];
             project.packages.dependenciesArray = [];
             project.classes.classesArray= [];

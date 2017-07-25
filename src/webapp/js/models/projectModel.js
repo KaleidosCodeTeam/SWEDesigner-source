@@ -25,6 +25,10 @@ define ([
          *  @var {string} ProjectModel#currentDiagram - L'id del diagramma correntemente caricato nel graph (null se è il diagramma dei package).
          */
 		currentDiagram: null,
+        /**
+         *  @var {string[]} ProjectModel#currentPath - Il percorso in cui si trova il diagramma correntemente caricato nel graph.
+         */
+        currentPath: [],
         /** 
          *  @var {string} ProjectModel#currentDiagramType - Il tipo del diagramma correntemente caricato nel graph ("packageDiagram", "classDiagram" o "bubbleDiagram").
          */
@@ -219,8 +223,10 @@ define ([
          *  @summary Esegue lo switch in profondità al diagramma selezionato svuotando il graph dagli elementi correntemente presenti e caricando gli eventuali
          *  nuovi elementi.
          */
-		switchInGraph: function(id) {
+		switchInGraph: function(id, name) {
             this.saveCurrentDiagram();
+            // aggiorno variabile path
+            this.currentPath.push(name);
 			if (this.currentDiagramType === 'packageDiagram') {
 				// id contiene l'id del package selezionato
                 var index = project.getClassIndex(id);
@@ -254,8 +260,10 @@ define ([
          */
 		switchOutGraph: function(diagramType) {
             this.saveCurrentDiagram();
+            this.currentPath.pop();
             if (diagramType == 'packageDiagram') {
                 // Devo spostarmi al diagramma dei package
+                this.currentPath = [];
                 this.currentDiagram = null;
                 this.graph.resetCells(project.packages.packagesArray.concat(project.packages.dependenciesArray));
                 this.currentDiagramType = 'packageDiagram';
