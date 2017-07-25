@@ -63,7 +63,7 @@ define ([
          */
         saveProject: function(event) {
             //console.log(event.currentTarget);
-            dataManager.save('newProject.swed');
+            dataManager.save();
         },
         /**
          *  @function TitlebarView#saveProjectAs
@@ -72,7 +72,7 @@ define ([
          */
         saveProjectAs: function(event) {
             //console.log(event.currentTarget);
-            dataManager.saveAs();
+            dataManager.save();
         },
         /**
          *  @function TitlebarView#generateJava
