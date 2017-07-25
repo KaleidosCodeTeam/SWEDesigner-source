@@ -124,8 +124,8 @@ define ([
                     $(".class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
                     $(".interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display", "none");
                 } else if (tmp[0] === "addParameter" || tmp[0] === "deleteParameter") {
-                    $(".class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
-                    $(".interface-operation-parameter-details").css("display", "none");
+                    $(".class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
+                    $(".interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display", "none");
                 } else if (tmp[0] === "addAttribute" || tmp[0] === "deleteAttribute") {
                     $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, .class-attribute-details").css("display", "none");
                 };
