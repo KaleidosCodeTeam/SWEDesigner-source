@@ -367,7 +367,8 @@ define ([
         defaults: _.defaultsDeep({
             type: 'packageDiagram.items.packageDiagramLink',
             source: {x: 30, y: 30},
-            target: {x: 150, y: 120}
+            target: {x: 150, y: 120},
+            attrs: {'.marker-target': {d: 'M 20 0 L 0 10 L 20 20 z', fill: 'grey'}}
         }, joint.dia.Link.prototype.defaults),
         /**
          *  @function packageDiagramLink#initialize
