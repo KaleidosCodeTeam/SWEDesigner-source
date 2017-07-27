@@ -2413,6 +2413,220 @@ define ([
     });
     /**
      *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class bubbleDefinition
+     *  @classdesc Rappresenta la definizione ed inizializzazione di una variabile.
+     *  @extends {Swedesigner.model.bubbleDiagram.items.Base}
+     */
+    Swedesigner.model.bubbleDiagram.items.bubbleDefinition = Swedesigner.model.bubbleDiagram.items.Base.extend({
+        /**
+         *  @var {string} bubbleDefinition#markup - Markup HTML per la rappresentazione grafica.
+         */
+        markup: [
+            '<g class="rotatable">',
+            '<g class="scalable">',
+            '<rect class="bubble" />',
+            '</g>',
+            '<text class="bubble-type-text" /><text class="bubble-name-text" />',
+            '</g>',
+        ].join(''),
+        /**
+         *  @var {Object} bubbleDefinition#defaults - Attributi di default per l'oggetto bubbleDefinition (tipo, posizione, dimensione,
+         *  attributi CSS, stato e contenuto dell'oggetto).
+         */
+        defaults: _.defaultsDeep({
+            type: 'bubbleDiagram.items.bubbleDefinition',
+		    position: {x: 200, y: 200},
+		    size: { width: 200, height: 70 },
+		    attrs: {
+		    	rect: {width: 200},
+		        '.bubble': {
+		            fill: '#8463e5',
+		            stroke: '#000000',
+                    rx: 10,
+                    ry: 4
+		        },
+		        '.bubble-type-text': {
+		        	'ref': '.bubble',
+                    'ref-y': .2,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 18,
+                    'font-family': 'Roboto'
+		        },
+		        '.bubble-name-text': {
+		            'ref': '.bubble',
+                    'ref-y': .5,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 11,
+                    'font-family': 'Monospace'
+		        }
+		    },
+            values: {
+            	_type: 'DEFINIZIONE',
+            	_vType: '',
+            	_name: '',
+            	_value: '',
+            	comment : 'bubbleDefinition'
+            }
+        }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
+        /**
+         *  @function bubbleDefinition#initialize
+         *  @summary Inizializzazione di bubbleDefinition: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleDefinition.
+         */
+        initialize: function() {
+        	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        },
+        /**
+         *  @function bubbleDefinition#updateRectangles
+         *  @summary Render della bubbleDefinition.
+         */
+        updateRectangles: function() {
+            var attrs = this.get('attrs');
+            var rects = [
+                { type: 'name', text: this.getValues().comment },
+                { type: 'type', text: this.getValues()._type }
+            ];
+            //var offsetY = 0;
+            _.each(rects, function(rect) {
+                var lines = _.isArray(rect.text) ? rect.text : [rect.text];
+                var rectHeight = lines.length * 20 + 20;
+                attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
+                attrs['.bubble'].height = rectHeight;
+                //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                //offsetY += rectHeight;
+            });
+        },
+        /**
+         *  @function bubbleDefinition#setToValue
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
+         */
+        setToValue: function(value, path) {
+            obj=this.getValues();
+            path=path.split('.');
+            for (i=0; i<path.length-1; i++) {
+                obj=obj[path[i]];
+            }
+            obj[path[i]]=value;
+            this.updateRectangles();
+            this.trigger("uml-update");
+        }
+    });
+    /**
+     *  @module Swedesigner.model.bubbleDiagram.items
+     *  @class bubbleAssignment
+     *  @classdesc Rappresenta l'assegnazione di un valore in una variabile.
+     *  @extends {Swedesigner.model.bubbleDiagram.items.Base}
+     */
+    Swedesigner.model.bubbleDiagram.items.bubbleAssignment = Swedesigner.model.bubbleDiagram.items.Base.extend({
+        /**
+         *  @var {string} bubbleAssignment#markup - Markup HTML per la rappresentazione grafica.
+         */
+        markup: [
+            '<g class="rotatable">',
+            '<g class="scalable">',
+            '<rect class="bubble" />',
+            '</g>',
+            '<text class="bubble-type-text" /><text class="bubble-name-text" />',
+            '</g>',
+        ].join(''),
+        /**
+         *  @var {Object} bubbleAssignment#defaults - Attributi di default per l'oggetto bubbleAssignment (tipo, posizione, dimensione,
+         *  attributi CSS, stato e contenuto dell'oggetto).
+         */
+        defaults: _.defaultsDeep({
+            type: 'bubbleDiagram.items.bubbleAssignment',
+		    position: {x: 200, y: 200},
+		    size: { width: 200, height: 70 },
+		    attrs: {
+		    	rect: {width: 200},
+		        '.bubble': {
+		            fill: '#e4a3ff',
+		            stroke: '#000000',
+                    rx: 10,
+                    ry: 4
+		        },
+		        '.bubble-type-text': {
+		        	'ref': '.bubble',
+                    'ref-y': .2,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 18,
+                    'font-family': 'Roboto'
+		        },
+		        '.bubble-name-text': {
+		            'ref': '.bubble',
+                    'ref-y': .5,
+                    'ref-x': .5,
+                    'text-anchor': 'middle',
+                    'y-alignment': 'middle',
+                    'fill': '#222222',
+                    'font-size': 11,
+                    'font-family': 'Monospace'
+		        }
+		    },
+            values: {
+            	_type: 'ASSEGNAZIONE',
+            	_vType: '',
+            	_name: '',
+            	_value: '',
+            	comment : 'bubbleAssignment'
+            }
+        }, Swedesigner.model.bubbleDiagram.items.Base.prototype.defaults),
+        /**
+         *  @function bubbleAssignment#initialize
+         *  @summary Inizializzazione di bubbleAssignment: chiama il metodo "initialize" della classe base e crea l'istanza dell'oggetto bubbleAssignment.
+         */
+        initialize: function() {
+        	Swedesigner.model.bubbleDiagram.items.Base.prototype.initialize.apply(this, arguments);
+        },
+        /**
+         *  @function bubbleAssignment#updateRectangles
+         *  @summary Render della bubbleAssignment.
+         */
+        updateRectangles: function() {
+            var attrs = this.get('attrs');
+            var rects = [
+                { type: 'name', text: this.getValues().comment },
+                { type: 'type', text: this.getValues()._type }
+            ];
+            //var offsetY = 0;
+            _.each(rects, function(rect) {
+                var lines = _.isArray(rect.text) ? rect.text : [rect.text];
+                var rectHeight = lines.length * 20 + 20;
+                attrs['.bubble-' + rect.type + '-text'].text = lines.join('\n');
+                attrs['.bubble'].height = rectHeight;
+                //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
+                //offsetY += rectHeight;
+            });
+        },
+        /**
+         *  @function bubbleAssignment#setToValue
+         *  @param {Object} value - Valore da assegnare.
+         *  @param {string} path - Percorso al membro.
+         *  @summary Imposta "values.path" a "value".
+         */
+        setToValue: function(value, path) {
+            obj=this.getValues();
+            path=path.split('.');
+            for (i=0; i<path.length-1; i++) {
+                obj=obj[path[i]];
+            }
+            obj[path[i]]=value;
+            this.updateRectangles();
+            this.trigger("uml-update");
+        }
+    });
+    /**
+     *  @module Swedesigner.model.bubbleDiagram.items
      *  @class bubbleDiagramLink
      *  @classdesc Collegamento tra due componenti di un diagramma delle bubble.
      *  @extends {joint.dia.Link}
