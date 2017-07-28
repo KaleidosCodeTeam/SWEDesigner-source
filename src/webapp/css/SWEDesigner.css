@@ -19,15 +19,15 @@ html,body{
 }
 
 .col-lg-1 {
-    width: 11%;
+    width: 8%;
 }
 
 .col-lg-9 {
-    width: 73%;
+    width: 72%;
 }
 
 .col-lg-2{
-    width: 16%;
+    width: 20%;
 }
 
 .toolbar{
@@ -46,12 +46,13 @@ html,body{
 }
 
 .canvas{
-    height: 85vh;
+    height: 90vh;
 }
 
 .breadcrumb{
     position: fixed;
-    bottom: 0%;
+    bottom: 0;
+    margin: 5px 0 5px 0;
 }
 
 .btn-color-sq{
@@ -71,7 +72,7 @@ html,body{
     display: inline;
     /*position: relative;
     right: 14px;*/
-    height: 88vh;
+    height: 90vh;
     overflow-y: scroll;
 }
 
@@ -86,6 +87,7 @@ html,body{
 
 .navbar{
     font-size: large;
+    margin-bottom: 0px;
 }
 
 a {
