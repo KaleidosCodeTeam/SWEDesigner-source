@@ -60,7 +60,13 @@ define ([
                     'default': {
                         name: 'stroke',
                         options: {
-                            padding: 3
+                            padding: 8,
+                            rx: 5,
+                            ry: 5,
+                            attrs: {
+				                'stroke-width': 4,
+				                stroke: '#34cb37'
+			            	}
                         }
                     }
                 },
@@ -254,8 +260,10 @@ define ([
 						if (projectModel.itemToBeAdded.get("source").id !== undefined) {
 						    projectModel.itemToBeAdded.set("target", {id: cellView.model.id});
 						    projectModel.addItemToGraph();
+						    prView.paper.$el.removeClass('connecting');
 						} else {
 						    projectModel.itemToBeAdded.set("source", {id: cellView.model.id});
+						    prView.paper.$el.addClass('connecting');
 						}
 					}
                     return;
