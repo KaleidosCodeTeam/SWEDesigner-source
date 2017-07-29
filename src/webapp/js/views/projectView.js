@@ -215,7 +215,13 @@ define ([
                 if (this.selectedCell !== cellView.model) {
                     changed = true;
                     this.selectedCell = cellView.model;
-                    console.log('changed-selected-cell');
+                    //console.log('changed-selected-cell');
+                    _.each(cellView.paper.model.getElements(), function(el) {
+	        			cellView.paper.findViewByModel(el).unhighlight();
+	     			});
+                    if (!cellView.model.isLink()) {
+	                    cellView.highlight();
+	                }
                     this.trigger("changed-selected-cell");
                 }
             }
