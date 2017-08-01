@@ -105,7 +105,7 @@ define ([
             } else if (e.target.id === 'saveComment') {
                 projectView.paper.selectedCell.setToValue($('#comment').val(), $('#comment').attr('name'));
             }
-            console.log(projectView.paper.selectedCell);
+            //console.log(projectView.paper.selectedCell);
         },
         /**
          *  @function EditPanelView#execCommand
