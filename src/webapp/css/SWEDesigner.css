@@ -9,29 +9,29 @@ html,body{
     width: 100%;
 }
 
-.col-lg-12, .col-lg-9, .col-lg-2, .col-lg-1, #editpanel {
+.col-md-12, .col-md-9, .col-md-2, .col-md-1, #editpanel {
     padding: 3px;
     margin: 0;
 }
 
-.col-lg-12 {
+.col-md-12 {
     width: 100%;
 }
 
-.col-lg-1 {
+.col-md-1 {
     width: 10%;
 }
 
-.col-lg-9 {
+.col-md-9 {
     width: 70%;
 }
 
-.col-lg-10 {
+.col-md-10 {
     width: 80%;
     margin: 0;
 }
 
-.col-lg-2{
+.col-md-2{
     width: 20%;
 }
 
