@@ -128,3 +128,7 @@ a {
 .connecting {
     cursor: crosshair !important;
 }
+
+#class-properties{
+    margin: 10px;
+}
