@@ -1,17 +1,17 @@
 html,body{
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .row {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     width: 100%;
 }
 
 .col-lg-12, .col-lg-9, .col-lg-2, .col-lg-1, #editpanel {
     padding: 3px;
-    margin: 0px;
+    margin: 0;
 }
 
 .col-lg-12 {
@@ -26,31 +26,50 @@ html,body{
     width: 70%;
 }
 
+.col-lg-10 {
+    width: 80%;
+    margin: 0;
+}
+
 .col-lg-2{
     width: 20%;
 }
 
 .toolbar{
-    position: relative;
+    position: absolute;
+    background-color: #2b3e50;
+    z-index: 1;
+    margin-top: -3px;
+    padding-bottom: 6px;
 }
 
 .toolbarbutton{
     overflow: hidden;
     text-align: left;
     padding: 5px 10px;
+    margin-bottom: -3px;
 }
 
 .centralWidget{
+    height: 100%;
     display: block;
     overflow-x: hidden
 }
 
 .canvas{
-    height: 90vh;
+    position:relative;
+    top: -50px;
+    height: 100vh;
+    margin: 0 -12px -50px -12px;
+}
+
+#editpanel{
+    margin-left: -3px;
 }
 
 .breadcrumb{
-    position: fixed;
+    position: absolute;
+    z-index: 1;
     bottom: 0;
     margin: 5px 0 5px 0;
 }
@@ -70,8 +89,6 @@ html,body{
 
 .panel-swedesigner{
     display: inline;
-    /*position: relative;
-    right: 14px;*/
     height: 90vh;
     overflow-y: scroll;
 }
@@ -87,7 +104,7 @@ html,body{
 
 .navbar{
     font-size: large;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 a {
