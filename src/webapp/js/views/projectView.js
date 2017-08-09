@@ -105,6 +105,7 @@ define ([
 		resetSelectedCell: function() {
             this.paper.selectedCell = null;
             this.paper.trigger('changed-selected-cell');
+            console.log("resetSelectedCell");
 		},
 		/**
 		 *	@function ProjectView#mouseMoveFunction
@@ -126,6 +127,7 @@ define ([
 		blankPointerDown: function(elem, event, x, y) {
 				dragStartPosition = { 'x': x, 'y': y};
 				dragging = true;
+				elem.resetSelectedCell();
 		},
 		/**
 		 *	@function ProjectView#blankPointerUp
