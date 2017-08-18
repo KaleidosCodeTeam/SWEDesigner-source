@@ -77,6 +77,7 @@ var RequestHandler = {
                 return res.end("Errore upload: "+err);
             }
             var query = decodeURIComponent(url.parse(req.url).query);
+            console.log(query);
             query = query.split('&')[1];
             var obj = JSON.parse(query);
             console.log('============================================================');
@@ -103,6 +104,7 @@ var RequestHandler = {
                 return res.end("Errore upload: "+err);
             }
             var query = decodeURIComponent(url.parse(req.url).query);
+            console.log(query);
             query = query.split('&')[1];
             var obj = JSON.parse(query);
             console.log('============================================================');
