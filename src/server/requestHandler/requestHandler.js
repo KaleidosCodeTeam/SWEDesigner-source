@@ -76,6 +76,7 @@ var RequestHandler = {
             if(err) {
                 return res.end("Errore upload: "+err);
             }
+<<<<<<< develop
             var body = JSON.stringify(req.body);
             body = body.replace(/\\\"/gi,'"');
             body = body.replace(/\"{/gi,'{');
@@ -85,6 +86,12 @@ var RequestHandler = {
             console.log(body);
             var obj = JSON.parse(body);
             var obj = obj.project;
+=======
+            var query = decodeURIComponent(url.parse(req.url).query);
+            console.log(query);
+            query = query.split('&')[1];
+            var obj = JSON.parse(query);
+>>>>>>> + test.html
             console.log('============================================================');
             console.log(obj.filename);
             console.log(JSON.stringify(obj.project));
@@ -109,6 +116,7 @@ var RequestHandler = {
             if(err) {
                 return res.end("Errore upload: "+err);
             }
+<<<<<<< develop
             var body = JSON.stringify(req.body);
             body = body.replace(/\\\"/gi,'"');
             body = body.replace(/\"{/gi,'{');
@@ -117,6 +125,12 @@ var RequestHandler = {
             body = body.replace(/value":{/gi,'value":\"{'); 
             var obj = JSON.parse(body);
             var obj = obj.project;
+=======
+            var query = decodeURIComponent(url.parse(req.url).query);
+            console.log(query);
+            query = query.split('&')[1];
+            var obj = JSON.parse(query);
+>>>>>>> + test.html
             console.log('============================================================');
             console.log(obj.filename);
             console.log(JSON.stringify(obj.project));
