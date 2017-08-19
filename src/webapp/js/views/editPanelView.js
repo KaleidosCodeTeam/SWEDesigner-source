@@ -69,7 +69,11 @@ define ([
                 output = this.currentTemplate(v);
                 //Se in bubble diagram aggiungere lista variabili;
                 this.$el.html(output);
-                this.$el.css("visibility","visible");
+                if (output !== "") {
+                    this.$el.css("visibility","visible");
+                } else {
+                    this.$el.css("visibility","hidden");
+                }
                 this.delegateEvents(_.extend(this.events, {
                     'keypress .edit': 'confirmEdit',
                     'change .edit': 'confirmEdit',
