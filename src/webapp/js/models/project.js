@@ -49,7 +49,7 @@ define ([
             if (cl != -1) {
             	// Scorro tutte le classi del diagramma
 	            for (var i in this.classes.classesArray[cl].items) {
-	                // Scorro tutte le operazioni del diagramma delle classi 
+	                // Scorro tutte le operazioni della classe corrente
 	                for (var op in this.classes.classesArray[cl].items[i].getValues().operations) {
 	                    // Elimino il diagramma associato a ciascuna operazione
 	                    this.deleteOperationDiagram(this.classes.classesArray[cl].items[i].getValues().operations[op].id);
@@ -90,6 +90,56 @@ define ([
          */
         getClassIndex: function(id) {
             return this.classes.classesArray.findIndex((x) => x.id == id);
+        },
+        getAttributesList(classDiagId, opId) {
+            var attrs = [];
+            var clId = -1;
+            // Individuo il diagramma delle classi associato al package
+            var cl = this.getClassIndex(classDiagId);
+            if (cl != -1) {
+                // Scorro tutte le classi del diagramma
+                for (var i in this.classes.classesArray[cl].items) {
+                    // Scorro tutte le operazioni della classe corrente
+                    for (var op in this.classes.classesArray[cl].items[i].getValues().operations) {
+                        if (this.classes.classesArray[cl].items[i].getValues().operations[op].id == opId) {
+                            clId = i;
+                        }
+                    }
+                }
+                //console.log(this.classes.classesArray[cl].items[clId]);
+                if (clId != -1) {
+                    var a = this.classes.classesArray[cl].items[clId].getValues().attributes;
+                    for (var j = 0; j < a.length; j++) {
+                        attrs.push(a[j]);
+                    }
+                }
+            }
+            return attrs;
+        },
+        getMethodsList(classDiagId, opId) {
+            var methods = [];
+            var clId = -1;
+            // Individuo il diagramma delle classi associato al package
+            var cl = this.getClassIndex(classDiagId);
+            if (cl != -1) {
+                // Scorro tutte le classi del diagramma
+                for (var i in this.classes.classesArray[cl].items) {
+                    // Scorro tutte le operazioni della classe corrente
+                    for (var op in this.classes.classesArray[cl].items[i].getValues().operations) {
+                        if (this.classes.classesArray[cl].items[i].getValues().operations[op].id == opId) {
+                            clId = i;
+                        }
+                    }
+                }
+                //console.log(this.classes.classesArray[cl].items[clId]);
+                if (clId != -1) {
+                    var m = this.classes.classesArray[cl].items[clId].getValues().operations;
+                    for (var j = 0; j < m.length; j++) {
+                        methods.push(m[j]);
+                    }
+                }
+            }
+            return methods;
         }
     });
     return new Project;

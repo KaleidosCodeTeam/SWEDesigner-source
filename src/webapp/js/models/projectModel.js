@@ -37,6 +37,10 @@ define ([
          *  @var {string} ProjectModel#itemToBeAdded - Store temporaneo dell'elemento da aggiungere al graph corrente.
          */
         itemToBeAdded: null,
+        members: {
+            attributes: [],
+            methods: []
+        },
         /**
          *  @function ProjectModel#initialize
          *  @summary Inizializzazione del ProjectModel: inizializzazione del graph, del currentDiagramType, degli eventi verificabili.
@@ -242,6 +246,10 @@ define ([
 			} else if (this.currentDiagramType === 'classDiagram') {
 				// id contiene l'id dell'operazione della classe selezionata
                 var index = project.getOperationIndex(id);
+                // Inserisco in members la lista di attributi e metodi della classe selezionata
+                this.members.attributes = project.getAttributesList(this.currentDiagram, id);
+                this.members.methods = project.getMethodsList(this.currentDiagram, id);
+                //console.log(this.members);
                 this.currentDiagram = id;
                 if (index != -1) {
                     this.graph.resetCells(project.operations[index].items);

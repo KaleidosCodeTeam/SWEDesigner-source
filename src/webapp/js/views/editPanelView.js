@@ -34,6 +34,7 @@ define ([
          *  @var {Object} EditPanelView#events - Gli eventi verificabili nel pannello.
          */
 		events: {},
+        classInfo: '',
         /**
          *  @function EditPanelView#initialize
          *  @summary Inizializzazione della EditPanelView.
@@ -68,11 +69,12 @@ define ([
                 }
                 output = this.currentTemplate(v);
                 //Se in bubble diagram aggiungere lista variabili;
+                output = output + this.classInfo;
                 this.$el.html(output);
-                if (output !== "") {
-                    this.$el.css("visibility","visible");
-                } else {
+                if (output === "" || (typeof projectView.paper.selectedCell.getValues() !== 'undefined' && projectView.paper.selectedCell.getValues()._type === 'START')) {
                     this.$el.css("visibility","hidden");
+                } else {
+                    this.$el.css("visibility","visible");
                 }
                 this.delegateEvents(_.extend(this.events, {
                     'keypress .edit': 'confirmEdit',
@@ -96,6 +98,56 @@ define ([
         switch: function(e) {
             //console.log(e.target.value);
             projectView.switchIn(e.target.value);
+            // Creazione della sezione classInfo
+            if (projectView.model.currentDiagramType == 'bubbleDiagram') {
+                //console.log(projectView.model.members);
+                var members = projectView.model.members;
+                let app = '';
+                for (var i = 0; i < members.attributes.length; i++) {
+                    let vis = "";
+                    switch (members.attributes[i]._visibility) {
+                        case "public":
+                            vis = "+";
+                            break;
+                        case "private":
+                            vis = "-";
+                            break;
+                        case "protected":
+                            vis = "#";
+                            break;
+                        case "package":
+                            vis = "~";
+                            break;
+                    }
+                    app = app + '<li>' + vis + ' ' + members.attributes[i]._name + ':' + members.attributes[i]._type + '</li>';
+                }
+                this.classInfo = '<div><div>Attributi:<ul>'+app+'</ul></div>';
+                app = '';
+                for (var i = 0; i < members.methods.length; i++) {
+                    let vis = "";
+                    switch (members.methods[i]._visibility) {
+                        case "public":
+                            vis = "+";
+                            break;
+                        case "private":
+                            vis = "-";
+                            break;
+                        case "protected":
+                            vis = "#";
+                            break;
+                        case "package":
+                            vis = "~";
+                            break;
+                    }
+                    let params = members.methods[i].parameters.map(function(f) {
+                        return f._name + ":" + f._type;
+                    }).join(",");
+                    app = app + '<li>' + vis + ' ' + members.methods[i]._name + '(' + params + '):' + members.methods[i].returnType + '</li>';
+                }
+                this.classInfo = this.classInfo + '<div>Metodi:<ul>'+app+'</ul></div></div>';
+            } else {
+                this.classInfo = '';
+            }
         },
         /**
          *  @function EditPanelView#save
@@ -110,6 +162,11 @@ define ([
                 projectView.paper.selectedCell.setToValue($('#bubbleJSCode').val(), $('#bubbleJSCode').attr('name'));
             } else if (e.target.id === 'saveComment') {
                 projectView.paper.selectedCell.setToValue($('#comment').val(), $('#comment').attr('name'));
+            }
+            var cellView = projectView.paper.findViewByModel(projectView.paper.selectedCell);
+            if (!projectView.paper.selectedCell.isLink()) {
+                cellView.unhighlight();
+                cellView.highlight();
             }
             //console.log(projectView.paper.selectedCell);
         },
@@ -126,6 +183,11 @@ define ([
                 }
                 projectView.paper.selectedCell.executeMethod(tmp[0], Array.prototype.slice.call(tmp, 1));
                 this.render();
+                var cellView = projectView.paper.findViewByModel(projectView.paper.selectedCell);
+                if (!projectView.paper.selectedCell.isLink()) {
+                    cellView.unhighlight();
+                    cellView.highlight();
+                }
                 if (tmp[0] === "addOperation" || tmp[0] === "deleteOperation") {
                     $(".class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
                     $(".interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display", "none");
@@ -157,9 +219,18 @@ define ([
                     //this.render();
                 } else {
                     //console.log(projectView.paper.selectedCell);
+                    e.target.value = e.target.value.replace(/&(?!amp;)(?!quot;)(?!apos;)/g, '&amp;');
+                    e.target.value = e.target.value.replace(/"/g, '&quot;');
+                    e.target.value = e.target.value.replace(/'/g, "&apos;");
+                    //console.log(e.target.value);
                     projectView.paper.selectedCell.setToValue(e.target.value, e.target.name);
                     //console.log(projectView.paper.selectedCell);
                     //this.render();
+                    var cellView = projectView.paper.findViewByModel(projectView.paper.selectedCell);
+                    if (!projectView.paper.selectedCell.isLink()) {
+                        cellView.unhighlight();
+                        cellView.highlight();
+                    }
                 }
             }
         }

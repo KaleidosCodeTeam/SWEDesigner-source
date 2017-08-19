@@ -43,7 +43,7 @@ define ([
                         if (element.get("type") === "packageDiagram.PkgComment") {
                             return Swedesigner.model.packageDiagram.items.PkgCommentView;
                         } else {
-                        	console.log("displaying package baseView");
+                        	//console.log("displaying package baseView");
                             return Swedesigner.model.packageDiagram.items.BaseView;
                         }
                     } else if (element.get("type").startsWith("classDiagram")) {
@@ -105,7 +105,7 @@ define ([
 		resetSelectedCell: function() {
             this.paper.selectedCell = null;
             this.paper.trigger('changed-selected-cell');
-            console.log("resetSelectedCell");
+            //console.log("resetSelectedCell");
 		},
 		/**
 		 *	@function ProjectView#mouseMoveFunction
@@ -125,9 +125,13 @@ define ([
 		 *	@summary Salva le correnti coordinate al click del mouse nello spazio vuoto del paper.
 		 */
 		blankPointerDown: function(elem, event, x, y) {
-				dragStartPosition = { 'x': x, 'y': y};
-				dragging = true;
-				elem.resetSelectedCell();
+			dragStartPosition = { 'x': x, 'y': y};
+			dragging = true;
+			elem.resetSelectedCell();
+			// Rimozione dell'evidenziazione da item
+			_.each(elem.paper.model.getElements(), function(el) {
+	        	elem.paper.findViewByModel(el).unhighlight();
+	     	});
 		},
 		/**
 		 *	@function ProjectView#blankPointerUp
@@ -190,9 +194,11 @@ define ([
 		 *	@summary Elimina un elemento dal graph chiamando il relativo metodo di ProjectModel.
 		 */
 		deleteCell: function(e) {
-            projectModel.deleteCell(this.paper.selectedCell);
-            this.paper.selectedCell = null;
-            this.paper.trigger('changed-selected-cell');
+			if (confirm("Sei sicuro di voler eliminare l'elemento?") === true) {
+	            projectModel.deleteCell(this.paper.selectedCell);
+	            this.paper.selectedCell = null;
+	            this.paper.trigger('changed-selected-cell');
+	        }
         },
         /**
 		 *	@function ProjectView#unembedCell
@@ -254,8 +260,16 @@ define ([
                         if (projectModel.itemToBeAdded.source !== null) {
                             projectModel.itemToBeAdded.target = cellView.model;
                             projectModel.addItemToGraph();
+                            prView.paper.$el.removeClass('connecting');
+                            _.each(cellView.paper.model.getElements(), function(el) {
+	        					cellView.paper.findViewByModel(el).unhighlight();
+	     					});
+                    		if (!cellView.model.isLink()) {
+	                    		cellView.highlight();
+	                		}
                         } else {
                             projectModel.itemToBeAdded.source = cellView.model;
+                            prView.paper.$el.addClass('connecting');
                         }
                     }
 					if (projectModel.itemToBeAdded && projectModel.itemToBeAdded.isLink()) {
