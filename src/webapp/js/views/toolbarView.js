@@ -51,6 +51,10 @@ define ([
 					$(diagram).hide();
 			});
             $('#toggle_container').css('left',$('#toolbar').width()+6);
+            $('#toggle_minimize').click(function(){
+                $('#toolbar').addClass("toolbarbutton_minimized");
+                $('#toggle_container').css('left',$('#toolbar').width()+6);
+            });
 		},
 		/**
          *  @function ToolbarView#addElement
