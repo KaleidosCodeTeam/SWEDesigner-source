@@ -90,6 +90,21 @@ CoderActivity.getStartBubble = function(bubbleArray, parent) {
 	}
 	return null;
 }
+
+//------------------------------------------------------------------- JAVACODERACTIVITY ---------------------------------------------------------------------------
+
+/** 
+ *	@namespace
+ *	@description Espone le funzionalità (statiche) che permettono di codificare
+ *	l'implementazione di una operazione in Java (CoderActivity.codeElementJava)
+ *	o Javascript (CoderActivity.codeElementJavascipt), secondo le informazioni contenute 
+ *  nell'oggetto activityObj in input; entrambe le funzioni restituiscono la stringa del codice sorgente
+ *	nel linguaggio scelto.
+ */
+var JavaCoderActivity = function() {
+	
+};
+
 /**
  *	@function CoderActivity.codeEmbeddedBubbles
  *	@param {!Object} bubbleObj - Le informazioni necessarie a codificare una bubble.
@@ -99,7 +114,7 @@ CoderActivity.getStartBubble = function(bubbleArray, parent) {
  *	@description Codifica la bubbleObj di input e tutte le bubble innestate in essa; tale bubbleObj dev'essere
  *	contenuta in activityObj.
  */
-CoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
+JavaCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
 	source = "";
 	var EmbeddedBubbles = new Array();
 	var count = 0;
@@ -110,9 +125,10 @@ CoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
 		}
 		var startBubble = CoderActivity.getStartBubble(EmbeddedBubbles, bubbleObj.id); 
 		if(startBubble) {
+
 			var nextBubble = CoderActivity.getNextBubble(startBubble, activityObj);
 			while(nextBubble) {
-				source += CoderActivity.codeBubble(nextBubble, activityObj, bubbleObj.id);
+				source += JavaCoderActivity.codeBubble(nextBubble, activityObj, bubbleObj.id);
 				nextBubble = CoderActivity.getNextBubble(nextBubble, activityObj);
 			}
 		}
@@ -129,34 +145,44 @@ CoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
  *	@return {string} Il codice sorgente della bubbleObj di input. 
  *	@description Codifica la bubbleObj di input; tale bubbleObj dev'essere contenuta in activityObj.
  */
-CoderActivity.codeBubble = function(bubbleObj, activityObj, parent) {
+JavaCoderActivity.codeBubble = function(bubbleObj, activityObj, parent) {
 	var source = "";
 	if(bubbleObj.type == "bubbleDiagram.items.bubbleIf") {
 		source += "if(" + bubbleObj.values.condition + "){ \n";
-		source += CoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
 		source += "}\n";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleElse") {
 		source += "else { \n";
-		source += CoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
 		source += "} \n";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleFor") {
 		source += "for(" + bubbleObj.values.initialization + ";" + bubbleObj.values.termination + ";" + bubbleObj.values.increment + ") { \n";
-		source += CoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
 		source += "} \n";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleWhile") {
 		source += "while(" + bubbleObj.values.condition + "){ \n";
-		source += CoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
 		source += "}\n";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.customBubble") {
-		source += bubbleObj.values.bubbleCode + "\n";
-		source += CoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += bubbleObj.values.bubbleJavaCode + "\n";
+		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleReturn") {
 		source += "return " + bubbleObj.values.value + "; \n";
+	}
+	else if(bubbleObj.type == "bubbleDiagram.items.bubbleDefinition") {
+		source +=  bubbleObj.values._vType + " " + bubbleObj.values._name;
+		if(bubbleObj.values._value != "") {
+			source += " = " + bubbleObj.values._value;
+		}
+		source += "; \n";
+	}
+	else if(bubbleObj.type == "bubbleDiagram.items.bubbleAssignment") {
+		source +=  bubbleObj.values._name + " = " + bubbleObj.values._value + ";\n";
 	}
 
 	return source;
@@ -170,7 +196,7 @@ CoderActivity.codeBubble = function(bubbleObj, activityObj, parent) {
  *	@description Riceve in input activityObj, un oggetto che rappresenta l'implementazione di una operazione;  
  *	restituisce la stringa del codice sorgente, in Java, relativa all'implentazione dell'attività.
  */
-CoderActivity.codeElementJava = function(activityObj) {
+JavaCoderActivity.codeElement = function(activityObj) {
 	var source = "";
 	var startBubble = CoderActivity.getStartBubble(activityObj.items); // oggetto bubble
 	if(startBubble == null) {
@@ -179,12 +205,109 @@ CoderActivity.codeElementJava = function(activityObj) {
 	var nextBubble = CoderActivity.getNextBubble(startBubble,activityObj.items);
 
 	while(nextBubble) {
-		source += CoderActivity.codeBubble(nextBubble, activityObj.items);
+		source += JavaCoderActivity.codeBubble(nextBubble, activityObj.items);
 		nextBubble = CoderActivity.getNextBubble(nextBubble, activityObj.items);
 	}
 
 	return source;
 };
+
+
+//------------------------------------------------------------------- JAVASCRIPTCODERACTIVITY ---------------------------------------------------------------------------
+/** 
+ *	@namespace
+ *	@description Espone le funzionalità (statiche) che permettono di codificare
+ *	l'implementazione di una operazione in Java (CoderActivity.codeElementJava)
+ *	o Javascript (CoderActivity.codeElementJavascipt), secondo le informazioni contenute 
+ *  nell'oggetto activityObj in input; entrambe le funzioni restituiscono la stringa del codice sorgente
+ *	nel linguaggio scelto.
+ */
+var JavascriptCoderActivity = function() {
+	
+};
+/**
+ *	@function CoderActivity.codeEmbeddedBubbles
+ *	@param {!Object} bubbleObj - Le informazioni necessarie a codificare una bubble.
+ *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
+ *	operazione.
+ *	@return {string} Il codice sorgente corrispondente alla bubbleObj di input, comprese le bubble innestate in essa. 
+ *	@description Codifica la bubbleObj di input e tutte le bubble innestate in essa; tale bubbleObj dev'essere
+ *	contenuta in activityObj.
+ */
+JavascriptCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
+	source = "";
+	var EmbeddedBubbles = new Array();
+	var count = 0;
+	if(bubbleObj.embeds != undefined) {
+		for(var i=0; i<bubbleObj.embeds.length; i++) {
+			EmbeddedBubbles[count] = CoderActivity.getBubbleById(bubbleObj.embeds[i], activityObj);
+			count++;
+		}
+		var startBubble = CoderActivity.getStartBubble(EmbeddedBubbles, bubbleObj.id); 
+		if(startBubble) {
+
+			var nextBubble = CoderActivity.getNextBubble(startBubble, activityObj);
+			while(nextBubble) {
+				source += JavascriptCoderActivity.codeBubble(nextBubble, activityObj, bubbleObj.id);
+				nextBubble = CoderActivity.getNextBubble(nextBubble, activityObj);
+			}
+		}
+	}
+
+	return source;
+}
+/**
+ *	@function CoderActivity.codeBubble
+  *	@param {!Object} bubbleObj - Le informazioni necessarie a codificare una bubble.
+ *	@param {!Object} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
+ *	operazione.
+ *	@param {!string} parent - L'identificativo della bubble padre della bubbleObj di input (innestata).
+ *	@return {string} Il codice sorgente della bubbleObj di input. 
+ *	@description Codifica la bubbleObj di input; tale bubbleObj dev'essere contenuta in activityObj.
+ */
+JavascriptCoderActivity.codeBubble = function(bubbleObj, activityObj, parent) {
+	var source = "";
+	if(bubbleObj.type == "bubbleDiagram.items.bubbleIf") {
+		source += "if(" + bubbleObj.values.condition + "){ \n";
+		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += "}\n";
+	}
+	else if(bubbleObj.type == "bubbleDiagram.items.bubbleElse") {
+		source += "else { \n";
+		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += "} \n";
+	}
+	else if(bubbleObj.type == "bubbleDiagram.items.bubbleFor") {
+		source += "for(" + bubbleObj.values.initialization + ";" + bubbleObj.values.termination + ";" + bubbleObj.values.increment + ") { \n";
+		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += "} \n";
+	}
+	else if(bubbleObj.type == "bubbleDiagram.items.bubbleWhile") {
+		source += "while(" + bubbleObj.values.condition + "){ \n";
+		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += "}\n";
+	}
+	else if(bubbleObj.type == "bubbleDiagram.items.customBubble") {
+		source += bubbleObj.values.bubbleJSCode + "\n";
+		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+	}
+	else if(bubbleObj.type == "bubbleDiagram.items.bubbleReturn") {
+		source += "return " + bubbleObj.values.value + "; \n";
+	}
+	else if(bubbleObj.type == "bubbleDiagram.items.bubbleDefinition") {
+		source += "var " + bubbleObj.values._name;
+		if(bubbleObj.values._value != "") {
+			source += " = " + bubbleObj.values._value;
+		}
+		source += "; \n";
+	}
+	else if(bubbleObj.type == "bubbleDiagram.items.bubbleAssignment") {
+		source +=  bubbleObj.values._name + " = " + bubbleObj.values._value + ";\n";
+	}
+
+	return source;
+}
+
 /**
  *	@function CoderClass.CoderActivity.codeElementJavascript
  *	@static
@@ -194,7 +317,7 @@ CoderActivity.codeElementJava = function(activityObj) {
  *	@description Riceve in input activityObj, un oggetto che rappresenta l'implementazione di una operazione;  
  *	restituisce la stringa del codice sorgente, in Javascript, relativa all'implentazione dell'attività.
  */
-CoderActivity.codeElementJavascript = function(activityObj) {
+JavascriptCoderActivity.codeElement = function(activityObj) {
 	var source = "";
 	var startBubble = CoderActivity.getStartBubble(activityObj); // oggetto bubble
 	if(startBubble == null) {
@@ -203,11 +326,14 @@ CoderActivity.codeElementJavascript = function(activityObj) {
 	var nextBubble = CoderActivity.getNextBubble(startBubble,activityObj);
 
 	while(nextBubble) {
-		source += CoderActivity.codeBubble(nextBubble, activityObj);
+		source += JavascriptCoderActivity.codeBubble(nextBubble, activityObj);
 		nextBubble = CoderActivity.getNextBubble(nextBubble, activityObj);
 	}
 
 	return source;
 };
 /** Esportazione del modulo */
-module.exports = CoderActivity;
+module.exports = {
+	codeElementJava : JavaCoderActivity.codeElement,
+	codeElementJavascript : JavascriptCoderActivity.codeElement
+};

@@ -32,15 +32,16 @@ CoderAttribute.codeElementJava = function(attributeObj) {
 	}
 	source += attributeObj._type + " " + attributeObj._name + " ";
 	if(attributeObj._default != "") {
-		if(attributeObj._type == "String"){
+/*		if(attributeObj._type == "String"){
 			source += " = \"" + attributeObj._default +"\"";
 		}
 		else if(attributeObj._type == "char"){
 			source += " = \'" + attributeObj._default +"\'";
 		}
 		else {
-			source += " = " + attributeObj._default;
+		*/	source += " = " + attributeObj._default; /*
 		}
+		*/
 	}
 	source += ";";
 	return source;
@@ -69,15 +70,15 @@ CoderAttribute.codeElementJavascript = function(attributeObj, className) {
 		}	
 
 		if(attributeObj._default != "") {
-			if(attributeObj._type == "String"){
+/*			if(attributeObj._type == "String"){
 				source += "\"" + attributeObj._default + "\";";
 			}
 			else if (attributeObj._type == "char") {
 				source += "\'" + attributeObj._default + "\';";
 			}
 			else {
-				source += attributeObj._default + ";";
-			}				
+			*/	source += attributeObj._default + ";"; /*
+			}	*/			
 		}
 		else {
 			source += "undefined;";

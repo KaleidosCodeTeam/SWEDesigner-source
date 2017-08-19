@@ -12,7 +12,7 @@
  */
 function CodedProgram() {
 	/** 
-	 *	@var {class[]} CodedProgram#_classes - Array contenente oggetti di tipo Class.
+	 *	@var {Class[]} CodedProgram#_classes - Array contenente oggetti di tipo Class.
 	 */
 	this._classes = new Array();
 	/**

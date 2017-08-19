@@ -18,5 +18,12 @@
 var codeGenerator = require('./codeGenerator.js');
 var jsonP =  require('./jsonProgramTester.json');
 
-//codeGenerator.generateJavaProgram(jsonP);
-codeGenerator.generateJsProgram(jsonP,"nomeZip");
+try {
+	codeGenerator.generateJavaProgram(jsonP,"nomeZip");
+}
+catch(err) {
+	console.log("**** ERR *****");
+	console.log(err);
+	console.log("**************");
+}
+//codeGenerator.generateJsProgram(jsonP,"nomeZip");

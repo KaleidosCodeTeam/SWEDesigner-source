@@ -4,11 +4,14 @@
  *
  *	@requires mkdirp
  *	@requires fs
+ *  @requires ./../zipper/zipper.js
+ *  @requires child_process
  */
 
 var mkdirp=require('mkdirp');
 var fs=require('fs');
 var Zipper=require('../zipper/zipper.js');
+var cp = require('child_process');
 
 /** @namespace */
 var Builder = (function() {
@@ -18,26 +21,6 @@ var Builder = (function() {
 		 *	@private
 		 */
 		generalPath : __dirname+'/../',	// !!!!!!!! DA CAMBIARE !!!!!!!!
-		/**
-		 *	@function Builder.deleteFolderRecursive
-		 *	@param {!string} path - Il percorso alla directory da rimuovere.
-		 *	@summary Rimuove la directory passata in input se esistente e tutto il suo contenuto ricorsivamente.
-		 *	@private
-		 *	@throws fs exceptions.
-		 */
-		deleteFolderRecursive : function(path) {
-			if (fs.existsSync(path)) {
-				fs.readdirSync(path).forEach(function(file, index) {
-					var curPath=path+'/'+file;
-					if (fs.lstatSync(curPath).isDirectory()) {
-						_private.deleteFolderRecursive(curPath);
-					} else {
-						fs.unlinkSync(curPath);
-					}
-				});
-				fs.rmdirSync(path);
-			}
-		},
 		/**
 		 *	@function Builder.mkJavaFile
 		 *	@param {!string} progDir - La directory indicante dove creare i file sorgenti del programma.
@@ -124,16 +107,29 @@ var Builder = (function() {
 			if (programDirectory==='') {
 				throw 'NO_FILES_TO_BUILD';
 			} else {
+				var filesPath = new Array();
+				var count = 0;
 				programDirectory=programDirectory+'_JavaCode';
 				var programPath=_private.generalPath+programDirectory;
-				_private.deleteFolderRecursive(programPath);
 				for (var i=0; i<program._classes.length; ++i) {
 					var fileName=program._classes[i]._name;
 					var filePkg=program._classes[i]._package;
 					var fileDep=program._classes[i]._dependencies;
 					var fileSrcCode=program._classes[i]._source;
 					_private.mkJavaFile(programDirectory, fileName, filePkg, fileDep, fileSrcCode);
+
+					filesPath[count] = programDirectory+"/"+filePkg+"/"+fileName+".java";
+					count++;
+				}				
+				for(var j=0; j<filesPath.length;j++) {
+					var compile = cp.execFileSync('javac', [filesPath[j]]);
+					/*compile.stderr.on('data', function (data) {
+					    console.log(String(data));
+					}); */
 				}
+				for(var w=0; w<filesPath.length;w++) {
+					fs.unlinkSync(filesPath[w]);
+				}	
 				return {
 					progDirectory : programDirectory,
 					progPath : programPath				
@@ -170,7 +166,6 @@ var Builder = (function() {
 			} else {
 				programDirectory=programDirectory+'_JavascriptCode';
 				var programPath=_private.generalPath+programDirectory;
-				_private.deleteFolderRecursive(programPath);
 				for (var i=0; i<program._classes.length; ++i) {
 					var fileName=program._classes[i]._name;
 					var filePkg=program._classes[i]._package;
