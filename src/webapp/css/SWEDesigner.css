@@ -120,6 +120,10 @@ a {
     border: 1px solid #485563;
 }
 
+.dropdown-menu{
+    background-color: #404D59;
+}
+
 .panel-body {
     padding: 0.2em;
 }
