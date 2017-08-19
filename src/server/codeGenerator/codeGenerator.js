@@ -34,7 +34,7 @@ codeGenerator.generateJsProgram = function(jsonProgram, nomeZip) {
 	var parsedProg = Parser.parse(jsonProgram);
 	var codedProg = Coder.getCodedProgramJs(parsedProg);
 	var buildedProg = Builder.javascriptBuild(codedProg);
-	var zippedProg = Zipper.zip(/*buildedProg.progDirectory*/ nomeZip, buildedProg.progPath, function(err) {
+	var zippedProg = Zipper.zip(nomeZip, buildedProg.progPath, function(err) {
 		if (err) throw err;
 		else console.log('PROGRAM CREATION: DONE');
 	});
@@ -52,7 +52,7 @@ codeGenerator.generateJavaProgram = function(jsonProgram, nomeZip) {
 	var parsedProg = Parser.parse(jsonProgram);
 	var codedProg = Coder.getCodedProgramJava(parsedProg);
 	var buildedProg = Builder.javaBuild(codedProg);
-	var zippedProg = Zipper.zip(/*buildedProg.progDirectory*/ nomeZip, buildedProg.progPath, function(err) {
+	var zippedProg = Zipper.zip(nomeZip, buildedProg.progPath, function(err) {
 		if (err) throw err;
 		else console.log('PROGRAM CREATION: DONE');
 	});
