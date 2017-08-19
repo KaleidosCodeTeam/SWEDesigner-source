@@ -35,6 +35,17 @@ define ([
 		initialize: function() {
 			this.model = toolbarModel;
 			this.listenTo(projectModel,'switchgraph',this.render);
+            $('#toggle_minimize').click(function(){
+                if($("#toggle_minimize").html() === '<img src="css/ico/riduci.png" height="10px" width="20px">') {
+                    $('#toolbar').addClass("toolbarbutton_minimized");
+                    $("#toggle_minimize").html('<img src="css/ico/espandi.png" height="10px" width="20px">');
+                    $('#toggle_container').css('left',$('#toolbar').width()+6);
+                } else if ($("#toggle_minimize").html() === '<img src="css/ico/espandi.png" height="10px" width="20px">') {
+                    $('#toolbar').removeClass("toolbarbutton_minimized");
+                    $("#toggle_minimize").html('<img src="css/ico/riduci.png" height="10px" width="20px">');
+                    $('#toggle_container').css('left',$('#toolbar').width()+6);
+                }
+            });
 			this.render();
 		},
 		/**
@@ -51,10 +62,6 @@ define ([
 					$(diagram).hide();
 			});
             $('#toggle_container').css('left',$('#toolbar').width()+6);
-            $('#toggle_minimize').click(function(){
-                $('#toolbar').addClass("toolbarbutton_minimized");
-                $('#toggle_container').css('left',$('#toolbar').width()+6);
-            });
 		},
 		/**
          *  @function ToolbarView#addElement
