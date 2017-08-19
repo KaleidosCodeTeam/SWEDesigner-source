@@ -137,3 +137,7 @@ a {
 #class-properties{
     margin: 10px;
 }
+
+.btn-margin{
+    margin-top: 0.2em;
+}
