@@ -39,8 +39,7 @@ html,body{
     position: absolute;
     background-color: #2b3e50;
     z-index: 1;
-    margin-top: -3px;
-    padding-bottom: 6px;
+    padding: 0 3px 6px 3px;
 }
 
 .toolbarbutton{
@@ -48,6 +47,20 @@ html,body{
     text-align: left;
     padding: 5px 10px;
     margin-bottom: -3px;
+}
+
+.toolbarbutton_minimized{
+    font-size: 0;
+}
+
+#toggle_container{
+    position: absolute;
+    z-index: 2;
+    background-color: #2b3e50;
+}
+
+#toggle_minimize{
+    margin: -4px 3px 0 0;
 }
 
 .centralWidget{

@@ -50,6 +50,7 @@ define ([
 				else
 					$(diagram).hide();
 			});
+            $('#toggle_container').css('left',$('#toolbar').width()+6);
 		},
 		/**
          *  @function ToolbarView#addElement

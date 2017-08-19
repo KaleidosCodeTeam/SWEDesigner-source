@@ -144,7 +144,8 @@
     </div>
     <div class="row">
         <!------------ Toolbar laterale ------------>
-        <div class="col-md-1 toolbar">
+        <div id="toggle_container"><button id="toggle_minimize" type="button" class="btn btn-default"></button></div>
+        <div id="toolbar" class="toolbar">
         	<div class="packageDiagram">
             	<button id="packageDiagram-Package" type="button" class="btn btn-default btn-large btn-block toolbarbutton">
                     <img src="css/ico/package.png"/> Package
@@ -244,7 +245,7 @@
 <script src="lib/js/backbone-min.js"></script>
 <script src="lib/js/joint.min.js"></script> -->
 <script src="lib/js/bootstrap.min.js"></script>
-<script src="js/views/resize-panel.js"></script>
+<script src="js/views/resize-interface.js"></script>
 
 <script data-main="js/main" src="lib/js/require.js"></script> <!-- PER UTILIZZARE REQUIREJS  -->
 
