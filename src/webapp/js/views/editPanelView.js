@@ -69,7 +69,9 @@ define ([
                 }
                 output = this.currentTemplate(v);
                 //Se in bubble diagram aggiungere lista variabili;
-                output = output + this.classInfo;
+                if (projectView.model.currentDiagramType === 'bubbleDiagram') {
+                	output = output + this.classInfo;
+                }
                 this.$el.html(output);
                 if (output === "" || (typeof projectView.paper.selectedCell.getValues() !== 'undefined' && projectView.paper.selectedCell.getValues()._type === 'START')) {
                     this.$el.css("visibility","hidden");
