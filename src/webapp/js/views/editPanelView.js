@@ -123,7 +123,7 @@ define ([
                     }
                     app = app + '<li>' + vis + ' ' + members.attributes[i]._name + ':' + members.attributes[i]._type + '</li>';
                 }
-                this.classInfo = '<div><div>Attributi:<ul>'+app+'</ul></div>';
+                this.classInfo = '<div class="classInfo"><label>Attributi:</label><ul>'+app+'</ul>';
                 app = '';
                 for (var i = 0; i < members.methods.length; i++) {
                     let vis = "";
@@ -146,7 +146,7 @@ define ([
                     }).join(",");
                     app = app + '<li>' + vis + ' ' + members.methods[i]._name + '(' + params + '):' + members.methods[i].returnType + '</li>';
                 }
-                this.classInfo = this.classInfo + '<div>Metodi:<ul>'+app+'</ul></div></div>';
+                this.classInfo = this.classInfo + '<label>Metodi:</label><ul>'+app+'</ul></div>';
             } else {
                 this.classInfo = '';
             }
