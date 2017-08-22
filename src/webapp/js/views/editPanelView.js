@@ -69,7 +69,7 @@ define ([
                 }
                 output = this.currentTemplate(v);
                 //Se in bubble diagram aggiungere lista variabili;
-                if (projectView.model.currentDiagramType === 'bubbleDiagram') {
+                if (projectView.model.currentDiagramType === 'bubbleDiagram' && !projectView.paper.selectedCell.isLink()) {
                 	output = output + this.classInfo;
                 }
                 this.$el.html(output);
