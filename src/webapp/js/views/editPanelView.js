@@ -121,7 +121,7 @@ define ([
                             vis = "~";
                             break;
                     }
-                    app = app + '<li>' + vis + ' ' + members.attributes[i]._name + ':' + members.attributes[i]._type + '</li>';
+                    app = app + '<li>' + vis + ' ' + members.attributes[i]._name + ' : ' + members.attributes[i]._type + '</li>';
                 }
                 this.classInfo = '<div class="classInfo"><label>Attributi:</label><ul>'+app+'</ul>';
                 app = '';
@@ -144,7 +144,7 @@ define ([
                     let params = members.methods[i].parameters.map(function(f) {
                         return f._name + ":" + f._type;
                     }).join(",");
-                    app = app + '<li>' + vis + ' ' + members.methods[i]._name + '(' + params + '):' + members.methods[i].returnType + '</li>';
+                    app = app + '<li>' + vis + ' ' + members.methods[i]._name + ' ( ' + params + ' ) : ' + members.methods[i].returnType + '</li>';
                 }
                 this.classInfo = this.classInfo + '<label>Metodi:</label><ul>'+app+'</ul></div>';
             } else {

@@ -171,9 +171,9 @@ a {
     padding: 0.5em;
     font-size: 0.85em;
     word-wrap: break-word;
-
 }
 
 .classInfo ul{
     list-style-type: none;
+    padding-left: 0.5em;
 }
