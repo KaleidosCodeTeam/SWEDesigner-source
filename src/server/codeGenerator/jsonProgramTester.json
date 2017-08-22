@@ -42,7 +42,7 @@
 					"isInterface":"false",
 					"constructorList":[],
 					"attributes":[
-						{"_name":"cl2","_type":"Classe2","_default":"new Classe2()","_visibility":"private","isStatic":"false","isFinal":"false"}
+						{"_name":"cl2","_type":"Classe2","_default":"new Casse2()","_visibility":"private","isStatic":"false","isFinal":"false"}
 					],
 
 					"operations":[
