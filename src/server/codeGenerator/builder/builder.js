@@ -104,6 +104,7 @@ var Builder = (function() {
 				}
 				return '';
 			}());
+			var report = "ERRORI DI COMPILAZIONE: \n\n";
 			if (programDirectory==='') {
 				throw 'NO_FILES_TO_BUILD';
 			} else {
@@ -122,17 +123,20 @@ var Builder = (function() {
 					count++;
 				}				
 				for(var j=0; j<filesPath.length;j++) {
-					var compile = cp.execFileSync('javac', [filesPath[j]]);
-					/*compile.stderr.on('data', function (data) {
-					    console.log(String(data));
-					}); */
-				}
+					try {
+						var compile = cp.execFileSync('javac', [filesPath[j]]);
+					}
+					catch(Error) {
+						report += Error+"\n\n";
+					}
+				}	
 				for(var w=0; w<filesPath.length;w++) {
 					fs.unlinkSync(filesPath[w]);
 				}	
+				fs.writeFileSync(programPath+"/report.txt", report);
 				return {
 					progDirectory : programDirectory,
-					progPath : programPath				
+					progPath : programPath,			
 				};
 			}
 		},
