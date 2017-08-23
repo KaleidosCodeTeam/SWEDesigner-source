@@ -37,7 +37,6 @@ define ([
         };
         reader.readAsDataURL(myBlob);
     };
-
     /**
      *  @function client::DataManager.openProject
      *  @summary Legge un file JSON e ne salva il contenuto in project e nel projectModel come progetto attualmente aperto.
@@ -59,6 +58,10 @@ define ([
             projectModel.currentDiagramType = 'packageDiagram';
             projectModel.currentDiagram = null;
             projectModel.graph.resetCells(project.packages.packagesArray.concat(project.packages.dependenciesArray));
+            projectModel.itemToBeAdded = null;
+            projectModel.members.attributes = [];
+            projectModel.members.methods = [];
+            projectModel.currentPath = [];
             projectModel.graphSwitched();
             console.log('Project successfully loaded');
         };
@@ -79,6 +82,9 @@ define ([
             projectModel.graph.resetCells([]);
             projectModel.currentDiagramType = 'packageDiagram';
             projectModel.currentDiagram = null;
+            projectModel.itemToBeAdded = null;
+            projectModel.members.attributes = [];
+            projectModel.members.methods = [];
             projectModel.currentPath = [];
             projectModel.graphSwitched();
             console.log('New project created');
@@ -91,6 +97,9 @@ define ([
             projectModel.graph.resetCells([]);
             projectModel.currentDiagramType = 'packageDiagram';
             projectModel.currentDiagram = null;
+            projectModel.itemToBeAdded = null;
+            projectModel.members.attributes = [];
+            projectModel.members.methods = [];
             projectModel.currentPath = [];
             projectModel.graphSwitched();
             console.log('New project created');
