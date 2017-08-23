@@ -217,21 +217,24 @@ define ([
         confirmEdit: function(e) {
             if ((e.type === "keypress" && e.which === 13) || e.type === "change") {
                 if (e.target.type === "checkbox") {
-                    projectView.paper.selectedCell.setToValue(e.target.checked ? "true" : "false", e.target.name);
-                    //this.render();
+                    if (projectView.paper.selectedCell !== null) {
+                        projectView.paper.selectedCell.setToValue(e.target.checked ? "true" : "false", e.target.name);
+                        //this.render();
+                    }
                 } else {
-                    //console.log(projectView.paper.selectedCell);
                     e.target.value = e.target.value.replace(/&(?!amp;)(?!quot;)(?!apos;)/g, '&amp;');
                     e.target.value = e.target.value.replace(/"/g, '&quot;');
                     e.target.value = e.target.value.replace(/'/g, "&apos;");
                     //console.log(e.target.value);
-                    projectView.paper.selectedCell.setToValue(e.target.value, e.target.name);
-                    //console.log(projectView.paper.selectedCell);
-                    //this.render();
-                    var cellView = projectView.paper.findViewByModel(projectView.paper.selectedCell);
-                    if (!projectView.paper.selectedCell.isLink()) {
-                        cellView.unhighlight();
-                        cellView.highlight();
+                    if (projectView.paper.selectedCell !== null) {
+                        projectView.paper.selectedCell.setToValue(e.target.value, e.target.name);
+                        //console.log(projectView.paper.selectedCell);
+                        //this.render();
+                        var cellView = projectView.paper.findViewByModel(projectView.paper.selectedCell);
+                        if (!projectView.paper.selectedCell.isLink()) {
+                            cellView.unhighlight();
+                            cellView.highlight();
+                        }
                     }
                 }
             }
