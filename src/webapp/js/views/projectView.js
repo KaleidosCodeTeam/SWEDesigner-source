@@ -113,7 +113,13 @@ define ([
 		 *	@summary Traslazione del paper nella direzione del trascinamento del mouse.
 		 */
 		mouseMoveFunction: function(event) {
-			if (dragging == true)
+			if(dragging) {
+				console.log("mousemove");
+				console.log(event.offsetX);
+				console.log(event.offsetY);
+				console.log("end mousemove");
+			}
+			if(dragging == true && Math.abs(dragStartPosition.x - event.offsetX) > 3 && Math.abs(dragStartPosition.y - event.offsetY) > 3)
 				event.data.paper.translate(event.offsetX - dragStartPosition.x, event.offsetY - dragStartPosition.y);
 		},
 		/**
@@ -125,6 +131,8 @@ define ([
 		 *	@summary Salva le correnti coordinate al click del mouse nello spazio vuoto del paper.
 		 */
 		blankPointerDown: function(elem, event, x, y) {
+			console.log(x);
+			console.log(y);
 			dragStartPosition = { 'x': x, 'y': y};
 			dragging = true;
 			elem.resetSelectedCell();

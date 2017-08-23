@@ -155,7 +155,7 @@ define ([
                 }
             },
             values: {
-                _package: "PackageName",
+                _package: "Nome Package",
                 _importance: "media"
             }
         }, Swedesigner.model.packageDiagram.items.Base.prototype.defaults),
@@ -197,19 +197,26 @@ define ([
                     break;
             }
             attrs['.uml-package-name-rect'].fill = colour;
-            var rectWidth = this.getValues()._package.length * 5 + 300;
-            //console.log('package#updateRectangles');
-            //console.log(rectWidth);
+            var rectWidth = this.getWidth();
+            this.resize(rectWidth, 100);
             var offsetY = 0;
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
                 attrs['.uml-package-' + rect.type + '-text'].text = lines.join('\n');
                 attrs['.uml-package-' + rect.type + '-rect'].height = rectHeight;
-                attrs['.uml-package-' + rect.type + '-rect'].width = rectWidth;
+                //attrs['.uml-package-' + rect.type + '-rect'].width = rectWidth;
                 attrs['.uml-package-' + rect.type + '-rect'].transform = 'translate(0,' + offsetY + ')';
                 offsetY += rectHeight;
             });
+        },
+        /**
+         *  @function Package#getWidth
+         *  @summary Ritorna la dimensione del Package.
+         */
+        getWidth: function() {
+            let length = this.getValues()._package.length;
+            return length*5+180;
         },
         /**
          *  @function Base#setToValue
@@ -252,7 +259,7 @@ define ([
         defaults: _.defaultsDeep({
             type: "packageDiagram.items.PkgComment",
             position: {x: 200, y: 200},
-            size: {width: 100, height: 100},
+            size: {width: 180, height: 100},
             values: {
                 comment: ""
             }
@@ -311,6 +318,23 @@ define ([
                     }
                 });
             }
+            this.resizeObject();
+        },
+        /**
+         *  @function PkgComment#resizeObject
+         *  @summary Ridimensione il PkgComment in base al testo contenuto in esso.
+         */
+        resizeObject: function() {
+        	var length = this.getValues().comment.length;
+        	if(length >= 0 && length <= 50)
+        		this.resize(120, 120);
+        	else {
+        		var rows = length / 25;
+        		var height = rows * 20 + 60;
+        		if(height > 200)
+        			height = 200;
+        		this.resize(200, height);
+        	}
         }
     });
     /**
@@ -1332,6 +1356,23 @@ define ([
                     }
                 });
             }
+            this.resizeObject();
+        },
+        /**
+         *  @function ClComment#resizeObject
+         *  @summary Ridimensione il ClComment in base al testo contenuto in esso.
+         */
+        resizeObject: function() {
+        	var length = this.getValues().comment.length;
+        	if(length >= 0 && length <= 50)
+        		this.resize(120, 120);
+        	else {
+        		var rows = length / 25;
+        		var height = rows * 20 + 60;
+        		if(height > 200)
+        			height = 200;
+        		this.resize(200, height);
+        	}
         }
     });
     /**
@@ -1725,7 +1766,7 @@ define ([
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
-                    'ref-y': .2,
+                    'ref-y': .12,
                     'ref-x': .5,
                     'text-anchor': 'middle',
                     'y-alignment': 'middle',
@@ -1765,10 +1806,12 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues().comment },
-                { type: 'type', text: this.getValues()._type }
+                //{ type: 'name', text: this.getValues().comment},
+                { type: 'type', text: this.getValues()._type + ' - ' + this.getValues().comment}
             ];
             //var offsetY = 0;
+            var rectWidth = this.getWidth();
+            this.resize(rectWidth, 70);
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
@@ -1777,6 +1820,15 @@ define ([
             	//attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
                 //offsetY += rectHeight;
             });
+        },
+        /**
+         *  @function customBubble#getWidth
+         *  @summary Ritorna la dimensione della customBubble.
+         */
+        getWidth: function() {
+            let length = this.getValues()._type.length + this.getValues().comment.length + 3;
+            //console.log(length);
+            return length*5+180;
         },
         /**
          *  @function customBubble#setToValue
@@ -1831,7 +1883,7 @@ define ([
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
-                    'ref-y': .2,
+                    'ref-y': .12,
                     'ref-x': .5,
                     'text-anchor': 'middle',
                     'y-alignment': 'middle',
@@ -1870,10 +1922,12 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues().comment },
-                { type: 'type', text: this.getValues()._type }
+                //{ type: 'name', text: this.getValues().comment },
+                { type: 'type', text: this.getValues()._type + ' - ' + this.getValues().comment}
             ];
             //var offsetY = 0;
+            var rectWidth = this.getWidth();
+            this.resize(rectWidth, 70);
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
@@ -1882,6 +1936,15 @@ define ([
                 //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
                 //offsetY += rectHeight;
             });
+        },
+        /**
+         *  @function bubbleIf#getWidth
+         *  @summary Ritorna la dimensione della bubbleIf.
+         */
+        getWidth: function() {
+            let length = this.getValues()._type.length + this.getValues().comment.length + 3;
+            //console.log(length);
+            return length*5+180;
         },
         /**
          *  @function bubbleIf#setToValue
@@ -1936,7 +1999,7 @@ define ([
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
-                    'ref-y': .2,
+                    'ref-y': .12,
                     'ref-x': .5,
                     'text-anchor': 'middle',
                     'y-alignment': 'middle',
@@ -1974,10 +2037,12 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues().comment },
-                { type: 'type', text: this.getValues()._type }
+                //{ type: 'name', text: this.getValues().comment },
+                { type: 'type', text: this.getValues()._type + ' - ' + this.getValues().comment}
             ];
             //var offsetY = 0;
+            var rectWidth = this.getWidth();
+            this.resize(rectWidth, 70);
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
@@ -1986,6 +2051,15 @@ define ([
                 //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
                 //offsetY += rectHeight;
             });
+        },
+        /**
+         *  @function bubbleElse#getWidth
+         *  @summary Ritorna la dimensione della bubbleElse.
+         */
+        getWidth: function() {
+            let length = this.getValues()._type.length + this.getValues().comment.length + 3;
+            //console.log(length);
+            return length*5+180;
         },
         /**
          *  @function bubbleElse#setToValue
@@ -2040,7 +2114,7 @@ define ([
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
-                    'ref-y': .2,
+                    'ref-y': .12,
                     'ref-x': .5,
                     'text-anchor': 'middle',
                     'y-alignment': 'middle',
@@ -2081,10 +2155,12 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues().comment },
-                { type: 'type', text: this.getValues()._type }
+                //{ type: 'name', text: this.getValues().comment },
+                { type: 'type', text: this.getValues()._type + ' - ' + this.getValues().comment}
             ];
             //var offsetY = 0;
+            var rectWidth = this.getWidth();
+            this.resize(rectWidth, 70);
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
@@ -2093,6 +2169,15 @@ define ([
                 //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
                 //offsetY += rectHeight;
             });
+        },
+        /**
+         *  @function bubbleFor#getWidth
+         *  @summary Ritorna la dimensione della bubbleFor.
+         */
+        getWidth: function() {
+            let length = this.getValues()._type.length + this.getValues().comment.length + 3;
+            //console.log(length);
+            return length*5+180;
         },
         /**
          *  @function bubbleFor#setToValue
@@ -2147,7 +2232,7 @@ define ([
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
-                    'ref-y': .2,
+                    'ref-y': .12,
                     'ref-x': .5,
                     'text-anchor': 'middle',
                     'y-alignment': 'middle',
@@ -2186,10 +2271,12 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues().comment },
-                { type: 'type', text: this.getValues()._type }
+                //{ type: 'name', text: this.getValues().comment },
+                { type: 'type', text: this.getValues()._type + ' - ' + this.getValues().comment}
             ];
             //var offsetY = 0;
+            var rectWidth = this.getWidth();
+            this.resize(rectWidth, 70);
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
@@ -2198,6 +2285,15 @@ define ([
                 //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
                 //offsetY += rectHeight;
             });
+        },
+        /**
+         *  @function bubbleReturn#getWidth
+         *  @summary Ritorna la dimensione della bubbleReturn.
+         */
+        getWidth: function() {
+            let length = this.getValues()._type.length + this.getValues().comment.length + 3;
+            //console.log(length);
+            return length*5+180;
         },
         /**
          *  @function bubbleReturn#setToValue
@@ -2291,7 +2387,7 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues().comment },
+                //{ type: 'name', text: this.getValues().comment },
                 { type: 'type', text: this.getValues()._type }
             ];
             //var offsetY = 0;
@@ -2341,7 +2437,7 @@ define ([
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
-                    'ref-y': .2,
+                    'ref-y': .12,
                     'ref-x': .5,
                     'text-anchor': 'middle',
                     'y-alignment': 'middle',
@@ -2381,10 +2477,12 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues().comment },
-                { type: 'type', text: this.getValues()._type }
+                //{ type: 'name', text: this.getValues().comment },
+                { type: 'type', text: this.getValues()._type + ' - ' + this.getValues().comment}
             ];
             //var offsetY = 0;
+            var rectWidth = this.getWidth();
+            this.resize(rectWidth, 70);
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
@@ -2393,6 +2491,15 @@ define ([
                 //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
                 //offsetY += rectHeight;
             });
+        },
+        /**
+         *  @function bubbleWhile#getWidth
+         *  @summary Ritorna la dimensione della bubbleWhile.
+         */
+        getWidth: function() {
+            let length = this.getValues()._type.length + this.getValues().comment.length + 3;
+            //console.log(length);
+            return length*5+180;
         },
         /**
          *  @function bubbleWhile#setToValue
@@ -2447,7 +2554,7 @@ define ([
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
-                    'ref-y': .2,
+                    'ref-y': .12,
                     'ref-x': .5,
                     'text-anchor': 'middle',
                     'y-alignment': 'middle',
@@ -2488,10 +2595,12 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues().comment },
-                { type: 'type', text: this.getValues()._type }
+                //{ type: 'name', text: this.getValues().comment },
+                { type: 'type', text: this.getValues()._type + ' - ' + this.getValues().comment}
             ];
             //var offsetY = 0;
+            var rectWidth = this.getWidth();
+            this.resize(rectWidth, 70);
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
@@ -2500,6 +2609,15 @@ define ([
                 //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
                 //offsetY += rectHeight;
             });
+        },
+        /**
+         *  @function bubbleDefinition#getWidth
+         *  @summary Ritorna la dimensione della bubbleDefinition.
+         */
+        getWidth: function() {
+            let length = this.getValues()._type.length + this.getValues().comment.length + 3;
+            //console.log(length);
+            return length*5+180;
         },
         /**
          *  @function bubbleDefinition#setToValue
@@ -2554,7 +2672,7 @@ define ([
 		        },
 		        '.bubble-type-text': {
 		        	'ref': '.bubble',
-                    'ref-y': .2,
+                    'ref-y': .12,
                     'ref-x': .5,
                     'text-anchor': 'middle',
                     'y-alignment': 'middle',
@@ -2595,10 +2713,12 @@ define ([
         updateRectangles: function() {
             var attrs = this.get('attrs');
             var rects = [
-                { type: 'name', text: this.getValues().comment },
-                { type: 'type', text: this.getValues()._type }
+                //{ type: 'name', text: this.getValues().comment },
+                { type: 'type', text: this.getValues()._type + ' - ' + this.getValues().comment}
             ];
             //var offsetY = 0;
+            var rectWidth = this.getWidth();
+            this.resize(rectWidth, 70);
             _.each(rects, function(rect) {
                 var lines = _.isArray(rect.text) ? rect.text : [rect.text];
                 var rectHeight = lines.length * 20 + 20;
@@ -2607,6 +2727,15 @@ define ([
                 //attrs['.bubble'].transform = 'translate(0,' + offsetY + ')';
                 //offsetY += rectHeight;
             });
+        },
+        /**
+         *  @function bubbleAssignment#getWidth
+         *  @summary Ritorna la dimensione della bubbleAssignment.
+         */
+        getWidth: function() {
+            let length = this.getValues()._type.length + this.getValues().comment.length + 3;
+            //console.log(length);
+            return length*5+180;
         },
         /**
          *  @function bubbleAssignment#setToValue

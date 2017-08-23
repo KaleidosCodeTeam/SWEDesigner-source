@@ -149,6 +149,10 @@ a {
     cursor: pointer;
 }
 
+.content {
+	color: #000;
+}
+
 .joint-element:hover .element-tool-remove {
     opacity: 1;
 }

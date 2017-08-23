@@ -6,8 +6,9 @@ define ([
     'jquery',
     'underscore',
     'js/models/projectModel',
-    'js/models/project'
-], function ($, _, projectModel, project) {
+    'js/models/project',
+    'js/views/pathView'
+], function ($, _, projectModel, project, pathView) {
     /** @namespace client::DataManager */
     var DataManager = {};
     /**
@@ -78,6 +79,7 @@ define ([
             projectModel.graph.resetCells([]);
             projectModel.currentDiagramType = 'packageDiagram';
             projectModel.currentDiagram = null;
+            projectModel.currentPath = [];
             projectModel.graphSwitched();
             console.log('New project created');
         } else if (confirm("Vuoi creare un nuovo progetto senza salvare?") === true) {
@@ -89,6 +91,7 @@ define ([
             projectModel.graph.resetCells([]);
             projectModel.currentDiagramType = 'packageDiagram';
             projectModel.currentDiagram = null;
+            projectModel.currentPath = [];
             projectModel.graphSwitched();
             console.log('New project created');
         } else {
