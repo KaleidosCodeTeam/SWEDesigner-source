@@ -116,6 +116,8 @@ html,body{
 .panel-heading{
     cursor: pointer;
     overflow: hidden;
+    white-space:normal !important;
+    word-wrap: break-word;
 }
 
 .packageDiagram, .classDiagram, .bubbleDiagram {
@@ -180,4 +182,9 @@ a {
 .classInfo ul{
     list-style-type: none;
     padding-left: 0.5em;
+}
+
+.btn{
+    white-space:normal !important;
+    word-wrap: break-word;
 }
