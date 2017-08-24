@@ -163,6 +163,16 @@ define ([
             }, { skipParentHandler: true });
         },
         /**
+         *  @function ProjectModel#resizeParent
+         *  @summary Concatena resizeParent per ridimensionare l'intera gerarchia di elementi innestati.
+         */
+        resizeAncestors: function (rP, grph, cll) {
+            if (cll.get('parent')) {
+                this.resizeAncestors(rP, grph, grph.getCell(cll.get('parent')));
+                rP(grph.getCell(cll.get('parent')));
+            }
+        },
+        /**
          *  @function ProjectModel#addItemToGraph
          *  @summary Aggiunge un elemento al grafo del diagramma corrente.
          */
@@ -176,19 +186,16 @@ define ([
                     if (cell.get('parent') === ancestorId) return true;
                     return areRelatives(grph.getCell(cell.get('parent')), ancestorId, grph);
                 };
-                resize = function(object){
-                    return object.resize();
-                };
                 // Prevent recursive embedding.
                 if (!areRelatives(parent,cell.id,this.graph)/*parent.get('parent') !== cell.id*/ && !cell.get('parent')) {
                     parent.embed(cell);
+                    this.resizeParent(parent);
                     moveAhead = function(cll) {
                         cll.toFront();
                         _.each(cll.getEmbeddedCells(), moveAhead);
-                        _.each(cll.getEmbeddedCells(), resize);
                     };
                     moveAhead(cell);
-                    this.resizeParent(parent);
+                    this.resizeAncestors(this.resizeParent, this.graph, cell);
                 }
             } else {
                 //_.each(this.graph.get('cells').models, function(el) {   // Non sono sicuro se funzionerà
