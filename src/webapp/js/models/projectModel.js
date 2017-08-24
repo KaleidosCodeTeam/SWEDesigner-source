@@ -176,12 +176,16 @@ define ([
                     if (cell.get('parent') === ancestorId) return true;
                     return areRelatives(grph.getCell(cell.get('parent')), ancestorId, grph);
                 };
+                resize = function(object){
+                    return object.resize();
+                };
                 // Prevent recursive embedding.
                 if (!areRelatives(parent,cell.id,this.graph)/*parent.get('parent') !== cell.id*/ && !cell.get('parent')) {
                     parent.embed(cell);
                     moveAhead = function(cll) {
                         cll.toFront();
                         _.each(cll.getEmbeddedCells(), moveAhead);
+                        _.each(cll.getEmbeddedCells(), resize);
                     };
                     moveAhead(cell);
                     this.resizeParent(parent);
