@@ -155,7 +155,7 @@ define ([
                 }
             },
             values: {
-                _package: "Nome Package",
+                _package: "NomePackage",
                 _importance: "media"
             }
         }, Swedesigner.model.packageDiagram.items.Base.prototype.defaults),
