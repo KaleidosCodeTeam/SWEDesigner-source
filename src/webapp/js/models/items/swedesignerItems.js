@@ -673,6 +673,8 @@ define ([
                 _name: "NomeClasse",
             	_visibility: "public",
                 _importance: "media",
+                _extends: "",
+                _implements: "",
                 isAbstract: "false",
                 isInterface : "false",
                 constructorList : [],
@@ -1061,6 +1063,7 @@ define ([
             values: {
                 _name: "NomeInterfaccia",
                 _visibility: "public",
+                _extends: "",
                 _importance: "media",
                 isInterface : "true",
                 operations: [
