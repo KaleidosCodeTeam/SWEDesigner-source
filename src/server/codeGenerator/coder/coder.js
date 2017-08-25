@@ -33,6 +33,7 @@ var JavaCoder = function() {};
  *	@return {Object[]} Le informazioni sulle dipendenze OUT del package di identificativo packageId. 
  *	@description Ritorna il le dipendenze OUT del package corrispondente al packageId di input.
  */
+ /*
 function getPackageDependencies(packageId, packages) {
 	var dependencies = new Array();
 	count = 0;
@@ -51,6 +52,45 @@ function getPackageDependencies(packageId, packages) {
 
 	return dependencies;
 };
+*/
+
+function getPackageDependencies(packageId, parsedProgram) {
+	var dependencies = new Array();
+	var packDependencies = parsedProgram.packages.dependenciesArray;
+	var packArray = parsedProgram.packages.packagesArray;
+	count = 0;
+	for(var i=0; i< packDependencies.length; i++) {
+		if(packDependencies[i].source.id == packageId) {
+			finded = false;
+			for(var j=0; j<packArray.length && !finded; j++) {
+				console.log("1111");
+				if(packArray[j].id == packDependencies[i].target.id) {
+					console.log("2222");
+					finded = true;
+					var classArray = parsedProgram.classes.classesArray;
+					var classFind = false;
+					for(var k=0; k<classArray.length && !classFind; k++) {
+						console.log("3333");
+						
+						if(classArray[k].id == packArray[j].id) {
+							classFind = true;
+							console.log("4444");
+							dependencies[count] = { name : packArray[j].values._package, isLibrary : false };
+							count++;
+						}
+					}
+					if(!classFind) {
+						console.log("5555");
+						dependencies[count] = { name : packArray[j].values._package, isLibrary : true };
+						count++;
+					}
+				}
+			} 
+		}
+	}
+
+	return dependencies;
+}
 /**
  *	@function getPackNameById
  *	@param {!string} packageId - Identificativo del package di cui si vuole ottenere il nome.
@@ -180,7 +220,7 @@ JavaCoder.getCodedProgram = function(parsedProgram) {
 				}								
 				source += JavaCoder.coderOperations(items[j],parsedProgram.operations);
 				source += "};"; // chiude l'implementazione della classe
-				codedP.add(new Class(items[j].values._name, source, packageName, items[j]._name, getPackageDependencies(classes[i].id, parsedProgram.packages)));
+				codedP.add(new Class(items[j].values._name, source, packageName, items[j]._name, getPackageDependencies(classes[i].id, parsedProgram)));
 			}			
 		}
 		return codedP;

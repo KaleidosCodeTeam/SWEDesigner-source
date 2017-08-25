@@ -43,7 +43,14 @@ var Builder = (function() {
 				/** SCRIVE il nome del package, le dipendenze ed il codice sorgente nel nuovo file. */
 				var str='package '+progDir+"."+pkg+';\n';
 				for (var i=0; i<dependencies.length; ++i) {
-					str=str+'import '+progDir+"."+dependencies[i]+'.*;\n';
+					console.log("****** "+dependencies[i].isLibrary+"  -  "+dependencies[i].name);
+					if(dependencies[i].isLibrary==false){
+						str=str+'import '+progDir+"."+dependencies[i].name+'.*;\n';
+					}
+					else {
+						str=str+'import '+dependencies[i].name+'.*;\n';
+					}
+					
 				}
 				str=str+source;
 				fs.writeFileSync(filePath, str);
@@ -122,7 +129,7 @@ var Builder = (function() {
 					filesPath[count] = programDirectory+"/"+filePkg+"/"+fileName+".java";
 					count++;
 				}	
-						
+					/
 				for(var j=0; j<filesPath.length;j++) {
 					try {
 						var currentDir = process.cwd();

@@ -44,18 +44,34 @@ function getNameById(classId, parsedProgram) {
 CoderClass.codeParentJava = function(sourceId, parsedProgram) {
 	source = "";
 	finded = false;
-	relationshipsArray = parsedProgram.classes.relationshipsArray;
-	for(var i=0; i<relationshipsArray.length && !finded; i++) { 
-		var items = relationshipsArray[i].items;
-		for(var j=0; j<items.length && !finded; j++) {
-			if(items[j].type == 'classDiagram.items.Generalization' && items[j].source.id == sourceId) {
-				finded = true;
-				targetId = items[j].target.id;
-				source += "extends "+ getNameById(targetId,parsedProgram) + " ";
+	var classObj = "";
+	var classesArray = parsedProgram.classes.classesArray;
+	for(var i=0; i<classesArray.length; i++) {
+		var items = classesArray[i].items;
+		for(var j=0; j<items.length; j++) {
+			if(items[j].id == classId) {
+				classObj = items[j];
 			}
-		}
-		
+		}		
 	}
+	if(classObj.values._extends == "") {
+		relationshipsArray = parsedProgram.classes.relationshipsArray;
+		for(var i=0; i<relationshipsArray.length && !finded; i++) { 
+			var items = relationshipsArray[i].items;
+			for(var j=0; j<items.length && !finded; j++) {
+				if(items[j].type == 'classDiagram.items.Generalization' && items[j].source.id == sourceId) {
+					finded = true;
+					targetId = items[j].target.id;
+					source += "extends "+ getNameById(targetId,parsedProgram) + " ";
+				}
+			}
+			
+		}
+	}
+	else {
+		source += "extends "+ classObj.values._extends + " ";
+	}
+	
 	return source;
 };
 /**
@@ -70,19 +86,36 @@ CoderClass.codeParentJava = function(sourceId, parsedProgram) {
 CoderClass.codeParentJavascript = function(sourceId, parsedProgram) {
 	source = "";
 	finded = false;
-	relationshipsArray = parsedProgram.classes.relationshipsArray;
-	for(var i=0; i<relationshipsArray.length && !finded; i++) { 
-		var items =relationshipsArray[i].items;
-		for(var j=0; j<items.length && !finded; j++) {
-			if(items[j].type == 'classDiagram.items.Generalization' && items[j].source.id == sourceId) {
-				finded = true;
-				targetId = items[j].target.id;
-				// bisogna aggiungere un costruttore corretto; dipende dalla struttura dell'oggetto
-				source += getNameById(sourceId,parsedProgram) + ".prototype = new " + getNameById(targetId,parsedProgram) + "();\n ";
-				source += getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + getNameById(sourceId,parsedProgram) + "; \n";
+	var classObj = "";
+	var classesArray = parsedProgram.classes.classesArray;
+	for(var i=0; i<classesArray.length; i++) {
+		var items = classesArray[i].items;
+		for(var j=0; j<items.length; j++) {
+			if(items[j].id == classId) {
+				classObj = items[j];
 			}
 		}		
 	}
+	if(classObj.values._extends == "") {
+		relationshipsArray = parsedProgram.classes.relationshipsArray;
+		for(var i=0; i<relationshipsArray.length && !finded; i++) { 
+			var items =relationshipsArray[i].items;
+			for(var j=0; j<items.length && !finded; j++) {
+				if(items[j].type == 'classDiagram.items.Generalization' && items[j].source.id == sourceId) {
+					finded = true;
+					targetId = items[j].target.id;
+					// bisogna aggiungere un costruttore corretto; dipende dalla struttura dell'oggetto
+					source += getNameById(sourceId,parsedProgram) + ".prototype = new " + getNameById(targetId,parsedProgram) + "();\n ";
+					source += getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + getNameById(sourceId,parsedProgram) + "; \n";
+				}
+			}		
+		}
+	}
+	else {
+		source += getNameById(sourceId,parsedProgram) + ".prototype = new " + classObj.values._extends + "();\n ";
+		source += getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + getNameById(sourceId,parsedProgram) + "; \n";
+	}
+	
 	return source;
 };
 /**
@@ -150,8 +183,15 @@ CoderClass.codeElementJava = function(classObj, parsedProgram) {
 					source += "," + getNameById(targetId,parsedProgram) + " ";
 				}				
 			}
+		}		
+	}
+	if(classObj.values._implements != "") {
+		if(firstClass) {
+			source += "implements "+ classObj.values._implements + " ";
 		}
-		
+		else {
+			source += "," + classObj.values._implements + " ";
+		}
 	}
 	// ritorno la stringa del codice Java: i.e. public class X extends Y implements Z ,W
 	return source;
