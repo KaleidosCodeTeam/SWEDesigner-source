@@ -49,7 +49,7 @@ CoderClass.codeParentJava = function(sourceId, parsedProgram) {
 	for(var i=0; i<classesArray.length; i++) {
 		var items = classesArray[i].items;
 		for(var j=0; j<items.length; j++) {
-			if(items[j].id == classId) {
+			if(items[j].id == sourceId) {
 				classObj = items[j];
 			}
 		}		
@@ -91,7 +91,7 @@ CoderClass.codeParentJavascript = function(sourceId, parsedProgram) {
 	for(var i=0; i<classesArray.length; i++) {
 		var items = classesArray[i].items;
 		for(var j=0; j<items.length; j++) {
-			if(items[j].id == classId) {
+			if(items[j].id == sourceId) {
 				classObj = items[j];
 			}
 		}		
@@ -185,7 +185,7 @@ CoderClass.codeElementJava = function(classObj, parsedProgram) {
 			}
 		}		
 	}
-	if(classObj.values._implements != "") {
+	if(classObj.values._implements != "" && classObj.values._implements!=undefined) {
 		if(firstClass) {
 			source += "implements "+ classObj.values._implements + " ";
 		}

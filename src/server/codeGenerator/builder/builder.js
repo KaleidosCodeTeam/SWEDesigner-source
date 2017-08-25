@@ -129,7 +129,7 @@ var Builder = (function() {
 					filesPath[count] = programDirectory+"/"+filePkg+"/"+fileName+".java";
 					count++;
 				}	
-					/
+					
 				for(var j=0; j<filesPath.length;j++) {
 					try {
 						var currentDir = process.cwd();
