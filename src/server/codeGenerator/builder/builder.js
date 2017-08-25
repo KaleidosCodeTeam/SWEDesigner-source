@@ -129,16 +129,18 @@ var Builder = (function() {
 					filesPath[count] = programDirectory+"/"+filePkg+"/"+fileName+".java";
 					count++;
 				}	
-					
+				var currentDir = process.cwd();	
 				for(var j=0; j<filesPath.length;j++) {
 					try {
-						var currentDir = process.cwd();
 						process.chdir(__dirname+"/../");
 						var compile = cp.execFileSync('javac', [filesPath[j]]);
 						process.chdir(currentDir);
 					}
 					catch(Error) {
 						report += Error+"\n\n";
+					}
+					finally {
+						process.chdir(currentDir);
 					}
 				}	
 				for(var w=0; w<filesPath.length;w++) {
