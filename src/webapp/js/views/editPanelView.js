@@ -196,6 +196,8 @@ define ([
                 } else if (tmp[0] === "addParameter" || tmp[0] === "deleteParameter") {
                     $(".class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
                     $(".interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display", "none");
+                    $(".details"+tmp[1]).css("display","block");
+                    $(".parameters"+tmp[1]).css("display","block");
                 } else if (tmp[0] === "addAttribute" || tmp[0] === "deleteAttribute") {
                     $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, .class-attribute-details").css("display", "none");
                 };
