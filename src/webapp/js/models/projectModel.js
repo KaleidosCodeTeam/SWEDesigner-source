@@ -294,12 +294,14 @@ define ([
                 var ClIndex = -1;
                 for (var i=0; i<project.classes.classesArray.length && found==false; ++i) {
                     for (var j=0; j<project.classes.classesArray[i].items.length && found==false; ++j) {
-                        for (var k=0; k<project.classes.classesArray[i].items[j].getValues().operations.length && found==false; ++k) {
-                            if (project.classes.classesArray[i].items[j].getValues().operations[k].id == this.currentDiagram) {
-                                ClIndex = i;
-                                found = true;
-                            }
-                        }
+                    	if (typeof project.classes.classesArray[i].items[j].getValues().operations !== 'undefined') {
+	                        for (var k=0; k<project.classes.classesArray[i].items[j].getValues().operations.length && found==false; ++k) {
+	                            if (project.classes.classesArray[i].items[j].getValues().operations[k].id == this.currentDiagram) {
+	                                ClIndex = i;
+	                                found = true;
+	                            }
+	                        }
+	                    }
                     }
                 }
                 if (ClIndex != -1) {
