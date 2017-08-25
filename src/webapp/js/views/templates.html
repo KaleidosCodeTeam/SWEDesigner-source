@@ -56,7 +56,7 @@
                         <div class="panel-title panel-heading" onclick="$('.class-operation-details').not($(this).next()).hide();$(this).next().toggle()">
                             <%= operations[op]._name %>
                         </div>
-                        <div class='class-operation-details panel-body'>
+                        <div class='class-operation-details details<%=op%> panel-body'>
                             <div class="form-group">
                                 <label for="<%=operations[op]._name%>">Nome:</label>
                                 <input type="text" class="form-control edit" value="<%= operations[op]._name %>" name="operations.<%=op%>._name" id="class-operation-name" />
@@ -92,7 +92,7 @@
                                     Parametri
                                     <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                                 </div>
-                                <div class="class-operation-parameters panel-body">
+                                <div class="class-operation-parameters parameters<%=op%> panel-body">
                                     <% for(var par in operations[op].parameters) { %>
                                     <div class="panel panel-default">
                                         <div class="panel-title panel-heading" onclick="$('.class-operation-parameter-details').not($(this).next()).hide();$(this).next().toggle()">
@@ -278,7 +278,7 @@
                         <div class="panel-title panel-heading" onclick="$('.interface-operation-details').not($(this).next()).hide();$(this).next().toggle()">
                             <%= operations[op]._name %>
                         </div>
-                        <div class='interface-operation-details panel-body'>
+                        <div class='interface-operation-details details<%=op%> panel-body'>
                             <div class="form-group">
                                 <label for="<%=operations[op]._name%>">Nome:</label>
                                 <input type="text" class="form-control edit" value="<%= operations[op]._name %>" name="operations.<%=op%>._name" id="interface-operation-name" />
@@ -314,7 +314,7 @@
                                     Parametri
                                     <span class="pull-right glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                                 </div>
-                                <div class="interface-operation-parameters panel-body">
+                                <div class="interface-operation-parameters parameters<%=op%> panel-body">
                                     <% for(var par in operations[op].parameters) { %>
                                     <div class="panel panel-default">
                                         <div class="panel-title panel-heading" onclick="$('.interface-operation-parameter-details').not($(this).next()).hide();$(this).next().toggle()">

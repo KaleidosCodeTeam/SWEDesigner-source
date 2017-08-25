@@ -41,7 +41,7 @@ define ([
                     var a = document.createElement("a");
 					document.body.appendChild(a);
 					a.style = "display: none";
-					a.href = "localhost/SWEDesigner-source/src/server/requestHandler/"+ret.nomezip+".zip";
+					a.href = "http://localhost/SWEDesigner-source/src/server/codeGenerator/"+ret.nomezip+".zip";
 					a.download = ret.nomezip+".zip";
 					a.click();
 					document.body.removeChild(a);
@@ -78,7 +78,7 @@ define ([
                     var a = document.createElement("a");
 					document.body.appendChild(a);
 					a.style = "display: none";
-					a.href = "localhost/SWEDesigner-source/src/server/requestHandler/"+ret.nomezip+".zip";
+					a.href = "http://localhost/SWEDesigner-source/src/server/codeGenerator/"+ret.nomezip+".zip";
 					a.download = ret.nomezip+".zip";
 					a.click();
 					document.body.removeChild(a);
