@@ -1,12 +1,12 @@
 /**
- *	@file Contiene la classe statica CoderOperation
+ *	@file Contiene la classe CoderOperation
  *	@author Sanna Giovanni - KaleidosCode
  */
 
 /** 
  *	@namespace
- *	@description Espone le funzionalità (statiche) che permettono di codificare
- *	un metodo/funzione, rappresentato dall'oggetto operationObj in input, in Java
+ *	@description Espone le funzionalità che permettono di codificare
+ *	un metodo/funzione, rappresentato dall'oggetto di tipo ParsedOperation in input, in Java
  *	o Javascript; entrambe le funzioni restituiscono la stringa del codice 
  *	sorgente, relativa all'intestazione della classe, nel linguaggio scelto.
  */
@@ -14,7 +14,7 @@ var CoderOperation = function() {};
 /**
  *	@function CoderOperation.codeElementJava
  *	@static
- *	@param {!Object} operationObj - Le informazioni necessarie a codificare un metodo/funzione.
+ *	@param {!ParsedOperation} operationObj - Le informazioni necessarie a codificare un metodo/funzione.
  *	@return {string} Stringa del codice sorgente, in Java, della definizione del metodo/funzione operationObj di input
  *	(i.e. 'public abstract static final T foo').
  *	@description Riceve in input operationObj, un oggetto che rappresenta un metodo/funzione; 
@@ -34,9 +34,6 @@ CoderOperation.codeElementJava = function(operationObj) {
 	if(operationObj.isFinal  == "true") {
 		source += "final ";
 	}
-	/*if(operationObj.isSynchronized) {
-		source += "synchronized ";
-	}*/
 	source += operationObj.returnType + " ";
 	source += operationObj._name;
 	return source;
@@ -44,12 +41,12 @@ CoderOperation.codeElementJava = function(operationObj) {
 /**
  *	@function CoderOperation.codeElementJavascript
  *	@static
- *	@param {!Object} operationObj - Le informazioni necessarie a codificare un metodo/funzione.
- *	@param {string} className - Nome della classe che detiene il metodo/funzione (necessario solo se il metodo/funzione di input è statico).
+ *	@param {!ParsedOperation} operationObj - Le informazioni necessarie a codificare un metodo/funzione.
+ *	@param {string} className - Nome della ParsedClass che detiene il metodo/funzione (necessario solo se il metodo/funzione di input è statico).
  *	@return {string} Stringa del codice sorgente, in Javascript, della definizione del metodo/funzione operationObj di input
  *	(i.e. 'var doStuff = function'). 
  *	@description Riceve in input operationObj, un oggetto che rappresenta un metodo/funzione; 
- *	restituisce la stringa del codice sorgente, in Javascript, della definzione del metodo/funzione operationObj di input.
+ *	restituisce la stringa del codice sorgente, in Javascript, della definizione del metodo/funzione operationObj di input.
  */
 CoderOperation.codeElementJavascript = function(operationObj, className) {
 	source = "";
