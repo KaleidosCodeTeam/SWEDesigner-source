@@ -22,38 +22,17 @@ var CodedProgram = require('./codedProgram.js');
 //------------------------------------------------------------------- JAVACODER ---------------------------------------------------------------------------
 /** 
  *	@namespace
- *	@description Espone le funzionalità (statiche) che permettono di codificare,
+ *	@description Espone le funzionalità che permettono di codificare,
  *	in linguaggio Java, un oggetto che rappresenta un programma.
  */
 var JavaCoder = function() {};
 /**
  *	@function getPackageDependencies
- *	@param {!string} packageId - Identificativo del package di cui si vuole ottenere le dipendenze OUT.
- *	@param {!Object} packages - Oggetto che contiene l'array di tutti gli oggetti package.
- *	@return {Object[]} Le informazioni sulle dipendenze OUT del package di identificativo packageId. 
- *	@description Ritorna il le dipendenze OUT del package corrispondente al packageId di input.
+ *	@param {!string} packageId - Identificativo del ParsedPackage di cui si vuole ottenere le dipendenze OUT.
+ *	@param {!ParsedProgram} parsedProgram -  Le informazioni necessarie a codificare un programma.
+ *	@return {string[]} Le informazioni sulle dipendenze OUT del ParsedPackage di identificativo packageId. 
+ *	@description Ritorna il le dipendenze OUT del ParsedPackage corrispondente al packageId di input.
  */
- /*
-function getPackageDependencies(packageId, packages) {
-	var dependencies = new Array();
-	count = 0;
-	for(var i=0; i< packages.dependenciesArray.length; i++) {
-		if(packages.dependenciesArray[i].source.id == packageId) {
-			finded = false;
-			for(var j=0; j<packages.packagesArray.length && !finded; j++) {
-				if(packages.packagesArray[j].id == packages.dependenciesArray[i].target.id) {
-					finded = true;
-					dependencies[count] = packages.packagesArray[j].values._package;
-					count++;
-				}
-			} 
-		}
-	}
-
-	return dependencies;
-};
-*/
-
 function getPackageDependencies(packageId, parsedProgram) {
 	var dependencies = new Array();
 	var packDependencies = parsedProgram.packages.dependenciesArray;
@@ -93,10 +72,10 @@ function getPackageDependencies(packageId, parsedProgram) {
 }
 /**
  *	@function getPackNameById
- *	@param {!string} packageId - Identificativo del package di cui si vuole ottenere il nome.
- *	@param {!Object} packages - Oggetto che contiene l'array di tutti gli oggetti package.
- *	@return {string} Nome del package corrispondente al packageId di input. 
- *	@description Ritorna il nome del package corrispondente al packageId di input.
+ *	@param {!string} packageId - Identificativo del ParsedPackage di cui si vuole ottenere il nome.
+ *	@param {!ParsedPackage[]} packages - Array di tutti gli oggetti ParsedPackage del programma da codificare.
+ *	@return {string} Nome del ParsedPackage corrispondente al packageId di input. 
+ *	@description Ritorna il nome del ParsedPackage corrispondente al packageId di input.
  */
 function getPackNameById(packageId, packages){
 	for(var i=0; i<packages.packagesArray.length; i++) {
@@ -108,10 +87,10 @@ function getPackNameById(packageId, packages){
 };
 /**
  *	@function getOperationById
- *	@param {!string} operId - Identificativo dell'operazione che si vuole ottenere.
- *	@param {!Object[]} operations - L'array di tutti i diagrammi delle bubble.
- *	@return {Object} Diagramma delle bubble corrispondente all'operId di input. 
- *	@description Ritorna il diagramma delle bubble corrispondente all'operId di input.
+ *	@param {!string} operId - Identificativo della ParsedOperation che si vuole ottenere.
+ *	@param {!ParsedOperation[]} operations - L'array di tutti i diagrammi delle bubble.
+ *	@return {ParsedOperation} Le informazioni necessarie a codificare un metodo/funzione.. 
+ *	@description Ritorna l'oggetto di tipo ParsedOperation corrispondente all'operId di input.
  */
 function getOperationById(operId, operations) {
 	for(var i=0; i<operations.length; i++) {
@@ -124,8 +103,8 @@ function getOperationById(operId, operations) {
 /**
  *	@function JavaCoder.coderParameters
  *	@static
- *	@param {!Object} operationObj - Le informazioni necessarie a codificare un metodo.
- *	@return {string} Stringa del codice sorgente, in Java, relativo alla lista completa dei parametri dell'oggetto di input.
+ *	@param {!ParsedOperation} operationObj - Le informazioni necessarie a codificare un metodo.
+ *	@return {string} Stringa del codice sorgente, in Java, relativo alla lista completa dei parametri della ParsedOperation di input.
  *	@description Riceve in input operationObj, un oggetto che rappresenta un metodo; 
  *	restituisce la stringa del codice sorgente, in Java, della lista dei parametri del metodo operationObj di input. Tale funzione 
  *	non viene esportata dal modulo.
@@ -142,8 +121,8 @@ JavaCoder.coderParameters = function(operationObj) {
 /**
  *	@function JavaCoder.coderAttributes
  *	@static
- *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
- *	@return {string} Stringa del codice sorgente, in Java, relativo alla lista completa degli attributi dell'oggetto di input.
+ *	@param {!ParsedClass} classObj - Le informazioni necessarie a codificare una classe.
+ *	@return {string} Stringa del codice sorgente, in Java, relativo alla lista completa degli attributi dell'oggetto classObj di input.
  *	@description Riceve in input classObj, un oggetto che rappresenta una classe; 
  *	restituisce la stringa del codice sorgente, in Java, di tutti gli attributi di classObj di input. Tale funzione 
  *	non viene esportata dal modulo.
@@ -159,10 +138,10 @@ JavaCoder.coderAttributes = function(classObj) {
 /**
  *	@function JavaCoder.coderOperations
  *	@static
- *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
- *	@param {!Object} operations - Contiene le informazioni necessarie a codificare l'implementazione di tutte le operazioni di classObj.
+ *	@param {!ParsedClass} classObj - Le informazioni necessarie a codificare una classe.
+ *	@param {!ParsedOperation[]} operations - Contiene le informazioni necessarie a codificare l'implementazione di tutte le operazioni di classObj.
  *	@return {string} Stringa del codice sorgente (definizione e implementazione), in Java, relativo a tutti i 
- *	metodi dell'oggetto di input.	 
+ *	metodi di classObj in input.	 
  *	@description Riceve in input classObj, un oggetto che rappresenta una classe; 
  *	restituisce la stringa del codice sorgente, in Java, (definizione e implementazione) di tutti i metodi di classObj di input. 
  *	Tale funzione non viene esportata dal modulo.
@@ -195,8 +174,8 @@ JavaCoder.coderOperations = function(classObj,operations) {
 /**
  *	@function JavaCoder.getCodedProgram
  *	@static
- *	@param {!Object} parsedProgram - Le informazioni necessarie a codificare un programma in linguaggio Java.
- *	@return {Object} Istanza di CodedProgram, contenente il codice sorgente in Java corrispondente all'oggetto parsedProgram
+ *	@param {!ParsedProgram} parsedProgram - Le informazioni necessarie a codificare un programma in linguaggio Java.
+ *	@return {CodedProgram} Oggetto contenente il codice sorgente in Java corrispondente all'oggetto parsedProgram
  *	di input, più le informazioni necessarie per organizzare i vari file.	 
  *	@description Riceve in input parsedProgram, un oggetto che rappresenta un programma; 
  *	restituisce un oggetto istanza di CodedProgram, contente il codice sorgente in Java di tutte le classi presenti nell'oggetto 
@@ -229,7 +208,7 @@ JavaCoder.getCodedProgram = function(parsedProgram) {
 //------------------------------------------------------------------ JAVASCRIPTCODER ----------------------------------------------------------------------
 /** 
  *	@namespace
- *	@description Espone le funzionalità (statiche) che permettono di codificare,
+ *	@description Espone le funzionalità che permettono di codificare,
  *	in linguaggio Javascript, un oggetto che rappresenta un programma.
  */
 var JavascriptCoder = function() {};
@@ -244,11 +223,11 @@ i.e.  " param1,param2,paramN="defaultValue" "
 /**
  *	@function JavascriptCoder.coderParameters
  *	@static
- *	@param {!Object} operationObj - Le informazioni necessarie a codificare una funzione.
- *	@return {string} Stringa del codice sorgente, in Javascript, relativo alla lista completa dei parametri dell'oggetto di input.
+ *	@param {!ParsedOperation} operationObj - Le informazioni necessarie a codificare un metodo/funzione.
+ *	@return {string} Stringa del codice sorgente, in Javascript, relativo alla lista completa dei parametri di operationObj in input.
  *	@description Riceve in input operationObj, un oggetto che rappresenta una funzione; 
- *	restituisce la stringa del codice sorgente, in Javascript, della lista dei parametri della funzione operationObj di input. Tale funzione 
- *	non viene esportata dal modulo.
+ *	restituisce la stringa del codice sorgente, in Javascript, della lista dei parametri del metodo/funzione operationObj di input.  
+ *	Questa funzione non viene esportata dal modulo.
  */
 JavascriptCoder.coderParameters = function(operationObj){
 	source = "";
@@ -272,9 +251,9 @@ i.e.  " this.attr1 = "attrValue";
 /**
  *	@function JavascriptCoder.coderInstanceAttributes
  *	@static
- *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
+ *	@param {!ParsedClass} classObj - Le informazioni necessarie a codificare una classe.
  *	@return {string} Stringa del codice sorgente, in Javascript, relativo alla lista completa degli attributi non statici
- *	dell'oggetto di input.
+ *	di classObj in input.
  *	@description Riceve in input classObj, un oggetto che rappresenta una classe; 
  *	restituisce la stringa del codice sorgente, in Javascript, di tutti gli attributi non statici di classObj di input. Tale funzione 
  *	non viene esportata dal modulo.
@@ -301,13 +280,14 @@ i.e.  " this.doStuff = function() { }
 /**
  *	@function JavascriptCoder.coderInstanceOperations
  *	@static
- *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
- *	@param {!Object} operations - Contiene le informazioni necessarie a codificare l'implementazione di tutte le operazioni di classObj.
+ *	@param {!ParsedClass} classObj - Le informazioni necessarie a codificare una classe.
+ *	@param {!ParsedOperation[]} operations - Contiene le informazioni necessarie a codificare l'implementazione di tutte le operazioni di classObj.
  *	@return {string} Stringa del codice sorgente (definizione e implementazione), in Javascript, relativo a tutte le 
- *	funzioni non statiche dell'oggetto di input.
+ *	funzioni non statiche di classObj in input.
  *	@description Riceve in input classObj, un oggetto che rappresenta una classe; 
  *	restituisce la stringa del codice sorgente, in Javascript, di tutte le funzioni non statiche di classObj di input. Tale funzione 
  *	non viene esportata dal modulo.
+ *  viene esportata dal modulo.
  */
 JavascriptCoder.coderInstanceOperations = function(classObj, operations) {
 	source = "";
@@ -338,9 +318,9 @@ i.e.  " className.attributeName = "attributeValue" "
 /**
  *	@function JavascriptCoder.coderStaticAttributes
  *	@static
- *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
+ *	@param {!Parsedclass} classObj - Le informazioni necessarie a codificare una classe.
  *	@return {string} Stringa del codice sorgente, in Javascript, relativo alla lista completa degli attributi statici
- *	dell'oggetto di input.
+ *	di classObj ib input.
  *	@description Riceve in input classObj, un oggetto che rappresenta una classe; 
  *	restituisce la stringa del codice sorgente, in Javascript, di tutti gli attributi statici di classObj di input. Tale funzione 
  *	non viene esportata dal modulo.
@@ -367,10 +347,10 @@ i.e.  " className1.functionName1 = function() { }
 /**
  *	@function JavascriptCoder.coderStaticOperations
  *	@static
- *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
- *	@param {!Object} operations - Contiene le informazioni necessarie a codificare l'implementazione di tutte le operazioni di classObj.
+ *	@param {!ParsedClass} classObj - Le informazioni necessarie a codificare una classe.
+ *	@param {!ParsedOperation[]} operations - Contiene le informazioni necessarie a codificare l'implementazione di tutte le operazioni di classObj.
  *	@return {string} Stringa del codice sorgente (definizione e implementazione), in Javascript, relativo a tutte le 
- *	funzioni statiche dell'oggetto di input.
+ *	funzioni statiche dell'oggetto classObj di input.
  *	@description Riceve in input classObj, un oggetto che rappresenta una classe; 
  *	restituisce la stringa del codice sorgente, in Javascript, di tutte le funzioni statiche di classObj di input. Tale funzione 
  *	non viene esportata dal modulo.
@@ -397,8 +377,8 @@ JavascriptCoder.coderStaticOperations = function(classObj, operations) {
 /**
  *	@function JavascriptCoder.getCodedProgram
  *	@static
- *	@param {!Object} parsedProgram - Le informazioni necessarie a codificare un programma in linguaggio Javascript.
- *	@return {codedProgram} Istanza di CodedProgram, contenente il codice sorgente in Javascript corrispondente all'oggetto parsedProgram
+ *	@param {!ParsedProgram} parsedProgram - Le informazioni necessarie a codificare un programma in linguaggio Javascript.
+ *	@return {CodedProgram} Oggetto contenente il codice sorgente in Javascript corrispondente all'oggetto parsedProgram
  *	di input, più le informazioni necessarie per organizzare i vari file.	 
  *	@description Riceve in input parsedProgram, un oggetto che rappresenta un programma; 
  *	restituisce un oggetto istanza di CodedProgram, contente il codice sorgente in Javascript di tutte le classi presenti nell'oggetto 

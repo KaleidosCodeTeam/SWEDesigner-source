@@ -1,12 +1,12 @@
 /**
- *	@file Contiene la classe statica CoderAttribute
+ *	@file Contiene la classe CoderAttribute
  *	@author Sanna Giovanni - KaleidosCode
  */
 
 /** 
  *	@namespace
- *	@description Espone le funzionalità (statiche) che permettono di codificare
- *	un attributo, rappresentato dall'oggetto attributeObj in input, in Java (CoderAttribute.codeElementJava)
+ *	@description Espone le funzionalità che permettono di codificare
+ *	un attributo, rappresentato dall'oggetto di tipo ParsedAttribute in input, in Java (CoderAttribute.codeElementJava)
  *	o Javascript (CoderAttribute.codeElementJavascript); entrambe le funzioni restituiscono 
  *	la stringa del codice sorgente nel linguaggio scelto.
  */
@@ -14,7 +14,7 @@ var CoderAttribute = function() {};
 /**
  *	@function CoderAttribute.codeElementJava
  *	@static
- *	@param {!Object} attributeObj - Le informazioni necessarie a codificare un attributo di classe.
+ *	@param {!ParsedAttribute} attributeObj - Le informazioni necessarie a codificare un attributo di classe.
  *	@return {string} Stringa del codice sorgente, in Java, dell'attributo di input.
  *	@description Riceve in input attributeObj, un oggetto che rappresenta un attributo 
  *	di classe; restituisce la stringa del codice sorgente, in Java, dell'attributo di input.
@@ -32,16 +32,7 @@ CoderAttribute.codeElementJava = function(attributeObj) {
 	}
 	source += attributeObj._type + " " + attributeObj._name + " ";
 	if(attributeObj._default != "") {
-/*		if(attributeObj._type == "String"){
-			source += " = \"" + attributeObj._default +"\"";
-		}
-		else if(attributeObj._type == "char"){
-			source += " = \'" + attributeObj._default +"\'";
-		}
-		else {
-		*/	source += " = " + attributeObj._default; /*
-		}
-		*/
+			source += " = " + attributeObj._default; 
 	}
 	source += ";";
 	return source;
@@ -49,8 +40,8 @@ CoderAttribute.codeElementJava = function(attributeObj) {
 /**
  *	@function CoderAttribute.codeElementJavascript
  *	@static
- *	@param {!Object} attributeObj - Le informazioni necessarie a codificare un attributo di classe.
- *	@param {string} className - Nome della classe che detiene l'attributo (necessaria solo se l'attributo di input è statico).
+ *	@param {!ParsedAttribute} attributeObj - Le informazioni necessarie a codificare un attributo di classe.
+ *	@param {string} className - Nome della ParsedClass che detiene l'attributo (necessaria solo se l'attributo di input è statico).
  *	@return {string} Stringa del codice sorgente, in Javascript, dell'attributo di input.
  *	@description Riceve in input attributeObj, un oggetto che rappresenta un attributo 
  *	di classe; restituisce la stringa del codice sorgente, in Javascript, dell'attributo di input.
@@ -70,15 +61,7 @@ CoderAttribute.codeElementJavascript = function(attributeObj, className) {
 		}	
 
 		if(attributeObj._default != "") {
-/*			if(attributeObj._type == "String"){
-				source += "\"" + attributeObj._default + "\";";
-			}
-			else if (attributeObj._type == "char") {
-				source += "\'" + attributeObj._default + "\';";
-			}
-			else {
-			*/	source += attributeObj._default + ";"; /*
-			}	*/			
+			source += attributeObj._default + ";"; 			
 		}
 		else {
 			source += "undefined;";
