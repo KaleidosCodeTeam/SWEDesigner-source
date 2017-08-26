@@ -118,7 +118,7 @@ define ([
 			var input = document.createElement("input");
 			input.type = "hidden";
 			input.name = 'project';
-			input.value = myProject;
+			input.value = JSON.stringify(myProject);
 			form.appendChild(input);
 			document.body.appendChild(form);
 			form.submit();
