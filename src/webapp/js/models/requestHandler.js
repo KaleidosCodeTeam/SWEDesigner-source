@@ -29,7 +29,7 @@ define ([
             myProject.project.packages = project.packages;
             myProject.project.classes = project.classes;
             myProject.project.operations = project.operations;
-            $.ajax({
+            /*$.ajax({
             	url: 'http://localhost:3000/caricaJa?callback=?',
                 dataType: "jsonp",
                 data: JSON.stringify(myProject),
@@ -52,7 +52,23 @@ define ([
                     console.log('Error: ' + error);
                     $('#lblResponse').html('Error connecting to the server.');
                 },
-            });
+            });*/
+			var iframe = document.createElement("iframe");
+			document.body.appendChild(iframe);
+			iframe.style.display = "none";
+			var frame_name = "frame_name";
+			iframe.contentWindow.name = frame_name;
+			var form = document.createElement("form");
+			form.target = frame_name;
+			form.action = 'http://localhost:3000/caricaJa?';
+			form.method = 'POST';
+			var input = document.createElement("input");
+			input.type = "hidden";
+			input.name = 'project';
+			input.value = JSON.stringify(myProject);
+			form.appendChild(input);
+			document.body.appendChild(form);
+			form.submit();
         },
         /**
          *  @function client::RequestHandler#generateJavascript
@@ -66,7 +82,7 @@ define ([
             myProject.project.packages = project.packages;
             myProject.project.classes = project.classes;
             myProject.project.operations = project.operations;
-            $.ajax({
+            /*$.ajax({
                 url: 'http://localhost:3000/caricaJs?callback=?',
                 dataType: "jsonp",
                 data: JSON.stringify(myProject),
@@ -89,7 +105,23 @@ define ([
                     console.log('Error: ' + error);
                     $('#lblResponse').html('Error connecting to the server.');
                 },
-            });
+            });*/
+			var iframe = document.createElement("iframe");
+			document.body.appendChild(iframe);
+			iframe.style.display = "none";
+			var frame_name = "frame_name";
+			iframe.contentWindow.name = frame_name;
+			var form = document.createElement("form");
+			form.target = frame_name;
+			form.action = 'http://localhost:3000/caricaJa?';
+			form.method = 'POST';
+			var input = document.createElement("input");
+			input.type = "hidden";
+			input.name = 'project';
+			input.value = myProject;
+			form.appendChild(input);
+			document.body.appendChild(form);
+			form.submit();
         }
 	});
 	return new RequestHandler;
