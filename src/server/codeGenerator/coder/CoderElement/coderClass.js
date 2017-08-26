@@ -54,7 +54,7 @@ CoderClass.codeParentJava = function(sourceId, parsedProgram) {
 			}
 		}		
 	}
-	if(classObj.values._extends == "") {
+	if(classObj.values._extends == "" || classObj.values._extends == undefined) {
 		relationshipsArray = parsedProgram.classes.relationshipsArray;
 		for(var i=0; i<relationshipsArray.length && !finded; i++) { 
 			var items = relationshipsArray[i].items;
@@ -96,7 +96,7 @@ CoderClass.codeParentJavascript = function(sourceId, parsedProgram) {
 			}
 		}		
 	}
-	if(classObj.values._extends == "") {
+	if(classObj.values._extends == "" || classObj.values._extends == undefined) {
 		relationshipsArray = parsedProgram.classes.relationshipsArray;
 		for(var i=0; i<relationshipsArray.length && !finded; i++) { 
 			var items =relationshipsArray[i].items;
