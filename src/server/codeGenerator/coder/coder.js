@@ -287,7 +287,7 @@ i.e.  " this.doStuff = function() { }
  *	@description Riceve in input classObj, un oggetto che rappresenta una classe; 
  *	restituisce la stringa del codice sorgente, in Javascript, di tutte le funzioni non statiche di classObj di input. Tale funzione 
  *	non viene esportata dal modulo.
- */viene esportata dal modulo.
+ *  viene esportata dal modulo.
  */
 JavascriptCoder.coderInstanceOperations = function(classObj, operations) {
 	source = "";
