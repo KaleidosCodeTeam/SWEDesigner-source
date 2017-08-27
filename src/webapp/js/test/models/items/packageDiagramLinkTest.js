@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto packageDiagramLink.
  *  @author Bonolo Marco - KaleidosCode
  */

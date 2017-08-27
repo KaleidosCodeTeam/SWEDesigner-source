@@ -1,6 +1,6 @@
-/**
- *	@file Main utile per RequireJS
- *	@author Pezzuto Francesco, Sovilla Matteo - KaleidosCode
+/*
+ *	@file File utile per esecuzione dei test
+ *	@author Bonolo Marco - KaleidosCode
  */
 require.config({
 	baseUrl: './',

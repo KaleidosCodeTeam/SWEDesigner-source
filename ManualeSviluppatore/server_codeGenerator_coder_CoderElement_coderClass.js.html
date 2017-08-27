@@ -27,14 +27,14 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- *	@file Contiene la classe statica CoderClass
+ *	@file Contiene la classe CoderClass
  *	@author Sanna Giovanni - KaleidosCode
  */
 
 /** 
  *	@namespace
- *	@description Espone le funzionalità (statiche) che permettono di codificare
- *	l'intestazione di una classe, rappresentata dall'oggetto classObj in input, in Java (CoderClass.codeElementJava)
+ *	@description Espone le funzionalità che permettono di codificare
+ *	l'intestazione di una classe, rappresentata dall'oggetto di tipo ParsedClass in input, in Java (CoderClass.codeElementJava)
  *	o Javascript (CoderClass.codeElementJavascipt); entrambe le funzioni restituiscono la stringa del codice 
  *	sorgente, relativa all'intestazione della classe, nel linguaggio scelto.
  *	Inoltre espone due funzionalità di utilità che permettono di codificare, in Java (CoderClass.codeParentJava) o 
@@ -43,9 +43,9 @@
 var CoderClass = function() {};
 /**
  *	@function getNameById
- *	@param {!string} classId - Stringa identificativa della classe di cui si vuole ottenere il nome.
- *	@param {!Object} parsedProgram - Contiene l'array di tutti gli oggetti che rappresentano una classe.
- *	@return {string} Nome della classe corrispondente al classId di input. 
+ *	@param {!string} classId - Stringa identificativa della ParsedClass di cui si vuole ottenere il nome.
+ *	@param {!ParsedProgram} parsedProgram -Le informazioni necessarie a codificare un programma.
+ *	@return {string} Nome della ParsedClass corrispondente al classId di input. 
  *	@description Ritorna il nome della classe corrispondente al classId di input.
  */
 function getNameById(classId, parsedProgram) {
@@ -63,61 +63,94 @@ function getNameById(classId, parsedProgram) {
 /**
  *	@function CoderClass.codeParentJava
  *	@static
- *	@param {!string} sourceId - Le informazioni necessarie a codificare una classe.
- *	@param {!Object} parsedProgram - Le informazioni necessarie a codificare un programma.
- *	@return {string} Stringa del codice sorgente, in Java, relativo alle specifiche di estensione della classe di input.
+ *	@param {!string} sourceId - Stringa identificativa della ParsedClass di cui si vuole codificare le specifiche di estensione.
+ *	@param {!ParsedProgram} parsedProgram - Le informazioni necessarie a codificare un programma.
+ *	@return {string} Stringa del codice sorgente, in Java, relativo alle specifiche di estensione della classe di identificativo sourceId.
  *	@description Codifica, in Java, le specifiche di estensione della classe di identificativo @sourceId, 
  *	contenuta in @parsedProgram.
  */
 CoderClass.codeParentJava = function(sourceId, parsedProgram) {
 	source = "";
 	finded = false;
-	relationshipsArray = parsedProgram.classes.relationshipsArray;
-	for(var i=0; i&lt;relationshipsArray.length &amp;&amp; !finded; i++) { 
-		var items = relationshipsArray[i].items;
-		for(var j=0; j&lt;items.length &amp;&amp; !finded; j++) {
-			if(items[j].type == 'classDiagram.items.Generalization' &amp;&amp; items[j].source.id == sourceId) {
-				finded = true;
-				targetId = items[j].target.id;
-				source += "extends "+ getNameById(targetId,parsedProgram) + " ";
+	var classObj = "";
+	var classesArray = parsedProgram.classes.classesArray;
+	for(var i=0; i&lt;classesArray.length; i++) {
+		var items = classesArray[i].items;
+		for(var j=0; j&lt;items.length; j++) {
+			if(items[j].id == sourceId) {
+				classObj = items[j];
 			}
-		}
-		
+		}		
 	}
+	if(classObj.values._extends == "" || classObj.values._extends == undefined) {
+		relationshipsArray = parsedProgram.classes.relationshipsArray;
+		for(var i=0; i&lt;relationshipsArray.length &amp;&amp; !finded; i++) { 
+			var items = relationshipsArray[i].items;
+			for(var j=0; j&lt;items.length &amp;&amp; !finded; j++) {
+				if(items[j].type == 'classDiagram.items.Generalization' &amp;&amp; items[j].source.id == sourceId) {
+					finded = true;
+					targetId = items[j].target.id;
+					source += "extends "+ getNameById(targetId,parsedProgram) + " ";
+				}
+			}
+			
+		}
+	}
+	else {
+		source += "extends "+ classObj.values._extends + " ";
+	}
+	
 	return source;
 };
 /**
  *	@function CoderClass.codeParentJavascript
  *	@static
- *	@param {!string} sourceId - Le informazioni necessarie a codificare una classe.
- *	@param {!Object} parsedProgram - Le informazioni necessarie a codificare un programma.
- *	@return {string} Stringa del codice sorgente, in Javascript, relativo alle specifiche di estensione della classe di input.
+ *	@param {!string} sourceId - Stringa identificativa della ParsedClass di cui si vuole codificare le specifiche di estensione.
+ *	@param {!ParsedProgram} parsedProgram - Le informazioni necessarie a codificare un programma.
+ *	@return {string} Stringa del codice sorgente, in Javascript, relativo alle specifiche di estensione della classe di identificativo sourceId.
  *	@description Codifica, in Javascript, le specifiche di estensione della classe di identificativo @sourceId, 
  *	contenuta in @parsedProgram.
  */
 CoderClass.codeParentJavascript = function(sourceId, parsedProgram) {
 	source = "";
 	finded = false;
-	relationshipsArray = parsedProgram.classes.relationshipsArray;
-	for(var i=0; i&lt;relationshipsArray.length &amp;&amp; !finded; i++) { 
-		var items =relationshipsArray[i].items;
-		for(var j=0; j&lt;items.length &amp;&amp; !finded; j++) {
-			if(items[j].type == 'classDiagram.items.Generalization' &amp;&amp; items[j].source.id == sourceId) {
-				finded = true;
-				targetId = items[j].target.id;
-				// bisogna aggiungere un costruttore corretto; dipende dalla struttura dell'oggetto
-				source += getNameById(sourceId,parsedProgram) + ".prototype = new " + getNameById(targetId,parsedProgram) + "();\n ";
-				source += getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + getNameById(sourceId,parsedProgram) + "; \n";
+	var classObj = "";
+	var classesArray = parsedProgram.classes.classesArray;
+	for(var i=0; i&lt;classesArray.length; i++) {
+		var items = classesArray[i].items;
+		for(var j=0; j&lt;items.length; j++) {
+			if(items[j].id == sourceId) {
+				classObj = items[j];
 			}
 		}		
 	}
+	if(classObj.values._extends == "" || classObj.values._extends == undefined) {
+		relationshipsArray = parsedProgram.classes.relationshipsArray;
+		for(var i=0; i&lt;relationshipsArray.length &amp;&amp; !finded; i++) { 
+			var items =relationshipsArray[i].items;
+			for(var j=0; j&lt;items.length &amp;&amp; !finded; j++) {
+				if(items[j].type == 'classDiagram.items.Generalization' &amp;&amp; items[j].source.id == sourceId) {
+					finded = true;
+					targetId = items[j].target.id;
+					// bisogna aggiungere un costruttore corretto; dipende dalla struttura dell'oggetto
+					source += getNameById(sourceId,parsedProgram) + ".prototype = new " + getNameById(targetId,parsedProgram) + "();\n ";
+					source += getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + getNameById(sourceId,parsedProgram) + "; \n";
+				}
+			}		
+		}
+	}
+	else {
+		source += getNameById(sourceId,parsedProgram) + ".prototype = new " + classObj.values._extends + "();\n ";
+		source += getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + getNameById(sourceId,parsedProgram) + "; \n";
+	}
+	
 	return source;
 };
 /**
  *	@function CoderClass.codeElementJava
  *	@static
- *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
- *	@param {!Object} parsedProgram - Le informazioni necessarie a codificare un programma.
+ *	@param {!ParsedClass} classObj - Le informazioni necessarie a codificare una classe.
+ *	@param {!ParsedProgram} parsedProgram - Le informazioni necessarie a codificare un programma.
  *	@return {string} Stringa del codice sorgente, in Java, dell'intestazione della classe classObj di input.
  *	@description Riceve in input classObj, un oggetto che rappresenta una  
  *	classe; restituisce la stringa del codice sorgente, in Java, dell'intestazione della classe classObj di input 
@@ -178,8 +211,15 @@ CoderClass.codeElementJava = function(classObj, parsedProgram) {
 					source += "," + getNameById(targetId,parsedProgram) + " ";
 				}				
 			}
+		}		
+	}
+	if(classObj.values._implements != "" &amp;&amp; classObj.values._implements!=undefined) {
+		if(firstClass) {
+			source += "implements "+ classObj.values._implements + " ";
 		}
-		
+		else {
+			source += "," + classObj.values._implements + " ";
+		}
 	}
 	// ritorno la stringa del codice Java: i.e. public class X extends Y implements Z ,W
 	return source;
@@ -187,7 +227,7 @@ CoderClass.codeElementJava = function(classObj, parsedProgram) {
 /**
  *	@function CoderClass.codeElementJavascript
  *	@static
- *	@param {!Object} classObj - Le informazioni necessarie a codificare una classe.
+ *	@param {!ParsedClass} classObj - Le informazioni necessarie a codificare una classe.
  *	@return {string} Stringa del codice sorgente, in Javascript, dell'intestazione della classe classObj di input.
  *	@description Riceve in input classObj, un oggetto che rappresenta una  
  *	classe; restituisce la stringa del codice sorgente, in Javascript, relativa all'intestazione della classe classObj di input.
@@ -210,7 +250,8 @@ CoderClass.codeElementJavascript = function(classObj) {
 };
 
 /** Esportazione del modulo */
-module.exports = CoderClass;</code></pre>
+module.exports = CoderClass;
+</code></pre>
         </article>
     </section>
 
@@ -220,13 +261,13 @@ module.exports = CoderClass;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleAssignment.html">bubbleAssignment</a></li><li><a href="bubbleDefinition.html">bubbleDefinition</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavaCoderActivity.html">JavaCoderActivity</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="JavascriptCoderActivity.html">JavascriptCoderActivity</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jul 06 2017 14:28:45 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Aug 27 2017 15:36:09 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

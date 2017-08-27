@@ -19,8 +19,8 @@ var attributeObj1 = {
 	_type : "int",
 	_default : 2,
 	_visibility : "private",
-	isStatic : false,
-	isFinal : true
+	isStatic : "false",
+	isFinal : "true"
 };
 
 /* Oggetto che rappresenta un attributo di classe */
@@ -29,8 +29,8 @@ var attributeObj2 = {
 	_type : "String",
 	_default : "defStr",
 	_visibility : "public",
-	isStatic : true,
-	isFinal : false
+	isStatic : "true",
+	isFinal : "false"
 };
 
 /* Oggetto che rappresenta un attributo di classe */
@@ -38,8 +38,8 @@ var attributeObj3 = {
 	_name : "_attr3",
 	_type : "String",
 	_visibility : "public",
-	isStatic : false,
-	isFinal : false
+	isStatic : "false",
+	isFinal : "false"
 };
 
 /* 	Viene chiamata la funzione statica di CoderAttribute che traduce l'oggetto in input

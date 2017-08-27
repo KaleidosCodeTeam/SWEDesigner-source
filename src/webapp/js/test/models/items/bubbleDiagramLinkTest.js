@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto bubbleDiagramLink.
  *  @author Bonolo Marco - KaleidosCode
  */

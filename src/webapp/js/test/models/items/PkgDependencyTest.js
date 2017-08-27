@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto PkgDependency.
  *  @author Bonolo Marco - KaleidosCode
  */

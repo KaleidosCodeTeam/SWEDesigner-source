@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto Aggregation.
  *  @author Bonolo Marco - KaleidosCode
  */

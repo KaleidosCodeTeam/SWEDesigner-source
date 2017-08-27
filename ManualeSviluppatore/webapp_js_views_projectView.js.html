@@ -71,7 +71,7 @@ define ([
                         if (element.get("type") === "packageDiagram.PkgComment") {
                             return Swedesigner.model.packageDiagram.items.PkgCommentView;
                         } else {
-                        	console.log("displaying package baseView");
+                        	//console.log("displaying package baseView");
                             return Swedesigner.model.packageDiagram.items.BaseView;
                         }
                     } else if (element.get("type").startsWith("classDiagram")) {
@@ -88,7 +88,13 @@ define ([
                     'default': {
                         name: 'stroke',
                         options: {
-                            padding: 3
+                            padding: 8,
+                            rx: 5,
+                            ry: 5,
+                            attrs: {
+				                'stroke-width': 4,
+				                stroke: '#34cb37'
+			            	}
                         }
                     }
                 },
@@ -127,6 +133,7 @@ define ([
 		resetSelectedCell: function() {
             this.paper.selectedCell = null;
             this.paper.trigger('changed-selected-cell');
+            //console.log("resetSelectedCell");
 		},
 		/**
 		 *	@function ProjectView#mouseMoveFunction
@@ -134,7 +141,7 @@ define ([
 		 *	@summary Traslazione del paper nella direzione del trascinamento del mouse.
 		 */
 		mouseMoveFunction: function(event) {
-			if (dragging == true)
+			if(dragging == true &amp;&amp; Math.abs(dragStartPosition.x - event.offsetX) > 3 &amp;&amp; Math.abs(dragStartPosition.y - event.offsetY) > 3)
 				event.data.paper.translate(event.offsetX - dragStartPosition.x, event.offsetY - dragStartPosition.y);
 		},
 		/**
@@ -146,8 +153,13 @@ define ([
 		 *	@summary Salva le correnti coordinate al click del mouse nello spazio vuoto del paper.
 		 */
 		blankPointerDown: function(elem, event, x, y) {
-				dragStartPosition = { 'x': x, 'y': y};
-				dragging = true;
+			dragStartPosition = { 'x': x, 'y': y};
+			dragging = true;
+			elem.resetSelectedCell();
+			// Rimozione dell'evidenziazione da item
+			_.each(elem.paper.model.getElements(), function(el) {
+	        	elem.paper.findViewByModel(el).unhighlight();
+	     	});
 		},
 		/**
 		 *	@function ProjectView#blankPointerUp
@@ -210,9 +222,11 @@ define ([
 		 *	@summary Elimina un elemento dal graph chiamando il relativo metodo di ProjectModel.
 		 */
 		deleteCell: function(e) {
-            projectModel.deleteCell(this.paper.selectedCell);
-            this.paper.selectedCell = null;
-            this.paper.trigger('changed-selected-cell');
+			if (confirm("Sei sicuro di voler eliminare l'elemento?") === true) {
+	            projectModel.deleteCell(this.paper.selectedCell);
+	            this.paper.selectedCell = null;
+	            this.paper.trigger('changed-selected-cell');
+	        }
         },
         /**
 		 *	@function ProjectView#unembedCell
@@ -243,7 +257,13 @@ define ([
                 if (this.selectedCell !== cellView.model) {
                     changed = true;
                     this.selectedCell = cellView.model;
-                    console.log('changed-selected-cell');
+                    //console.log('changed-selected-cell');
+                    _.each(cellView.paper.model.getElements(), function(el) {
+	        			cellView.paper.findViewByModel(el).unhighlight();
+	     			});
+                    if (!cellView.model.isLink()) {
+	                    cellView.highlight();
+	                }
                     this.trigger("changed-selected-cell");
                 }
             }
@@ -268,16 +288,26 @@ define ([
                         if (projectModel.itemToBeAdded.source !== null) {
                             projectModel.itemToBeAdded.target = cellView.model;
                             projectModel.addItemToGraph();
+                            prView.paper.$el.removeClass('connecting');
+                            _.each(cellView.paper.model.getElements(), function(el) {
+	        					cellView.paper.findViewByModel(el).unhighlight();
+	     					});
+                    		if (!cellView.model.isLink()) {
+	                    		cellView.highlight();
+	                		}
                         } else {
                             projectModel.itemToBeAdded.source = cellView.model;
+                            prView.paper.$el.addClass('connecting');
                         }
                     }
 					if (projectModel.itemToBeAdded &amp;&amp; projectModel.itemToBeAdded.isLink()) {
 						if (projectModel.itemToBeAdded.get("source").id !== undefined) {
 						    projectModel.itemToBeAdded.set("target", {id: cellView.model.id});
 						    projectModel.addItemToGraph();
+						    prView.paper.$el.removeClass('connecting');
 						} else {
 						    projectModel.itemToBeAdded.set("source", {id: cellView.model.id});
+						    prView.paper.$el.addClass('connecting');
 						}
 					}
                     return;
@@ -289,7 +319,17 @@ define ([
 		 *	@summary Gestisce lo switch in profondità (dall'elemento selezionato il cui id è parametro in input) invocando il relativo metodo di ProjectModel.
 		 */
         switchIn: function(id) {
-            projectModel.switchInGraph(id);
+            // Creo il nome del grafico in cui mi trovo per aggiungerlo poi al path
+            var name;
+            if (projectModel.currentDiagramType === "packageDiagram") name = this.paper.selectedCell.getValues()._package;
+            else if (projectModel.currentDiagramType === "classDiagram") {
+                var operationName;
+                for (var op in this.paper.selectedCell.getValues().operations) {
+                    if (this.paper.selectedCell.getValues().operations[op].id === id) operationName = this.paper.selectedCell.getValues().operations[op]._name;
+                }
+                name = this.paper.selectedCell.getValues()._name + '.' + operationName;
+            }
+            projectModel.switchInGraph(id, name);
             this.paper.selectedCell = null;
             this.paper.trigger('changed-selected-cell');
             //console.log(projectModel);
@@ -328,13 +368,13 @@ define ([
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleAssignment.html">bubbleAssignment</a></li><li><a href="bubbleDefinition.html">bubbleDefinition</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavaCoderActivity.html">JavaCoderActivity</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="JavascriptCoderActivity.html">JavascriptCoderActivity</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jul 06 2017 14:28:45 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Aug 27 2017 15:36:09 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

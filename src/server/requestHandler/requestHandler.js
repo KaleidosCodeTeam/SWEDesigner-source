@@ -1,5 +1,5 @@
 /**
- *	@file Contiene la classe statica RequestHandler
+ *	@file Contiene la classe RequestHandler
  *	@author Bonato Enrico - KaleidosCode
  *
  *  @requires ../codeGenerator/codeGenerator.js
@@ -76,9 +76,12 @@ var RequestHandler = {
             if(err) {
                 return res.end("Errore upload: "+err);
             }
-            var query = decodeURIComponent(url.parse(req.url).query);
-            query = query.split('&')[1];
-            var obj = JSON.parse(query);
+            var body = JSON.stringify(req.body);
+            body = body.replace(/\\\"/gi,'"');
+            body = body.replace(/\"{/gi,'{');
+            body = body.replace(/}\"}/gi,'}}');
+            var obj = JSON.parse(body);
+            var obj = obj.project;
             console.log('============================================================');
             console.log(obj.filename);
             console.log(JSON.stringify(obj.project));
@@ -87,8 +90,9 @@ var RequestHandler = {
             var nomezip="Programma-"+nome;
 
             CodeGenerator.generateJsProgram(obj.project,nomezip);
-            
-            res.jsonp(JSON.stringify({'nomezip': nomezip}));
+            res.header('Content-type','application/json');
+   			res.header('Charset','utf8');
+            res.send(JSON.stringify({'nomezip': nomezip}));
         });
     },
     /**
@@ -102,9 +106,12 @@ var RequestHandler = {
             if(err) {
                 return res.end("Errore upload: "+err);
             }
-            var query = decodeURIComponent(url.parse(req.url).query);
-            query = query.split('&')[1];
-            var obj = JSON.parse(query);
+            var body = JSON.stringify(req.body);
+            body = body.replace(/\\\"/gi,'"');
+            body = body.replace(/\"{/gi,'{');
+            body = body.replace(/}\"}/gi,'}}');
+            var obj = JSON.parse(body);
+            var obj = obj.project;
             console.log('============================================================');
             console.log(obj.filename);
             console.log(JSON.stringify(obj.project));
@@ -113,8 +120,9 @@ var RequestHandler = {
             var nomezip="Programma-"+nome;
 
             CodeGenerator.generateJavaProgram(obj.project,nomezip);
-          
-            res.jsonp(JSON.stringify({'nomezip': nomezip}));
+			res.header('Content-type','application/json');
+   			res.header('Charset','utf8');
+            res.send(JSON.stringify({'nomezip': nomezip}));
         });
     },
     /**

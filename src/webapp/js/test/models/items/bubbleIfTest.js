@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto bubbleIf.
  *  @author Bonolo Marco - KaleidosCode
  */
@@ -21,7 +21,7 @@ define ([
 			Test.assert(bubbleIf.getValues() != undefined, "L'oggetto bubbleIf contiene un attributo 'values'", this.el);
 			Test.assertProperties(bubbleIf.getValues(), ['_type', 'condition','comment'], "L'oggetto bubbleIf contiene gli attributi '_type', 'condition', 'comment'", this.el);
 			Test.assert(bubbleIf.defaults.values._type == 'IF', "Il _type (tipo) di default di un oggetto bubbleIf è 'IF'", this.el);
-			Test.assert(bubbleIf.defaults.values.comment == 'bubbleIfName', "Il comment (nome,descrizione) di default di un oggetto bubbleIf è 'bubbleIfName'", this.el);
+			Test.assert(bubbleIf.defaults.values.comment == 'bubbleIf', "Il comment (nome,descrizione) di default di un oggetto bubbleIf è 'bubbleIf'", this.el);
 		}
 	});
 	return new bubbleIfTest;

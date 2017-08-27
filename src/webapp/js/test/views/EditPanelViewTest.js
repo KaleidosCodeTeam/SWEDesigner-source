@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto EditPanelView.
  *  @author Bonolo Marco - KaleidosCode
  */
@@ -24,7 +24,7 @@ define ([
 			Test.assert(typeof EditPanelView.reset === "function", "L'oggetto EditPanelView contiene la funzione reset", this.el);
 			Test.assert(typeof EditPanelView.render === "function", "L'oggetto EditPanelView contiene la funzione render ", this.el);
 			Test.assert(typeof EditPanelView.switch === "function", "L'oggetto EditPanelView contiene la funzione switch", this.el);
-			Test.assert(typeof EditPanelView.saveCode === "function", "L'oggetto EditPanelView contiene la funzione saveCode", this.el);
+			Test.assert(typeof EditPanelView.save === "function", "L'oggetto EditPanelView contiene la funzione save", this.el);
 			Test.assert(typeof EditPanelView.execCommand === "function", "L'oggetto EditPanelView contiene la funzione execCommand", this.el);
 			Test.assert(typeof EditPanelView.unembedCell === "function", "L'oggetto EditPanelView contiene la funzione unembedCell", this.el);
 			Test.assert(typeof EditPanelView.confirmEdit === "function", "L'oggetto EditPanelView contiene la funzione confirmEdit", this.el);

@@ -1,5 +1,5 @@
 /**
- *	@file Contiene la classe statica codeGenerator
+ *	@file Contiene la classe codeGenerator
  *	@author Sanna Giovanni - KaleidosCode
  *
  *	@requires ./parser/parser.js

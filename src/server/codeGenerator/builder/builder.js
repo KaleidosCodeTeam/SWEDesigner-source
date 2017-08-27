@@ -1,5 +1,5 @@
 /**
- *	@file Contiene la classe statica Builder
+ *	@file Contiene la classe Builder
  *	@author Pezzuto Francesco - KaleidosCode
  *
  *	@requires mkdirp
@@ -20,7 +20,7 @@ var Builder = (function() {
 		 *	@var {string} Builder.generalPath - Contiene il path alla directory dove vengono creati tutti i programmi (directories, file sorgenti, ...).
 		 *	@private
 		 */
-		generalPath : __dirname+'/../',	// !!!!!!!! DA CAMBIARE !!!!!!!!
+		generalPath : __dirname+'/../',	
 		/**
 		 *	@function Builder.mkJavaFile
 		 *	@param {!string} progDir - La directory indicante dove creare i file sorgenti del programma.

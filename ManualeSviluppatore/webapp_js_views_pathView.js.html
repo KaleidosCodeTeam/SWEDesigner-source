@@ -56,37 +56,48 @@ define ([
 		events: {
 			'click .switchDiagram': 'switchDiagram'
 		},
-		/**
+        /**
+         *  @function PathView#render
+         *  @summary Render del path in base al diagramma correntemente visualizzato.
+         */
+        render: function() {
+            var currentDiagram = projectModel.currentDiagramType;
+            //var diagrams = {'packageDiagram': 1, 'classDiagram': 2, 'bubbleDiagram': 3};
+            var diagrams = ['packageDiagram','classDiagram','bubbleDiagram'];
+            this.$el.empty();
+            /*if(diagrams[currentDiagram] > diagrams['packageDiagram'])
+             this.$el.append('&lt;li id="packageDiagram" class="switchDiagram">&lt;a href="#">Package&lt;/a>&lt;/li>');
+             else
+             if(diagrams[currentDiagram] == diagrams['packageDiagram'])
+             this.$el.append('&lt;li id="packageDiagram" class="active">Package&lt;/li>');
+             if(diagrams[currentDiagram] > diagrams['classDiagram'])
+             this.$el.append('&lt;li id="classDiagram" class="switchDiagram">&lt;a href="#">Class&lt;/a>&lt;/li>');
+             else
+             if(diagrams[currentDiagram] == diagrams['classDiagram'])
+             this.$el.append('&lt;li id="classDiagram" class="active">Class&lt;/li>');
+             if(diagrams[currentDiagram] > diagrams['bubbleDiagram'])
+             this.$el.append('&lt;li id="bubbleDiagram" class="switchDiagram">&lt;a href="#">Bubble&lt;/a>&lt;/li>');
+             else
+             if(diagrams[currentDiagram] == diagrams['bubbleDiagram'])
+             this.$el.append('&lt;li id="bubbleDiagram" class="active">Bubble&lt;/li>');*/
+            var i = 0;
+            while (i &lt; projectModel.currentPath.length) {
+                this.$el.append('&lt;li id="' + diagrams[i] + '" class="switchDiagram">&lt;a href="#">' + projectModel.currentPath[i] + '&lt;/a>&lt;/li>')
+                i++;
+            }
+            if (!i) {
+                this.$el.append('&lt;li id="packageDiagram" class="switchDiagram">&lt;a href="#">Package Diagram&lt;/a>&lt;/li>');
+            } else if (i&lt;3) {
+                this.$el.append('&lt;li id="' + diagrams[i] + '" class="active">' + diagrams[i] + '&lt;/li>');
+            }
+        },
+        /**
          *  @function PathView#initialize
          *  @summary Inizializzazione della PathView.
          */
 		initialize: function() {
 			this.listenTo(projectModel,'switchgraph',this.render);
 			this.render();
-		},
-		/**
-         *  @function PathView#render
-         *  @summary Render del path in base al diagramma correntemente visualizzato.
-         */
-		render: function() {
-			var currentDiagram = projectModel.currentDiagramType;
-			var diagrams = {'packageDiagram': 1, 'classDiagram': 2, 'bubbleDiagram': 3};
-			this.$el.empty();
-			if(diagrams[currentDiagram] > diagrams['packageDiagram'])
-				this.$el.append('&lt;li id="packageDiagram" class="switchDiagram">&lt;a href="#">Package&lt;/a>&lt;/li>');
-			else
-				if(diagrams[currentDiagram] == diagrams['packageDiagram'])
-					this.$el.append('&lt;li id="packageDiagram" class="active">Package&lt;/li>');
-			if(diagrams[currentDiagram] > diagrams['classDiagram'])
-				this.$el.append('&lt;li id="classDiagram" class="switchDiagram">&lt;a href="#">Class&lt;/a>&lt;/li>');
-			else
-				if(diagrams[currentDiagram] == diagrams['classDiagram'])
-					this.$el.append('&lt;li id="classDiagram" class="active">Class&lt;/li>');
-			if(diagrams[currentDiagram] > diagrams['bubbleDiagram'])
-				this.$el.append('&lt;li id="bubbleDiagram" class="switchDiagram">&lt;a href="#">Bubble&lt;/a>&lt;/li>');
-			else
-				if(diagrams[currentDiagram] == diagrams['bubbleDiagram'])
-					this.$el.append('&lt;li id="bubbleDiagram" class="active">Bubble&lt;/li>');
 		},
 		/**
          *  @function EditPanelView#switchDiagram
@@ -109,13 +120,13 @@ define ([
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleAssignment.html">bubbleAssignment</a></li><li><a href="bubbleDefinition.html">bubbleDefinition</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavaCoderActivity.html">JavaCoderActivity</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="JavascriptCoderActivity.html">JavascriptCoderActivity</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jul 06 2017 14:28:45 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Aug 27 2017 15:36:09 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

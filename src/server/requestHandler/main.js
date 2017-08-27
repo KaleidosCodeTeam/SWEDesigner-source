@@ -16,6 +16,11 @@ var app	            =	express();
 var path            = require('path');
 //app.use(express.static('../../webapp'));
 
+var bodyParser = require('body-parser')
+
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
+
 app.get('/',function(req,res){
     requestHandler.getIndex(req,res);
 });
@@ -48,6 +53,39 @@ app.get('/caricaJa',function(req,res){
    res.header('Content-type','application/json');
    res.header('Charset','utf8');
    res.jsonp(JSON.stringify(query));*/
+});
+
+app.post('/caricaJs',function(req,res){
+    //requestHandler.caricaJs(req,res);
+   requestHandler.caricaJa(req,res);
+   /*console.log('=========================================================================');
+   console.log("app.post");
+   console.log('params: ' + JSON.stringify(req.params));
+   console.log('body: ' + JSON.stringify(req.body));
+   console.log('query: ' + JSON.stringify(req.query));
+   res.header('Access-Control-Allow-Origin: http://localhost');
+   res.header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+   res.header('Access-Control-Max-Age: 1000');
+   res.header('Access-Control-Allow-Headers: Content-Type');
+   res.header('Content-type','application/json');
+   res.header('Charset','utf8');
+   res.send(req.body);*/
+});
+
+app.post('/caricaJa',function(req,res){
+   requestHandler.caricaJa(req,res);
+   /*console.log('=========================================================================');
+   console.log("app.post");
+   console.log('params: ' + JSON.stringify(req.params));
+   console.log('body: ' + JSON.stringify(req.body));
+   console.log('query: ' + JSON.stringify(req.query));
+   res.header('Access-Control-Allow-Origin: http://localhost');
+   res.header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+   res.header('Access-Control-Max-Age: 1000');
+   res.header('Access-Control-Allow-Headers: Content-Type');
+   res.header('Content-type','application/json');
+   res.header('Charset','utf8');
+   res.send(req.body);*/
 });
 
 app.get('/scarica/:response',function(req,res){

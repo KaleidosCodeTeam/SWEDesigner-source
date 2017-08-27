@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto bubbleReturn.
  *  @author Bonolo Marco - KaleidosCode
  */
@@ -21,7 +21,7 @@ define ([
 			Test.assert(bubbleReturn.getValues() != undefined, "L'oggetto bubbleReturn contiene un attributo 'values'", this.el);
 			Test.assertProperties(bubbleReturn.getValues(), ['_type', 'value', 'comment'], "L'oggetto bubbleReturn contiene gli attributi '_type', 'value', 'comment'", this.el);
 			Test.assert(bubbleReturn.defaults.values._type == 'RETURN', "Il _type (tipo) di default di un oggetto bubbleReturn è 'RETURN'", this.el);
-			Test.assert(bubbleReturn.defaults.values.comment == 'bubbleReturnName', "Il comment (nome,descrizione) di default di un oggetto bubbleReturn è 'bubbleReturnName'", this.el);
+			Test.assert(bubbleReturn.defaults.values.comment == 'bubbleReturn', "Il comment (nome,descrizione) di default di un oggetto bubbleReturn è 'bubbleReturn'", this.el);
 		}
 	});
 	return new bubbleReturnTest;
