@@ -230,7 +230,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Stringa identificativa della classe di cui si vuole ottenere il nome.</td>
+            <td class="description last">Stringa identificativa della ParsedClass di cui si vuole ottenere il nome.</td>
         </tr>
 
     
@@ -243,7 +243,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">ParsedProgram</span>
 
 
             
@@ -253,7 +253,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Contiene l'array di tutti gli oggetti che rappresentano una classe.</td>
+            <td class="description last">Le informazioni necessarie a codificare un programma.</td>
         </tr>
 
     
@@ -321,7 +321,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         
 <div class="param-desc">
-    Nome della classe corrispondente al classId di input.
+    Nome della ParsedClass corrispondente al classId di input.
 </div>
 
 
@@ -347,14 +347,14 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
     
 
-    <h4 class="name" id="getOperationById"><span class="type-signature"></span>getOperationById<span class="signature">(operId<span class="signature-attributes">non-null</span>, operations<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="getOperationById"><span class="type-signature"></span>getOperationById<span class="signature">(operId<span class="signature-attributes">non-null</span>, operations<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {ParsedOperation}</span></h4>
 
     
 
 
 
 <div class="description">
-    Ritorna il diagramma delle bubble corrispondente all'operId di input.
+    Ritorna l'oggetto di tipo ParsedOperation corrispondente all'operId di input.
 </div>
 
 
@@ -406,7 +406,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Identificativo dell'operazione che si vuole ottenere.</td>
+            <td class="description last">Identificativo della ParsedOperation che si vuole ottenere.</td>
         </tr>
 
     
@@ -419,7 +419,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;Object></span>
+<span class="param-type">Array.&lt;ParsedOperation></span>
 
 
             
@@ -470,7 +470,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line69">line 69</a>
+        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line88">line 88</a>
     </li></ul></dd>
     
 
@@ -497,7 +497,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         
 <div class="param-desc">
-    Diagramma delle bubble corrispondente all'operId di input.
+    Le informazioni necessarie a codificare un metodo/funzione..
 </div>
 
 
@@ -508,7 +508,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type">ParsedOperation</span>
 
 
     </dd>
@@ -523,14 +523,14 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
     
 
-    <h4 class="name" id="getPackageDependencies"><span class="type-signature"></span>getPackageDependencies<span class="signature">(packageId<span class="signature-attributes">non-null</span>, packages<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span></h4>
+    <h4 class="name" id="getPackageDependencies"><span class="type-signature"></span>getPackageDependencies<span class="signature">(packageId<span class="signature-attributes">non-null</span>, parsedProgram<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
 
     
 
 
 
 <div class="description">
-    Ritorna il le dipendenze OUT del package corrispondente al packageId di input.
+    Ritorna il le dipendenze OUT del ParsedPackage corrispondente al packageId di input.
 </div>
 
 
@@ -582,20 +582,20 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Identificativo del package di cui si vuole ottenere le dipendenze OUT.</td>
+            <td class="description last">Identificativo del ParsedPackage di cui si vuole ottenere le dipendenze OUT.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>packages</code></td>
+                <td class="name"><code>parsedProgram</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">ParsedProgram</span>
 
 
             
@@ -605,7 +605,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Oggetto che contiene l'array di tutti gli oggetti package.</td>
+            <td class="description last">Le informazioni necessarie a codificare un programma.</td>
         </tr>
 
     
@@ -673,7 +673,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         
 <div class="param-desc">
-    Le informazioni sulle dipendenze OUT del package di identificativo packageId.
+    Le informazioni sulle dipendenze OUT del ParsedPackage di identificativo packageId.
 </div>
 
 
@@ -684,7 +684,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;Object></span>
+<span class="param-type">Array.&lt;string></span>
 
 
     </dd>
@@ -706,7 +706,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
 
 <div class="description">
-    Ritorna il nome del package corrispondente al packageId di input.
+    Ritorna il nome del ParsedPackage corrispondente al packageId di input.
 </div>
 
 
@@ -758,7 +758,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Identificativo del package di cui si vuole ottenere il nome.</td>
+            <td class="description last">Identificativo del ParsedPackage di cui si vuole ottenere il nome.</td>
         </tr>
 
     
@@ -771,7 +771,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Array.&lt;ParsedPackage></span>
 
 
             
@@ -781,7 +781,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
             
 
-            <td class="description last">Oggetto che contiene l'array di tutti gli oggetti package.</td>
+            <td class="description last">Array di tutti gli oggetti ParsedPackage del programma da codificare.</td>
         </tr>
 
     
@@ -822,7 +822,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line54">line 54</a>
+        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line73">line 73</a>
     </li></ul></dd>
     
 
@@ -849,7 +849,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 
         
 <div class="param-desc">
-    Nome del package corrispondente al packageId di input.
+    Nome del ParsedPackage corrispondente al packageId di input.
 </div>
 
 
@@ -989,7 +989,7 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line14">line 14</a>
+        <a href="server_codeGenerator_zipper_zipper.js.html">server/codeGenerator/zipper/zipper.js</a>, <a href="server_codeGenerator_zipper_zipper.js.html#line37">line 37</a>
     </li></ul></dd>
     
 
@@ -1029,13 +1029,13 @@ Released under MIT license, https://github.com/requirejs/requirejs/blob/master/L
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleAssignment.html">bubbleAssignment</a></li><li><a href="bubbleDefinition.html">bubbleDefinition</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavaCoderActivity.html">JavaCoderActivity</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="JavascriptCoderActivity.html">JavascriptCoderActivity</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jul 06 2017 14:28:45 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Aug 27 2017 15:36:09 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

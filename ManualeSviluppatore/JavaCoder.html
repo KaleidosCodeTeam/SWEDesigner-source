@@ -37,7 +37,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Espone le funzionalità (statiche) che permettono di codificare,
+            <div class="description">Espone le funzionalità che permettono di codificare,
 	in linguaggio Java, un oggetto che rappresenta un programma.</div>
         
 
@@ -160,7 +160,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">ParsedClass</span>
 
 
             
@@ -211,7 +211,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line102">line 102</a>
+        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line121">line 121</a>
     </li></ul></dd>
     
 
@@ -238,7 +238,7 @@
 
         
 <div class="param-desc">
-    Stringa del codice sorgente, in Java, relativo alla lista completa degli attributi dell'oggetto di input.
+    Stringa del codice sorgente, in Java, relativo alla lista completa degli attributi dell'oggetto classObj di input.
 </div>
 
 
@@ -315,7 +315,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">ParsedClass</span>
 
 
             
@@ -338,7 +338,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Array.&lt;ParsedOperation></span>
 
 
             
@@ -389,7 +389,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line119">line 119</a>
+        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line138">line 138</a>
     </li></ul></dd>
     
 
@@ -417,7 +417,7 @@
         
 <div class="param-desc">
     Stringa del codice sorgente (definizione e implementazione), in Java, relativo a tutti i 
-	metodi dell'oggetto di input.
+	metodi di classObj in input.
 </div>
 
 
@@ -494,7 +494,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">ParsedOperation</span>
 
 
             
@@ -545,7 +545,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line84">line 84</a>
+        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line103">line 103</a>
     </li></ul></dd>
     
 
@@ -572,7 +572,7 @@
 
         
 <div class="param-desc">
-    Stringa del codice sorgente, in Java, relativo alla lista completa dei parametri dell'oggetto di input.
+    Stringa del codice sorgente, in Java, relativo alla lista completa dei parametri della ParsedOperation di input.
 </div>
 
 
@@ -598,7 +598,7 @@
 
     
 
-    <h4 class="name" id=".getCodedProgram"><span class="type-signature">(static) </span>getCodedProgram<span class="signature">(parsedProgram<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id=".getCodedProgram"><span class="type-signature">(static) </span>getCodedProgram<span class="signature">(parsedProgram<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {<a href="CodedProgram.html">CodedProgram</a>}</span></h4>
 
     
 
@@ -649,7 +649,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">ParsedProgram</span>
 
 
             
@@ -700,7 +700,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line155">line 155</a>
+        <a href="server_codeGenerator_coder_coder.js.html">server/codeGenerator/coder/coder.js</a>, <a href="server_codeGenerator_coder_coder.js.html#line174">line 174</a>
     </li></ul></dd>
     
 
@@ -727,7 +727,7 @@
 
         
 <div class="param-desc">
-    Istanza di CodedProgram, contenente il codice sorgente in Java corrispondente all'oggetto parsedProgram
+    Oggetto contenente il codice sorgente in Java corrispondente all'oggetto parsedProgram
 	di input, più le informazioni necessarie per organizzare i vari file.
 </div>
 
@@ -739,7 +739,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="CodedProgram.html">CodedProgram</a></span>
 
 
     </dd>
@@ -765,13 +765,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleAssignment.html">bubbleAssignment</a></li><li><a href="bubbleDefinition.html">bubbleDefinition</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavaCoderActivity.html">JavaCoderActivity</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="JavascriptCoderActivity.html">JavascriptCoderActivity</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jul 06 2017 14:28:45 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Aug 27 2017 15:36:09 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

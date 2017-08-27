@@ -5,7 +5,7 @@
 
 /** 
  *	@namespace
- *	@description Espone le funzionalitàche permettono di codificare
+ *	@description Espone le funzionalità che permettono di codificare
  *	l'implementazione di una operazione in Java (CoderActivity.codeElementJava)
  *	o Javascript (CoderActivity.codeElementJavascipt), secondo le informazioni contenute 
  *  nell'oggetto di tipo ParsedActivity in input; entrambe le funzioni restituiscono la stringa del codice sorgente

@@ -62,6 +62,7 @@ define ([
          *  @var {Object} EditPanelView#events - Gli eventi verificabili nel pannello.
          */
 		events: {},
+        classInfo: '',
         /**
          *  @function EditPanelView#initialize
          *  @summary Inizializzazione della EditPanelView.
@@ -95,18 +96,27 @@ define ([
                     v['id'] = p;
                 }
                 output = this.currentTemplate(v);
-                //console.log(output);
+                //Se in bubble diagram aggiungere lista variabili;
+                if (projectView.model.currentDiagramType === 'bubbleDiagram' &amp;&amp; !projectView.paper.selectedCell.isLink()) {
+                	output = output + this.classInfo;
+                }
                 this.$el.html(output);
+                if (output === "" || (typeof projectView.paper.selectedCell.getValues() !== 'undefined' &amp;&amp; projectView.paper.selectedCell.getValues()._type === 'START')) {
+                    this.$el.css("visibility","hidden");
+                } else {
+                    this.$el.css("visibility","visible");
+                }
                 this.delegateEvents(_.extend(this.events, {
                     'keypress .edit': 'confirmEdit',
                     'change .edit': 'confirmEdit',
                     'click .exec': 'execCommand',
                     'click .switch': 'switch',
                     'click .unembed': 'unembedCell',
-                    'click #saveCode': 'saveCode'
+                    'click #save': 'save'
                 }));
             } else {
                 this.$el.html("");
+                this.$el.css("visibility","hidden");
             }
 			return this;
 		},
@@ -118,16 +128,77 @@ define ([
         switch: function(e) {
             //console.log(e.target.value);
             projectView.switchIn(e.target.value);
+            // Creazione della sezione classInfo
+            if (projectView.model.currentDiagramType == 'bubbleDiagram') {
+                //console.log(projectView.model.members);
+                var members = projectView.model.members;
+                let app = '';
+                for (var i = 0; i &lt; members.attributes.length; i++) {
+                    let vis = "";
+                    switch (members.attributes[i]._visibility) {
+                        case "public":
+                            vis = "+";
+                            break;
+                        case "private":
+                            vis = "-";
+                            break;
+                        case "protected":
+                            vis = "#";
+                            break;
+                        case "package":
+                            vis = "~";
+                            break;
+                    }
+                    app = app + '&lt;li>' + vis + ' ' + members.attributes[i]._name + ' : ' + members.attributes[i]._type + '&lt;/li>';
+                }
+                this.classInfo = '&lt;div class="classInfo">&lt;label>Attributi:&lt;/label>&lt;ul>'+app+'&lt;/ul>';
+                app = '';
+                for (var i = 0; i &lt; members.methods.length; i++) {
+                    let vis = "";
+                    switch (members.methods[i]._visibility) {
+                        case "public":
+                            vis = "+";
+                            break;
+                        case "private":
+                            vis = "-";
+                            break;
+                        case "protected":
+                            vis = "#";
+                            break;
+                        case "package":
+                            vis = "~";
+                            break;
+                    }
+                    let params = members.methods[i].parameters.map(function(f) {
+                        return f._name + ":" + f._type;
+                    }).join(", ");
+                    app = app + '&lt;li>' + vis + ' ' + members.methods[i]._name + ' ( ' + params + ' ) : ' + members.methods[i].returnType + '&lt;/li>';
+                }
+                this.classInfo = this.classInfo + '&lt;label>Metodi:&lt;/label>&lt;ul>'+app+'&lt;/ul>&lt;/div>';
+            } else {
+                this.classInfo = '';
+            }
         },
         /**
-         *  @function EditPanelView#saveCode
+         *  @function EditPanelView#save
          *  @param {Object} e - Elemento generante l'evento.
-         *  @summary Metodo chiamato da evento generato. Salvataggio del codice interno ad una customBubble.
+         *  @summary Metodo chiamato da evento generato. Salvataggio di testo.
          */
-        saveCode: function(e) {
-            //console.log($('#bubbleCode').val());
-            //console.log($('#bubbleCode').attr('name'));
-            projectView.paper.selectedCell.setToValue($('#bubbleCode').val(), $('#bubbleCode').attr('name'));
+        save: function(e) {
+            //console.log(e.target.id);
+            if (e.target.id === 'saveJava') {
+                projectView.paper.selectedCell.setToValue($('#bubbleJavaCode').val(), $('#bubbleJavaCode').attr('name'));
+            } else if (e.target.id === 'saveJavascript') {
+                projectView.paper.selectedCell.setToValue($('#bubbleJSCode').val(), $('#bubbleJSCode').attr('name'));
+            } else if (e.target.id === 'saveComment') {
+                projectView.paper.selectedCell.setToValue($('#comment').val(), $('#comment').attr('name'));
+            }
+            var cellView = projectView.paper.findViewByModel(projectView.paper.selectedCell);
+            if (!projectView.paper.selectedCell.isLink()) {
+                cellView.unhighlight();
+                cellView.highlight();
+            }
+            //console.log(projectView.paper.selectedCell);
         },
         /**
          *  @function EditPanelView#execCommand
@@ -135,21 +206,30 @@ define ([
          *  @summary Metodo chiamato da evento generato. Esegue il metodo definito dal nome dell'elemento generante l'evento sul contenuto selezionato nel pannello.
          */
         execCommand: function (e) {
-            var tmp = e.target.name.split(".");
-            if (tmp[0] === "deleteOperation") {
-                projectView.deleteOperationAt(tmp[1]);
+            if (typeof e.target.name != 'undefined') {
+                var tmp = e.target.name.split(".");
+                if (tmp[0] === "deleteOperation") {
+                    projectView.deleteOperationAt(tmp[1]);
+                }
+                projectView.paper.selectedCell.executeMethod(tmp[0], Array.prototype.slice.call(tmp, 1));
+                this.render();
+                var cellView = projectView.paper.findViewByModel(projectView.paper.selectedCell);
+                if (!projectView.paper.selectedCell.isLink()) {
+                    cellView.unhighlight();
+                    cellView.highlight();
+                }
+                if (tmp[0] === "addOperation" || tmp[0] === "deleteOperation") {
+                    $(".class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
+                    $(".interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display", "none");
+                } else if (tmp[0] === "addParameter" || tmp[0] === "deleteParameter") {
+                    $(".class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
+                    $(".interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display", "none");
+                    $(".details"+tmp[1]).css("display","block");
+                    $(".parameters"+tmp[1]).css("display","block");
+                } else if (tmp[0] === "addAttribute" || tmp[0] === "deleteAttribute") {
+                    $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, .class-attribute-details").css("display", "none");
+                };
             }
-            projectView.paper.selectedCell.executeMethod(tmp[0], Array.prototype.slice.call(tmp, 1));
-            this.render();
-            if (tmp[0] === "addOperation" || tmp[0] === "deleteOperation") {
-                $(".class-operation-details, .class-operation-parameters, .class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
-                $(".interface-operation-details, .interface-operation-parameters, .interface-operation-parameter-details").css("display", "none");
-            } else if (tmp[0] === "addParameter" || tmp[0] === "deleteParameter") {
-                $(".class-operation-parameter-details, #class-attributes, .class-attribute-details").css("display", "none");
-                $(".interface-operation-parameter-details").css("display", "none");
-            } else if (tmp[0] === "addAttribute" || tmp[0] === "deleteAttribute") {
-                $("#class-operations, .class-operation-details, .class-operation-parameters, .class-operation-parameter-details, .class-attribute-details").css("display", "none");
-            };
         },
         /**
          *  @function EditPanelView#unembedCell
@@ -167,13 +247,25 @@ define ([
         confirmEdit: function(e) {
             if ((e.type === "keypress" &amp;&amp; e.which === 13) || e.type === "change") {
                 if (e.target.type === "checkbox") {
-                    projectView.paper.selectedCell.setToValue(e.target.checked ? "true" : "false", e.target.name);
-                    //this.render();
+                    if (projectView.paper.selectedCell !== null) {
+                        projectView.paper.selectedCell.setToValue(e.target.checked ? "true" : "false", e.target.name);
+                        //this.render();
+                    }
                 } else {
-                    //console.log(projectView.paper.selectedCell);
-                    projectView.paper.selectedCell.setToValue(e.target.value, e.target.name);
-                    //console.log(projectView.paper.selectedCell);
-                    //this.render();
+                    e.target.value = e.target.value.replace(/&amp;(?!amp;)(?!quot;)(?!apos;)/g, '&amp;amp;');
+                    e.target.value = e.target.value.replace(/"/g, '&amp;quot;');
+                    e.target.value = e.target.value.replace(/'/g, "&amp;apos;");
+                    //console.log(e.target.value);
+                    if (projectView.paper.selectedCell !== null) {
+                        projectView.paper.selectedCell.setToValue(e.target.value, e.target.name);
+                        //console.log(projectView.paper.selectedCell);
+                        //this.render();
+                        var cellView = projectView.paper.findViewByModel(projectView.paper.selectedCell);
+                        if (!projectView.paper.selectedCell.isLink()) {
+                            cellView.unhighlight();
+                            cellView.highlight();
+                        }
+                    }
                 }
             }
         }
@@ -190,13 +282,13 @@ define ([
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Aggregation.html">Aggregation</a></li><li><a href="Association.html">Association</a></li><li><a href="bubbleAssignment.html">bubbleAssignment</a></li><li><a href="bubbleDefinition.html">bubbleDefinition</a></li><li><a href="bubbleDiagram__Base.html">bubbleDiagram::Base</a></li><li><a href="bubbleDiagram__BaseView.html">bubbleDiagram::BaseView</a></li><li><a href="bubbleDiagramLink.html">bubbleDiagramLink</a></li><li><a href="bubbleElse.html">bubbleElse</a></li><li><a href="bubbleFor.html">bubbleFor</a></li><li><a href="bubbleIf.html">bubbleIf</a></li><li><a href="bubbleLink.html">bubbleLink</a></li><li><a href="bubbleReturn.html">bubbleReturn</a></li><li><a href="bubbleStart.html">bubbleStart</a></li><li><a href="bubbleWhile.html">bubbleWhile</a></li><li><a href="Class.html">Class</a></li><li><a href="classDiagram__Base.html">classDiagram::Base</a></li><li><a href="classDiagram__BaseView.html">classDiagram::BaseView</a></li><li><a href="classDiagramLink.html">classDiagramLink</a></li><li><a href="ClComment.html">ClComment</a></li><li><a href="ClCommentLink.html">ClCommentLink</a></li><li><a href="ClCommentView.html">ClCommentView</a></li><li><a href="client__RequestHandler.html">client::RequestHandler</a></li><li><a href="CodedProgram.html">CodedProgram</a></li><li><a href="Composition.html">Composition</a></li><li><a href="customBubble.html">customBubble</a></li><li><a href="EditPanelView.html">EditPanelView</a></li><li><a href="Generalization.html">Generalization</a></li><li><a href="Implementation.html">Implementation</a></li><li><a href="Interface.html">Interface</a></li><li><a href="Package.html">Package</a></li><li><a href="packageDiagram__Base.html">packageDiagram::Base</a></li><li><a href="packageDiagram__BaseView.html">packageDiagram::BaseView</a></li><li><a href="packageDiagramLink.html">packageDiagramLink</a></li><li><a href="PathView.html">PathView</a></li><li><a href="PkgComment.html">PkgComment</a></li><li><a href="PkgCommentLink.html">PkgCommentLink</a></li><li><a href="PkgCommentView.html">PkgCommentView</a></li><li><a href="PkgDependency.html">PkgDependency</a></li><li><a href="Project.html">Project</a></li><li><a href="ProjectModel.html">ProjectModel</a></li><li><a href="ProjectView.html">ProjectView</a></li><li><a href="TitlebarView.html">TitlebarView</a></li><li><a href="ToolbarModel.html">ToolbarModel</a></li><li><a href="ToolbarView.html">ToolbarView</a></li></ul><h3>Namespaces</h3><ul><li><a href="Builder.html">Builder</a></li><li><a href="client__DataManager.html">client::DataManager</a></li><li><a href="codeGenerator.html">codeGenerator</a></li><li><a href="CoderActivity.html">CoderActivity</a></li><li><a href="CoderAttribute.html">CoderAttribute</a></li><li><a href="CoderClass.html">CoderClass</a></li><li><a href="CoderOperation.html">CoderOperation</a></li><li><a href="CoderParameter.html">CoderParameter</a></li><li><a href="JavaCoder.html">JavaCoder</a></li><li><a href="JavaCoderActivity.html">JavaCoderActivity</a></li><li><a href="JavascriptCoder.html">JavascriptCoder</a></li><li><a href="JavascriptCoderActivity.html">JavascriptCoderActivity</a></li><li><a href="Parser.html">Parser</a></li><li><a href="server__DataManager.html">server::DataManager</a></li><li><a href="server__RequestHandler.html">server::RequestHandler</a></li><li><a href="Zipper.html">Zipper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getNameById">getNameById</a></li><li><a href="global.html#getOperationById">getOperationById</a></li><li><a href="global.html#getPackageDependencies">getPackageDependencies</a></li><li><a href="global.html#getPackNameById">getPackNameById</a></li><li><a href="global.html#requirejs">requirejs</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jul 06 2017 14:28:45 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Aug 27 2017 15:36:09 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

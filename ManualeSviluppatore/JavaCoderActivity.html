@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: codeGenerator</title>
+    <title>JSDoc: Namespace: JavaCoderActivity</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: codeGenerator</h1>
+    <h1 class="page-title">Namespace: JavaCoderActivity</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>codeGenerator</h2>
+        <h2>JavaCoderActivity</h2>
         
     
 </header>
@@ -37,10 +37,11 @@
     <div class="container-overview">
     
         
-            <div class="description">Espone le funzionalità (statiche) che permettono di codificare
-	un programma, rappresentato dal file json di input, in Java (codeGenerator.generateJavaProgram)
-	o Javascript (codeGenerator.generateJsProgram); entrambe le funzioni creano un pacchetto in formato .zip contenente
-	il programma codificato e strutturato in file e directory come da specifica del json di input.</div>
+            <div class="description">Espone le funzionalità che permettono di codificare
+	l'implementazione di una operazione in Java (CoderActivity.codeElementJava)
+	o Javascript (CoderActivity.codeElementJavascipt), secondo le informazioni contenute 
+ nell'oggetto di tipo ParsedActivity in input; entrambe le funzioni restituiscono la stringa del codice sorgente
+	nel linguaggio scelto.</div>
         
 
         
@@ -75,7 +76,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_codeGenerator.js.html">server/codeGenerator/codeGenerator.js</a>, <a href="server_codeGenerator_codeGenerator.js.html#line23">line 23</a>
+        <a href="server_codeGenerator_coder_CoderElement_coderActivity.js.html">server/codeGenerator/coder/CoderElement/coderActivity.js</a>, <a href="server_codeGenerator_coder_CoderElement_coderActivity.js.html#line103">line 103</a>
     </li></ul></dd>
     
 
@@ -103,322 +104,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".generateJavaProgram"><span class="type-signature">(static) </span>generateJavaProgram<span class="signature">(jsonProgram<span class="signature-attributes">non-null</span>, string<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Codifica, in Java, il programma rappresentanto dal json in input
-	e costruisce un pacchetto compresso in formato .zip contenente
-	il programma codificato e strutturato in file e directory come da specifica del json di input.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>jsonProgram</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Le informazioni necessarie a codificare un programma.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>string</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">nomeZip</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Specifica il nome con cui verrà nominato l'archivio zip prodotto.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_codeGenerator.js.html">server/codeGenerator/codeGenerator.js</a>, <a href="server_codeGenerator_codeGenerator.js.html#line42">line 42</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".generateJsProgram"><span class="type-signature">(static) </span>generateJsProgram<span class="signature">(jsonProgram<span class="signature-attributes">non-null</span>, string<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Codifica, in Javascript, il programma rappresentanto dal json in input
-	e costruisce un pacchetto compresso in formato .zip contenente
-	il programma codificato e strutturato in file e directory come da specifica del json di input.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>jsonProgram</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Le informazioni necessarie a codificare un programma.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>string</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">nomeZip</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Specifica il nome con cui verrà nominato l'archivio zip prodotto.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="server_codeGenerator_codeGenerator.js.html">server/codeGenerator/codeGenerator.js</a>, <a href="server_codeGenerator_codeGenerator.js.html#line24">line 24</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
     
 
     
