@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto ProjectView.
  *  @author Bonolo Marco - KaleidosCode
  */

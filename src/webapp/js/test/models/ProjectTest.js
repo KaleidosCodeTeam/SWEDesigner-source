@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto Project.
  *  @author Bonolo Marco - KaleidosCode
  */

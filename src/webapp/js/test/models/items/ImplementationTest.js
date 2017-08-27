@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto Implementation.
  *  @author Bonolo Marco - KaleidosCode
  */

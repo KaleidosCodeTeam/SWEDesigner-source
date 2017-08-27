@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto bubbleWhile.
  *  @author Bonolo Marco - KaleidosCode
  */
@@ -21,7 +21,7 @@ define ([
 			Test.assert(bubbleWhile.getValues() != undefined, "L'oggetto bubbleWhile contiene un attributo 'values'", this.el);
 			Test.assertProperties(bubbleWhile.getValues(), ['_type', 'condition', 'comment'], "L'oggetto bubbleWhile contiene gli attributi '_type', 'condition', 'comment'", this.el);
 			Test.assert(bubbleWhile.defaults.values._type == 'WHILE', "Il _type (tipo) di default di un oggetto bubbleWhile è 'WHILE'", this.el);
-			Test.assert(bubbleWhile.defaults.values.comment == 'bubbleWhileName', "Il comment (nome,descrizione) di default di un oggetto bubbleWhile è 'bubbleWhileName'", this.el);
+			Test.assert(bubbleWhile.defaults.values.comment == 'bubbleWhile', "Il comment (nome,descrizione) di default di un oggetto bubbleWhile è 'bubbleWhile'", this.el);
 		}
 	});
 	return new bubbleWhileTest;

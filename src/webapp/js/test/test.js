@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per gli oggetti di SwedesignerItems.
  *  @author Bonolo Marco - KaleidosCode
  */

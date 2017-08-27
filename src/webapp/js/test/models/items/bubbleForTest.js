@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto bubbleFor.
  *  @author Bonolo Marco - KaleidosCode
  */
@@ -21,7 +21,7 @@ define ([
 			Test.assert(bubbleFor.getValues() != undefined, "L'oggetto bubbleFor contiene un attributo 'values'", this.el);
 			Test.assertProperties(bubbleFor.getValues(), ['_type', 'initialization', 'termination', 'increment', 'comment'], "L'oggetto bubbleFor contiene gli attributi '_type', 'initialization', 'termination', 'increment', 'comment'", this.el);
 			Test.assert(bubbleFor.defaults.values._type == 'FOR', "Il _type (tipo) di default di un oggetto bubbleFor è 'FOR'", this.el);
-			Test.assert(bubbleFor.defaults.values.comment == 'bubbleForName', "Il comment (nome,descrizione) di default di un oggetto bubbleFor è 'bubbleForName'", this.el);
+			Test.assert(bubbleFor.defaults.values.comment == 'bubbleFor', "Il comment (nome,descrizione) di default di un oggetto bubbleFor è 'bubbleFor'", this.el);
 		}
 	});
 	return new bubbleForTest;

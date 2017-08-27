@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto bubbleElse.
  *  @author Bonolo Marco - KaleidosCode
  */
@@ -21,7 +21,7 @@ define ([
 			Test.assert(bubbleElse.getValues() != undefined, "L'oggetto bubbleElse contiene un attributo 'values'", this.el);
 			Test.assertProperties(bubbleElse.getValues(), ['_type', 'comment'], "L'oggetto bubbleElse contiene gli attributi '_type', 'comment'", this.el);
 			Test.assert(bubbleElse.defaults.values._type == 'ELSE', "Il _type (tipo) di default di un oggetto bubbleElse è 'ELSE'", this.el);
-			Test.assert(bubbleElse.defaults.values.comment == 'bubbleElseName', "Il comment (nome,descrizione) di default di un oggetto bubbleElse è 'bubbleElseName'", this.el);
+			Test.assert(bubbleElse.defaults.values.comment == 'bubbleElse', "Il comment (nome,descrizione) di default di un oggetto bubbleElse è 'bubbleElse'", this.el);
 		}
 	});
 	return new bubbleElseTest;

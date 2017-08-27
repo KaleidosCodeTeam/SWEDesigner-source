@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto ClComment.
  *  @author Bonolo Marco - KaleidosCode
  */

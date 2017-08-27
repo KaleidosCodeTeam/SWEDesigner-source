@@ -1,4 +1,4 @@
-/**
+/*
  *  @file Contiene i test per l'oggetto Package.
  *  @author Bonolo Marco - KaleidosCode
  */
@@ -21,7 +21,7 @@ define ([
 			Test.assert(Package.getValues() != undefined, "L'oggetto Package contiene un attributo 'values'", this.el);
 			Test.assertProperties(Package.getValues(), ['_package', '_importance'], "L'oggetto Package contiene gli attributi values._package e values._importance", this.el);
 			Test.assert(Package.getPackageName() != undefined, "L'oggetto Package contiene una funzione che ritorna il nome del package", this.el);
-			Test.assert(Package.defaults.values._package == 'PackageName', "Il nome di default di un oggetto Package è 'PackageName'", this.el);
+			Test.assert(Package.defaults.values._package == 'NomePackage', "Il nome di default di un oggetto Package è 'NomePackage'", this.el);
 		}
 	});
 	return new PackageTest;
