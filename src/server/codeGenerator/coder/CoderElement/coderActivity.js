@@ -190,15 +190,17 @@ JavaCoderActivity.codeBubble = function(bubbleObj, activityObj, parent) {
  *	@static
  *	@param {!ParsedActivity} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
+ *	@param {!className} string - Nome della classe che possiede l'attività.
+ *	@param {!operName} string - Nome del metodo/funzione relativo all'attività.
  *	@return {string} Stringa del codice sorgente, in Java, dell'implementazione della operazione activityObj di input.
  *	@description Riceve in input activityObj, un oggetto che rappresenta l'implementazione di una operazione;  
  *	restituisce la stringa del codice sorgente, in Java, relativa all'implentazione dell'attività.
  */
-JavaCoderActivity.codeElement = function(activityObj) {
+JavaCoderActivity.codeElement = function(activityObj,className,operName) {
 	var source = "";
 	var startBubble = CoderActivity.getStartBubble(activityObj.items); // oggetto bubble
 	if(startBubble == null) {
-		throw "Nessuna classe iniziale trovata per il metodo "+ activityObj.id;
+		throw "Nessuna classe iniziale trovata per il metodo "+operName+" della classe "+className;
 	}
 	var nextBubble = CoderActivity.getNextBubble(startBubble,activityObj.items);
 
@@ -243,7 +245,6 @@ JavascriptCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
 		}
 		var startBubble = CoderActivity.getStartBubble(EmbeddedBubbles, bubbleObj.id); 
 		if(startBubble) {
-
 			var nextBubble = CoderActivity.getNextBubble(startBubble, activityObj);
 			while(nextBubble) {
 				source += JavascriptCoderActivity.codeBubble(nextBubble, activityObj, bubbleObj.id);
@@ -310,15 +311,17 @@ JavascriptCoderActivity.codeBubble = function(bubbleObj, activityObj, parent) {
  *	@static
  *	@param {!ParsedActivity} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
+ *	@param {!className} string - Nome della classe che possiede l'attività.
+ *	@param {!operName} string - Nome del metodo/funzione relativo all'attività.
  *	@return {string} Stringa del codice sorgente, in Javascript, dell'implementazione della operazione activityObj di input.
  *	@description Riceve in input activityObj, un oggetto che rappresenta l'implementazione di una operazione;  
  *	restituisce la stringa del codice sorgente, in Javascript, relativa all'implentazione dell'attività.
  */
-JavascriptCoderActivity.codeElement = function(activityObj) {
+JavascriptCoderActivity.codeElement = function(activityObj,className,operName) {
 	var source = "";
 	var startBubble = CoderActivity.getStartBubble(activityObj); // oggetto bubble
 	if(startBubble == null) {
-		throw "Nessuna classe iniziale trovata per il metodo ";
+		throw "Nessuna classe iniziale trovata per il metodo "+operName+" della classe "+className;
 	}
 	var nextBubble = CoderActivity.getNextBubble(startBubble,activityObj);
 

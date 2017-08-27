@@ -158,7 +158,7 @@ JavaCoder.coderOperations = function(classObj,operations) {
 			for(var i=0; i<operations.length && !finded; i++) {
 				if(opers[y].id == operations[i].id) {
 					finded = true;
-					source += CoderActivity.codeElementJava(operations[i]); 
+					source += CoderActivity.codeElementJava(operations[i],classObj.values._name,opers[y]._name); 
 				}
 			}
 			source += " \n }; \n";
@@ -297,7 +297,7 @@ JavascriptCoder.coderInstanceOperations = function(classObj, operations) {
 			source += ") \n { \n";
 			var operation = getOperationById(opers[y].id,operations);	// chiude la lista dei parametri e apre l'implementazione
 			if(operation && operation.items.length>0) {
-				source += CoderActivity.codeElementJavascript(operation.items);
+				source += CoderActivity.codeElementJavascript(operation.items,classObj.values._name,opers[y]._name);
 			}
 			source += "} \n"; 											// chiude l'implementazione dell'operazione
 		}		
@@ -363,7 +363,7 @@ JavascriptCoder.coderStaticOperations = function(classObj, operations) {
 			source += ") \n { \n"; // chiude la lista dei parametri e apre l'implementazione
 			var operation = getOperationById(opers[y].id, operations);
 			if(operation && operation.items.length>0) {
-				source += CoderActivity.codeElementJavascript(operation.items);
+				source += CoderActivity.codeElementJavascript(operation.itemsclassObj.values._name,opers[y]._name);
 			}
 			source += "} \n"; // chiude l'implementazione dell'operazione
 		}		
