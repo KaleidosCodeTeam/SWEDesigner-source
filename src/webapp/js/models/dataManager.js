@@ -44,28 +44,39 @@ define ([
     DataManager.openProject = function() {
         //console.log('DataManager.openProject');
         var myFile = document.getElementById("selectedFile").files[0];
-        var myFileRead = {};
-        var reader = new FileReader();
-        reader.onload = function(event) {
-            myFileRead = event.target.result;
-            //console.log(myFileRead);
-            var myProject = JSON.parse(myFileRead);
-            //console.log(myProject);
-            //console.log(myProject.packages);
-            project.packages = myProject.packages;
-            project.classes = myProject.classes;
-            project.operations = myProject.operations;
-            projectModel.currentDiagramType = 'packageDiagram';
-            projectModel.currentDiagram = null;
-            projectModel.graph.resetCells(project.packages.packagesArray.concat(project.packages.dependenciesArray));
-            projectModel.itemToBeAdded = null;
-            projectModel.members.attributes = [];
-            projectModel.members.methods = [];
-            projectModel.currentPath = [];
-            projectModel.graphSwitched();
-            console.log('Project successfully loaded');
-        };
-        reader.readAsText(myFile);
+        var v = document.getElementById("selectedFile").files[0].name.split(".");
+        if (v[v.length-1] === "swed") {
+	        var myFileRead = {};
+	        var reader = new FileReader();
+	        reader.onload = function(event) {
+                try {
+    	            myFileRead = event.target.result;
+    	            //console.log(myFileRead);
+    	            var myProject = JSON.parse(myFileRead);
+    	            //console.log(myProject);
+    	            //console.log(myProject.packages);
+    	            project.packages = myProject.packages;
+    	            project.classes = myProject.classes;
+    	            project.operations = myProject.operations;
+    	            projectModel.currentDiagramType = 'packageDiagram';
+    	            projectModel.currentDiagram = null;
+    	            projectModel.graph.resetCells(project.packages.packagesArray.concat(project.packages.dependenciesArray));
+    	            projectModel.itemToBeAdded = null;
+    	            projectModel.members.attributes = [];
+    	            projectModel.members.methods = [];
+    	            projectModel.currentPath = [];
+    	            projectModel.graphSwitched();
+    	            console.log('Project successfully loaded');
+                } catch (e) {
+                    console.log('Error while reading file');
+                    window.alert('ERRORE: Il file è danneggiato o contiene errori');
+                }
+	        };
+	        reader.readAsText(myFile);
+	    } else {
+	    	console.log('File extension wrong');
+            window.alert('ERRORE: Il file in input non ha estensione .swed');
+	    }
     };
     /**
      *  @function client::DataManager.newProject
