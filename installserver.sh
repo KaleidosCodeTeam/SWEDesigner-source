@@ -5,6 +5,9 @@ npm install express
 echo "ho installato express"
 npm install multer
 echo "ho installato multer"
+npm install body-parser
+echo "ho installato body-parser"
+
 
 cd ..
 cd ./dataManager
