@@ -3,8 +3,7 @@ Software Engineering Project for the course of Computer Science of the Universit
 
 - Browser supportati:
 
- 	Google Chrome (v58 o superiore)
- 	Microsoft Edge
+ 	Google Chrome (v58 o superiore), Microsoft Edge
 
 
  - Istruzioni per l'installazione:
