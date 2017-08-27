@@ -1,5 +1,5 @@
 /**
- *	@file Contiene le classi statiche JavaCoder e JavascriptCoder.
+ *	@file Contiene le classi JavaCoder e JavascriptCoder.
  *	@author Sanna Giovanni - KaleidosCode
  *
  *	@requires ./CoderElement/coderClass.js

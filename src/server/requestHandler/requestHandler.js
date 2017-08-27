@@ -1,5 +1,5 @@
 /**
- *	@file Contiene la classe statica RequestHandler
+ *	@file Contiene la classe RequestHandler
  *	@author Bonato Enrico - KaleidosCode
  *
  *  @requires ../codeGenerator/codeGenerator.js

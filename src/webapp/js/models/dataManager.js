@@ -1,5 +1,5 @@
 /**
- *  @file Contiene la classe statica DataManager.
+ *  @file Contiene la classe DataManager.
  *  @author Sovilla Matteo - KaleidosCode
  */
 define ([

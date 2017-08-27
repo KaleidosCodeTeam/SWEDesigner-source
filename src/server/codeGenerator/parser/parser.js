@@ -1,5 +1,5 @@
 /**
- *	@file Contiene la classe statica Parser
+ *	@file Contiene la classe Parser
  *	@author Bonato Enrico - KaleidosCode
  *
  *  @requires json-fn
