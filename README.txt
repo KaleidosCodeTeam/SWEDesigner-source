@@ -31,6 +31,7 @@
  			- mysql
  			- json-fn
  			- archiver
+ 			- body-parser
  		4. Spostare la cartella SWEDesigner nella directory della Apache's Web Page Root (è necessario avere i permessi di scrittura)
 
 
