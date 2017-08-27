@@ -42,24 +42,19 @@ function getPackageDependencies(packageId, parsedProgram) {
 		if(packDependencies[i].source.id == packageId) {
 			finded = false;
 			for(var j=0; j<packArray.length && !finded; j++) {
-				console.log("1111");
 				if(packArray[j].id == packDependencies[i].target.id) {
-					console.log("2222");
 					finded = true;
 					var classArray = parsedProgram.classes.classesArray;
 					var classFind = false;
 					for(var k=0; k<classArray.length && !classFind; k++) {
-						console.log("3333");
 						
 						if(classArray[k].id == packArray[j].id) {
 							classFind = true;
-							console.log("4444");
 							dependencies[count] = { name : packArray[j].values._package, isLibrary : false };
 							count++;
 						}
 					}
 					if(!classFind) {
-						console.log("5555");
 						dependencies[count] = { name : packArray[j].values._package, isLibrary : true };
 						count++;
 					}
@@ -191,16 +186,18 @@ JavaCoder.getCodedProgram = function(parsedProgram) {
 			var packageName = getPackNameById(packageId, parsedProgram.packages);
 			var items = classes[i].items;
 			for(var j=0; j<items.length; j++) {
-				var source = "";
-				source += CoderClass.codeElementJava(items[j],parsedProgram); // restituisce l'intestazione della classe
-				source += "\n { \n"; // apre la definizione della classe	
-				if(items[j].values.isInterface == "false"){
-					source += JavaCoder.coderAttributes(items[j]);
-				}								
-				source += JavaCoder.coderOperations(items[j],parsedProgram.operations);
-				source += "};"; // chiude l'implementazione della classe
-				codedP.add(new Class(items[j].values._name, source, packageName, items[j]._name, getPackageDependencies(classes[i].id, parsedProgram)));
-			}			
+				if(items[j].type=="classDiagram.items.Class") {
+					var source = "";
+					source += CoderClass.codeElementJava(items[j],parsedProgram); // restituisce l'intestazione della classe
+					source += "\n { \n"; // apre la definizione della classe	
+					if(items[j].values.isInterface == "false"){
+						source += JavaCoder.coderAttributes(items[j]);
+					}							
+					source += JavaCoder.coderOperations(items[j],parsedProgram.operations);
+					source += "};"; // chiude l'implementazione della classe
+					codedP.add(new Class(items[j].values._name, source, packageName, items[j]._name, getPackageDependencies(classes[i].id, parsedProgram)));
+				}			
+			}				
 		}
 		return codedP;
 };
