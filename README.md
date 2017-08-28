@@ -28,6 +28,7 @@ Software Engineering Project for the course of Computer Science of the Universit
  			- json-fn
  			- archiver
  			- body-parser
+ 			- unescape
  		4. Spostare la cartella SWEDesigner-source nella directory della Apache's Web Page Root (è necessario avere i permessi di scrittura)
 
 
