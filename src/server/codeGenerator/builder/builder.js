@@ -12,6 +12,7 @@ var mkdirp=require('mkdirp');
 var fs=require('fs');
 var Zipper=require('../zipper/zipper.js');
 var cp = require('child_process');
+var decode = require('unescape');
 
 /** @namespace */
 var Builder = (function() {
@@ -43,7 +44,6 @@ var Builder = (function() {
 				/** SCRIVE il nome del package, le dipendenze ed il codice sorgente nel nuovo file. */
 				var str='package '+progDir+"."+pkg+';\n';
 				for (var i=0; i<dependencies.length; ++i) {
-					console.log("****** "+dependencies[i].isLibrary+"  -  "+dependencies[i].name);
 					if(dependencies[i].isLibrary==false){
 						str=str+'import '+progDir+"."+dependencies[i].name+'.*;\n';
 					}
@@ -83,6 +83,10 @@ var Builder = (function() {
 				/** SCRIVE il codice sorgente in append nel file già esistente. */
 				fs.appendFileSync(filePath, '\n'+source);
 			}
+		},
+
+		unescape : function(str) {
+			str.replace("&amp;","&");
 		}
 	};
 	return {
@@ -111,7 +115,9 @@ var Builder = (function() {
 				}
 				return '';
 			}());
-			var report = "ERRORI DI COMPILAZIONE: \n\n";
+			var report = "ERRORI DI DIAGRAMMA: \n\n";
+			report += program.report + "\n";
+			report += "ERRORI DI COMPILAZIONE: \n\n";
 			if (programDirectory==='') {
 				throw 'NO_FILES_TO_BUILD';
 			} else {
@@ -123,7 +129,7 @@ var Builder = (function() {
 					var fileName=program._classes[i]._name;
 					var filePkg=program._classes[i]._package;
 					var fileDep=program._classes[i]._dependencies;
-					var fileSrcCode=program._classes[i]._source;
+					var fileSrcCode=decode(program._classes[i]._source);
 					_private.mkJavaFile(programDirectory, fileName, filePkg, fileDep, fileSrcCode);
 
 					filesPath[count] = programDirectory+"/"+filePkg+"/"+fileName+".java";
@@ -146,7 +152,6 @@ var Builder = (function() {
 				for(var w=0; w<filesPath.length;w++) {
 					fs.unlinkSync(__dirname+"/../"+filesPath[w]);
 				}	
-				
 				fs.writeFileSync(programPath+"/report.txt", report);
 				return {
 					progDirectory : programDirectory,
@@ -179,6 +184,8 @@ var Builder = (function() {
 				}
 				return '';
 			}());
+			var report = "ERRORI DI DIAGRAMMA: \n\n";
+			report += program.report + "\n";
 			if (programDirectory==='') {
 				throw 'NO_FILES_TO_BUILD';
 			} else {
@@ -187,9 +194,10 @@ var Builder = (function() {
 				for (var i=0; i<program._classes.length; ++i) {
 					var fileName=program._classes[i]._name;
 					var filePkg=program._classes[i]._package;
-					var fileSrcCode=program._classes[i]._source;
+					var fileSrcCode=decode(program._classes[i]._source);
 					_private.mkJavascriptFile(programDirectory, fileName, filePkg, fileSrcCode);
 				}
+				fs.writeFileSync(programPath+"/report.txt", report);
 				return {
 					progDirectory : programDirectory,
 					progPath : programPath

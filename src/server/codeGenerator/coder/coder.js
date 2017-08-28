@@ -143,6 +143,7 @@ JavaCoder.coderAttributes = function(classObj) {
  */
 JavaCoder.coderOperations = function(classObj,operations) {
 	source = "";
+	report= "";
 	var opers = classObj.values.operations; // array dei metodi della classe
 	for(var y=0; y<opers.length; y++) {
 		source += CoderOperation.codeElementJava(opers[y]);
@@ -158,13 +159,19 @@ JavaCoder.coderOperations = function(classObj,operations) {
 			for(var i=0; i<operations.length && !finded; i++) {
 				if(opers[y].id == operations[i].id) {
 					finded = true;
-					source += CoderActivity.codeElementJava(operations[i],classObj.values._name,opers[y]._name); 
+					try {
+						source += CoderActivity.codeElementJava(operations[i],classObj.values._name,opers[y]._name); 
+					}
+					catch(e) {
+						report += e + "\n\n";
+					}
+					
 				}
 			}
 			source += " \n }; \n";
 		}		
 	}
-	return source;
+	return { source : source, report : report };
 };
 /**
  *	@function JavaCoder.getCodedProgram
@@ -192,8 +199,13 @@ JavaCoder.getCodedProgram = function(parsedProgram) {
 					source += "\n { \n"; // apre la definizione della classe	
 					if(items[j].values.isInterface == "false"){
 						source += JavaCoder.coderAttributes(items[j]);
-					}							
-					source += JavaCoder.coderOperations(items[j],parsedProgram.operations);
+					}		
+					var operRes = JavaCoder.coderOperations(items[j],parsedProgram.operations);	
+					if(operRes.report != "") {
+						codedP.report += operRes.report +" \n";
+					}				
+					source += operRes.source;
+
 					source += "};"; // chiude l'implementazione della classe
 					codedP.add(new Class(items[j].values._name, source, packageName, items[j]._name, getPackageDependencies(classes[i].id, parsedProgram)));
 				}			
@@ -288,21 +300,30 @@ i.e.  " this.doStuff = function() { }
  */
 JavascriptCoder.coderInstanceOperations = function(classObj, operations) {
 	source = "";
-	var opers = classObj.values.operations;	// array dei metodi della classe
-	for(var y=0; y<opers.length; y++) {
-		if(opers[y].isStatic == "false") {
-			source += CoderOperation.codeElementJavascript(opers[y]);
-			source += "("; 												// apre la lista dei parametri		
-			source += JavascriptCoder.coderParameters(opers[y]);					
-			source += ") \n { \n";
-			var operation = getOperationById(opers[y].id,operations);	// chiude la lista dei parametri e apre l'implementazione
-			if(operation && operation.items.length>0) {
-				source += CoderActivity.codeElementJavascript(operation.items,classObj.values._name,opers[y]._name);
-			}
-			source += "} \n"; 											// chiude l'implementazione dell'operazione
-		}		
-	}
-	return source;
+	report = "";
+	if(classObj.type == "classDiagram.items.Class")  {
+		var opers = classObj.values.operations;	// array dei metodi della classe
+		for(var y=0; y<opers.length; y++) {
+			if(opers[y].isStatic == "false") {
+				source += CoderOperation.codeElementJavascript(opers[y]);
+				source += "("; 												// apre la lista dei parametri		
+				source += JavascriptCoder.coderParameters(opers[y]);					
+				source += ") \n { \n";
+				var operation = getOperationById(opers[y].id,operations);	// chiude la lista dei parametri e apre l'implementazione
+				if(operation && operation.items.length>0) {
+					try {
+						source += CoderActivity.codeElementJavascript(operation.items,classObj.values._name,opers[y]._name);
+					}
+					catch(e) {
+						report += e + "\n\n";
+					}
+					
+				}
+				source += "} \n"; 											// chiude l'implementazione dell'operazione
+			}		
+		}
+	}	
+	return { source : source, report : report };
 };
 
 /*
@@ -354,21 +375,29 @@ i.e.  " className1.functionName1 = function() { }
  */
 JavascriptCoder.coderStaticOperations = function(classObj, operations) {
 	source = "";
-	var opers = classObj.values.operations; // array dei metodi della classe
-	for(var y=0; y<opers.length; y++) {
-		if(opers[y].isStatic == "true") {
-			source += CoderOperation.codeElementJavascript(opers[y],classObj.values._name);
-			source += "("; // apre la lista dei parametri			
-			source += JavascriptCoder.coderParameters(opers[y]);					
-			source += ") \n { \n"; // chiude la lista dei parametri e apre l'implementazione
-			var operation = getOperationById(opers[y].id, operations);
-			if(operation && operation.items.length>0) {
-				source += CoderActivity.codeElementJavascript(operation.itemsclassObj.values._name,opers[y]._name);
-			}
-			source += "} \n"; // chiude l'implementazione dell'operazione
-		}		
+	report = "";
+	if(classObj.type == "classDiagram.items.Class") {
+		var opers = classObj.values.operations; // array dei metodi della classe
+		for(var y=0; y<opers.length; y++) {
+			if(opers[y].isStatic == "true") {
+				source += CoderOperation.codeElementJavascript(opers[y],classObj.values._name);
+				source += "("; // apre la lista dei parametri			
+				source += JavascriptCoder.coderParameters(opers[y]);					
+				source += ") \n { \n"; // chiude la lista dei parametri e apre l'implementazione
+				var operation = getOperationById(opers[y].id, operations);
+				if(operation && operation.items.length>0) {
+					try {
+						source += CoderActivity.codeElementJavascript(operation.items,classObj.values._name,opers[y]._name);
+					}
+					catch(e) {
+						report += e + "\n\n";
+					}
+				}
+				source += "} \n"; // chiude l'implementazione dell'operazione
+			}		
+		}
 	}
-	return source;
+	return { source : source, report : report };
 };
 
 /**
@@ -397,7 +426,11 @@ JavascriptCoder.getCodedProgram = function(parsedProgram) {
 					source += JavascriptCoder.coderInstanceAttributes(items[j]);	
 				}		
 
-				source += JavascriptCoder.coderInstanceOperations(items[j], parsedProgram.operations);
+				var operRes = JavascriptCoder.coderInstanceOperations(items[j], parsedProgram.operations);
+				source += operRes.source;
+				if(operRes.report != "") {
+					codedP.report += operRes.report +" \n";
+				}
 
 				if(items[j].values.isFrozen == "true" || items[j].values.isReadOnly == "true") {
 					source += "\n var freeze = function() { \n Object.freeze(this); \n }(); \n";									
@@ -409,7 +442,11 @@ JavascriptCoder.getCodedProgram = function(parsedProgram) {
 					source += JavascriptCoder.coderStaticAttributes(items[j]);
 				}
 
-				source += JavascriptCoder.coderStaticOperations(items[j], parsedProgram.operations);
+				var operRes=JavascriptCoder.coderStaticOperations(items[j], parsedProgram.operations).source;
+				source += operRes.source;
+				if(operRes.report != "") {
+					codedP.report += operRes.report +" \n";
+				}
 				source += CoderClass.codeParentJavascript(items[j].id,parsedProgram);
 
 				codedP.add(new Class(items[j].values._name, source, packageName, packageName, items[j].dependencies));		

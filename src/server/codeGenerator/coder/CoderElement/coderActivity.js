@@ -109,11 +109,13 @@ var JavaCoderActivity = function() {
  *	@param {!ParsedBubble} bubbleObj - Le informazioni necessarie a codificare una bubble.
  *	@param {!ParsedActivity} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
+ *	@param {!className} string - Nome della classe che possiede l'attività.
+ *	@param {!operName} string - Nome del metodo/funzione relativo all'attività.
  *	@return {string} Il codice sorgente corrispondente alla bubbleObj di input, comprese le ParsedBubble innestate in essa. 
  *	@description Codifica la bubbleObj di input e tutte le ParsedBubble innestate in essa; tale bubbleObj dev'essere
  *	contenuta in activityObj.
  */
-JavaCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
+JavaCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj,className,operName) {
 	source = "";
 	var EmbeddedBubbles = new Array();
 	var count = 0;
@@ -124,12 +126,14 @@ JavaCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
 		}
 		var startBubble = CoderActivity.getStartBubble(EmbeddedBubbles, bubbleObj.id); 
 		if(startBubble) {
-
 			var nextBubble = CoderActivity.getNextBubble(startBubble, activityObj);
 			while(nextBubble) {
-				source += JavaCoderActivity.codeBubble(nextBubble, activityObj, bubbleObj.id);
+				source += JavaCoderActivity.codeBubble(nextBubble, activityObj, bubbleObj.id,className,operName);
 				nextBubble = CoderActivity.getNextBubble(nextBubble, activityObj);
 			}
+		}
+		else {
+			throw "Nessuna classe iniziale trovata per le bubbles innestate in "+bubbleObj.type+" il metodo "+operName+" della classe "+className;
 		}
 	}
 
@@ -137,37 +141,39 @@ JavaCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
 }
 /**
  *	@function CoderActivity.codeBubble
-  *	@param {!ParsedBubble} bubbleObj - Le informazioni necessarie a codificare una bubble.
+ *	@param {!ParsedBubble} bubbleObj - Le informazioni necessarie a codificare una bubble.
  *	@param {!ParsedActivity} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
+ *	@param {!className} string - Nome della classe che possiede l'attività.
+ *	@param {!operName} string - Nome del metodo/funzione relativo all'attività.
  *	@return {string} Il codice sorgente corrispondente alla bubbleObj di input. 
  *	@description Codifica la bubbleObj di input; tale bubbleObj dev'essere contenuta in activityObj.
  */
-JavaCoderActivity.codeBubble = function(bubbleObj, activityObj, parent) {
+JavaCoderActivity.codeBubble = function(bubbleObj, activityObj,className,operName) {
 	var source = "";
 	if(bubbleObj.type == "bubbleDiagram.items.bubbleIf") {
 		source += "if(" + bubbleObj.values.condition + "){ \n";
-		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 		source += "}\n";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleElse") {
 		source += "else { \n";
-		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 		source += "} \n";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleFor") {
 		source += "for(" + bubbleObj.values.initialization + ";" + bubbleObj.values.termination + ";" + bubbleObj.values.increment + ") { \n";
-		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 		source += "} \n";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleWhile") {
 		source += "while(" + bubbleObj.values.condition + "){ \n";
-		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 		source += "}\n";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.customBubble") {
 		source += bubbleObj.values.bubbleJavaCode + "\n";
-		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleReturn") {
 		source += "return " + bubbleObj.values.value + "; \n";
@@ -205,7 +211,7 @@ JavaCoderActivity.codeElement = function(activityObj,className,operName) {
 	var nextBubble = CoderActivity.getNextBubble(startBubble,activityObj.items);
 
 	while(nextBubble) {
-		source += JavaCoderActivity.codeBubble(nextBubble, activityObj.items);
+		source += JavaCoderActivity.codeBubble(nextBubble, activityObj.items,className,operName);
 		nextBubble = CoderActivity.getNextBubble(nextBubble, activityObj.items);
 	}
 
@@ -230,11 +236,13 @@ var JavascriptCoderActivity = function() {
  *	@param {!ParsedBubble} bubbleObj - Le informazioni necessarie a codificare una bubble.
  *	@param {!ParsedActivity} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
+ *	@param {!className} string - Nome della classe che possiede l'attività.
+ *	@param {!operName} string - Nome del metodo/funzione relativo all'attività.
  *	@return {string} Il codice sorgente corrispondente alla bubbleObj di input, comprese le ParsedBubble innestate in essa. 
  *	@description Codifica la bubbleObj di input e tutte le ParsedBubble innestate in essa; tale bubbleObj dev'essere
  *	contenuta in activityObj.
  */
-JavascriptCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
+JavascriptCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj,className,operName) {
 	source = "";
 	var EmbeddedBubbles = new Array();
 	var count = 0;
@@ -247,9 +255,12 @@ JavascriptCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
 		if(startBubble) {
 			var nextBubble = CoderActivity.getNextBubble(startBubble, activityObj);
 			while(nextBubble) {
-				source += JavascriptCoderActivity.codeBubble(nextBubble, activityObj, bubbleObj.id);
+				source += JavascriptCoderActivity.codeBubble(nextBubble, activityObj,className,operName);
 				nextBubble = CoderActivity.getNextBubble(nextBubble, activityObj);
 			}
+		}
+		else {
+			throw "Nessuna classe iniziale trovata per le bubbles innestate in "+bubbleObj.type+" il metodo "+operName+" della classe "+className;
 		}
 	}
 
@@ -260,34 +271,36 @@ JavascriptCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj) {
   *	@param {!ParsedBubble} bubbleObj - Le informazioni necessarie a codificare una bubble.
  *	@param {!ParsedActivity} activityObj - Le informazioni necessarie a codificare l'implementazione di un'
  *	operazione.
+ *	@param {!className} string - Nome della classe che possiede l'attività.
+ *	@param {!operName} string - Nome del metodo/funzione relativo all'attività.
  *	@return {string} Il codice sorgente della bubbleObj di input. 
  *	@description Codifica la bubbleObj di input; tale bubbleObj dev'essere contenuta in activityObj.
  */
-JavascriptCoderActivity.codeBubble = function(bubbleObj, activityObj, parent) {
+JavascriptCoderActivity.codeBubble = function(bubbleObj, activityObj,className,operName) {
 	var source = "";
 	if(bubbleObj.type == "bubbleDiagram.items.bubbleIf") {
 		source += "if(" + bubbleObj.values.condition + "){ \n";
-		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 		source += "}\n";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleElse") {
 		source += "else { \n";
-		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 		source += "} \n";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleFor") {
 		source += "for(" + bubbleObj.values.initialization + ";" + bubbleObj.values.termination + ";" + bubbleObj.values.increment + ") { \n";
-		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 		source += "} \n";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleWhile") {
 		source += "while(" + bubbleObj.values.condition + "){ \n";
-		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 		source += "}\n";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.customBubble") {
 		source += bubbleObj.values.bubbleJSCode + "\n";
-		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj);
+		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleReturn") {
 		source += "return " + bubbleObj.values.value + "; \n";
@@ -326,7 +339,7 @@ JavascriptCoderActivity.codeElement = function(activityObj,className,operName) {
 	var nextBubble = CoderActivity.getNextBubble(startBubble,activityObj);
 
 	while(nextBubble) {
-		source += JavascriptCoderActivity.codeBubble(nextBubble, activityObj);
+		source += JavascriptCoderActivity.codeBubble(nextBubble, activityObj,className,operName);
 		nextBubble = CoderActivity.getNextBubble(nextBubble, activityObj);
 	}
 

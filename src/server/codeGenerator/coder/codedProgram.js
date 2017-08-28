@@ -15,6 +15,10 @@ function CodedProgram() {
 	 *	@var {Class[]} CodedProgram#_classes - Array contenente oggetti di tipo Class.
 	 */
 	this._classes = new Array();
+	/** 
+	 *	@var {string} CodedProgram#report - Eventuali errori riscontrati.
+	 */
+	this.report= "";
 	/**
 	 *	@function CodedProgram#add
 	 *	@param {!Class} _class - Oggetto di tipo Class che si vuole aggiungere al contenitore.
