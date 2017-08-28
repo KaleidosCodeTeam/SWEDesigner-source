@@ -14,8 +14,8 @@ Software Engineering Project for the course of Computer Science of the Universit
 
 	 	1. Scaricare ed installare Apache Web Server (usare configurazione della Apache's Web Page Root di default)
 	 	2. Scaricare ed installare NodeJS (v6.11.1 o superiore)
-	 	3. Spostare la cartella SWEDesigner-source nella directory ./var/www/html (è necessario avere i permessi di scrittura)
-	 	4. Da terminale, spostarsi nella directory ./var/www/html/SWEDesigner-source e digitare il comando "./installaserver.sh"
+	 	3. Spostare la cartella SWEDesigner-source nella directory /var/www/html (è necessario avere i permessi di scrittura)
+	 	4. Da terminale, spostarsi nella directory /var/www/html/SWEDesigner-source e digitare il comando "./installaserver.sh"
 
 	Per sistema operativo Windows:
 
@@ -36,7 +36,7 @@ Software Engineering Project for the course of Computer Science of the Universit
 
 	Per sistema operativo Linux / MacOS:
 
-	 	1. Da terminale, spostarsi nella directory ./var/www/html/SWEDesigner-source e digitare il comando "./runserver.sh" per avviare il server
+	 	1. Da terminale, spostarsi nella directory /var/www/html/SWEDesigner-source e digitare il comando "./runserver.sh" per avviare il server
 	 	2. Aprire il browser e collegarsi all'indirizzo url http://localhost/SWEDesigner-source/src/webapp/SWEDesigner.html
 
 	Per sistema operativo Windows:
