@@ -23,6 +23,8 @@ cd ..
 cd ./builder
 npm install mkdirp
 echo "ho installato mkdirp"
+npm install unescape
+echo "ho installato unescape"
 
 cd ..
 cd ./zipper
