@@ -15,7 +15,7 @@ var dm              = require('../dataManager/dataManager.js');
 var multer	        = require('multer');
 var path            = require('path');
 var url				= require('url');
-
+var fs = require('fs');
 var root=__dirname+'/../webapp';
 var storage	=	multer.diskStorage({
     destination: function (req, file, callback) {
@@ -80,8 +80,9 @@ var RequestHandler = {
             body = body.replace(/\\\"/gi,'"');
             body = body.replace(/\"{/gi,'{');
             body = body.replace(/}\"}/gi,'}}');
-	    body = body.replace(/default":{/gi,'default":\"{');
-	    body = body.replace(/value":{/gi,'value":\"{');	
+	        body = body.replace(/default":{/gi,'default":\"{');
+	        body = body.replace(/value":{/gi,'value":\"{');	
+            console.log(body);
             var obj = JSON.parse(body);
             var obj = obj.project;
             console.log('============================================================');
@@ -112,7 +113,8 @@ var RequestHandler = {
             body = body.replace(/\\\"/gi,'"');
             body = body.replace(/\"{/gi,'{');
             body = body.replace(/}\"}/gi,'}}');
-	    body = body.replace(/default":{/gi,'default":\"{');	
+	        body = body.replace(/default":{/gi,'default":\"{');	
+            body = body.replace(/value":{/gi,'value":\"{'); 
             var obj = JSON.parse(body);
             var obj = obj.project;
             console.log('============================================================');
