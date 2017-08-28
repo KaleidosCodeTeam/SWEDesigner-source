@@ -152,41 +152,41 @@ JavaCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj,classNam
 JavaCoderActivity.codeBubble = function(bubbleObj, activityObj,className,operName) {
 	var source = "";
 	if(bubbleObj.type == "bubbleDiagram.items.bubbleIf") {
-		source += "if(" + bubbleObj.values.condition + "){ \n";
+		source += "if(" + bubbleObj.values.condition + "){  \n  ";
 		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
-		source += "}\n";
+		source += "}  \n  ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleElse") {
-		source += "else { \n";
+		source += "else {  \n  ";
 		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
-		source += "} \n";
+		source += "}  \n  ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleFor") {
-		source += "for(" + bubbleObj.values.initialization + ";" + bubbleObj.values.termination + ";" + bubbleObj.values.increment + ") { \n";
+		source += "for(" + bubbleObj.values.initialization + ";" + bubbleObj.values.termination + ";" + bubbleObj.values.increment + ") {  \n ";
 		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
-		source += "} \n";
+		source += "}  \n  ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleWhile") {
-		source += "while(" + bubbleObj.values.condition + "){ \n";
+		source += "while(" + bubbleObj.values.condition + "){  \n  ";
 		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
-		source += "}\n";
+		source += "}  \n  ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.customBubble") {
-		source += bubbleObj.values.bubbleJavaCode + "\n";
+		source += bubbleObj.values.bubbleJavaCode + "  \n  ";
 		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleReturn") {
-		source += "return " + bubbleObj.values.value + "; \n";
+		source += "return " + bubbleObj.values.value + ";  \n ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleDefinition") {
 		source +=  bubbleObj.values._vType + " " + bubbleObj.values._name;
 		if(bubbleObj.values._value != "") {
 			source += " = " + bubbleObj.values._value;
 		}
-		source += "; \n";
+		source += ";  \n ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleAssignment") {
-		source +=  bubbleObj.values._name + " = " + bubbleObj.values._value + ";\n";
+		source +=  bubbleObj.values._name + " = " + bubbleObj.values._value + "; \n ";
 	}
 
 	return source;
@@ -279,41 +279,41 @@ JavascriptCoderActivity.codeEmbeddedBubbles = function(bubbleObj, activityObj,cl
 JavascriptCoderActivity.codeBubble = function(bubbleObj, activityObj,className,operName) {
 	var source = "";
 	if(bubbleObj.type == "bubbleDiagram.items.bubbleIf") {
-		source += "if(" + bubbleObj.values.condition + "){ \n";
+		source += "if(" + bubbleObj.values.condition + "){  \n ";
 		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
-		source += "}\n";
+		source += "} \n ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleElse") {
-		source += "else { \n";
+		source += "else {  \n ";
 		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
-		source += "} \n";
+		source += "}  \n ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleFor") {
-		source += "for(" + bubbleObj.values.initialization + ";" + bubbleObj.values.termination + ";" + bubbleObj.values.increment + ") { \n";
+		source += "for(" + bubbleObj.values.initialization + ";" + bubbleObj.values.termination + ";" + bubbleObj.values.increment + ") {  \n ";
 		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
-		source += "} \n";
+		source += "}  \n ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleWhile") {
-		source += "while(" + bubbleObj.values.condition + "){ \n";
+		source += "while(" + bubbleObj.values.condition + "){  \n ";
 		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
-		source += "}\n";
+		source += "} \n ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.customBubble") {
-		source += bubbleObj.values.bubbleJSCode + "\n";
+		source += bubbleObj.values.bubbleJSCode + " \n ";
 		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleReturn") {
-		source += "return " + bubbleObj.values.value + "; \n";
+		source += "return " + bubbleObj.values.value + ";  \n ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleDefinition") {
 		source += "var " + bubbleObj.values._name;
 		if(bubbleObj.values._value != "") {
 			source += " = " + bubbleObj.values._value;
 		}
-		source += "; \n";
+		source += ";  \n ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleAssignment") {
-		source +=  bubbleObj.values._name + " = " + bubbleObj.values._value + ";\n";
+		source +=  bubbleObj.values._name + " = " + bubbleObj.values._value + "; \n ";
 	}
 
 	return source;

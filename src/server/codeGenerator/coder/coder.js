@@ -126,7 +126,7 @@ JavaCoder.coderAttributes = function(classObj) {
 	source = "";
 	var attrs = classObj.values.attributes; // array degli attributi della classe classes[i]
 	for(var x=0; x<attrs.length; x++) {
-		source += CoderAttribute.codeElementJava(attrs[x]) + "\n";
+		source += CoderAttribute.codeElementJava(attrs[x]) + " \n ";
 	}
 	return source;
 };
@@ -151,10 +151,10 @@ JavaCoder.coderOperations = function(classObj,operations) {
 		source += JavaCoder.coderParameters(opers[y]);				
 		source += ")"; 
 		if(opers[y].isAbstract == "true" || classObj.type == "classDiagram.items.Interface") {
-			source += "; \n";
+			source += ";  \n ";
 		}
 		else {
-			source += " { \n";
+			source += " {  \n ";
 			var finded = false;
 			for(var i=0; i<operations.length && !finded; i++) {
 				if(opers[y].id == operations[i].id) {
@@ -163,12 +163,12 @@ JavaCoder.coderOperations = function(classObj,operations) {
 						source += CoderActivity.codeElementJava(operations[i],classObj.values._name,opers[y]._name); 
 					}
 					catch(e) {
-						report += e + "\n\n";
+						report += e + " \n  \n ";
 					}
 					
 				}
 			}
-			source += " \n }; \n";
+			source += "  \n  };  \n ";
 		}		
 	}
 	return { source : source, report : report };
@@ -196,13 +196,13 @@ JavaCoder.getCodedProgram = function(parsedProgram) {
 				if(items[j].type=="classDiagram.items.Class") {
 					var source = "";
 					source += CoderClass.codeElementJava(items[j],parsedProgram); // restituisce l'intestazione della classe
-					source += "\n { \n"; // apre la definizione della classe	
+					source += " \n  {  \n "; // apre la definizione della classe	
 					if(items[j].values.isInterface == "false"){
 						source += JavaCoder.coderAttributes(items[j]);
 					}		
 					var operRes = JavaCoder.coderOperations(items[j],parsedProgram.operations);	
 					if(operRes.report != "") {
-						codedP.report += operRes.report +" \n";
+						codedP.report += operRes.report +"  \n ";
 					}				
 					source += operRes.source;
 
@@ -272,7 +272,7 @@ JavascriptCoder.coderInstanceAttributes = function(classObj) {
 	var attrs = classObj.values.attributes; // array degli attributi della classe classes[i]			
 	for(var x=0; x<attrs.length; x++) {
 		if(!attrs[x].isStatic == "true") {
-			source += CoderAttribute.codeElementJavascript(attrs[x]) + "\n";
+			source += CoderAttribute.codeElementJavascript(attrs[x]) + " \n ";
 		}
 	}
 	return source;
@@ -308,18 +308,18 @@ JavascriptCoder.coderInstanceOperations = function(classObj, operations) {
 				source += CoderOperation.codeElementJavascript(opers[y]);
 				source += "("; 												// apre la lista dei parametri		
 				source += JavascriptCoder.coderParameters(opers[y]);					
-				source += ") \n { \n";
+				source += ")  \n  {  \n ";
 				var operation = getOperationById(opers[y].id,operations);	// chiude la lista dei parametri e apre l'implementazione
 				if(operation && operation.items.length>0) {
 					try {
 						source += CoderActivity.codeElementJavascript(operation.items,classObj.values._name,opers[y]._name);
 					}
 					catch(e) {
-						report += e + "\n\n";
+						report += e + " \n  \n ";
 					}
 					
 				}
-				source += "} \n"; 											// chiude l'implementazione dell'operazione
+				source += "}  \n "; 											// chiude l'implementazione dell'operazione
 			}		
 		}
 	}	
@@ -348,7 +348,7 @@ JavascriptCoder.coderStaticAttributes = function(classObj) {
 	var attrs = classObj.values.attributes; // array degli attributi della classe classes[i]			
 	for(var x=0; x<attrs.length; x++) {
 		if(attrs[x].isStatic == "true") {
-			source += CoderAttribute.codeElementJavascript(attrs[x],classObj.values._name) + "\n";
+			source += CoderAttribute.codeElementJavascript(attrs[x],classObj.values._name) + " \n ";
 		}
 	}
 	return source;
@@ -383,17 +383,17 @@ JavascriptCoder.coderStaticOperations = function(classObj, operations) {
 				source += CoderOperation.codeElementJavascript(opers[y],classObj.values._name);
 				source += "("; // apre la lista dei parametri			
 				source += JavascriptCoder.coderParameters(opers[y]);					
-				source += ") \n { \n"; // chiude la lista dei parametri e apre l'implementazione
+				source += ")  \n  {  \n "; // chiude la lista dei parametri e apre l'implementazione
 				var operation = getOperationById(opers[y].id, operations);
 				if(operation && operation.items.length>0) {
 					try {
 						source += CoderActivity.codeElementJavascript(operation.items,classObj.values._name,opers[y]._name);
 					}
 					catch(e) {
-						report += e + "\n\n";
+						report += e + " \n  \n ";
 					}
 				}
-				source += "} \n"; // chiude l'implementazione dell'operazione
+				source += "}  \n "; // chiude l'implementazione dell'operazione
 			}		
 		}
 	}
@@ -420,7 +420,7 @@ JavascriptCoder.getCodedProgram = function(parsedProgram) {
 			for(var j=0; j<items.length; j++) {
 				var source = "";
 				source += CoderClass.codeElementJavascript(items[j],parsedProgram); // restituisce l'intestazione della classe
-				source += "\n { \n"; // apre la definizione della classe	
+				source += " \n  {  \n "; // apre la definizione della classe	
 
 				if(items[j].values.isInterface == "false"){		//   *** lanciare eccezione? ***
 					source += JavascriptCoder.coderInstanceAttributes(items[j]);	
@@ -429,14 +429,14 @@ JavascriptCoder.getCodedProgram = function(parsedProgram) {
 				var operRes = JavascriptCoder.coderInstanceOperations(items[j], parsedProgram.operations);
 				source += operRes.source;
 				if(operRes.report != "") {
-					codedP.report += operRes.report +" \n";
+					codedP.report += operRes.report +"  \n ";
 				}
 
 				if(items[j].values.isFrozen == "true" || items[j].values.isReadOnly == "true") {
-					source += "\n var freeze = function() { \n Object.freeze(this); \n }(); \n";									
+					source += " \n  var freeze = function() {  \n  Object.freeze(this);  \n  }();  \n ";									
 				}
 
-				source += "} \n"; // chiude l'implementazione della classe
+				source += "}  \n "; // chiude l'implementazione della classe
 
 				if(items[j].values.isInterface == "false"){ //   *** lanciare eccezione? ***
 					source += JavascriptCoder.coderStaticAttributes(items[j]);
@@ -445,7 +445,7 @@ JavascriptCoder.getCodedProgram = function(parsedProgram) {
 				var operRes=JavascriptCoder.coderStaticOperations(items[j], parsedProgram.operations).source;
 				source += operRes.source;
 				if(operRes.report != "") {
-					codedP.report += operRes.report +" \n";
+					codedP.report += operRes.report +"  \n ";
 				}
 				source += CoderClass.codeParentJavascript(items[j].id,parsedProgram);
 

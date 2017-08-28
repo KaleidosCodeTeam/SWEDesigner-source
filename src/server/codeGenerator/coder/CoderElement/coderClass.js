@@ -105,15 +105,15 @@ CoderClass.codeParentJavascript = function(sourceId, parsedProgram) {
 					finded = true;
 					targetId = items[j].target.id;
 					// bisogna aggiungere un costruttore corretto; dipende dalla struttura dell'oggetto
-					source += getNameById(sourceId,parsedProgram) + ".prototype = new " + getNameById(targetId,parsedProgram) + "();\n ";
-					source += getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + getNameById(sourceId,parsedProgram) + "; \n";
+					source += getNameById(sourceId,parsedProgram) + ".prototype = new " + getNameById(targetId,parsedProgram) + "(); \n  ";
+					source += getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + getNameById(sourceId,parsedProgram) + ";  \n ";
 				}
 			}		
 		}
 	}
 	else {
-		source += getNameById(sourceId,parsedProgram) + ".prototype = new " + classObj.values._extends + "();\n ";
-		source += getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + getNameById(sourceId,parsedProgram) + "; \n";
+		source += getNameById(sourceId,parsedProgram) + ".prototype = new " + classObj.values._extends + "(); \n  ";
+		source += getNameById(sourceId,parsedProgram) + ".prototype.constructor = " + getNameById(sourceId,parsedProgram) + ";  \n ";
 	}
 	
 	return source;
