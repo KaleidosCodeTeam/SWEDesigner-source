@@ -87,7 +87,9 @@ define ([
                     return true;
 				}
 			});
-			this.listenTo(this.paper, 'blank:pointerdown', _.partial(this.addCell, this));
+            var wide = $('body').height() - $('#titlebar').height();
+            $('#editpanel').height(wide-12);
+            this.listenTo(this.paper, 'blank:pointerdown', _.partial(this.addCell, this));
 			this.listenTo(this.model, 'switchgraph', _.partial(this.resetSelectedCell, this));
 			this.paper.on('blank:pointerdown', _.partial(this.blankPointerDown, this));
 			this.paper.on('blank:pointerup', _.partial(this.blankPointerUp, this));
