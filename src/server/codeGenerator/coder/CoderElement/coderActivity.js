@@ -172,8 +172,7 @@ JavaCoderActivity.codeBubble = function(bubbleObj, activityObj,className,operNam
 		source += "}  \n  ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.customBubble") {
-		bubbleObj.values.bubbleJavaCode.replace(/\n/g, " \n ");
-		source += bubbleObj.values.bubbleJavaCode + "  \n  ";
+		source += bubbleObj.values.bubbleJavaCode.replace(/\n/g, " \n "); + "  \n  ";
 		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleReturn") {
