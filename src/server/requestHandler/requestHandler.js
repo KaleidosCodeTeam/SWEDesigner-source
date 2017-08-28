@@ -80,6 +80,7 @@ var RequestHandler = {
             body = body.replace(/\\\"/gi,'"');
             body = body.replace(/\"{/gi,'{');
             body = body.replace(/}\"}/gi,'}}');
+	    body = body.replace(/default":{/gi,'default":\"{');
             var obj = JSON.parse(body);
             var obj = obj.project;
             console.log('============================================================');
@@ -110,6 +111,7 @@ var RequestHandler = {
             body = body.replace(/\\\"/gi,'"');
             body = body.replace(/\"{/gi,'{');
             body = body.replace(/}\"}/gi,'}}');
+	    body = body.replace(/default":{/gi,'default":\"{');	
             var obj = JSON.parse(body);
             var obj = obj.project;
             console.log('============================================================');
