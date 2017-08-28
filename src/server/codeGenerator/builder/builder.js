@@ -130,6 +130,10 @@ var Builder = (function() {
 					var filePkg=program._classes[i]._package;
 					var fileDep=program._classes[i]._dependencies;
 					var fileSrcCode=decode(program._classes[i]._source);
+					fileSrcCode = fileSrcCode.replace(/\n/g," ");
+					fileSrcCode = fileSrcCode.replace(/\\n/g," ");
+					fileSrcCode = fileSrcCode.replace(/\t/g," ");
+					fileSrcCode = fileSrcCode.replace(/\\t/g," ");
 					_private.mkJavaFile(programDirectory, fileName, filePkg, fileDep, fileSrcCode);
 
 					filesPath[count] = programDirectory+"/"+filePkg+"/"+fileName+".java";
@@ -195,6 +199,10 @@ var Builder = (function() {
 					var fileName=program._classes[i]._name;
 					var filePkg=program._classes[i]._package;
 					var fileSrcCode=decode(program._classes[i]._source);
+					fileSrcCode = fileSrcCode.replace(/\n/g," ");
+					fileSrcCode = fileSrcCode.replace(/\\n/g," ");
+					fileSrcCode = fileSrcCode.replace(/\t/g," ");
+					fileSrcCode = fileSrcCode.replace(/\\t/g," ");
 					_private.mkJavascriptFile(programDirectory, fileName, filePkg, fileSrcCode);
 				}
 				fs.writeFileSync(programPath+"/report.txt", report);
