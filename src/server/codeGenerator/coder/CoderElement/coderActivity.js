@@ -173,7 +173,8 @@ JavaCoderActivity.codeBubble = function(bubbleObj, activityObj,className,operNam
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.customBubble") {
 		var javaCode = bubbleObj.values.bubbleJavaCode;
-		source += javaCode.replace(/\n/g, " ") + "  \n  ";
+		javaCode = javaCode.replace(/\n/gi, " ");
+		source += javaCode;
 		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleReturn") {
@@ -301,7 +302,8 @@ JavascriptCoderActivity.codeBubble = function(bubbleObj, activityObj,className,o
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.customBubble") {
 		var jsCode = bubbleObj.values.bubbleJSCode;
-		source += jsCode.replace(/\n/g, " ")  + " \n ";
+		jsCode = jsCode.replace(/\n/gi, " ");
+		source += jsCode;
 		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleReturn") {
