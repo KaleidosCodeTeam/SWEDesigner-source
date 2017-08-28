@@ -172,7 +172,8 @@ JavaCoderActivity.codeBubble = function(bubbleObj, activityObj,className,operNam
 		source += "}  \n  ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.customBubble") {
-		source += bubbleObj.values.bubbleJavaCode.replace(/\n/g, " \n ") + "  \n  ";
+		var javaCode = bubbleObj.values.bubbleJavaCode;
+		source += javaCode.replace(/\n/g, " ") + "  \n  ";
 		source += JavaCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleReturn") {
@@ -299,7 +300,8 @@ JavascriptCoderActivity.codeBubble = function(bubbleObj, activityObj,className,o
 		source += "} \n ";
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.customBubble") {
-		source += bubbleObj.values.bubbleJSCode.replace(/\n/g, " \n ")  + " \n ";
+		var jsCode = bubbleObj.values.bubbleJSCode;
+		source += jsCode.replace(/\n/g, " ")  + " \n ";
 		source += JavascriptCoderActivity.codeEmbeddedBubbles(bubbleObj, activityObj,className,operName);
 	}
 	else if(bubbleObj.type == "bubbleDiagram.items.bubbleReturn") {
