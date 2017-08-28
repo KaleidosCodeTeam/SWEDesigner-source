@@ -81,6 +81,7 @@ var RequestHandler = {
             body = body.replace(/\"{/gi,'{');
             body = body.replace(/}\"}/gi,'}}');
 	    body = body.replace(/default":{/gi,'default":\"{');
+	    body = body.replace(/value":{/gi,'value":\"{');	
             var obj = JSON.parse(body);
             var obj = obj.project;
             console.log('============================================================');
