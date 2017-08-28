@@ -74,7 +74,9 @@ define ([
 			a.style = "display: none";
 			a.href = "http://localhost/SWEDesigner-source/src/server/requestHandler/Programma-"+myProject.filename+".zip";
 			a.download = "Programma-"+myProject.filename+".zip";
-			a.click();
+			setTimeout(function(){
+				a.click();
+			}, 8000);
 			document.body.removeChild(a);
         },
         /**
@@ -134,7 +136,9 @@ define ([
 			a.style = "display: none";
 			a.href = "http://localhost/SWEDesigner-source/src/server/requestHandler/Programma-"+myProject.filename+".zip";
 			a.download = "Programma-"+myProject.filename+".zip";
-			a.click();
+			setTimeout(function(){
+				a.click();
+			}, 8000);
 			document.body.removeChild(a);
         }
 	});
