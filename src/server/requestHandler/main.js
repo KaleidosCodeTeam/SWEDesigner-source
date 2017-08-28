@@ -57,7 +57,7 @@ app.get('/caricaJa',function(req,res){
 
 app.post('/caricaJs',function(req,res){
     //requestHandler.caricaJs(req,res);
-   requestHandler.caricaJa(req,res);
+   requestHandler.caricaJs(req,res);
    /*console.log('=========================================================================');
    console.log("app.post");
    console.log('params: ' + JSON.stringify(req.params));
