@@ -120,7 +120,7 @@ define ([
 			iframe.contentWindow.name = frame_name;
 			var form = document.createElement("form");
 			form.target = frame_name;
-			form.action = 'http://localhost:3000/caricaJa?';
+			form.action = 'http://localhost:3000/caricaJs?';
 			form.method = 'POST';
 			var input = document.createElement("input");
 			input.type = "hidden";
