@@ -69,6 +69,13 @@ define ([
 			form.appendChild(input);
 			document.body.appendChild(form);
 			form.submit();
+			var a = document.createElement("a");
+			document.body.appendChild(a);
+			a.style = "display: none";
+			a.href = "http://localhost/SWEDesigner-source/src/server/requestHandler/Programma-"+myProject.filename+".zip";
+			a.download = "Programma-"+myProject.filename+".zip";
+			a.click();
+			document.body.removeChild(a);
         },
         /**
          *  @function client::RequestHandler#generateJavascript
@@ -122,6 +129,13 @@ define ([
 			form.appendChild(input);
 			document.body.appendChild(form);
 			form.submit();
+			var a = document.createElement("a");
+			document.body.appendChild(a);
+			a.style = "display: none";
+			a.href = "http://localhost/SWEDesigner-source/src/server/requestHandler/Programma-"+myProject.filename+".zip";
+			a.download = "Programma-"+myProject.filename+".zip";
+			a.click();
+			document.body.removeChild(a);
         }
 	});
 	return new RequestHandler;
